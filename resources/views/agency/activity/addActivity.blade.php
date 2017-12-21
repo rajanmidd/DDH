@@ -268,7 +268,7 @@ use App\Helpers\CustomHelper;
                                         <div class="form-body">                                        
                                             <div class="input_fields_wrap_terms row">  
                                                 <div>                                              
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label class="control-label">Terms & Conditions</label>
                                                             <div class="form-group">
@@ -311,7 +311,7 @@ use App\Helpers\CustomHelper;
                                         <div class="form-body">                                        
                                             <div class="input_fields_wrap_notes row">  
                                                 <div>                                              
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label class="control-label">Special Notes</label>
                                                             <div class="form-group">

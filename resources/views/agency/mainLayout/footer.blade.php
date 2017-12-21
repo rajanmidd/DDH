@@ -113,7 +113,7 @@ $(document).ready(function(){
         if(z < max_fields)
         {
             z++;
-            var html='<div><div class="col-md-6"><div class="form-group"><label class="control-label">Terms & Conditions</label><div class="form-group"><input type="text" id="terms-'+z+'" class="form-control" name="terms[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_terms_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+            var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">Terms & Conditions</label><div class="form-group"><input type="text" id="terms-'+z+'" class="form-control" name="terms[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_terms_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
             $(terms_wrapper).append(html); //add input box
         }
     });
@@ -130,7 +130,7 @@ $(document).ready(function(){
         if(h < max_fields)
         {
             h++;
-            var html='<div><div class="col-md-6"><div class="form-group"><label class="control-label">Special Notes</label><div class="form-group"><input type="text" id="notes-'+h+'" class="form-control" name="notes[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_notes_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+            var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">Special Notes</label><div class="form-group"><input type="text" id="notes-'+h+'" class="form-control" name="notes[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_notes_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
             $(notes_wrapper).append(html); //add input box
         }
     });
