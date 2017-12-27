@@ -17,7 +17,7 @@ $(document).ready(function () {
    }
 
    $(".confirm_button").click(function (e) {
-      var href = $(this).attr('href');
+      var href = $(this).attr('data-href');
       e.preventDefault();
       swal({
          title: "",

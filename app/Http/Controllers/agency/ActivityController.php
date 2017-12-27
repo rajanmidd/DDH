@@ -202,4 +202,179 @@ class ActivityController extends Controller
     $activityDetail=AgencyActivities::where("id",$id)->first();
     return view('agency.activity.viewActivity',['activityDetail'=>$activityDetail]);
   }
+
+  public function editActivity($page=null, $id=null)
+  {
+    $activityDetail=AgencyActivities::where("id",$id)->first();
+    $activities=Activity::where('status','1')->pluck('name', 'id');
+    $unitType=ActivityUnitType::where('status','1')->pluck('unit_name', 'id');
+    $levels=ActivityDifficultyLevel::where('status','1')->pluck('name', 'id');
+    return view('agency.activity.editActivity',['activityDetail'=>$activityDetail,'page'=>$page,'activities'=>$activities,'unitType'=>$unitType,'levels'=>$levels]);
+  }
+
+  public function updateActivityBasicInfo(Request $request)
+  {
+    $data=$request->all();
+    $activityId=$data['agency_activity_id'];    
+    $activityDetail=AgencyActivities::where("id",$activityId)->first();
+    $activityDetail->activity_id=$data['activity_id'];
+    $activityDetail->title=$data['title'];
+    $activityDetail->location=(string)$data['location'];
+    $activityDetail->unit_type=$data['unit_type'];
+    $activityDetail->capacity=$data['capacity'];
+    $activityDetail->difficult_level=$data['difficult_level'];
+    $activityDetail->minimum_amount_percent=$data['minimum_amount_percent'];
+    $activityDetail->price_per_person=$data['price_per_person'];
+    $activityDetail->description=$data['description'];
+    $activityDetail->latitude=$data['latitude'];
+    $activityDetail->longitude=$data['longitude'];
+    $activityDetail->open_time=date("H:i",strtotime($data['open_time']));
+    $activityDetail->close_time=date("H:i",strtotime($data['close_time']));
+    $activityDetail->season=implode(',',$data['season']);
+    $activityDetail->days=implode(',',$data['days']);
+    if($activityDetail->save())
+    {
+      \Session::flash('success',"Basic Information has been updated successfully");
+      return redirect('agency/edit-activity/images/'.$activityId);
+    }
+    else
+    {
+      \Session::flash('Error',"Sorry, error occurred. Please try again");
+      return redirect('agency/list-activity');
+    }    
+  }
+
+  public function updateActivityTerms(Request $request)
+  {
+    $data=$request->all();
+    $id=$_POST['agency_activity_id'];
+    if($id)
+    {
+      if(count($data['terms']) >0)
+      {
+        ActivityUploads::where('agency_activity_id',$id)->where('type','3')->delete();
+        foreach($data['terms'] as $key=>$value)
+        {
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$id;
+          $activityUploads->file_url=$value;
+          $activityUploads->type='3';
+          $activityUploads->save();
+        }
+        return redirect('agency/edit-activity/notes/'.$id);
+      }
+      else
+      {
+        return redirect('agency/edit-activity/notes/'.$id);
+      }
+    }
+    else
+    {
+      return redirect('agency/add-activity');
+    }    
+  }
+
+  public function updateActivityNotes(Request $request)
+  {
+    $data=$request->all();
+    $id=$_POST['agency_activity_id'];
+    if($id)
+    {
+      if(count($data['notes']) >0)
+      {
+        ActivityUploads::where('agency_activity_id',$id)->where('type','4')->delete();
+        foreach($data['notes'] as $key=>$value)
+        {
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$id;
+          $activityUploads->file_url=$value;
+          $activityUploads->type='4';
+          $activityUploads->save();
+        }
+        return redirect('agency/list-activity');
+      }
+      else
+      {
+        return redirect('agency/list-activity');
+      }
+    }
+    else
+    {
+      return redirect('agency/add-activity');
+    }    
+  }
+
+  public function deleteActivityImage($id,$activityId)
+  {
+    ActivityUploads::where('id',$id)->delete();
+    return redirect('agency/edit-activity/images/'.$activityId);
+  }
+
+  public function deleteActivityVideo($id,$activityId)
+  {
+    ActivityUploads::where('id',$id)->delete();
+    return redirect('agency/edit-activity/videos/'.$activityId);
+  }
+
+
+  public function updateActivityImages(Request $request)
+  {
+    $data=$request->all();
+    $id=$_POST['agency_activity_id'];
+    if($id)
+    {
+      if(count($data['activityImages']) >0)
+      {
+        foreach($data['activityImages'] as $key=>$value)
+        {
+          $image_url = CustomHelper::saveImageOnCloudanary($value);
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$id;
+          $activityUploads->file_url=$image_url;
+          $activityUploads->type='1';
+          $activityUploads->save();
+        }
+        return redirect('agency/edit-activity/videos/'.$id);
+      }
+      else
+      {
+        return redirect('agency/edit-activity/videos/'.$id);
+      }
+    }
+    else
+    {
+      return redirect('agency/add-activity');
+    }    
+  }
+
+  public function updateActivityVideos(Request $request)
+  {
+    ini_set('max_execution_time', 0);
+    $data=$request->all();
+    $id=$_POST['agency_activity_id'];
+    if($id)
+    {
+      if(count($data['activityVideos']) >0)
+      {
+        foreach($data['activityVideos'] as $key=>$value)
+        {
+          $video_url = CustomHelper::saveImageOnCloudanary($value);
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$id;
+          $activityUploads->file_url=$video_url;
+          $activityUploads->type='2';
+          $activityUploads->save();
+        }
+        return redirect('agency/edit-activity/terms/'.$id);
+      }
+      else
+      {
+        return redirect('agency/edit-activity/terms/'.$id);
+      }
+    }
+    else
+    {
+      return redirect('agency/add-activity');
+    }    
+  }
 }

@@ -34,16 +34,26 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       Route::get('/agency-dashboard',['as'=>'agency.dashboard','uses'=>'DashboardController@index']);
       Route::get('/notifications',['as'=>'notifications','uses'=>'DashboardController@notifications']);
       Route::get('/agency-logout',['as'=>'agency.logout','uses'=>'LoginController@logout']);
-      Route::get('add-activity/{page}/{id}',['as'=>'agency.add-activity','uses'=>'activityController@addActivity']);
-      Route::get('add-activity',['as'=>'agency.add-activity','uses'=>'activityController@addActivity']);
-      Route::post('save-activity-basic-info',['as'=>'agency.save-activity-basic-info','uses'=>'activityController@saveActivityBasicInfo']);
-      Route::post('save-activity-images',['as'=>'agency.save-activity-images','uses'=>'activityController@saveActivityImages']);
-      Route::post('save-activity-videos',['as'=>'agency.save-activity-videos','uses'=>'activityController@saveActivityVideos']);
-      Route::post('save-activity-terms',['as'=>'agency.save-activity-terms','uses'=>'activityController@saveActivityTerms']);
-      Route::post('save-activity-notes',['as'=>'agency.save-activity-notes','uses'=>'activityController@saveActivityNotes']);
+      Route::get('add-activity/{page}/{id}',['as'=>'agency.add-activity','uses'=>'ActivityController@addActivity']);
+      Route::get('add-activity',['as'=>'agency.add-activity','uses'=>'ActivityController@addActivity']);
+      Route::post('save-activity-basic-info',['as'=>'agency.save-activity-basic-info','uses'=>'ActivityController@saveActivityBasicInfo']);
+      Route::post('save-activity-images',['as'=>'agency.save-activity-images','uses'=>'ActivityController@saveActivityImages']);
+      Route::post('save-activity-videos',['as'=>'agency.save-activity-videos','uses'=>'ActivityController@saveActivityVideos']);
+      Route::post('save-activity-terms',['as'=>'agency.save-activity-terms','uses'=>'ActivityController@saveActivityTerms']);
+      Route::post('save-activity-notes',['as'=>'agency.save-activity-notes','uses'=>'ActivityController@saveActivityNotes']);
       Route::get('list-activity', ['as' => 'agency.list-activity', 'uses' => 'ActivityController@index']);
       Route::get('delete-activity', ['as' => 'agency.delete-activity', 'uses' => 'ActivityController@deleteActivity']);
       Route::get('view-activity/{id}', ['as' => 'agency.view-activity', 'uses' => 'ActivityController@viewActivity']);
+      Route::get('edit-activity/{page}/{id}', ['as' => 'agency.edit-activity', 'uses' => 'ActivityController@editActivity']);
+      
+      Route::post('update-activity-basic-info',['as'=>'agency.update-activity-basic-info','uses'=>'ActivityController@updateActivityBasicInfo']);
+      Route::post('update-activity-images',['as'=>'agency.update-activity-images','uses'=>'ActivityController@updateActivityImages']);
+      Route::post('update-activity-videos',['as'=>'agency.update-activity-videos','uses'=>'ActivityController@updateActivityVideos']);
+      Route::post('update-activity-terms',['as'=>'agency.update-activity-terms','uses'=>'ActivityController@updateActivityTerms']);
+      Route::post('update-activity-notes',['as'=>'agency.update-activity-notes','uses'=>'ActivityController@updateActivityNotes']);
+      Route::get('delete-activity-image/{id}/{activityId}', ['as' => 'agency.delete-activity-image', 'uses' => 'ActivityController@deleteActivityImage']);
+      Route::get('delete-activity-video/{id}/{activityId}', ['as' => 'agency.delete-activity-video', 'uses' => 'ActivityController@deleteActivityVideo']);
+      
    });
    
 });

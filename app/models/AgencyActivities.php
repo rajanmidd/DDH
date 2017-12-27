@@ -25,21 +25,21 @@ class AgencyActivities extends Model
 
     public function activityImages()
     {
-        return $this->hasMany('App\models\ActivityUploads', 'agency_activity_id', 'id')->where('type','1');
+        return $this->hasMany('App\models\ActivityUploads', 'agency_activity_id', 'id')->where('type','1')->orderBy('id','asc');
     }
 
     public function activityVideos()
     {
-        return $this->hasMany('App\models\ActivityUploads', 'agency_activity_id', 'id')->where('type','2');
+        return $this->hasMany('App\models\ActivityUploads', 'agency_activity_id', 'id')->where('type','2')->orderBy('id','asc');
     }
 
     public function activityTerms()
     {
-        return $this->hasMany('App\models\ActivityUploads', 'agency_activity_id', 'id')->where('type','3');
+        return $this->hasMany('App\models\ActivityUploads', 'agency_activity_id', 'id')->where('type','3')->orderBy('id','asc');
     }
 
     public function activityNotes()
     {
-        return $this->hasMany('App\models\ActivityUploads', 'agency_activity_id', 'id')->where('type','4');
+        return $this->hasMany('App\models\ActivityUploads', 'agency_activity_id', 'id')->where('type','4')->orderBy('id','asc');
     }
 }

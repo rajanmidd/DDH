@@ -98,3 +98,9 @@
 .control-label{
   font-weight: bold;
 }
+
+.img_gallery img
+{
+  height: 200px;
+  width: 100%;
+}

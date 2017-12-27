@@ -32,6 +32,8 @@
 <script src="{{asset('assets/global/plugins/jquery-validation/js/jquery.validate.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/jquery-validation/js/additional-methods.js')}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
+
+
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{asset('assets/global/scripts/metronic.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/layout/scripts/layout.js')}}" type="text/javascript"></script>
@@ -40,6 +42,8 @@
 <script src="{{asset('assets/admin/pages/scripts/components-pickers.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/agency/bootstrap-filestyle.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/agency/custom.js')}}" type="text/javascript"></script>
+
+
 
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
@@ -72,16 +76,25 @@ $(document).ready(function(){
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
-    
-    
-    var x = 1; //initlal text box count
+    var x = $(".img_gallery img").length; //initlal text box count
+    if(x==0)
+    {
+        x=1;
+    }
+    else
+    {
+        x=x+1;
+    }
     $(add_button).click(function(e){ //on add input button click
+        
         e.preventDefault();
+        console.log(x , max_fields);
         if(x < max_fields)
         {
-            x++;
-            var html='<div><div class="col-md-6"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" id="file-upload-'+x+'" name="activityImages[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+            
+            var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" id="file-upload-'+x+'" name="activityImages[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
             $(wrapper).append(html); //add input box
+            x++;
         }
     });
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
@@ -90,13 +103,23 @@ $(document).ready(function(){
 
     var video_wrapper         = $(".input_fields_wrap_video"); //Fields wrapper
     var add_video_button      = $(".add_video_button"); //Add button ID
-    var y = 1; //initlal text box count
+    var y = $(".video_gallery video").length; //initlal text box count
+    if(y==0)
+    {
+        y=1;
+    }
+    else
+    {
+        y=y+1;
+    }
+    console.log(y);
     $(add_video_button).click(function(e){ //on add input button click
+        
         e.preventDefault();
         if(y < max_fields)
         {
             y++;
-            var html='<div><div class="col-md-6"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" id="file-upload-'+y+'" name="activityVideos[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_video_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+            var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" id="file-upload-'+y+'" name="activityVideos[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_video_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
             $(video_wrapper).append(html); //add input box
         }
     });
@@ -107,8 +130,13 @@ $(document).ready(function(){
 
     var terms_wrapper         = $(".input_fields_wrap_terms"); //Fields wrapper
     var add_terms_button      = $(".add_terms_button"); //Add button ID
-    var z = 1; //initlal text box count
+    
     $(add_terms_button).click(function(e){ //on add input button click
+        var z = $(".input_fields_wrap_terms>div").length; //initlal text box count
+        if(z==0)
+        {
+            z=1;
+        }
         e.preventDefault();
         if(z < max_fields)
         {
@@ -124,8 +152,12 @@ $(document).ready(function(){
 
     var notes_wrapper         = $(".input_fields_wrap_notes"); //Fields wrapper
     var add_notes_button      = $(".add_notes_button"); //Add button ID
-    var h = 1; //initlal text box count
     $(add_notes_button).click(function(e){ //on add input button click
+        var h = $(".input_fields_wrap_notes>div").length; //initlal text box count
+        if(h==0)
+        {
+            h=1;
+        }
         e.preventDefault();
         if(h < max_fields)
         {
@@ -137,7 +169,10 @@ $(document).ready(function(){
     $(notes_wrapper).on("click",".remove_notes_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
     });
-    
+    $("a[rel=example_group]").fancybox({
+        'transitionIn'		: 'none',
+        'transitionOut'		: 'none',
+    });
 });
 </script>
 

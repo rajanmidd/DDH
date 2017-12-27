@@ -31,7 +31,7 @@
             </ul>
          </li>
 
-         <li class="@if($controller == 'activityController') active open @endif">
+         <li class="@if($controller == 'ActivityController') active open @endif">
             <a href="javascript:;">
                <i class="icon-diamond"></i>
                <span class="title">Activity</span>
