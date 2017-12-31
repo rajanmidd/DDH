@@ -161,7 +161,7 @@ use App\Helpers\CustomHelper;
                                                 <div class="form-actions right">
                                                     <button type="button" class="btn default">Cancel</button>
                                                     <button type="submit" class="btn blue">
-                                                        <i class="fa fa-check"></i> Save</button>
+                                                        <i class="fa fa-check"></i> Next</button>
                                                 </div>
                                             {{ Form::close() }}
                                             <!-- END FORM-->
@@ -206,7 +206,7 @@ use App\Helpers\CustomHelper;
                                             </button>
                                             <button type="submit" class="btn blue">
                                                 <i class="fa fa-check"></i> 
-                                                Save
+                                                Next
                                             </button>
                                         </div>
                                         <input type="hidden" name="agency_activity_id" value="{{Request::segment(4)}}" />
@@ -248,7 +248,7 @@ use App\Helpers\CustomHelper;
                                             </button>
                                             <button type="submit" class="btn blue">
                                                 <i class="fa fa-check"></i> 
-                                                Save
+                                                Next
                                             </button>
                                         </div>
                                         <input type="hidden" name="agency_activity_id" value="{{Request::segment(4)}}" />
@@ -290,7 +290,7 @@ use App\Helpers\CustomHelper;
                                             </button>
                                             <button type="submit" class="btn blue">
                                                 <i class="fa fa-check"></i> 
-                                                Save
+                                                Next
                                             </button>
                                         </div>
                                         <input type="hidden" name="agency_activity_id" value="{{Request::segment(4)}}" />
@@ -333,7 +333,7 @@ use App\Helpers\CustomHelper;
                                             </button>
                                             <button type="submit" class="btn blue">
                                                 <i class="fa fa-check"></i> 
-                                                Save
+                                                Submit
                                             </button>
                                         </div>
                                         <input type="hidden" name="agency_activity_id" value="{{Request::segment(4)}}" />

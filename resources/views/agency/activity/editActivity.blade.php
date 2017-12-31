@@ -168,7 +168,7 @@ use App\Helpers\CustomHelper;
                                                 <div class="form-actions right">
                                                     <button type="button" class="btn default">Cancel</button>
                                                     <button type="submit" class="btn blue">
-                                                        <i class="fa fa-check"></i> Save</button>
+                                                        <i class="fa fa-check"></i> Next</button>
                                                 </div>
                                             {{ Form::close() }}
                                             <!-- END FORM-->
@@ -226,7 +226,7 @@ use App\Helpers\CustomHelper;
                                             </button>
                                             <button type="submit" class="btn blue">
                                                 <i class="fa fa-check"></i> 
-                                                Save
+                                                Next
                                             </button>
                                         </div>
                                         <input type="hidden" name="agency_activity_id" value="{{Request::segment(4)}}" />
@@ -284,7 +284,7 @@ use App\Helpers\CustomHelper;
                                             </button>
                                             <button type="submit" class="btn blue">
                                                 <i class="fa fa-check"></i> 
-                                                Save
+                                                Next
                                             </button>
                                         </div>
                                         <input type="hidden" name="agency_activity_id" value="{{Request::segment(4)}}" />
@@ -327,6 +327,20 @@ use App\Helpers\CustomHelper;
                                                             </div>
                                                         </div>
                                                     @endforeach
+                                                @else
+                                                <div>                                              
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Terms & Conditions</label>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="terms-1" name="terms[]" value="">
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-success btn-add pull-right add_terms_button" >
+                                                                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -336,7 +350,7 @@ use App\Helpers\CustomHelper;
                                             </button>
                                             <button type="submit" class="btn blue">
                                                 <i class="fa fa-check"></i> 
-                                                Save
+                                                Next
                                             </button>
                                         </div>
                                         <input type="hidden" name="agency_activity_id" value="{{Request::segment(4)}}" />
@@ -380,6 +394,20 @@ use App\Helpers\CustomHelper;
                                                             </div>
                                                         </div>
                                                     @endforeach
+                                                @else
+                                                    <div>                                              
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Special Notes</label>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="notes-1" name="notes[]" value="">
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-success btn-add pull-right add_notes_button" >
+                                                                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -389,7 +417,7 @@ use App\Helpers\CustomHelper;
                                             </button>
                                             <button type="submit" class="btn blue">
                                                 <i class="fa fa-check"></i> 
-                                                Save
+                                                Submit
                                             </button>
                                         </div>
                                         <input type="hidden" name="agency_activity_id" value="{{Request::segment(4)}}" />
