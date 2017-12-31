@@ -196,11 +196,12 @@ use App\Helpers\CustomHelper;
                                                             <label class="control-label">File input</label>
                                                             <div class="form-group">
                                                                 <input type="file" id="file-upload-1" name="activityImages[]">
+                                                                <img id="blah" src="http://placehold.it/50x50" alt="your image" width="50" height="50" />
+                                                                <button type="button" class="btn btn-success btn-add pull-right add_field_button" >
+                                                                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                                                </button>
                                                             </div>
-                                                        </div>                                                           
-                                                        <button type="button" class="btn btn-success btn-add pull-right add_field_button" >
-                                                            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                                        </button>
+                                                        </div>
                                                     </div>
                                                 </div>                                               
                                             </div>

@@ -16,7 +16,8 @@ class ActivityController extends Controller
 
   public function index(Request $request)
   {
-    $activity_list = AgencyActivities::where("is_deleted",'1');
+    $agency_id=auth()->guard('agency')->user()->id;
+    $activity_list = AgencyActivities::where("is_deleted",'1')->where("agency_id",$agency_id);
     
     if ($request->search_text <> '')
     {

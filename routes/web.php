@@ -34,6 +34,14 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       Route::get('/agency-dashboard',['as'=>'agency.dashboard','uses'=>'DashboardController@index']);
       Route::get('/notifications',['as'=>'notifications','uses'=>'DashboardController@notifications']);
       Route::get('/agency-logout',['as'=>'agency.logout','uses'=>'LoginController@logout']);
+      
+      /*** Profile routes ***/
+      Route::get('/profile',['as'=>'profile','uses'=>'ProfileController@index']);
+      Route::get('/view-profile',['as'=>'view-profile','uses'=>'ProfileController@viewProfile']);
+      Route::patch('/profile',['as'=>'profile','uses'=>'ProfileController@update']);
+      /*** Profile routes ***/
+
+
       Route::get('add-activity/{page}/{id}',['as'=>'agency.add-activity','uses'=>'ActivityController@addActivity']);
       Route::get('add-activity',['as'=>'agency.add-activity','uses'=>'ActivityController@addActivity']);
       Route::post('save-activity-basic-info',['as'=>'agency.save-activity-basic-info','uses'=>'ActivityController@saveActivityBasicInfo']);
@@ -53,6 +61,9 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       Route::post('update-activity-notes',['as'=>'agency.update-activity-notes','uses'=>'ActivityController@updateActivityNotes']);
       Route::get('delete-activity-image/{id}/{activityId}', ['as' => 'agency.delete-activity-image', 'uses' => 'ActivityController@deleteActivityImage']);
       Route::get('delete-activity-video/{id}/{activityId}', ['as' => 'agency.delete-activity-video', 'uses' => 'ActivityController@deleteActivityVideo']);
+
+      Route::get('add-combo-packages',['as'=>'agency.add-combo-packages','uses'=>'ComboPackagesController@addComboPackages']);
+      Route::get('list-combo-packages',['as'=>'agency.list-combo-packages','uses'=>'ComboPackagesController@index']);
       
    });
    

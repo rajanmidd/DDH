@@ -92,7 +92,7 @@ $(document).ready(function(){
         if(x < max_fields)
         {
             
-            var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" id="file-upload-'+x+'" name="activityImages[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+            var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" data-number="'+x+'" id="file-upload-'+x+'" name="activityImages[]" class="abc"><img src="http://placehold.it/50x50" id="blah'+x+'" alt="your image" width="50" height="50" /><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div>';
             $(wrapper).append(html); //add input box
             x++;
         }
@@ -195,9 +195,27 @@ $(document).ready(function(){
     });
 </script>
 <script>
-   $(document).ready(function(){
-       $('[data-toggle="tooltip"]').tooltip(); 
-   });
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    function readURL(input,number) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#blah"+number).attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(document).on('change', '.abc', function (){
+        var number=$(this).attr('data-number');
+        readURL(this,number);
+    });
+    
+});
 </script>
 </body>
 <!-- END BODY -->

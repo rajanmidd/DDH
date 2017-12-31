@@ -551,7 +551,7 @@
                               <tr>
                                  <td class="header_content_text text" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;background-color: #fff;padding: 25px 50px 35px 50px;text-align: center;font-size: 15px;color: #657378;">
                                  <p style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;">
-                                     Hello Admin,<b>{{$name}}</b> has changed his documents,please verify, till verification profile of the pharmacy will be inactive.
+                                     Hello Admin,<b>{{$owner_name}}</b> has changed his documents,please verify, till verification profile of the pharmacy will be inactive.
                                  </p>
                                    
                                                                                 
@@ -573,7 +573,7 @@
                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
                               <tr>
                                  <td valign="top" class="footerContent" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #8d8d8d;font-size: 10px;line-height: 150%;padding: 20px;text-align: left;background-color: #fff;">
-                                    <em>Copyright &copy; {{date('Y')}} Med-Me Talk, All rights reserved.</em>
+                                    <em>Copyright &copy; {{date('Y')}} GoWeek All rights reserved.</em>
                                  </td>
                               </tr>
                            </table>

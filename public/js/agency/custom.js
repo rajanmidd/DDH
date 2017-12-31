@@ -288,4 +288,74 @@ $(document).ready(function () {
 	   form.submit();
 	}
  });
+
+
+ $('.update-profile-form').validate({
+      errorElement: 'span', //default input error message container
+      errorClass: 'help-block', // default input error message class
+      focusInvalid: true, // do not focus the last invalid input
+      ignore: "",
+      rules: {
+            owner_name: 
+            {
+               required: true
+            },
+            address: 
+            {
+               required: true
+            },
+            email: 
+            {
+                  required: true,
+                  email: true,
+                  remote: {
+                     url: base_url+"/agency/check-email",
+                     type: "post"
+                  }
+            },
+            password: 
+            {
+               required: true
+            },
+            confirm_password: 
+            {
+               required: true,
+               equalTo: "#password"
+            },
+            mobile: 
+            {
+               required: true,
+               number:true,
+            },          
+            certificate_image: {
+               extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
+            },
+            id_proof: {
+               extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
+            },
+         
+      },
+      messages: {
+         email: {
+            remote: "Email is already exists."
+         },
+      },
+      errorPlacement: function (error, element) {
+            $(element).closest('.form-group .col-md-9').append(error);
+      },
+      invalidHandler: function (event, validator) { //display error alert on form submit   
+
+      },
+      highlight: function (element) { // hightlight error inputs
+         $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+      },
+      success: function (label) {
+         label.closest('.form-group').removeClass('has-error');
+         label.remove();
+      },
+      submitHandler: function (form) {
+         form.submit();
+      }
+   });
+
 });

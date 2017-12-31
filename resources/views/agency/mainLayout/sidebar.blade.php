@@ -50,6 +50,28 @@
                </li>
             </ul>
          </li>
+
+
+         <li class="@if($controller == 'ComboPackagesController') active open @endif">
+            <a href="javascript:;">
+               <i class="icon-diamond"></i>
+               <span class="title">Combo Packages</span>
+               <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+               <li class="@if($action == 'index') active @endif">
+                  <a href="{{URL::to('agency/list-combo-packages')}}">
+                    All Combo Packages
+                  </a>
+               </li>
+               <li class="@if($action == 'addMedicine') active @endif">
+                  <a href="{{URL::to('agency/add-combo-packages')}}">
+                    Add New Combo Packages
+                  </a>
+               </li>
+            </ul>
+         </li>
+
          <!-- <li class="tooltips @if($controller == 'OrderController' && ($action=='index' || $action=='orderDetail')) active open @endif" data-container="body" data-placement="right" data-html="true" data-original-title="@lang('sidebar.new_orders')">
             <a href="{{URL::to('merchant/new-order')}}">
                <i class="fa fa-money"></i>

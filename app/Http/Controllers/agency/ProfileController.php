@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\merchant;
+namespace App\Http\Controllers\agency;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\models\Pharmacy;
-use App\models\PharmacyTimings;
-use App\models\PharmacyNotifications;
-use App\models\PharmacyTax;
+use App\models\Agency;
 use App\Helpers\CustomHelper;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Mail;
@@ -15,128 +12,87 @@ use Mail;
 
 class ProfileController extends Controller
 {
-   use AuthenticatesUsers;
+    use AuthenticatesUsers;
    
-   /**
+    /**
     * Function used to show the profile details 
     * and also can update profile details.
     * 
     * @return type
     */
-   public function index()
-   {
-      $phar_id=auth()->guard('merchant')->user()->id;
-      $profileDetail=Pharmacy::where('id',$phar_id)->first();
-      $days=CustomHelper::getDays();
-      return view('merchant.profile.index',['profileDetail'=>$profileDetail,"days"=>$days]);
-   }
+    public function index()
+    {
+        $agency_id=auth()->guard('agency')->user()->id;
+        $profileDetail=Agency::where('id',$agency_id)->first();
+        return view('agency.profile.index',['profileDetail'=>$profileDetail]);
+    }
    
-   /**
+    /**
     * Function used to update the profile details
     * 
     * @param Request $request
     */
    
-   public function update(Request $request)
-   {
-      $validator=$this->validate($request, [
-         'name' => 'required|max:100',
-         'description' => 'required',
-         'mobile' => 'required|integer',
-         'city' => 'required',
-         'address' => 'required',
-         'latitude' => 'required',
-         'longitude' => 'required',
-      ]);
-      $data=$request->all();
-      $phar_id=auth()->guard('merchant')->user()->id;
-      $profileDetail=Pharmacy::where('id',$phar_id)->first();
-      $profileDetail->name=$data['name'];
-      $profileDetail->description=$data['description'];
-      $profileDetail->email=$data['email'];
-      $profileDetail->mobile=$data['mobile'];
-      $profileDetail->city=$data['city'];
-      $profileDetail->address=$data['address'];
-      $profileDetail->latitude=$data['latitude'];
-      $profileDetail->longitude=$data['longitude'];
+    public function update(Request $request)
+    {
+        $data=$request->all();
+        $validator=$this->validate($request, [
+            'owner_name' => 'required|max:100',
+            'mobile' => 'required|integer',
+            'email' => 'required',
+            'address' => 'required'
+        ]);
+        
+        $agency_id=auth()->guard('agency')->user()->id;
+        $profileDetail=Agency::where('id',$agency_id)->first();
+        $profileDetail->owner_name=$data['owner_name'];
+        $profileDetail->email=$data['email'];
+        $profileDetail->mobile=$data['mobile'];
+        $profileDetail->address=$data['address'];
       
-      $pharDocuments=$profileDetail->pharDocuments;
-      
-      $changeDoc=0;
-      if($request->file('phar_image'))
-      {
-         $changeDoc=1;
-         $phar_image=$request->file('phar_image');
-         $image_url=CustomHelper::saveImageOnCloudanary($phar_image);
-         $pharDocuments->phar_image=$image_url;
-         $profileDetail->status='0';
-      }
-      if($request->file('license_image'))
-      {
-         $changeDoc=1;
-         $license_image=$request->file('license_image');
-         $image_url=CustomHelper::saveImageOnCloudanary($license_image);
-         $pharDocuments->license_image=$image_url;
-         $profileDetail->status='0';
-      }
-      
-      if($changeDoc =='1')
-      {  
-         //Send Mail to Admin
-         $Detail['email']=config('services.adminEmail');
-         $Detail['subject']='Pharmacy Document';
-         $Detail['name']=$data['name'];
-         CustomHelper::sendMail('emails.changeDocument',$Detail); 
-      }
-      
-      $pharDocuments->save();
-      
-      
-      if($profileDetail->save())
-      {
-         PharmacyTimings::where('phar_id',$phar_id)->delete();
-         $allTimings=array();
-         foreach($data['day'] as $key=>$value)
-         {
-            $pharTimings=array();
-            $pharTimings['phar_id']=$phar_id;
-            $pharTimings['day']=$value;
-            $pharTimings['open_time']=$data['open_time'][$key];
-            $pharTimings['close_time']=$data['close_time'][$key];
-            $allTimings[$key]=$pharTimings;
-         }
-         PharmacyTimings::insert($allTimings);
+        $agencyDocuments=$profileDetail->agencyDocuments;
+        
+        $changeDoc=0;
+        if ($request->file('certificate_image')) 
+        {
+            $changeDoc=1;
+            $certificate_image = $request->file('certificate_image');
+            $image_url = CustomHelper::saveImageOnCloudanary($certificate_image);
+            $agencyDocuments->certificate_image = $image_url;
+            $agencyDocuments->is_certificate_image_verified = '0';
+            $profileDetail->is_document_verified='0';
+        }
+
+        if ($request->file('id_proof')) 
+        {
+            $changeDoc=1;
+            $id_proof = $request->file('id_proof');
+            $image_url = CustomHelper::saveImageOnCloudanary($id_proof);
+            $agencyDocuments->id_proof = $image_url;
+            $agencyDocuments->is_id_proof_verified = '0';
+            $profileDetail->is_document_verified='0';
+        }
+
+        if($profileDetail->save())
+        {
+            if($changeDoc =='1')
+            {  
+                //Send Mail to Admin
+                $Detail['email']=config('services.adminEmail');
+                $Detail['subject']='Agency Document';
+                $Detail['owner_name']=$data['owner_name'];
+                CustomHelper::sendMail('emails.changeDocument',$Detail); 
+            }      
+            $agencyDocuments->save();
+            \Session::flash('success',"Profile details has been updated successfully.");
+        }
+        else
+        {
+            \Session::flash('error',"Error occurred. Please try again.");
+        }
          
-         $phar_tax=PharmacyTax::where('label','Delivery')->where('phar_id',$phar_id)->first();
-         if($phar_tax)
-         {
-            $phar_tax->amount=$data['delivery_charges'];
-            $phar_tax->save();
-         }
-         else
-         {
-            if($data['delivery_charges'])
-            {
-               $pharTax=array(
-                  'phar_id'=>$phar_id,
-                  'label'=>'Delivery',
-                  'amount'=>$data['delivery_charges'],
-                  'type'=>'2',
-               );
-               PharmacyTax::insert($pharTax);
-            }
-            
-         }
-         
-         \Session::flash('success',\Lang::get('errorMessage.profile_update_sccuess'));
-      }
-      else
-      {
-         \Session::flash('error',\Lang::get('errorMessage.error_occurred'));
-      }
-         
-      return redirect('merchant/view-profile');
-   }
+         return redirect('agency/view-profile');
+    }
    
    /**
     * Function used to view the profile page
@@ -144,14 +100,13 @@ class ProfileController extends Controller
     * @return type
     */
    
-   public function viewProfile()
-   {
-      $phar_id=auth()->guard('merchant')->user()->id;
-      $profileDetail=Pharmacy::where('id',$phar_id)->first();
-      $days=CustomHelper::getDays();
-      return view('merchant.profile.viewProfile',['profileDetail'=>$profileDetail,"days"=>$days]);
-   }
-   
+    public function viewProfile()
+    {
+        $agency_id=auth()->guard('agency')->user()->id;
+        $profileDetail=Agency::where('id',$agency_id)->first();
+        return view('agency.profile.viewProfile',['profileDetail'=>$profileDetail]);
+    }
+    
    
    /**
     * Function used to show change password form
@@ -159,10 +114,10 @@ class ProfileController extends Controller
     * @return type
     */
    
-   public function password()
-   {
-      return view('merchant.profile.password');
-   }
+    public function password()
+    {
+        return view('merchant.profile.password');
+    }
    
    
    
@@ -172,31 +127,31 @@ class ProfileController extends Controller
     * @param Request $request
     */
    
-   public function changePassword(Request $request)
-   {
-      $validator=$this->validate($request, [
-         'old_password' => 'required',
-         'new_password' => 'required',
-         'confirm_new_password' => 'required|same:new_password',
-      ]);
+    public function changePassword(Request $request)
+    {
+        $validator=$this->validate($request, [
+            'old_password' => 'required',
+            'new_password' => 'required',
+            'confirm_new_password' => 'required|same:new_password',
+        ]);
       
-      $data=$request->all();
-      $phar_id=auth()->guard('merchant')->user()->id;
-      $pharmacyDetail=Pharmacy::findorfail($phar_id);
-      if(\Hash::check($data['old_password'], $pharmacyDetail->password))
-      {
-         $pharmacyDetail->password=bcrypt($data['new_password']);
-         $pharmacyDetail->save();
+        $data=$request->all();
+        $phar_id=auth()->guard('merchant')->user()->id;
+        $pharmacyDetail=Pharmacy::findorfail($phar_id);
+        if(\Hash::check($data['old_password'], $pharmacyDetail->password))
+        {
+            $pharmacyDetail->password=bcrypt($data['new_password']);
+            $pharmacyDetail->save();
          
-         \Session::flash('success',\Lang::get('errorMessage.password_changed_success'));
-         //return redirect('merchant');
-         return redirect('merchant/password');
-      }
-      else
-      {
-         return \Redirect::back()->withErrors(['Sorry, your old password is incorrect.']);
-      }
-   }
+            \Session::flash('success',\Lang::get('errorMessage.password_changed_success'));
+            //return redirect('merchant');
+            return redirect('merchant/password');
+        }
+        else
+        {
+            return \Redirect::back()->withErrors(['Sorry, your old password is incorrect.']);
+        }
+    }
    
    /**
     * Function used to get unread notification

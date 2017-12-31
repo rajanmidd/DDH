@@ -32,13 +32,13 @@
                </div>
                <div class="details">
                   <div class="number">
-                     0
+                     {{count($total_activities)}}
                   </div>
                   <div class="desc">
                      Total Activities
                   </div>
                </div>
-                <a class="more" href="{{URL::to('merchant/total-orders')}}">
+                <a class="more" href="{{URL::to('agency/list-activity')}}">
                   View More <i class="m-icon-swapright m-icon-white"></i>
                </a>
             </div>
@@ -56,7 +56,7 @@
                      Total Orders
                   </div>
                </div>
-               <a class="more" href="{{URL::to('merchant/list-inventory')}}">
+               <a class="more" href="{{URL::to('agency/list-activity')}}">
                   View More<i class="m-icon-swapright m-icon-white"></i>
                </a>
             </div>
@@ -74,7 +74,7 @@
                      Total Orders
                   </div>
                </div>
-               <a class="more" href="{{URL::to('merchant/new-order')}}">
+               <a class="more" href="{{URL::to('agency/list-activity')}}">
                   View More <i class="m-icon-swapright m-icon-white"></i>
                </a>
             </div>

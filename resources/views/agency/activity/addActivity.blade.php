@@ -115,7 +115,7 @@ use App\Helpers\CustomHelper;
                                                         <?php $working_season = CustomHelper::getMonths();?>
                                                             <div class="checkbox-list row">
                                                                 @foreach ( $working_season as $i => $working_season )
-                                                                <label class="checkbox-inline col-md-2">
+                                                                <label class="checkbox-inline">
                                                                     <input type="checkbox" name="season[]" id="inlineCheckbox21" value="{{$i}}">
                                                                     {{$working_season}}
                                                                 </label>
@@ -129,7 +129,7 @@ use App\Helpers\CustomHelper;
                                                             <?php $working_days = CustomHelper::getDays();?>
                                                             <div class="checkbox-list row">
                                                                 @foreach ( $working_days as $i => $working_day )
-                                                                <label class="checkbox-inline col-md-2">
+                                                                <label class="checkbox-inline">
                                                                     <input type="checkbox" name="days[]" id="inlineCheckbox21" value="{{$i}}">
                                                                     {{$working_day}}
                                                                 </label>
@@ -188,12 +188,14 @@ use App\Helpers\CustomHelper;
                                                         <div class="form-group">
                                                             <label class="control-label">File input</label>
                                                             <div class="form-group">
-                                                                <input type="file" id="file-upload-1" name="activityImages[]">
+                                                                <input type="file" id="file-upload-1" name="activityImages[]"  onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" />
+                                                                <img id="blah" src="http://placehold.it/50x50" alt="your image" width="50" height="50" />
+                                                                <button type="button" class="btn btn-success btn-add pull-right add_field_button" >
+                                                                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                        <button type="button" class="btn btn-success btn-add pull-right add_field_button" >
-                                                            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                                        </button>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>

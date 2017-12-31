@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Helpers\CustomHelper;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Carbon\Carbon;
+use App\models\AgencyActivities;
 
 class DashboardController extends Controller
 {
@@ -20,6 +21,8 @@ class DashboardController extends Controller
    */
   public function index()
   {
-    return view('agency.dashboard.index');
+    $agency_id=auth()->guard('agency')->user()->id;
+    $total_activities=AgencyActivities::where('agency_id',$agency_id)->get();
+    return view('agency.dashboard.index',['total_activities'=>$total_activities]);
   }
 }

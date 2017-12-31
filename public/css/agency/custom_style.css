@@ -104,3 +104,8 @@
   height: 200px;
   width: 100%;
 }
+
+.input_fields_wrap  input[type="file"]{
+  float:left;
+  width:70%
+}
