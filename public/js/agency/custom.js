@@ -31,7 +31,7 @@ $(document).ready(function () {
                window.location = href; // if you need redirect page 
             }
             else {
-				swal("Cancelled", "Your data is safe :)", "error");
+                  swal("Cancelled", "Your data is safe :)", "error");
             }
          })
    });
@@ -72,146 +72,99 @@ $(document).ready(function () {
       }
    });
 
+   $.validator.addMethod('filesize', function (value, element, param) {
+      console.log(element.files[0].size);
+      return this.optional(element) || (element.files[0].size <= param)
+   });
+
+      $.validator.addMethod("mytst", function (value, element) {
+            var flag = true;
+            $("[name^=unit_type_value]").each(function (i, j) {
+                  alert();
+                  $(this).parent('p').find('label.error').remove();
+                  $(this).parent('p').find('label.error').remove();                        
+                  if ($.trim($(this).val()) == '') {
+                        flag = false;
+
+                        $(this).parent('p').append('<label  id="id_ct'+i+'-error" class="error">This field is required.</label>');
+                  }
+            });
+            return flag;
+      }, "");
+
    $('#activity-form').validate({
       errorElement: 'span', //default input error message container
       errorClass: 'help-block', // default input error message class
       focusInvalid: true, // do not focus the last invalid input
       ignore: "",
       rules: {
-         activity_id:
+            activity_id:
             {
                required: true
             },
-         title:
+            title:
             {
                required: true
             },
-         location:
+            location:
             {
                required: true
             },
-         unit_type:
+            "unit_type[]":
             {
                required: true
             },
-         capacity:
+            capacity:
             {
                required: true,
                number: true
             },
-         difficult_level:
+            difficult_level:
             {
                required: true
             },
-         minimum_amount_percent:
+            minimum_amount_percent:
             {
                required: true,
                number: true
             },
-         price_per_person:
+            price_per_person:
             {
                required: true,
                number: true
             },
-         open_time:
+            open_time:
             {
                required: true
             },
-         close_time:
+            close_time:
             {
                required: true
             },
-         description:
+            description:
             {
                required: true
             },
-         "season[]":
-            {
-               required: true
-            },
-         "days[]":
-            {
-               required: true
-            },
-      },
-      errorPlacement: function (error, element) {
-         $(element).closest('.form-group').append(error);
-      },
-      invalidHandler: function (event, validator) { //display error alert on form submit   
-
-      },
-      highlight: function (element) { // hightlight error inputs
-         $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-      },
-      success: function (label) {
-         label.closest('.form-group').removeClass('has-error');
-         label.remove();
-      },
-      submitHandler: function (form) {
-         form.submit();
-      }
-   });
-
-   $.validator.addMethod('filesize', function (value, element, param) {
-      console.log(element.files[0].size);
-      return this.optional(element) || (element.files[0].size <= param)
-   });
-
-   $('#upload-images-form').validate({
-      errorElement: 'span', //default input error message container
-      errorClass: 'help-block', // default input error message class
-      focusInvalid: true, // do not focus the last invalid input
-      ignore: "",
-      rules: {
-         "activityImages[]":
+            "activityImages[]":
             {
                required: true,
                extension: "jpg|jpeg|png",
                filesize: 31457280,
             },
-	  },
-	  messages: {
-		"activityImages[]":
-		   {
-			  filesize: "File must be JPEG or PNG, less than 3 MB"
-		   }
-	 },
-      errorPlacement: function (error, element) {
-         $(element).closest('.form-group').append(error);
-      },
-      invalidHandler: function (event, validator) { //display error alert on form submit   
-
-      },
-      highlight: function (element) { // hightlight error inputs
-         $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-      },
-      success: function (label) {
-         label.closest('.form-group').removeClass('has-error');
-         label.remove();
-      },
-      submitHandler: function (form) {
-         form.submit();
-      }
-   });
-
-   $('#upload-videos-form').validate({
-      errorElement: 'span', //default input error message container
-      errorClass: 'help-block', // default input error message class
-      focusInvalid: true, // do not focus the last invalid input
-      ignore: "",
-      rules: {
-         "activityVideos[]":
+            "activityVideos[]":
             {
                required: true,
                extension: "mp4",
                filesize: 10485760,
             },
-      },
-      messages: {
-         "activityVideos[]":
+            "terms[]":
             {
-               filesize: "File must be MP4, less than 10 MB"
-            }
+                  required: true
+            },
+            "notes[]":
+            {
+                  required: true
+            },
       },
       errorPlacement: function (error, element) {
          $(element).closest('.form-group').append(error);
@@ -231,63 +184,12 @@ $(document).ready(function () {
       }
    });
 
-   $('#upload-terms-form').validate({
-	errorElement: 'span', //default input error message container
-	errorClass: 'help-block', // default input error message class
-	focusInvalid: true, // do not focus the last invalid input
-	ignore: "",
-	rules: {
-	   "terms[]":
-		  {
-			 required: true
-		  },
-	},
-	errorPlacement: function (error, element) {
-	   $(element).closest('.form-group').append(error);
-	},
-	invalidHandler: function (event, validator) { //display error alert on form submit   
-
-	},
-	highlight: function (element) { // hightlight error inputs
-	   $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-	},
-	success: function (label) {
-	   label.closest('.form-group').removeClass('has-error');
-	   label.remove();
-	},
-	submitHandler: function (form) {
-	   form.submit();
-	}
- });
-
- $('#upload-notes-form').validate({
-	errorElement: 'span', //default input error message container
-	errorClass: 'help-block', // default input error message class
-	focusInvalid: true, // do not focus the last invalid input
-	ignore: "",
-	rules: {
-	   "notes[]":
-		  {
-			 required: true
-		  },
-	},
-	errorPlacement: function (error, element) {
-	   $(element).closest('.form-group').append(error);
-	},
-	invalidHandler: function (event, validator) { //display error alert on form submit   
-
-	},
-	highlight: function (element) { // hightlight error inputs
-	   $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-	},
-	success: function (label) {
-	   label.closest('.form-group').removeClass('has-error');
-	   label.remove();
-	},
-	submitHandler: function (form) {
-	   form.submit();
-	}
- });
+      $('.unit_type_value').each(function(e) {
+            $(this).rules('add', {
+                  required: true,
+                  number: true
+            });
+      });
 
 
  $('.update-profile-form').validate({

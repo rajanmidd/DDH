@@ -47,13 +47,68 @@ class ActivityController extends Controller
     $data['location']=(string)$data['location'];
     $data['open_time']=date("H:i",strtotime($data['open_time']));
     $data['close_time']=date("H:i",strtotime($data['close_time']));
+    $data['unit_type']=implode(',',$data['unit_type_value']);
+    $data['unit_type_value']=implode(',',$data['unit_type_value']);
     $data['season']=implode(',',$data['season']);
     $data['days']=implode(',',$data['days']);
     $id=AgencyActivities::create($data)->id;
     if($id)
     {
-      \Session::flash('success',"Basic Information has been added successfully");
-      return redirect('agency/add-activity/images/'.$id);
+      /*****  Save Activity Images *****/
+      if(count($data['activityImages']) >0)
+      {
+        foreach($data['activityImages'] as $key=>$value)
+        {
+          $image_url = CustomHelper::saveImageOnCloudanary($value);
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$id;
+          $activityUploads->file_url=$image_url;
+          $activityUploads->type='1';
+          $activityUploads->save();
+        }
+      }
+
+      /*****  Save Activity Videos *****/
+      if(count($data['activityVideos']) >0)
+      {
+        foreach($data['activityVideos'] as $key=>$value)
+        {
+          $video_url = CustomHelper::saveImageOnCloudanary($value);
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$id;
+          $activityUploads->file_url=$video_url;
+          $activityUploads->type='2';
+          $activityUploads->save();
+        }
+      }
+
+      /*****  Save Activity Terms *****/
+      if(count($data['terms']) >0)
+      {
+        foreach($data['terms'] as $key=>$value)
+        {
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$id;
+          $activityUploads->file_url=$value;
+          $activityUploads->type='3';
+          $activityUploads->save();
+        }
+      }
+
+      /*****  Save Activity Notes *****/
+      if(count($data['notes']) >0)
+      {
+        foreach($data['notes'] as $key=>$value)
+        {
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$id;
+          $activityUploads->file_url=$value;
+          $activityUploads->type='4';
+          $activityUploads->save();
+        }
+      }
+      \Session::flash('success',"Congratualtions, Activity has been added successfully");
+      return redirect('agency/list-activity');
     }
     else
     {
@@ -216,12 +271,14 @@ class ActivityController extends Controller
   public function updateActivityBasicInfo(Request $request)
   {
     $data=$request->all();
+    
     $activityId=$data['agency_activity_id'];    
     $activityDetail=AgencyActivities::where("id",$activityId)->first();
     $activityDetail->activity_id=$data['activity_id'];
     $activityDetail->title=$data['title'];
     $activityDetail->location=(string)$data['location'];
-    $activityDetail->unit_type=$data['unit_type'];
+    $activityDetail->unit_type=implode(',',$data['unit_type']);
+    $activityDetail->unit_type_value=implode(',',$data['unit_type_value']);
     $activityDetail->capacity=$data['capacity'];
     $activityDetail->difficult_level=$data['difficult_level'];
     $activityDetail->minimum_amount_percent=$data['minimum_amount_percent'];
@@ -235,8 +292,59 @@ class ActivityController extends Controller
     $activityDetail->days=implode(',',$data['days']);
     if($activityDetail->save())
     {
-      \Session::flash('success',"Basic Information has been updated successfully");
-      return redirect('agency/edit-activity/images/'.$activityId);
+      if(isset($data['activityImages']) && count($data['activityImages']) >0)
+      {
+        foreach($data['activityImages'] as $key=>$value)
+        {
+          $image_url = CustomHelper::saveImageOnCloudanary($value);
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$activityId;
+          $activityUploads->file_url=$image_url;
+          $activityUploads->type='1';
+          $activityUploads->save();
+        }
+      }
+
+      if(isset($data['activityVideos']) &&count($data['activityVideos']) >0)
+      {
+        foreach($data['activityVideos'] as $key=>$value)
+        {
+          $video_url = CustomHelper::saveImageOnCloudanary($value);
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$activityId;
+          $activityUploads->file_url=$video_url;
+          $activityUploads->type='2';
+          $activityUploads->save();
+        }
+      }
+
+      if(count($data['terms']) >0)
+      {
+        ActivityUploads::where('agency_activity_id',$activityId)->where('type','3')->delete();
+        foreach($data['terms'] as $key=>$value)
+        {
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$activityId;
+          $activityUploads->file_url=$value;
+          $activityUploads->type='3';
+          $activityUploads->save();
+        }
+      }
+
+      if(count($data['notes']) >0)
+      {
+        ActivityUploads::where('agency_activity_id',$activityId)->where('type','4')->delete();
+        foreach($data['notes'] as $key=>$value)
+        {
+          $activityUploads=new ActivityUploads();
+          $activityUploads->agency_activity_id=$activityId;
+          $activityUploads->file_url=$value;
+          $activityUploads->type='4';
+          $activityUploads->save();
+        }
+      }
+      \Session::flash('success',"Congratulations, Activity information has been updated successfully.");
+      return redirect('agency/list-activity');
     }
     else
     {

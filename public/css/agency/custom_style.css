@@ -109,3 +109,11 @@
   float:left;
   width:70%
 }
+
+.checkbox-list > label.checkbox-inline:first-child {
+    padding-left: 20px;
+}
+
+.checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline {
+  margin-left: 0;
+}

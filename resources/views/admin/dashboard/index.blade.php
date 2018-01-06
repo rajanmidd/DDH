@@ -49,32 +49,12 @@
             <i class="fa fa-bar-chart-o"></i>
           </div>
           <div class="details">
-            <div class="number">
-              0
-            </div>
+            <div class="number">&nbsp;</div>
             <div class="desc">
-              Unverified Agencies
+                Send notification to users
             </div>
           </div>
           <a class="more" href="{{URL::to('/admin/list-pharmacy')}}">
-            View More <i class="m-icon-swapright m-icon-white"></i>
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat green-haze">
-          <div class="visual">
-            <i class="fa fa-shopping-cart"></i>
-          </div>
-          <div class="details">
-            <div class="number">
-              0
-            </div>
-            <div class="desc">
-              Test
-            </div>
-          </div>
-          <a class="more" href="{{URL::to('/admin/earned-revenue')}}">
             View More <i class="m-icon-swapright m-icon-white"></i>
           </a>
         </div>
@@ -85,11 +65,73 @@
             <i class="fa fa-globe"></i>
           </div>
           <div class="details">
-            <div class="number">
-              0
-            </div>
+            <div class="number">&nbsp;</div>
             <div class="desc">
-              New Order
+              Send notification to agency
+            </div>
+          </div>
+          <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">
+            View More <i class="m-icon-swapright m-icon-white"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat yellow-saffron">
+          <div class="visual">
+            <i class="fa fa-globe"></i>
+          </div>
+          <div class="details">
+            <div class="number">&nbsp;</div>
+            <div class="desc">
+              New/Pending activities
+            </div>
+          </div>
+          <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">
+            View More <i class="m-icon-swapright m-icon-white"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat yellow-casablanca">
+          <div class="visual">
+            <i class="fa fa-globe"></i>
+          </div>
+          <div class="details">
+            <div class="number">&nbsp;</div>
+            <div class="desc">
+              New/Pending orders
+            </div>
+          </div>
+          <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">
+            View More <i class="m-icon-swapright m-icon-white"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat grey-mint">
+          <div class="visual">
+            <i class="fa fa-globe"></i>
+          </div>
+          <div class="details">
+            <div class="number">&nbsp;</div>
+            <div class="desc">
+              Transaction details
+            </div>
+          </div>
+          <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">
+            View More <i class="m-icon-swapright m-icon-white"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-flamingo">
+          <div class="visual">
+            <i class="fa fa-globe"></i>
+          </div>
+          <div class="details">
+            <div class="number">&nbsp;</div>
+            <div class="desc">
+              New order
             </div>
           </div>
           <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">

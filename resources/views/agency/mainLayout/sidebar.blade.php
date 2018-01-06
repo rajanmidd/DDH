@@ -15,61 +15,26 @@
             <!-- END RESPONSIVE QUICK SEARCH FORM -->
          </li>
          <li class="@if($controller == 'DashboardController') active open @endif">
-            <a href="javascript:;">
+            <a href="{{URL::to('/agency/agency-dashboard')}}">
                <i class="icon-home"></i>
                <span class="title">Dashboard</span>
                <span class="selected"></span>
-               <span class="arrow open"></span>
             </a>
-            <ul class="sub-menu">
-               <li class="active">
-                  <a href="{{URL::to('/agency/agency-dashboard')}}">
-                     <i class="icon-bar-chart"></i>
-                     Dashboard
-                  </a>
-               </li>
-            </ul>
          </li>
 
          <li class="@if($controller == 'ActivityController') active open @endif">
-            <a href="javascript:;">
+            <a href="{{URL::to('agency/list-activity')}}">
                <i class="icon-diamond"></i>
                <span class="title">Activity</span>
-               <span class="arrow "></span>
             </a>
-            <ul class="sub-menu">
-               <li class="@if($action == 'index') active @endif">
-                  <a href="{{URL::to('agency/list-activity')}}">
-                     All Activities
-                  </a>
-               </li>
-               <li class="@if($action == 'addActivity') active @endif">
-                  <a href="{{URL::to('agency/add-activity')}}">
-                     Add New Activity
-                  </a>
-               </li>
-            </ul>
          </li>
 
 
          <li class="@if($controller == 'ComboPackagesController') active open @endif">
-            <a href="javascript:;">
+            <a href="{{URL::to('agency/list-combo-packages')}}">
                <i class="icon-diamond"></i>
                <span class="title">Combo Packages</span>
-               <span class="arrow "></span>
             </a>
-            <ul class="sub-menu">
-               <li class="@if($action == 'index') active @endif">
-                  <a href="{{URL::to('agency/list-combo-packages')}}">
-                    All Combo Packages
-                  </a>
-               </li>
-               <li class="@if($action == 'addMedicine') active @endif">
-                  <a href="{{URL::to('agency/add-combo-packages')}}">
-                    Add New Combo Packages
-                  </a>
-               </li>
-            </ul>
          </li>
 
          <!-- <li class="tooltips @if($controller == 'OrderController' && ($action=='index' || $action=='orderDetail')) active open @endif" data-container="body" data-placement="right" data-html="true" data-original-title="@lang('sidebar.new_orders')">

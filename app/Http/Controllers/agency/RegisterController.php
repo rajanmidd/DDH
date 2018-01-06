@@ -32,7 +32,7 @@ class RegisterController extends Controller {
     $data = $request->all();
     $data['temp_access_token'] = $verification_code;
     $data['password'] = bcrypt($data['password']);
-    $data['is_email_verified'] = '1';
+    $data['is_email_verified'] = '0';
     $agency = Agency::create($data);
 
     $agencyDocuments = array();
@@ -49,19 +49,18 @@ class RegisterController extends Controller {
       $agencyDocuments['id_proof'] = $image_url;
     }
     AgencyDocuments::insert($agencyDocuments);
-    return redirect('agency');
     //Send Mail to Agency
-    // $mail = Mail::send('emails.welcome', $data, function($message) use ($data) {
-    //   $message->from('no-reply@site.com', "GoWeeks");
-    //   $message->subject("Email Verification From GoWeeks");
-    //   $message->to($data['email']);
-    // });
+    $mail = Mail::send('emails.welcome', $data, function($message) use ($data) {
+      $message->from('dsn.geu@gmail.com', "GoWeeks");
+      $message->subject("Email Verification From GoWeeks");
+      $message->to($data['email']);
+    });
 
-    // if (count(Mail::failures()) > 0) {
-    //   return back()->withInput();
-    // } else {
-    //   return redirect('agency/verification-pending');
-    // }
+    if (count(Mail::failures()) > 0) {
+      return back()->withInput();
+    } else {
+      return redirect('agency/verification-pending');
+    }
   }
 
   public function checkEmail(Request $request) {

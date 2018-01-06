@@ -42,7 +42,6 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       /*** Profile routes ***/
 
 
-      Route::get('add-activity/{page}/{id}',['as'=>'agency.add-activity','uses'=>'ActivityController@addActivity']);
       Route::get('add-activity',['as'=>'agency.add-activity','uses'=>'ActivityController@addActivity']);
       Route::post('save-activity-basic-info',['as'=>'agency.save-activity-basic-info','uses'=>'ActivityController@saveActivityBasicInfo']);
       Route::post('save-activity-images',['as'=>'agency.save-activity-images','uses'=>'ActivityController@saveActivityImages']);
