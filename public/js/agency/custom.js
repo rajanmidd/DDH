@@ -114,7 +114,7 @@ $(document).ready(function () {
             {
                required: true
             },
-            capacity:
+            total_cost_after_discount:
             {
                required: true,
                number: true

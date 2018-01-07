@@ -47,15 +47,16 @@ class ActivityController extends Controller
     $data['location']=(string)$data['location'];
     $data['open_time']=date("H:i",strtotime($data['open_time']));
     $data['close_time']=date("H:i",strtotime($data['close_time']));
-    $data['unit_type']=implode(',',$data['unit_type_value']);
-    $data['unit_type_value']=implode(',',$data['unit_type_value']);
-    $data['season']=implode(',',$data['season']);
-    $data['days']=implode(',',$data['days']);
+    $data['unit_type']=implode(',',$data['unit_type']);
+    $data['unit_type_value']=json_encode($data['unit_type_value']);
+    $data['season']=(isset($data['season'])) ? implode(',',$data['season']):"";
+    $data['days']=(isset($data['days'])) ? implode(',',$data['days']):"";
     $id=AgencyActivities::create($data)->id;
+    
     if($id)
     {
       /*****  Save Activity Images *****/
-      if(count($data['activityImages']) >0)
+      if(isset($data['activityImages']) && count($data['activityImages`']) >0)
       {
         foreach($data['activityImages'] as $key=>$value)
         {
@@ -69,7 +70,7 @@ class ActivityController extends Controller
       }
 
       /*****  Save Activity Videos *****/
-      if(count($data['activityVideos']) >0)
+      if(isset($data['activityVideos']) && count($data['activityVideos']) >0)
       {
         foreach($data['activityVideos'] as $key=>$value)
         {
@@ -83,7 +84,7 @@ class ActivityController extends Controller
       }
 
       /*****  Save Activity Terms *****/
-      if(count($data['terms']) >0)
+      if(isset($data['terms']) && count($data['terms']) >0)
       {
         foreach($data['terms'] as $key=>$value)
         {
@@ -96,7 +97,7 @@ class ActivityController extends Controller
       }
 
       /*****  Save Activity Notes *****/
-      if(count($data['notes']) >0)
+      if(isset($data['notes']) && count($data['notes']) >0)
       {
         foreach($data['notes'] as $key=>$value)
         {
@@ -278,7 +279,6 @@ class ActivityController extends Controller
     $activityDetail->location=(string)$data['location'];
     $activityDetail->unit_type=implode(',',$data['unit_type']);
     $activityDetail->unit_type_value=json_encode($data['unit_type_value']);
-    $activityDetail->capacity=$data['capacity'];
     $activityDetail->difficult_level=$data['difficult_level'];
     $activityDetail->minimum_amount_percent=$data['minimum_amount_percent'];
     $activityDetail->price_per_person=$data['price_per_person'];
@@ -287,8 +287,8 @@ class ActivityController extends Controller
     $activityDetail->longitude=$data['longitude'];
     $activityDetail->open_time=date("H:i",strtotime($data['open_time']));
     $activityDetail->close_time=date("H:i",strtotime($data['close_time']));
-    $activityDetail->season=implode(',',$data['season']);
-    $activityDetail->days=implode(',',$data['days']);
+    $activityDetail->season=(isset($data['days'])) ? implode(',',$data['season']):"";
+    $activityDetail->days=(isset($data['days'])) ? implode(',',$data['days']):"";
     if($activityDetail->save())
     {
       if(isset($data['activityImages']) && count($data['activityImages']) >0)
@@ -317,7 +317,7 @@ class ActivityController extends Controller
         }
       }
 
-      if(count($data['terms']) >0)
+      if(isset($data['terms']) &&  count($data['terms']) >0)
       {
         ActivityUploads::where('agency_activity_id',$activityId)->where('type','3')->delete();
         foreach($data['terms'] as $key=>$value)
@@ -330,7 +330,7 @@ class ActivityController extends Controller
         }
       }
 
-      if(count($data['notes']) >0)
+      if(isset($data['notes']) &&  count($data['notes']) >0)
       {
         ActivityUploads::where('agency_activity_id',$activityId)->where('type','4')->delete();
         foreach($data['notes'] as $key=>$value)

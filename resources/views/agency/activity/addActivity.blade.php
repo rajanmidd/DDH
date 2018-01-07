@@ -54,35 +54,18 @@ use App\Helpers\CustomHelper;
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label class="control-label">Description</label>
+                                            <div class="form-group">
+                                                {{ Form::textarea('description', null, ['id' => 'description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="control-label">Location</label>
                                             <div class="form-group">
                                                 {{ Form::text('location', null, ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Location']) }}
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Capacity</label>
-                                            <div class="form-group">
-                                                {{ Form::text('capacity', null, ['id' => 'capacity','class' => 'form-control','placeholder'=>'Enter Capacity']) }}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Difficulty Level</label>
-                                            <div class="form-group">
-                                                {{ Form::select('difficult_level', $levels, null, ['id' => 'difficult_level','class' => 'form-control','placeholder'=>'Select Difficulty Level']) }}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Minimum % amount to book this activity</label>
-                                            <div class="form-group">
-                                                {{ Form::text('minimum_amount_percent', null, ['id' => 'minimum_amount_percent','class' => 'form-control','placeholder'=>'Enter Minimum % amount to book this activity']) }}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Price Per Person</label>
-                                            <div class="form-group">
-                                                {{ Form::text('price_per_person', null, ['id' => 'price_per_person','class' => 'form-control','placeholder'=>'Enter Price Per Person']) }}
-                                            </div>
-                                        </div>
+                                        </div>                                        
+                                        
                                         <div class="form-group">
                                             <label class="control-label">Select Activity Unit Type</label>
                                             <div class="form-group">
@@ -99,6 +82,26 @@ use App\Helpers\CustomHelper;
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Minimum % amount to book this activity</label>
+                                            <div class="form-group">
+                                                {{ Form::text('minimum_amount_percent', null, ['id' => 'minimum_amount_percent','class' => 'form-control','placeholder'=>'Enter Minimum % amount to book this activity']) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Total Cost Per Person</label>
+                                            <div class="form-group">
+                                                {{ Form::text('price_per_person', null, ['id' => 'price_per_person','class' => 'form-control','placeholder'=>'Enter Price Per Person']) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Total Cost After Discount Per Person</label>
+                                            <div class="form-group">
+                                                {{ Form::text('total_cost_after_discount', null, ['id' => 'total_cost_after_discount','class' => 'form-control','placeholder'=>'Enter Total Cost After Discount Per Person']) }}
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <label class="control-label">Select Season</label>
                                             <div class="form-group">
@@ -140,9 +143,9 @@ use App\Helpers\CustomHelper;
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Description</label>
+                                            <label class="control-label">Difficulty Level</label>
                                             <div class="form-group">
-                                                {{ Form::textarea('description', null, ['id' => 'description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
+                                                {{ Form::select('difficult_level', $levels, null, ['id' => 'difficult_level','class' => 'form-control','placeholder'=>'Select Difficulty Level']) }}
                                             </div>
                                         </div>
                                     </div>

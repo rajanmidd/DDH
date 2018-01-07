@@ -56,35 +56,18 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label class="control-label">Description</label>
+                                                    <div class="form-group">
+                                                        {{ Form::textarea('description', $activityDetail['description'], ['id' => 'description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
                                                     <label class="control-label">Location</label>
                                                     <div class="form-group">
                                                         {{ Form::text('location', $activityDetail['location'], ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Location']) }}
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label">Capacity</label>
-                                                    <div class="form-group">
-                                                        {{ Form::text('capacity', $activityDetail['capacity'], ['id' => 'capacity','class' => 'form-control','placeholder'=>'Enter Capacity']) }}
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label">Difficulty Level</label>
-                                                    <div class="form-group">
-                                                        {{ Form::select('difficult_level', $levels, $activityDetail['difficult_level'], ['id' => 'difficult_level','class' => 'form-control','placeholder'=>'Select Difficulty Level']) }}
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label">Minimum % amount to book this activity</label>
-                                                    <div class="form-group">
-                                                        {{ Form::text('minimum_amount_percent', $activityDetail['minimum_amount_percent'], ['id' => 'minimum_amount_percent','class' => 'form-control','placeholder'=>'Enter Minimum % amount to book this activity']) }}
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label">Price Per Person</label>
-                                                    <div class="form-group">
-                                                        {{ Form::text('price_per_person', $activityDetail['price_per_person'], ['id' => 'price_per_person','class' => 'form-control','placeholder'=>'Enter Price Per Person']) }}
-                                                    </div>
-                                                </div>
+                                                </div>                                                
+                                                
                                                 <div class="form-group">
                                                     <label class="control-label">Select Activity Unit Type</label>
                                                     <div class="form-group">
@@ -105,6 +88,28 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label">Minimum % amount to book this activity</label>
+                                                    <div class="form-group">
+                                                        {{ Form::text('minimum_amount_percent', $activityDetail['minimum_amount_percent'], ['id' => 'minimum_amount_percent','class' => 'form-control','placeholder'=>'Enter Minimum % amount to book this activity']) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Total Cost Per Person</label>
+                                                    <div class="form-group">
+                                                        {{ Form::text('price_per_person', $activityDetail['price_per_person'], ['id' => 'price_per_person','class' => 'form-control','placeholder'=>'Enter Price Per Person']) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label">Total Cost After Discount Per Person</label>
+                                                    <div class="form-group">
+                                                        {{ Form::text('total_cost_after_discount', $activityDetail['total_cost_after_discount'], ['id' => 'total_cost_after_discount','class' => 'form-control','placeholder'=>'Enter Total Cost After Discount Per Person']) }}
+                                                    </div>
+                                                </div>
+
+
                                                 <div class="form-group">
                                                     <label class="control-label">Select Season</label>
                                                     <div class="form-group">
@@ -152,9 +157,9 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label">Description</label>
+                                                    <label class="control-label">Difficulty Level</label>
                                                     <div class="form-group">
-                                                        {{ Form::textarea('description', $activityDetail['description'], ['id' => 'description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
+                                                        {{ Form::select('difficult_level', $levels, $activityDetail['difficult_level'], ['id' => 'difficult_level','class' => 'form-control','placeholder'=>'Select Difficulty Level']) }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -260,20 +265,6 @@ use App\Helpers\CustomHelper;
                                                                 </div>
                                                             </div>
                                                         @endforeach
-                                                    @else
-                                                        <div>                                              
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Terms & Conditions</label>
-                                                                    <div class="form-group">
-                                                                        <textarea class="form-control" id="terms-1" name="terms[]" value="" placeholder="Terms & Condition" rows="3"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <button type="button" class="btn btn-success btn-add pull-right add_terms_button" >
-                                                                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
                                                     @endif
                                                 </div>
                                             </div>
@@ -312,20 +303,6 @@ use App\Helpers\CustomHelper;
                                                                 </div>
                                                             </div>
                                                         @endforeach
-                                                    @else
-                                                        <div>                                              
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Special Notes</label>
-                                                                    <div class="form-group">
-                                                                        <textarea class="form-control" id="notes-1" name="notes[]" value="" placeholder="Special Notes" rows="3"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <button type="button" class="btn btn-success btn-add pull-right add_notes_button" >
-                                                                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
                                                     @endif
                                                 </div>
                                             </div>
@@ -340,7 +317,7 @@ use App\Helpers\CustomHelper;
                                         </button>
                                         <button type="submit" class="btn blue">
                                             <i class="fa fa-check"></i> 
-                                            Next
+                                            Update
                                         </button>
                                     </div>
                                 {{ Form::close() }}
