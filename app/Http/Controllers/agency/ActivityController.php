@@ -271,14 +271,13 @@ class ActivityController extends Controller
   public function updateActivityBasicInfo(Request $request)
   {
     $data=$request->all();
-    
-    $activityId=$data['agency_activity_id'];    
+    $activityId=$data['agency_activity_id'];
     $activityDetail=AgencyActivities::where("id",$activityId)->first();
     $activityDetail->activity_id=$data['activity_id'];
     $activityDetail->title=$data['title'];
     $activityDetail->location=(string)$data['location'];
     $activityDetail->unit_type=implode(',',$data['unit_type']);
-    $activityDetail->unit_type_value=implode(',',$data['unit_type_value']);
+    $activityDetail->unit_type_value=json_encode($data['unit_type_value']);
     $activityDetail->capacity=$data['capacity'];
     $activityDetail->difficult_level=$data['difficult_level'];
     $activityDetail->minimum_amount_percent=$data['minimum_amount_percent'];

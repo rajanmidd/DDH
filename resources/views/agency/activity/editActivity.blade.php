@@ -90,7 +90,7 @@ use App\Helpers\CustomHelper;
                                                     <div class="form-group">
                                                         <?php 
                                                         $selected_unit_type=explode(',',$activityDetail['unit_type']);
-                                                        $selected_unit_type_value=explode(',',$activityDetail['unit_type_value']);
+                                                        $selected_unit_type_value=json_decode($activityDetail['unit_type_value'],true);
                                                         ?>
                                                         <div class="checkbox-list">
                                                             @foreach ( $unitType as $i => $unit_type )
@@ -98,7 +98,7 @@ use App\Helpers\CustomHelper;
                                                                 <label class="control-label">{{$unit_type}}</label>
                                                                 <input type="checkbox" name="unit_type[]" id="inlineCheckbox21" class="unit_type_check" value="{{$i}}" @if(in_array($i,$selected_unit_type)) checked @endif>                                                        
                                                                 <span style="@if(!in_array($i,$selected_unit_type)) display:none;  @endif" id="unit_type_value_div_{{$i}}" >
-                                                                    <input type="text" class="unit_type_value" name="unit_type_value[{{$i}}]" id="unit_type_value_{{$i}}" value="" @if(!in_array($i,$selected_unit_type)) disabled  @endif >                                                      
+                                                                    <input type="text" class="unit_type_value" name="unit_type_value[{{$i}}]" id="unit_type_value_{{$i}}" value="@if(in_array($i,$selected_unit_type)){{trim($selected_unit_type_value[$i])}}@endif" @if(!in_array($i,$selected_unit_type)) disabled  @endif >                                                      
                                                                 </span>
                                                             </div>
                                                             @endforeach
