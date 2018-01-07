@@ -54,7 +54,7 @@
                 Send notification to users
             </div>
           </div>
-          <a class="more" href="{{URL::to('/admin/list-pharmacy')}}">
+          <a class="more" href="#">
             View More <i class="m-icon-swapright m-icon-white"></i>
           </a>
         </div>
@@ -70,7 +70,23 @@
               Send notification to agency
             </div>
           </div>
-          <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">
+          <a class="more" href="#">
+            View More <i class="m-icon-swapright m-icon-white"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-flamingo">
+          <div class="visual">
+            <i class="fa fa-globe"></i>
+          </div>
+          <div class="details">
+            <div class="number">&nbsp;</div>
+            <div class="desc">
+              All pendig/reject agency
+            </div>
+          </div>
+          <a class="more" href="#">
             View More <i class="m-icon-swapright m-icon-white"></i>
           </a>
         </div>
@@ -86,7 +102,7 @@
               New/Pending activities
             </div>
           </div>
-          <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">
+          <a class="more" href="#">
             View More <i class="m-icon-swapright m-icon-white"></i>
           </a>
         </div>
@@ -102,7 +118,7 @@
               New/Pending orders
             </div>
           </div>
-          <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">
+          <a class="more" href="#">
             View More <i class="m-icon-swapright m-icon-white"></i>
           </a>
         </div>
@@ -118,23 +134,7 @@
               Transaction details
             </div>
           </div>
-          <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">
-            View More <i class="m-icon-swapright m-icon-white"></i>
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat red-flamingo">
-          <div class="visual">
-            <i class="fa fa-globe"></i>
-          </div>
-          <div class="details">
-            <div class="number">&nbsp;</div>
-            <div class="desc">
-              New order
-            </div>
-          </div>
-          <a class="more" href="{{URL::to('/admin/orders?search_text=&status=1')}}">
+          <a class="more" href="#">
             View More <i class="m-icon-swapright m-icon-white"></i>
           </a>
         </div>
