@@ -28,7 +28,12 @@
                <span class="title">Activity</span>
             </a>
          </li>
-
+         <li class="@if($controller == 'CampingPackagesController') active open @endif">
+            <a href="{{URL::to('agency/list-camping-packages')}}">
+               <i class="icon-diamond"></i>
+               <span class="title">Camping Packages</span>
+            </a>
+         </li>
 
          <li class="@if($controller == 'ComboPackagesController') active open @endif">
             <a href="{{URL::to('agency/list-combo-packages')}}">

@@ -72,7 +72,7 @@ $agency_id=auth()->guard('agency')->user()->id;
                   </li>
                   <li>
                      <a href="{{URL::to('agency/password')}}">
-                        <i class="fa fa-key"></i>Chnage Password</a>
+                        <i class="fa fa-key"></i>Change Password</a>
                   </li>
                   <li>
                      <a href="{{ URL::route('agency.logout') }}">

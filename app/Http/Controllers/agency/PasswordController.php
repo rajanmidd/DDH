@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\merchant;
+namespace App\Http\Controllers\agency;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\models\Pharmacy;
+use App\models\Agency;
 
 class PasswordController extends Controller
 {
@@ -16,10 +16,10 @@ class PasswordController extends Controller
    
    public function checkToken($token)
    {
-      $pharmacyDetail=Pharmacy::whereTempAccessToken($token)->first();
-      if($pharmacyDetail)
+      $agencyDetail=Agency::whereTempAccessToken($token)->first();
+      if($agencyDetail)
       {
-         return view('merchant.password.forgetPassword',["pharmacyDetail"=>$pharmacyDetail]);
+         return view('agency.password.forgetPassword',["agencyDetail"=>$agencyDetail]);
       }
       else
       {
@@ -37,13 +37,13 @@ class PasswordController extends Controller
    public function changePassword(Request $request)
    {
       $data=$request->all();
-      $pharmacyDetail=Pharmacy::whereTempAccessToken($data['access_token'])->first();
-      if($pharmacyDetail)
+      $agencyDetail=Agency::whereTempAccessToken($data['access_token'])->first();
+      if($agencyDetail)
       {
-         $pharmacyDetail->password=bcrypt($data['password']);
-         $pharmacyDetail->save();
+         $agencyDetail->password=bcrypt($data['password']);
+         $agencyDetail->save();
          \Session::flash('success','Congratulations!, Your password has been changed successfully. Please login again.');
-         return redirect('merchant');
+         return redirect('agency');
       }
       else
       {

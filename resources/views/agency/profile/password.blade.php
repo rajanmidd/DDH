@@ -1,6 +1,6 @@
-@extends('merchant.mainLayout.template')
+@extends('agency.mainLayout.template')
 @section('title')
-   @lang('sidebar.change_password')
+   Change Password
 @endsection
 @section('content')
 <!-- BEGIN CONTENT -->
@@ -11,16 +11,16 @@
          <ul class="page-breadcrumb">
             <li>
                <i class="fa fa-home"></i>
-               <a href="{{URL::to('/merchant/merchant-dashboard')}}">@lang('sidebar.home')</a>
+               <a href="{{URL::to('/agency/agency-dashboard')}}">Home</a>
                <i class="fa fa-angle-right"></i>
             </li>
             <li>
-               <a href="javascript:void(0);">@lang('sidebar.change_password')</a>
+               <a href="javascript:void(0);">Change Password</a>
             </li>
          </ul>
       </div>
       <h3 class="page-title">
-         @lang('sidebar.change_password')
+         Change Password
       </h3>
       <!-- END PAGE HEADER-->
       <!-- BEGIN PAGE CONTENT-->
@@ -30,7 +30,7 @@
             <div class="portlet box green">
                <div class="portlet-title">
                   <div class="caption">
-                     <i class="fa fa-table"></i>@lang('sidebar.change_password')
+                     <i class="fa fa-table"></i>Change Password
                   </div>
                </div>
                <div class="portlet-body form">
@@ -53,9 +53,9 @@
                       
                      <div class="form-body">
                         <div class="form-group">
-                           <label class="control-label col-md-3">@lang('sidebar.old_password')</label>
+                           <label class="control-label col-md-3">Old Password</label>
                            <div class="col-md-9">
-                              <input type="password" placeholder="@lang('sidebar.old_password')" class="form-control" name="old_password" />
+                              <input type="password" placeholder="Old Password" class="form-control" name="old_password" />
                               <div class="error">{{ $errors->first('old_password') }}</div>
                            </div>
                         </div>
@@ -63,9 +63,9 @@
                      
                      <div class="form-body">
                         <div class="form-group">
-                           <label class="control-label col-md-3">@lang('sidebar.new_password')</label>
+                           <label class="control-label col-md-3">New Password</label>
                            <div class="col-md-9">
-                              <input type="password" placeholder="@lang('sidebar.new_password')" class="form-control" id="new_password" name="new_password" />
+                              <input type="password" placeholder="New Password" class="form-control" id="new_password" name="new_password" />
                               <div class="error">{{ $errors->first('new_password') }}</div>
                            </div>
                         </div>
@@ -73,9 +73,9 @@
                   
                       <div class="form-body">
                         <div class="form-group">
-                           <label class="control-label col-md-3">@lang('sidebar.confirm_new_password')</label>
+                           <label class="control-label col-md-3">Confirm New Password</label>
                            <div class="col-md-9">
-                              <input type="password" placeholder="@lang('sidebar.confirm_new_password')" class="form-control" name="confirm_new_password" />
+                              <input type="password" placeholder="Confirm New Password" class="form-control" name="confirm_new_password" />
                               <div class="error">{{ $errors->first('confirm_new_password') }}</div>
                            </div>
                         </div>
@@ -84,7 +84,7 @@
                      <div class="form-actions">
                         <div class="row">
                            <div class="col-md-offset-3 col-md-9">
-                              <button type="submit" class="btn green">@lang('signup.submit')</button>
+                              <button type="submit" class="btn green">Submit</button>
                            </div>
                         </div>
                      </div>

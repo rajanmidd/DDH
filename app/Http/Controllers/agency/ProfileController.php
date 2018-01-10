@@ -116,7 +116,7 @@ class ProfileController extends Controller
    
     public function password()
     {
-        return view('merchant.profile.password');
+        return view('agency.profile.password');
     }
    
    
@@ -136,16 +136,16 @@ class ProfileController extends Controller
         ]);
       
         $data=$request->all();
-        $phar_id=auth()->guard('merchant')->user()->id;
-        $pharmacyDetail=Pharmacy::findorfail($phar_id);
-        if(\Hash::check($data['old_password'], $pharmacyDetail->password))
+        $agency_id=auth()->guard('agency')->user()->id;
+        $agencyDetail=Agency::findorfail($agency_id);
+        if(\Hash::check($data['old_password'], $agencyDetail->password))
         {
-            $pharmacyDetail->password=bcrypt($data['new_password']);
-            $pharmacyDetail->save();
+            $agencyDetail->password=bcrypt($data['new_password']);
+            $agencyDetail->save();
          
-            \Session::flash('success',\Lang::get('errorMessage.password_changed_success'));
+            \Session::flash('success',"Your password has been changed successfully");
             //return redirect('merchant');
-            return redirect('merchant/password');
+            return redirect('agency/password');
         }
         else
         {

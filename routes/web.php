@@ -41,6 +41,11 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       Route::patch('/profile',['as'=>'profile','uses'=>'ProfileController@update']);
       /*** Profile routes ***/
 
+      /*** Change Password ***/
+      Route::get('/password',['as'=>'password','uses'=>'ProfileController@password']);
+      Route::post('/change-password',['as'=>'change-password','uses'=>'ProfileController@changePassword']);
+      /*** Change Password ***/
+
 
       Route::get('add-activity',['as'=>'agency.add-activity','uses'=>'ActivityController@addActivity']);
       Route::post('save-activity-basic-info',['as'=>'agency.save-activity-basic-info','uses'=>'ActivityController@saveActivityBasicInfo']);
@@ -64,17 +69,12 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       Route::get('add-combo-packages',['as'=>'agency.add-combo-packages','uses'=>'ComboPackagesController@addComboPackages']);
       Route::get('list-combo-packages',['as'=>'agency.list-combo-packages','uses'=>'ComboPackagesController@index']);
       
+      Route::get('add-camping-packages',['as'=>'agency.add-camping-packages','uses'=>'CampingPackagesController@addCampingPackages']);
+      Route::get('list-camping-packages',['as'=>'agency.list-camping-packages','uses'=>'CampingPackagesController@index']);
+      Route::get('save-camping-package',['as'=>'agency.save-camping-package','uses'=>'CampingPackagesController@saveCampingPackage']);
    });
    
 });
-
-
-
-
-
-
-
-
 
 
 
