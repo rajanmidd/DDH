@@ -14,7 +14,8 @@ class CampingPackagesController extends Controller
 {
     public function index(Request $request)
     {
-        $camping_packages = CampingPackages::where("is_deleted",'1');
+        $agency_id=auth()->guard('agency')->user()->id;
+        $camping_packages = CampingPackages::where("agency_id",$agency_id)->where("is_deleted",'1');
     
         // if ($request->search_text <> '')
         // {
@@ -248,9 +249,9 @@ class CampingPackagesController extends Controller
                 }
             }
 
-            if(isset($data['inclusion']) &&  count($data['inclusion']) >0)
-            ActivityUploads::where('agency_activity_id',$id)->where('type','6')->delete();
+            if(isset($data['inclusion']) &&  count($data['inclusion']) >0)            
             {
+                ActivityUploads::where('agency_activity_id',$id)->where('type','6')->delete();
                 foreach($data['inclusion'] as $key=>$value)
                 {
                     $activityUploads=new ActivityUploads();
