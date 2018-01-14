@@ -56,7 +56,7 @@ class ActivityController extends Controller
     if($id)
     {
       /*****  Save Activity Images *****/
-      if(isset($data['activityImages']) && count($data['activityImages`']) >0)
+      if(isset($data['activityImages']) && count($data['activityImages']) >0)
       {
         foreach($data['activityImages'] as $key=>$value)
         {

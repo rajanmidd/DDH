@@ -71,7 +71,12 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       
       Route::get('add-camping-packages',['as'=>'agency.add-camping-packages','uses'=>'CampingPackagesController@addCampingPackages']);
       Route::get('list-camping-packages',['as'=>'agency.list-camping-packages','uses'=>'CampingPackagesController@index']);
-      Route::get('save-camping-package',['as'=>'agency.save-camping-package','uses'=>'CampingPackagesController@saveCampingPackage']);
+      Route::post('save-camping-package',['as'=>'agency.save-camping-package','uses'=>'CampingPackagesController@saveCampingPackage']);
+      Route::get('delete-camping-package', ['as' => 'agency.delete-camping-package', 'uses' => 'CampingPackagesController@deleteCampingPackage']);
+      Route::get('view-camping-package/{id}', ['as' => 'agency.view-camping-package', 'uses' => 'CampingPackagesController@viewCampingPackage']);
+      Route::get('edit-camping-package/{id}', ['as' => 'agency.edit-camping-package', 'uses' => 'CampingPackagesController@editCampingPackage']);
+      Route::post('update-camping-package', ['as' => 'agency.update-camping-package', 'uses' => 'CampingPackagesController@updateCampingPackage']);
+
    });
    
 });

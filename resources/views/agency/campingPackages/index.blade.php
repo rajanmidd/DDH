@@ -98,13 +98,13 @@
                         </td>
                         <td class="numeric">
                           <div class="actions">
-                            <a title="Edit" href="{{URL::to('/agency/edit-activity')}}/information/{{$value['id']}}"  class="btn btn-circle">
+                            <a title="Edit" href="{{URL::to('/agency/edit-camping-package')}}/{{$value['id']}}"  class="btn btn-circle">
                               <i class="fa fa-pencil"></i>
                             </a>
-                            <a title="View" href="{{URL::to('/agency/view-activity')}}/{{$value['id']}}"  class="btn btn-circle">
+                            <a title="View" href="{{URL::to('/agency/view-camping-package')}}/{{$value['id']}}"  class="btn btn-circle">
                               <i class="fa fa-eye"></i>
                             </a>
-                            <a title="Delete" href="javascript:void(0);" class="btn btn-icon-only confirm_button" data-href="{{URL::to('/agency/delete-activity')}}?id={{$value['id']}}">
+                            <a title="Delete" href="javascript:void(0);" class="btn btn-icon-only confirm_button" data-href="{{URL::to('/agency/delete-camping-package')}}?id={{$value['id']}}">
                               <i class="fa fa-trash"></i>
                             </a>
                           </div>

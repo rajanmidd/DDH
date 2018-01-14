@@ -98,62 +98,62 @@ $(document).ready(function () {
             rules: {
                   activity_id:
                   {
-                  required: true
+                        required: true
                   },
                   title:
                   {
-                  required: true
+                        required: true
                   },
                   location:
                   {
-                  required: true
+                        required: true
                   },
                   "unit_type[]":
                   {
-                  required: true
+                        required: true
                   },
                   total_cost_after_discount:
                   {
-                  required: true,
-                  number: true
+                        required: true,
+                        number: true
                   },
                   difficult_level:
                   {
-                  required: true
+                        required: true
                   },
                   minimum_amount_percent:
                   {
-                  required: true,
-                  number: true
+                        required: true,
+                        number: true
                   },
                   price_per_person:
                   {
-                  required: true,
-                  number: true
+                        required: true,
+                        number: true
                   },
                   open_time:
                   {
-                  required: true
+                        required: true
                   },
                   close_time:
                   {
-                  required: true
+                        required: true
                   },
                   description:
                   {
-                  required: true
+                        required: true
                   },
                   "activityImages[]":
                   {
-                  required: true,
-                  extension: "jpg|jpeg|png",
-                  filesize: 31457280,
+                        required: true,
+                        extension: "jpg|jpeg|png",
+                        filesize: 31457280,
                   },
                   "activityVideos[]":
                   {
-                  required: true,
-                  extension: "mp4",
-                  filesize: 10485760,
+                        required: true,
+                        extension: "mp4",
+                        filesize: 10485760,
                   },
                   "terms[]":
                   {
@@ -198,47 +198,47 @@ $(document).ready(function () {
             rules: {
                   owner_name: 
                   {
-                  required: true
+                        required: true
                   },
                   address: 
                   {
-                  required: true
+                        required: true
                   },
                   email: 
                   {
                         required: true,
                         email: true,
                         remote: {
-                        url: base_url+"/agency/check-email",
-                        type: "post"
+                              url: base_url+"/agency/check-email",
+                              type: "post"
                         }
                   },
                   password: 
                   {
-                  required: true
+                        required: true
                   },
                   confirm_password: 
                   {
-                  required: true,
-                  equalTo: "#password"
+                        required: true,
+                        equalTo: "#password"
                   },
                   mobile: 
                   {
-                  required: true,
-                  number:true,
+                        required: true,
+                        number:true,
                   },          
                   certificate_image: {
-                  extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
+                        extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
                   },
                   id_proof: {
-                  extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
+                        extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
                   },
             
             },
             messages: {
-            email: {
-                  remote: "Email is already exists."
-            },
+                  email: {
+                        remote: "Email is already exists."
+                  },
             },
             errorPlacement: function (error, element) {
                   $(element).closest('.form-group .col-md-9').append(error);
@@ -247,16 +247,77 @@ $(document).ready(function () {
 
             },
             highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+                  $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
             },
             success: function (label) {
-            label.closest('.form-group').removeClass('has-error');
-            label.remove();
+                  label.closest('.form-group').removeClass('has-error');
+                  label.remove();
             },
             submitHandler: function (form) {
-            form.submit();
+                  form.submit();
             }
       });
+
+
+
+      $('#camping-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: true, // do not focus the last invalid input
+            ignore: "",
+            rules: {
+                  camping_name:
+                  {
+                        required: true
+                  },
+                  camping_title:
+                  {
+                        required: true
+                  },
+                  camping_description:
+                  {
+                        required: true,
+                  },
+                  days:
+                  {
+                        required: true,
+                  },
+                  night:
+                  {
+                        required: true,
+                  },
+                  triple_sharing:
+                  {
+                        required: true,
+                        number:true
+                  },
+                  double_sharing:
+                  {
+                        required: true,
+                        number:true
+                  },
+                  'itinerary[]':
+                  {
+                        required: true,
+                  },
+            },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+
+            },
+            highlight: function (element) { // hightlight error inputs
+                  $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+            success: function (label) {
+                  label.closest('.form-group').removeClass('has-error');
+                  label.remove();
+            },
+            submitHandler: function (form) {
+                  form.submit();
+            }
+      });
+
+
+
 
       var max_fields      = 10; //maximum input boxes allowed
       var wrapper         = $(".input_fields_wrap"); //Fields wrapper
@@ -274,7 +335,7 @@ $(document).ready(function () {
             
             e.preventDefault();
             console.log(x , max_fields);
-            if(x < max_fields)
+            if(x <= max_fields)
             {
                   
                   var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" data-number="'+x+'" id="file-upload-'+x+'" name="activityImages[]" class="abc"><img src="http://placehold.it/50x50" id="blah'+x+'" alt="your image" width="50" height="50" /><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div>';
@@ -298,15 +359,14 @@ $(document).ready(function () {
       {
             y=y+1;
       }
-      console.log(y);
       $(add_video_button).click(function(e){ //on add input button click
-            
+            console.log(y);
             e.preventDefault();
-            if(y < max_fields)
-            {
-                  y++;
+            if(y <= max_fields)
+            {                  
                   var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" id="file-upload-'+y+'" name="activityVideos[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_video_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
                   $(video_wrapper).append(html); //add input box
+                  y++;
             }
       });
 
