@@ -86,7 +86,7 @@
                         <td>{{$i}}</td>
                         <td>{{ucfirst($value['camping_name'])}}</td>
                         <td> {{ucfirst($value['camping_title'])}}</td>
-                        <td> {{$value['camping_description']}}</td>
+                        <td width="50%"> {{$value['camping_description']}}</td>
                         <td> {{$value['days']}}</td>
                         <td> {{$value['night']}}</td>
                         <td>

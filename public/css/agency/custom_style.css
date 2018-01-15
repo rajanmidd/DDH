@@ -121,3 +121,24 @@
 .sweet-alert .sa-icon.sa-success .sa-placeholder {
   border-radius: 50% !important;
 }
+
+/*Amit papnai 14-01-2017*/
+textarea{resize:none;}
+.form-horizontal .control-label{text-align: left;}
+.heading_form{border-bottom: 1px solid #ddd; margin: 15px 0; padding-bottom: 15px;}
+
+.upload_img{width: 100px; height: 100px; float:left; line-height: 115px; background: #f1f1f1; color: #777; text-align: center; cursor: pointer;}
+
+.upload_img i{font-size: 36px !important;}
+.upload_img input{display: none;}
+.img_holder{margin-left: 20px; width: 100px; height: 100px; float: left; position: relative;}
+.remove_img{position: absolute; width: 20px; height: 20px; border-radius: 50% !important; background: #333; color: #fff; font-weight: bold; font-size: 13px; top: -5px; right: -5px; text-align: center; cursor: pointer;}
+.img_holder img{width: 100%; height: 100%;}
+.costing_box{border-top: 1px solid #ddd; padding: 15px 0; margin: 15px 0;}
+.btn-large{width: 350px; display: table; height: 40px; margin: auto;}
+.costing_box table td{font-size: 16px; }
+.costing_box table td small{display: block;font-size: 11px;}
+.heading_form small{font-size: 11px;}
+.heading_form .md-checkbox label{font-size: 23px; font-weight: 300; line-height: 20px;}
+
+/*Amit papnai 14-01-2017*/
