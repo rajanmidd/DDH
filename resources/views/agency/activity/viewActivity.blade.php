@@ -33,13 +33,8 @@ use App\Helpers\CustomHelper;
                     <div class="tab-content">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="portlet box yellow">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i> Activity Information 
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                <div class="view_data">
+                                    <div class="form">
                                         <div class="form-body">  
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -84,14 +79,11 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="portlet box blue">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>
-                                            Activity Images
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">                                    
+                                
+                                
+                                <div class="view_data">
+                                    <h3 class="heading_form"> Activity Images</h3>
+                                    <div class="form">                                    
                                         <div class="form-body actimages">
                                             <div class="row">
                                                 @if(count($activityDetail->activityImages)>0 )
@@ -102,8 +94,8 @@ use App\Helpers\CustomHelper;
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Images Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Images Found
                                                         </div>
                                                     </div>
                                                 @endif
@@ -111,13 +103,9 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="portlet box green">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Activity Videos
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                <div class="view_data">
+                                    <h3 class="heading_form"> Activity Videos</h3>
+                                    <div class="form">
                                         <div class="form-body actimages">
                                             <div class="row">
                                                 @if(count($activityDetail->activityVideos)>0 )
@@ -130,8 +118,8 @@ use App\Helpers\CustomHelper;
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Videos Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Videos Found
                                                         </div>
                                                     </div>
                                                 @endif
@@ -139,13 +127,9 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="portlet box blue">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Terms & Conditions 
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                <div class="view_data">
+                                    <h3 class="heading_form">Terms & Conditions </h3>
+                                    <div class="form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
                                                 @if(count($activityDetail->activityTerms)>0 )
@@ -156,8 +140,8 @@ use App\Helpers\CustomHelper;
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Terms & Conditions Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Terms & Conditions Found
                                                         </div>
                                                     </div>
                                                 @endif
@@ -165,14 +149,9 @@ use App\Helpers\CustomHelper;
                                         </div>                                        
                                     </div>
                                 </div>
-                                <div class="portlet box blue">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>
-                                            Special Notes 
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                <div class="view_data">
+                                    <h3 class="heading_form">Special Notes</h3>
+                                    <div class="form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
                                                 @if(count($activityDetail->activityNotes)>0 )
@@ -183,8 +162,8 @@ use App\Helpers\CustomHelper;
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Notes Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Notes Found
                                                         </div>
                                                     </div>
                                                 @endif

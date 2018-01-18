@@ -90,14 +90,8 @@
   width:100%;
 }
 
-.form-control
-{
-  border-color: #999999;
-}
 
-.control-label{
-  font-weight: bold;
-}
+
 
 .img_gallery img
 {
@@ -124,9 +118,9 @@
 
 /*Amit papnai 14-01-2017*/
 textarea{resize:none;}
-.form-horizontal .control-label{text-align: left;}
+.form-horizontal .control-label{text-align: left; font-size: 13px;}
 .heading_form{border-bottom: 1px solid #ddd; margin: 15px 0; padding-bottom: 15px;}
-
+.heading_form h3{}
 .upload_img{width: 100px; height: 100px; float:left; line-height: 115px; background: #f1f1f1; color: #777; text-align: center; cursor: pointer;}
 
 .upload_img i{font-size: 36px !important;}
@@ -142,3 +136,48 @@ textarea{resize:none;}
 .heading_form .md-checkbox label{font-size: 23px; font-weight: 300; line-height: 20px;}
 
 /*Amit papnai 14-01-2017*/
+
+/*Amit papnai 16-01-2018*/
+
+.view_data .dl-horizontal dt{
+    text-align: left;
+    padding: 8px;
+}
+
+.view_data .dl-horizontal dd{
+    padding: 8px;
+    border-bottom: 1px dotted #aaa;
+    line-height: 26px;
+}
+.view_data{}
+.heading_form{
+    margin: 15px 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+/*Amit papnai 16-01-2018*/
+
+/*18-01-2018*/
+
+.form_btn{text-align: center;}
+.form_btn button{width: 120px; height: 40px; font-weight: bold;}
+
+
+/*18-01-2018*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
