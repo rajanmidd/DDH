@@ -278,6 +278,10 @@ $(document).ready(function () {
                   {
                         required: true,
                   },
+                  camping_location:
+                  {
+                        required: true,
+                  },
                   days:
                   {
                         required: true,
@@ -297,6 +301,76 @@ $(document).ready(function () {
                         number:true
                   },
                   'itinerary[]':
+                  {
+                        required: true,
+                  },
+            },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+
+            },
+            highlight: function (element) { // hightlight error inputs
+                  $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+            success: function (label) {
+                  label.closest('.form-group').removeClass('has-error');
+                  label.remove();
+            },
+            submitHandler: function (form) {
+                  form.submit();
+            }
+      });
+
+
+      $('#combo-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: true, // do not focus the last invalid input
+            ignore: "",
+            rules: {
+                  combo_name:
+                  {
+                        required: true
+                  },
+                  combo_title:
+                  {
+                        required: true
+                  },
+                  combo_description:
+                  {
+                        required: true,
+                  },
+                  combo_location:
+                  {
+                        required: true
+                  },
+                  price:
+                  {
+                        required: true,
+                        number:true
+                  },
+                  triple_sharing:
+                  {
+                        required: true,
+                        number:true
+                  },
+                  double_sharing:
+                  {
+                        required: true,
+                        number:true
+                  },
+                  'itinerary[]':
+                  {
+                        required: true,
+                  },
+                  days:
+                  {
+                        required: true,
+                  },
+                  night:
+                  {
+                        required: true,
+                  },
+                  camp_description:
                   {
                         required: true,
                   },
@@ -508,11 +582,29 @@ $(document).ready(function () {
             var service=$(this).attr("data-service");
             if($(this).is(":checked"))
             {
-                  $("."+service).find('input[type="text"],select').prop("disabled",false);
+                  $("."+service).find('input[type="text"],select,textarea').prop("disabled",false);
+                  $("#camItenary").show();
+                  $("#camItenary").find('textarea').prop("disabled",false);
+                  if(service=="camping")
+                  {
+                        $("#camping").show();
+                        $("#camping").find('input[type="text"]').prop("disabled",false);
+                        $("#combo").hide();
+                        $("#combo").find('input[type="text"]').prop("disabled",true);
+                  }
             }
             else
             {
-                  $("."+service).find('input[type="text"],select').prop("disabled",true);
+                  $("."+service).find('input[type="text"],select,textarea').prop("disabled",true);
+                  $("#camItenary").hide();
+                  $("#camItenary").find('textarea').prop("disabled",true);
+                  if(service=="camping")
+                  {
+                        $("#camping").hide();
+                        $("#camping").find('input[type="text"]').prop("disabled",true);
+                        $("#combo").show();
+                        $("#combo").find('input[type="text"]').prop("disabled",false);
+                  }
             }
       });
 

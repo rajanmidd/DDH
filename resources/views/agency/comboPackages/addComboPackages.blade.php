@@ -1,6 +1,6 @@
 @extends('agency.mainLayout.template')
   @section('title')
-    Add Camping Packages
+    Add Combo Packages
   @endsection
 @section('content')
 <?php 
@@ -18,12 +18,12 @@ use App\Helpers\CustomHelper;
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">Add Camping Packages</a>
+                    <a href="javascript:void(0);">Add Combo Packages</a>
                 </li>
             </ul>
          </div>
         <h3 class="page-title">
-            Add Camping Packages
+            Add Combo Packages
         </h3>
         <!-- END PAGE HEADER-->
         <!-- BEGIN DASHBOARD STATS -->
@@ -32,11 +32,11 @@ use App\Helpers\CustomHelper;
                 <div class="tabbable-line boxless tabbable-reversed">
                     <div class="row">
                         <div class="col-md-12">
-                        {!! Form::open(array('route' => 'agency.save-camping-package', 'class' => 'form','id'=>'camping-form','enctype'=>'multipart/form-data')) !!}
+                        {!! Form::open(array('route' => 'agency.save-combo-package', 'class' => 'form','id'=>'combo-form','enctype'=>'multipart/form-data')) !!}
                             <div class="portlet box yellow">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-gift"></i> Add Camping Packages
+                                        <i class="fa fa-gift"></i> Add Combo Packages
                                     </div>
                                 </div>
                                 <div class="portlet-body form">
@@ -44,49 +44,84 @@ use App\Helpers\CustomHelper;
                                         <div class="form-group">
                                             <label class="control-label">Package Name</label>
                                             <div class="form-group">
-                                                {{ Form::text('camping_name', null, ['id' => 'camping_name','class' => 'form-control','placeholder'=>'Enter Camping Name']) }}
+                                                {{ Form::text('combo_name', null, ['id' => 'combo_name','class' => 'form-control','placeholder'=>'Enter Package Name']) }}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Package Title</label>
                                             <div class="form-group">
-                                                {{ Form::text('camping_title', null, ['id' => 'camping_title','class' => 'form-control','placeholder'=>'Enter Camping Title']) }}
+                                                {{ Form::text('combo_title', null, ['id' => 'combo_title','class' => 'form-control','placeholder'=>'Enter Package Title']) }}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Package Description</label>
                                             <div class="form-group">
-                                                {{ Form::textarea('camping_description', null, ['id' => 'camping_description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
+                                                {{ Form::textarea('combo_description', null, ['id' => 'combo_description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Package Description</label>
+                                            <label class="control-label">Location</label>
                                             <div class="form-group">
-                                                {{ Form::text('camping_location', null, ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Description']) }}
+                                                {{ Form::text('combo_location', null, ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Location']) }}
                                                 <input type="hidden" name="latitude" id="latitude" value="" />
                                                 <input type="hidden" name="longitude" id="longitude" value="" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Days</label>
-                                            <div class="form-group">
-                                                {{ Form::selectRange('days', 1, 15,null,['id' => 'days','class' => 'form-control']) }}
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label class="control-label">Night</label>
-                                            <div class="form-group">
-                                                {{ Form::selectRange('night', 0, 14,null,['id' => 'night','class' => 'form-control']) }}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="portlet box blue">
+
+                            <div class="portlet box green">
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="fa fa-gift"></i>
-                                        Camp Itinerary
+                                        Camping
+                                    </div>
+                                </div>
+                                <div class="portlet-body form">
+                                    <div class="form-body"> 
+                                        <div class="row">
+                                            <div class="col-md-12 camping">
+                                                <div class="form-group">
+                                                    <div class="checkbox-list row">
+                                                        <label class="checkbox-inline col-md-3">
+                                                            <h3>
+                                                                Camping
+                                                                <input type="checkbox" name="camping" id="inlineCheckbox21" class="services" data-service="camping">                                                            
+                                                            </h3>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Camp Description</label>
+                                                    <div class="form-group">
+                                                        {{ Form::textarea('camp_description', null, ['id' => 'camp_description','class' => 'form-control','placeholder'=>'Enter Description','disabled'=>'disabled','rows'=>5]) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Days</label>
+                                                    <div class="form-group">
+                                                        {{ Form::selectRange('days', 1, 15,null,['id' => 'days','class' => 'form-control','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>    
+                                                <div class="form-group">
+                                                    <label class="control-label">Night</label>
+                                                    <div class="form-group">
+                                                        {{ Form::selectRange('night', 0, 14,null,['id' => 'night','class' => 'form-control','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="camItenary" class="portlet box blue" style="display:none;">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-gift"></i>
+                                        Combo Package Itinerary
                                     </div>
                                 </div>
                                 <div class="portlet-body form">
@@ -97,7 +132,7 @@ use App\Helpers\CustomHelper;
                                                     <div class="form-group">
                                                         <label class="control-label">Day 1</label>
                                                         <div class="form-group">
-                                                            <textarea class="form-control" id="itinerary-1" name="itinerary[]" placeholder="itinerary" rows="3"></textarea>
+                                                            <textarea class="form-control" id="itinerary-1" name="itinerary[]" placeholder="itinerary" rows="3" disabled="disabled"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -589,7 +624,7 @@ use App\Helpers\CustomHelper;
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="fa fa-gift"></i>
-                                        Camping Images
+                                        Combo Package Images
                                     </div>
                                     <div class="caption pull-right">
                                         <button type="button" title="Add Images" class="btn btn-success btn-add pull-right add_field_button" >
@@ -607,7 +642,7 @@ use App\Helpers\CustomHelper;
                             <div class="portlet box green">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-gift"></i>Camping Videos
+                                        <i class="fa fa-gift"></i>Combo Package Videos
                                     </div>
                                     <div class="caption pull-right">
                                         <button type="button" title="Add Videos" class="btn btn-success btn-add pull-right add_video_button" >
@@ -629,20 +664,32 @@ use App\Helpers\CustomHelper;
                                     </div>
                                 </div>
                                 <div class="portlet-body form">
-                                    <div class="form-body">                                        
-                                        <div class="form-group">
-                                            <label class="control-label">Triple/Quarter Sharing Price</label>
+                                    <div id="camping" style="display:none">
+                                        <div class="form-body">                                        
                                             <div class="form-group">
-                                                {{ Form::text('triple_sharing', null, ['id' => 'triple_sharing','class' => 'form-control','placeholder'=>'Triple/Quarter Sharing Price']) }}
+                                                <label class="control-label">Triple/Quarter Sharing Price</label>
+                                                <div class="form-group">
+                                                    {{ Form::text('triple_sharing', null, ['id' => 'triple_sharing','class' => 'form-control','placeholder'=>'Triple/Quarter Sharing Price','disabled'=>'disabled']) }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-body">                                        
+                                            <div class="form-group">
+                                                <label class="control-label">Double Sharing Price</label>
+                                                <div class="form-group">
+                                                    {{ Form::text('double_sharing', null, ['id' => 'double_sharing','class' => 'form-control','placeholder'=>'Double Sharing Price','disabled'=>'disabled']) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-body">                                        
-                                        <div class="form-group">
-                                            <label class="control-label">Double Sharing Price</label>
+                                    <div id="combo">
+                                        <div class="form-body">                                        
                                             <div class="form-group">
-                                                {{ Form::text('double_sharing', null, ['id' => 'double_sharing','class' => 'form-control','placeholder'=>'Double Sharing Price']) }}
+                                                <label class="control-label">Package Price</label>
+                                                <div class="form-group">
+                                                    {{ Form::text('price', null, ['id' => 'price','class' => 'form-control','placeholder'=>'Double Sharing Price']) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

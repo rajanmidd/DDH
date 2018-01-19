@@ -54,11 +54,11 @@ class CampingPackages extends Model
 
   public function campItinerary()
   {
-    return $this->hasMany('App\models\Itinerary', 'camping_id', 'id')->orderBy('id','asc');
+    return $this->hasMany('App\models\Itinerary', 'camping_id', 'id')->where('type','1')->orderBy('id','asc');
   }
 
   public function campService()
   {
-    return $this->hasMany('App\models\CampingService', 'camping_id', 'id')->orderBy('id','asc');
+    return $this->hasMany('App\models\CampingService', 'camping_id', 'id')->where('type','1')->orderBy('id','asc');
   }
 }

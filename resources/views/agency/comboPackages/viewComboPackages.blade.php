@@ -1,6 +1,6 @@
 @extends('agency.mainLayout.template')
   @section('title')
-    View Camping Package :: {{ucfirst($campingDetail['camping_name'])}}
+    View Package :: {{ucfirst($comboDetail['combo_name'])}}
   @endsection
 @section('content')
 <?php 
@@ -18,12 +18,12 @@ use App\Helpers\CustomHelper;
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">View Camping Package</a>
+                    <a href="javascript:void(0);">View Combo Package</a>
                 </li>
             </ul>
          </div>
         <h3 class="page-title">
-            View Camping Package : {{ucfirst($campingDetail['camping_name'])}}
+            View Combo Package : {{ucfirst($comboDetail['combo_name'])}}
         </h3>
         <!-- END PAGE HEADER-->
         <!-- BEGIN DASHBOARD STATS -->
@@ -36,7 +36,7 @@ use App\Helpers\CustomHelper;
                                 <div class="portlet box yellow">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-gift"></i> Camping Package Information 
+                                            <i class="fa fa-gift"></i> Combo Package Information 
                                         </div>
                                     </div>
                                     <div class="portlet-body form">
@@ -45,46 +45,51 @@ use App\Helpers\CustomHelper;
                                                 <div class="col-md-6">
                                                     <dl class="dl-horizontal">
                                                         <dt>Package Name : </dt>
-                                                        <dd>{{ucfirst($campingDetail['camping_name'])}}</dd>
+                                                        <dd>{{ucfirst($comboDetail['combo_name'])}}</dd>
                                                         <dt>Package Title :</dt>
-                                                        <dd>{{ucfirst($campingDetail['camping_title'])}}</dd>
-                                                        <dt>Days :</dt>
-                                                        <dd>{{$campingDetail['days']}}</dd>
+                                                        <dd>{{ucfirst($comboDetail['combo_title'])}}</dd>
+                                                        @if($comboDetail['camping'] ==1)
+                                                            <dt>Days :</dt>
+                                                            <dd>{{$comboDetail['days']}}</dd>
+                                                        @endif
                                                     </dl>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <dl class="dl-horizontal">
-                                                        <dt>Double Sharing Price :</dt>
-                                                        <dd>{{$campingDetail['double_sharing']}}</dd>
-                                                        <dt>Tripe/Quarter Sharing</dt>
-                                                        <dd>{{$campingDetail['triple_sharing']}}</dd>
-                                                        
-                                                        <dt>Night :</dt>
-                                                        <dd>{{$campingDetail['night']}}</dd>
+                                                        <dt>Location :</dt>
+                                                        <dd>{{$comboDetail['combo_location']}}</dd>
+                                                        @if($comboDetail['camping'] ==1)
+                                                            <dt>Double Sharing Price :</dt>
+                                                            <dd>{{$comboDetail['double_sharing']}}</dd>
+                                                            <dt>Tripe/Quarter Sharing</dt>
+                                                            <dd>{{$comboDetail['triple_sharing']}}</dd>                                                        
+                                                            <dt>Night :</dt>
+                                                            <dd>{{$comboDetail['night']}}</dd>
+                                                        @endif
                                                     </dl>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <dt>Package Description</dt>
-                                                    <dd>{{$campingDetail['camping_description']}}</dd>
+                                                    <dd>{{$comboDetail['combo_description']}}</dd>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                @if($comboDetail['camping'] ==1)
                                 <div class="portlet box blue">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-gift"></i> Camp Itinerary
+                                            <i class="fa fa-gift"></i> Combo Package Itinerary
                                         </div>
                                     </div>
                                     <div class="portlet-body form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
-                                                @if(count($campingDetail->campItinerary)>0 )
-                                                    @foreach($campingDetail->campItinerary as $key=>$value)
+                                                @if(count($comboDetail->comboItinerary)>0 )
+                                                    @foreach($comboDetail->comboItinerary as $key=>$value)
                                                         <li class="list-group-item">  
                                                             <h4>Day {{$key+1}}</h4>                                                 
                                                             {{$value['day_text']}}
@@ -101,18 +106,18 @@ use App\Helpers\CustomHelper;
                                         </div>                                        
                                     </div>
                                 </div>
-
+                                @endif
                                 <div class="portlet box blue">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-gift"></i> Camp Services
+                                            <i class="fa fa-gift"></i> Combo Package Services
                                         </div>
                                     </div>
                                     <div class="portlet-body form">
                                         <div class="form-body">
                                             <ul class="list-group">                                      
-                                                @if(count($campingDetail->campService)>0 )
-                                                    @foreach($campingDetail->campService as $key=>$value)                                                        
+                                                @if(count($comboDetail->comboService)>0 )
+                                                    @foreach($comboDetail->comboService as $key=>$value)                                                        
                                                         <li class="list-group-item">  
                                                             <h4>{{ucfirst(str_replace('_',' ',$value['service_name']))}}</h4>
                                                             @if($value['service_value'] != null || $value['service_value']!="" )
@@ -146,8 +151,8 @@ use App\Helpers\CustomHelper;
                                     <div class="portlet-body form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
-                                                @if(count($campingDetail->campingMeal)>0 )
-                                                    @foreach($campingDetail->campingMeal as $key=>$value)
+                                                @if(count($comboDetail->comboMeal)>0 )
+                                                    @foreach($comboDetail->comboMeal as $key=>$value)
                                                         <li class="list-group-item">                                                   
                                                             {{$value['file_url']}}
                                                         </li>
@@ -173,8 +178,8 @@ use App\Helpers\CustomHelper;
                                     <div class="portlet-body form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
-                                                @if(count($campingDetail->campingInclusion)>0 )
-                                                    @foreach($campingDetail->campingInclusion as $key=>$value)
+                                                @if(count($comboDetail->comboInclusion)>0 )
+                                                    @foreach($comboDetail->comboInclusion as $key=>$value)
                                                         <li class="list-group-item">                                                   
                                                             {{$value['file_url']}}
                                                         </li>
@@ -200,8 +205,8 @@ use App\Helpers\CustomHelper;
                                     <div class="portlet-body form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
-                                                @if(count($campingDetail->campingExclusion)>0 )
-                                                    @foreach($campingDetail->campingExclusion as $key=>$value)
+                                                @if(count($comboDetail->comboExclusion)>0 )
+                                                    @foreach($comboDetail->comboExclusion as $key=>$value)
                                                         <li class="list-group-item">                                                   
                                                             {{$value['file_url']}}
                                                         </li>
@@ -228,8 +233,8 @@ use App\Helpers\CustomHelper;
                                     <div class="portlet-body form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
-                                                @if(count($campingDetail->campingTerms)>0 )
-                                                    @foreach($campingDetail->campingTerms as $key=>$value)
+                                                @if(count($comboDetail->comboTerms)>0 )
+                                                    @foreach($comboDetail->comboTerms as $key=>$value)
                                                         <li class="list-group-item">                                                   
                                                             {{$value['file_url']}}
                                                         </li>
@@ -257,8 +262,8 @@ use App\Helpers\CustomHelper;
                                     <div class="portlet-body form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
-                                                @if(count($campingDetail->campingNotes)>0 )
-                                                    @foreach($campingDetail->campingNotes as $key=>$value)
+                                                @if(count($comboDetail->comboNotes)>0 )
+                                                    @foreach($comboDetail->comboNotes as $key=>$value)
                                                         <li class="list-group-item">                                                   
                                                             {{$value['file_url']}}
                                                         </li>
@@ -279,14 +284,14 @@ use App\Helpers\CustomHelper;
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="fa fa-gift"></i>
-                                            Camping Images
+                                            Combo package Images
                                         </div>
                                     </div>
                                     <div class="portlet-body form">                                    
                                         <div class="form-body actimages">
                                             <div class="row">
-                                                @if(count($campingDetail->campingImages)>0 )
-                                                    @foreach($campingDetail->campingImages as $key=>$value)
+                                                @if(count($comboDetail->comboImages)>0 )
+                                                    @foreach($comboDetail->comboImages as $key=>$value)
                                                         <div class="col-md-3 col-sm-3">
                                                             <img class="img-responsive" src="{{$value['file_url']}}" />
                                                         </div>
@@ -305,14 +310,14 @@ use App\Helpers\CustomHelper;
                                 <div class="portlet box green">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-gift"></i>Camping Videos
+                                            <i class="fa fa-gift"></i>Combo package Images
                                         </div>
                                     </div>
                                     <div class="portlet-body form">
                                         <div class="form-body actimages">
                                             <div class="row">
-                                                @if(count($campingDetail->campingVideos)>0 )
-                                                    @foreach($campingDetail->campingVideos as $key=>$value)
+                                                @if(count($comboDetail->comboVideos)>0 )
+                                                    @foreach($comboDetail->comboVideos as $key=>$value)
                                                         <div class="col-md-3 col-sm-3">                                                        
                                                             <video width="100%" controls>
                                                                 <source src="{{$value['file_url']}}" type="video/mp4">

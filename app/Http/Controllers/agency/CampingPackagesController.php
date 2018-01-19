@@ -57,6 +57,7 @@ class CampingPackagesController extends Controller
                     $itinerary=new Itinerary();
                     $itinerary->camping_id=$id;
                     $itinerary->day_text=$value;
+                    $itinerary->type='1';
                     $itinerary->save();
                 }
             }
@@ -68,6 +69,7 @@ class CampingPackagesController extends Controller
                     $campingService->camping_id=$id;
                     $campingService->service_name=$key;
                     $campingService->service_value=json_encode($value);
+                    $campingService->type='1';
                     $campingService->save();
                 }
             }
@@ -214,24 +216,26 @@ class CampingPackagesController extends Controller
         {
             if(isset($data['itinerary']) && count($data['itinerary']) >0 && $data['itinerary'][0] !="")
             {
-                Itinerary::where('camping_id',$id)->delete();
+                Itinerary::where('camping_id',$id)->where('type','1')->delete();
                 foreach($data['itinerary'] as $key=>$value)
                 {
                     $itinerary=new Itinerary();
                     $itinerary->camping_id=$id;
                     $itinerary->day_text=$value;
+                    $itinerary->type='1';
                     $itinerary->save();
                 }
             }
             if(isset($data['service']) && count($data['service']) >0)
             {
-                CampingService::where('camping_id',$id)->delete();
+                CampingService::where('camping_id',$id)->where('type','1')->delete();
                 foreach($data['service'] as $key=>$value)
                 {
                     $campingService=new CampingService();
                     $campingService->camping_id=$id;
                     $campingService->service_name=$key;
                     $campingService->service_value=json_encode($value);
+                    $campingService->type='1';
                     $campingService->save();
                 }
             }
