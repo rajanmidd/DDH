@@ -338,7 +338,9 @@ $(document).ready(function () {
             if(x <= max_fields)
             {
                   
-                  var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" data-number="'+x+'" id="file-upload-'+x+'" name="activityImages[]" class="abc"><img src="http://placehold.it/50x50" id="blah'+x+'" alt="your image" width="50" height="50" /><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div>';
+               
+                     var html='<label class="upload_img"><input type="file" data-number="'+x+'" id="file-upload-'+x+'" name="activityImages[]" class="abc"><img src="http://placehold.it/50x50" id="blah'+x+'" alt="your image" width="50" height="50" /> <button type="button" class="remove_img btn-remove remove_field"> x </button></label>';
+                
                   $(wrapper).append(html); //add input box
                   x++;
             }
@@ -364,7 +366,7 @@ $(document).ready(function () {
             e.preventDefault();
             if(y <= max_fields)
             {                  
-                  var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">File input</label><div class="form-group"><input type="file" id="file-upload-'+y+'" name="activityVideos[]"></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_video_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+                   var html='<label class="upload_img"><input type="file" id="file-upload-'+y+'" name="activityVideos[]"><button type="button" class="remove_img btn-remove remove_video_field">x</button></label>';
                   $(video_wrapper).append(html); //add input box
                   y++;
             }
@@ -389,7 +391,7 @@ $(document).ready(function () {
             if(z < max_fields)
             {
                   z++;
-                  var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">Terms & Conditions</label><div class="form-group"><textarea class="form-control" id="terms-'+z+'" name="terms[]" value="" placeholder="Terms & Condition" rows="3"></textarea></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_terms_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+                  var html='<div class=""><div class="form-group"><div class="col-md-10"><textarea class="form-control" id="terms-'+z+'" name="terms[]" value="" placeholder="Terms & Condition" ></textarea></div><div class="col-md-2"><button type="button" class="btn pull-right btn-danger btn-remove remove_terms_field">Remove</button> </div> </div></div>';
                   $(terms_wrapper).append(html); //add input box
             }
       });
@@ -410,7 +412,7 @@ $(document).ready(function () {
             if(h < max_fields)
             {
                   h++;
-                  var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">Special Notes</label><div class="form-group"><textarea class="form-control" id="notes-'+h+'" name="notes[]" value="" placeholder="Special Notes" rows="3"></textarea></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_notes_field"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+                  var html='<div class=""><div class="form-group"><div class="col-md-10"><textarea class="form-control" id="notes-'+h+'" name="notes[]" value="" placeholder="Special Notes" ></textarea></div><div class="col-md-2"><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_notes_field">Remove </button></div></div>';
                   $(notes_wrapper).append(html); //add input box
             }
       });
