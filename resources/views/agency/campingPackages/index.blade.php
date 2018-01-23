@@ -86,7 +86,7 @@
                         <td>{{$i}}</td>
                         <td>{{ucfirst($value['camping_name'])}}</td>
                         <td> {{ucfirst($value['camping_title'])}}</td>
-                        <td width="50%"> {{$value['camping_description']}}</td>
+                        <td width="40%"> {{$value['camping_description']}}</td>
                         <td> {{$value['days']}}</td>
                         <td> {{$value['night']}}</td>
                         <td>
@@ -107,6 +107,15 @@
                             <a title="Delete" href="javascript:void(0);" class="btn btn-icon-only confirm_button" data-href="{{URL::to('/agency/delete-camping-package')}}?id={{$value['id']}}">
                               <i class="fa fa-trash"></i>
                             </a>
+                            <?php if ($value['is_blocked'] == 1) { ?>
+                              <a title="Block" class="btn btn-icon-only" style="color:green;" onclick="return confirm('Are you sure want to block this package?');" href="{{URL::to('/agency/update-camping-block')}}/2/{{$value['id']}}">
+                                <i class="fa icon-ban"></i>
+                              </a>
+                            <?php } else { ?>
+                              <a title="Unblock" class="btn btn-icon-only" style="color:red;" onclick="return confirm('Are you sure want to unblock this package?');" href="{{URL::to('/agency/update-camping-block')}}/1/{{$value['id']}}">
+                                <i class="fa icon-ban"></i>
+                              </a>
+                            <?php } ?>
                           </div>
                         </td>
                       </tr>

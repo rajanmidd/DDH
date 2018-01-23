@@ -43,6 +43,9 @@ class CampingPackagesController extends Controller
         $campingData['camping_name']=$data['camping_name'];
         $campingData['camping_title']=$data['camping_title'];
         $campingData['camping_description']=$data['camping_description'];
+        $campingData['camping_location']=$data['camping_location'];
+        $campingData['latitude']=$data['latitude'];
+        $campingData['longitude']=$data['longitude'];
         $campingData['days']=$data['days'];
         $campingData['night']=$data['night'];
         $campingData['triple_sharing']=$data['triple_sharing'];
@@ -340,6 +343,21 @@ class CampingPackagesController extends Controller
             \Session::flash('Error',"Sorry, error occurred. Please try again");
             return redirect('agency/list-camping-packages');
         }
+    }
+
+    public function updateCampingBlockStatus($status,$packageId)
+    {
+        $campingDetail=CampingPackages::where("id",$packageId)->first();
+        $campingDetail->is_blocked=$status;
+        if($campingDetail->save())
+        {
+            \Session::flash('success',"Camping Package has been updated successfully");
+        }
+        else
+        {
+            \Session::flash('error',"Error Occurred. Please try again.");
+        }
+        return redirect('agency/list-camping-packages');
     }
 
     

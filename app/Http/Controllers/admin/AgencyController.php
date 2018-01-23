@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\models\Agency;
 use App\models\AgencyDocuments;
 use App\models\AgencyActivities;
+use App\models\CampingPackages;
+use App\models\ComboPackages;
 
 class AgencyController extends Controller
 {
@@ -204,6 +206,105 @@ class AgencyController extends Controller
   {
     $activityDetail=AgencyActivities::where("id",$id)->first();
     return view('admin.agency.viewActivity',['activityDetail'=>$activityDetail]);
+  }
+
+  public function listCampingPackages(Request $request)
+  {
+    $data=$request->all();
+    $agency_id=\Request::segment(3);
+    $camping_packages = CampingPackages::where("is_deleted",'1')->where('agency_id',$agency_id);
+    if ($request->search_text <> '')
+    {
+      $camping_packages->WhereRaw('(name LIKE "%' . $request->search_text. '%")');
+    }
+    $camping_packages = $camping_packages->orderBy('id', 'desc')->paginate(10);
+    return view('admin.agency.agencyCampingPackages', ['camping_packages' => $camping_packages]);
+  }
+  
+  public function viewCampingPackage($agencyId,$packageId)
+  {
+    $campingDetail=CampingPackages::where("id",$packageId)->first();
+    return view('admin.agency.viewCampingPackages',['campingDetail'=>$campingDetail]);
+  }
+
+  public function deleteCampingPackage($agencyId,$packageId)
+  {
+    $campingDetail=CampingPackages::where("id",$packageId)->first();
+    $campingDetail->is_deleted='2';
+    if($campingDetail->save())
+    {
+        \Session::flash('success',"Camping Package has been deleted successfully");
+    }
+    else
+    {
+        \Session::flash('error',"Error Occurred. Please try again.");
+    }
+    return redirect('admin/list-camping-packages/'.$agencyId);
+  }
+
+
+  public function updateCampingPackageStatus($status,$agencyId,$packageId)
+  {
+    $campingDetail=CampingPackages::where("id",$packageId)->first();
+    $campingDetail->status=$status;
+    if($campingDetail->save())
+    {
+        \Session::flash('success',"Package status has been updated successfully");
+    }
+    else
+    {
+        \Session::flash('error',"Error Occurred. Please try again.");
+    }
+    return redirect('admin/list-camping-packages/'.$agencyId);
+  }
+
+  public function listComboPackages(Request $request)
+  {
+    $data=$request->all();
+    $agency_id=\Request::segment(3);
+    $combo_packages = ComboPackages::where("is_deleted",'1')->where('agency_id',$agency_id);
+    if ($request->search_text <> '')
+    {
+      $combo_packages->WhereRaw('(name LIKE "%' . $request->search_text. '%")');
+    }
+    $combo_packages = $combo_packages->orderBy('id', 'desc')->paginate(10);
+    return view('admin.agency.agencyComboPackages', ['combo_packages' => $combo_packages]);
+  }
+
+  public function viewComboPackage($agencyId,$packageId)
+  {
+    $comboDetail=ComboPackages::where("id",$packageId)->first();
+    return view('admin.agency.viewComboPackages',['comboDetail'=>$comboDetail]);
+  }
+
+  public function deleteComboPackage($agencyId,$packageId)
+  {
+    $comboDetail=ComboPackages::where("id",$packageId)->first();
+    $comboDetail->is_deleted='2';
+    if($comboDetail->save())
+    {
+        \Session::flash('success',"Combo Package has been deleted successfully");
+    }
+    else
+    {
+        \Session::flash('error',"Error Occurred. Please try again.");
+    }
+    return redirect('admin/list-combo-packages/'.$agencyId);
+  }
+
+  public function updateComboPackageStatus($status,$agencyId,$packageId)
+  {
+    $comboDetail=ComboPackages::where("id",$packageId)->first();
+    $comboDetail->status=$status;
+    if($comboDetail->save())
+    {
+      \Session::flash('success',"Package status has been updated successfully");
+    }
+    else
+    {
+      \Session::flash('error',"Error Occurred. Please try again.");
+    }
+    return redirect('admin/list-combo-packages/'.$agencyId);
   }
 
 }

@@ -10,7 +10,7 @@ class AgencyActivities extends Model
     
     protected $fillable = ['agency_id','activity_id','title','location','unit_type','unit_type_value','total_cost_after_discount','capacity','difficult_level',
     'minimum_amount_percent','price_per_person','season','days','open_time','close_time','description','status',
-    'is_deleted','is_block','latitude','longitude','created_at','update_at'];
+    'is_deleted','is_blocked','latitude','longitude','created_at','update_at'];
 
 
     public function activityName()

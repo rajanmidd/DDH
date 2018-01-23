@@ -13,7 +13,7 @@ class CampingPackages extends Model
    *
    * @var array
    */
-  protected $fillable = [ 'agency_id', 'camping_name', 'camping_title', 'camping_description', 'days', 'night', 'triple_sharing','double_sharing','status','is_deleted','is_blocked','created_at','updated_at'];
+  protected $fillable = [ 'agency_id', 'camping_name', 'camping_title', 'camping_description', 'camping_location', 'latitude','longitude','days', 'night', 'triple_sharing','double_sharing','status','is_deleted','is_blocked','created_at','updated_at'];
 
 
   public function campingMeal()

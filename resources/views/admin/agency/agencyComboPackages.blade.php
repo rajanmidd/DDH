@@ -1,6 +1,6 @@
 @extends('admin.mainLayout.template')
   @section('title')
-    Manage Activity
+    Manage Combo Packages
   @endsection
 @section('content')
 <!-- BEGIN CONTENT -->
@@ -15,28 +15,48 @@
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
-          <a href="javascript:void(0);">Manage Activity</a>
+          <a href="javascript:void(0);">Manage Combo Packages</a>
         </li>
       </ul>
     </div>
     <div class="page-title">
       <div class="title_left">
-        <h3>Manage Activity</h3>
+        <h3>Manage Combo Packages</h3>
       </div>
     </div>
+
+    @if (session()->has('success'))
+    <div class="row">
+      <div class="col-xs-12"> 
+        <div class="alert alert-success">      
+          <p>{!! session()->get('success') !!}</p>
+        </div>
+      </div>
+    </div>
+    @endif
+
+    @if (session()->has('error'))
+    <div class="row">
+      <div class="col-xs-12"> 
+        <div class="alert alert-error">      
+          <p>{!! session()->get('error') !!}</p>
+        </div>
+      </div>
+    </div>
+    @endif
     <!-- END PAGE HEADER-->
     <ul class="nav nav-tabs">
       <li class="">
         <a href="{{URL::to('/admin/agency-profile')}}?id={{Request::segment(3)}}">View Profile </a>
       </li>
-      <li class="active">
-        <a href="javascript:void(0);"> View Activities </a>
+      <li class="">
+        <a href="{{URL::to('/admin/list-agency-activity')}}/{{Request::segment(3)}}"> View Activities </a>
       </li>
       <li class="">
         <a href="{{URL::to('/admin/list-camping-packages')}}/{{Request::segment(3)}}"> View Camping Packages </a>
       </li>
-      <li class="">
-        <a href="{{URL::to('/admin/list-combo-packages')}}/{{Request::segment(3)}}"> View Combo Packages </a>
+      <li class="active">
+        <a href="javascript:void(0);"> View Combo Packages </a>
       </li>
     </ul>
     <div class="tab-content">
@@ -73,7 +93,7 @@
           <div class="portlet box green">
             <div class="portlet-title">
               <div class="caption">
-                <i class="fa fa-table"></i>Manage Activity
+                <i class="fa fa-table"></i>Manage Combo Packages
               </div>
             </div>
             <div class="portlet-body flip-scroll">
@@ -81,47 +101,50 @@
                 <thead class="flip-content">
                   <tr>
                     <th> Sr No. </th>
-                    <th> Activity Name </th>
+                    <th> Name </th>
                     <th>Title</th>
-                    <th>Location</th>
-                    <th>Capacity</th>
-                    <th>Price/Perosn</th>
+                    <th>Description</th>
                     <th> Status </th>
                     <th> Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @if(count($activity_list)>0)
-                    <?php $i = $activity_list->perPage() * ($activity_list->currentPage() - 1) + 1; ?>
-                      @foreach($activity_list as $key=>$value)
-                        <tr>
-                          <td> {{$i}}</td>
-                          <td> {{ucfirst($value->activityName['name'])}}</td>
-                          <td> {{ucfirst($value['title'])}}</td>
-                          <td> {{$value['location']}}</td>
-                          <td> {{$value['capacity']}}</td>
-                          <td> {{$value['price_per_person']}}</td>
-                          <td>
-                            @if($value['status']==0)
-                              Not Active
-                            @else
-                              Active
-                            @endif
-                          </td>
-                          <td class="numeric">
-                            <div class="actions">
-                              <a title="Edit" href="{{URL::to('/admin/view-activity')}}/{{$value['id']}}"  class="btn btn-circle">
-                                <i class="fa fa-eye"></i>
-                              </a>
-                              <a title="Delete" class="btn btn-icon-only confirm_button" href="{{URL::to('/admin/delete-activity')}}?id={{$value['id']}}">
-                                <i class="fa fa-trash"></i>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                      <?php $i++; ?>
-                      @endforeach
-                    @else
+                  @if(count($combo_packages)>0)
+                  <?php $i = $combo_packages->perPage() * ($combo_packages->currentPage() - 1) + 1; ?>
+                    @foreach($combo_packages as $key=>$value)
+                    <tr>
+                      <td>{{$i}}</td>
+                      <td>{{ucfirst($value['combo_name'])}}</td>
+                      <td> {{ucfirst($value['combo_title'])}}</td>
+                      <td width="30%"> {{$value['combo_description']}}</td>
+                      <td>
+                        @if($value['status']==0)
+                          <a href="{{URL::to('/admin/update-combo-package-status')}}/1/{{Request::segment(3)}}/{{$value['id']}}" class="btn btn-xs green">
+                            Activate
+                          </a>
+                        @else
+                            <a href="{{URL::to('/admin/update-combo-package-status')}}/0/{{Request::segment(3)}}/{{$value['id']}}" class="btn btn-xs red">
+                              De-activate
+                            </a>
+                        @endif
+                      </td>
+                      <td class="numeric">
+                        <div class="actions">
+                          <a title="Edit" href="{{URL::to('/admin/edit-combo-package')}}/{{$value['id']}}"  class="btn btn-circle">
+                            <i class="fa fa-pencil"></i>
+                          </a>
+                          <a title="View" href="{{URL::to('/admin/view-combo-package')}}/{{Request::segment(3)}}/{{$value['id']}}"  class="btn btn-circle">
+                            <i class="fa fa-eye"></i>
+                          </a>
+                          <a title="Delete" onclick="return confirm('Are you sure want to delete this package?');" class="btn btn-icon-only" href="{{URL::to('/admin/delete-combo-package')}}/{{Request::segment(3)}}/{{$value['id']}}">
+                            <i class="fa fa-trash"></i>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                    <?php $i++; ?>
+                    @endforeach
+                  @else
                     <tr>
                       <td colspan="8"><center>Sorry, No Result Found</center></td>
                     </tr>
@@ -131,7 +154,7 @@
               <div class="row">
                 <div class="col-md-12 col-sm-12">
                   <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_paginate">
-                    {{$activity_list->links() }}
+                    {{$combo_packages->links() }}
                   </div>
                 </div>
               </div>

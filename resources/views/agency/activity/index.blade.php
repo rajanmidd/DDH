@@ -72,7 +72,6 @@
                   <th> Activity Name </th>
                   <th>Title</th>
                   <th>Location</th>
-                  <th>Capacity</th>
                   <th>Price/Perosn</th>
                   <th> Status </th>
                   <th> Action</th>
@@ -87,7 +86,6 @@
                         <td>{{ucfirst($value->activityName['name'])}}</td>
                         <td> {{ucfirst($value['title'])}}</td>
                         <td> {{$value['location']}}</td>
-                        <td> {{$value['capacity']}}</td>
                         <td> {{$value['price_per_person']}}</td>
                         <td>
                           @if($value['status']==0)
@@ -107,6 +105,15 @@
                             <a title="Delete" href="javascript:void(0);" class="btn btn-icon-only confirm_button" data-href="{{URL::to('/agency/delete-activity')}}?id={{$value['id']}}">
                               <i class="fa fa-trash"></i>
                             </a>
+                            <?php if ($value['is_blocked'] == 1) { ?>
+                              <a title="Block" class="btn btn-icon-only" style="color:green;" onclick="return confirm('Are you sure want to block this activity?');" href="{{URL::to('/agency/update-activity-block')}}/2/{{$value['id']}}">
+                                <i class="fa icon-ban"></i>
+                              </a>
+                            <?php } else { ?>
+                              <a title="Unblock" class="btn btn-icon-only" style="color:red;" onclick="return confirm('Are you sure want to unblock this activity?');" href="{{URL::to('/agency/update-activity-block')}}/1/{{$value['id']}}">
+                                <i class="fa icon-ban"></i>
+                              </a>
+                            <?php } ?>
                           </div>
                         </td>
                       </tr>
