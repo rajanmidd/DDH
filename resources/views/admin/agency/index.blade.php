@@ -46,36 +46,32 @@
     @endif
     <!-- END PAGE HEADER-->
     <!-- BEGIN PAGE CONTENT-->
-    <div class="row">
-      <div class="col-md-12"></div>
-      <div class="clearfix"></div>
-      <div class="row">
-        <div class="col-xs-12 "> 
-          <form class="form-inline " id="search_frm" name="search_frm" method="get" action="">
-            <div class="pull-right">
-              <div class="form-group">              
-                <input value="<?php if (isset($_GET['search_text'])) { echo $_GET['search_text'];} ?>" type="text" name="search_text" class="form-control" placeholder="Search For..."> 
-              </div>
-              <div class=" form-group">
-                <select class="form-control" name="status">
-                  <option value="">Select Option</option>
-                  <option value="0" <?php if (isset($_GET['status']) && $_GET['status'] == '0') { echo 'selected';} ?>>Pending</option>
-                  <option value="1" <?php if (isset($_GET['status']) && $_GET['status'] == '1') { echo 'selected';} ?>>Verified</option>
-                  <option value="2" <?php if (isset($_GET['status']) && $_GET['status'] == '2') { echo 'selected';} ?>>Rejected</option>
-                </select> 
-              </div>
-              <div class=" form-group">
-                <button style=" margin-bottom: 0px;margin-right: 0px;" type="submit" class="btn btn-default">Go</button>
-              </div>
-              <div class=" form-group">
-                <a href="list-agency" style=" margin-bottom: 0px;margin-right: 0px;"  class="btn btn-default">Reset</a>
-              </div>
+    <div class="row form-group">
+      <div class="col-xs-12 "> 
+        <form class="form-inline " id="search_frm" name="search_frm" method="get" action="">
+          <div class="pull-right">
+            <div class="form-group">              
+              <input value="<?php if (isset($_GET['search_text'])) { echo $_GET['search_text'];} ?>" type="text" name="search_text" class="form-control" placeholder="Search For..."> 
             </div>
-          </form>
-        </div>
+            <div class=" form-group">
+              <select class="form-control" name="status">
+                <option value="">Select Option</option>
+                <option value="0" <?php if (isset($_GET['status']) && $_GET['status'] == '0') { echo 'selected';} ?>>Pending</option>
+                <option value="1" <?php if (isset($_GET['status']) && $_GET['status'] == '1') { echo 'selected';} ?>>Verified</option>
+                <option value="2" <?php if (isset($_GET['status']) && $_GET['status'] == '2') { echo 'selected';} ?>>Rejected</option>
+              </select> 
+            </div>
+            <div class=" form-group">
+              <button style=" margin-bottom: 0px;margin-right: 0px;" type="submit" class="btn btn-default">Go</button>
+            </div>
+            <div class=" form-group">
+              <a href="list-agency" style=" margin-bottom: 0px;margin-right: 0px;"  class="btn btn-default">Reset</a>
+            </div>
+          </div>
+        </form>
       </div>
-      <br/>
-      <div class="clearfix"></div>
+    </div>
+    <div class="row form-group">
       <!-- BEGIN SAMPLE TABLE PORTLET-->
       <div class="portlet box green">
         <div class="portlet-title">
@@ -166,9 +162,6 @@
                           <a title="View" href="{{URL::to('/admin/agency-profile')}}?id={{$value['id']}}"  class="btn btn-circle">
                             <i class="fa fa-eye"></i>
                           </a>
-                          <a title="View Agency Activities" href="{{URL::to('/admin/list-agency-activity')}}/{{$value['id']}}"  class="btn btn-circle">
-                            <i class="fa fa-eye"></i>
-                          </a>
                           <?php if ($value['is_block'] == 0) { ?>
                             <a title="Block" class="btn btn-icon-only" style="color:green;" onclick="return confirm('Are you sure want to block this agency?');" href="{{URL::to('/admin/block-agency')}}?id={{$value['id']}}">
                               <i class="fa icon-ban"></i>
@@ -199,6 +192,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
   <!-- END CONTENT -->

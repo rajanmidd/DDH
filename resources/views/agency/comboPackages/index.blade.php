@@ -107,6 +107,15 @@
                             <a title="Delete" href="javascript:void(0);" class="btn btn-icon-only confirm_button" data-href="{{URL::to('/agency/delete-combo-package')}}?id={{$value['id']}}">
                               <i class="fa fa-trash"></i>
                             </a>
+                            <?php if ($value['is_blocked'] == 1) { ?>
+                              <a title="Block" class="btn btn-icon-only" style="color:green;" onclick="return confirm('Are you sure want to block this package?');" href="{{URL::to('/agency/update-combo-block')}}/2/{{$value['id']}}">
+                                <i class="fa icon-ban"></i>
+                              </a>
+                            <?php } else { ?>
+                              <a title="Unblock" class="btn btn-icon-only" style="color:red;" onclick="return confirm('Are you sure want to unblock this package?');" href="{{URL::to('/agency/update-combo-block')}}/1/{{$value['id']}}">
+                                <i class="fa icon-ban"></i>
+                              </a>
+                            <?php } ?>
                           </div>
                         </td>
                       </tr>

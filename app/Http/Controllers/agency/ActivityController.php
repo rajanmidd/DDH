@@ -485,4 +485,19 @@ class ActivityController extends Controller
       return redirect('agency/add-activity');
     }    
   }
+
+  public function updateActivityBlockStatus($status,$activityId)
+  {
+    $activityDetail=AgencyActivities::where("id",$activityId)->first();
+    $activityDetail->is_blocked=$status;
+    if($activityDetail->save())
+    {
+      \Session::flash('success',"Activity staus has been updated successfully");
+    }
+    else
+    {
+      \Session::flash('error',"Error Occurred. Please try again.");
+    }
+    return redirect('agency/list-activity');
+  }
 }

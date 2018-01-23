@@ -65,6 +65,8 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       Route::post('update-activity-notes',['as'=>'agency.update-activity-notes','uses'=>'ActivityController@updateActivityNotes']);
       Route::get('delete-activity-image/{id}/{activityId}', ['as' => 'agency.delete-activity-image', 'uses' => 'ActivityController@deleteActivityImage']);
       Route::get('delete-activity-video/{id}/{activityId}', ['as' => 'agency.delete-activity-video', 'uses' => 'ActivityController@deleteActivityVideo']);
+      Route::get('update-activity-block/{status}/{activityId}', ['as' => 'agency.update-activity-block', 'uses' => 'ActivityController@updateActivityBlockStatus']);
+
 
       Route::get('add-combo-packages',['as'=>'agency.add-combo-packages','uses'=>'ComboPackagesController@addComboPackages']);
       Route::get('list-combo-packages',['as'=>'agency.list-combo-packages','uses'=>'ComboPackagesController@index']);
@@ -73,6 +75,8 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       Route::get('view-combo-package/{id}', ['as' => 'agency.view-combo-package', 'uses' => 'ComboPackagesController@viewComboPackage']);
       Route::get('edit-combo-package/{id}', ['as' => 'agency.edit-combo-package', 'uses' => 'ComboPackagesController@editComboPackage']);
       Route::post('update-combo-package', ['as' => 'agency.update-combo-package', 'uses' => 'ComboPackagesController@updateComboPackage']);
+      Route::get('update-combo-block/{status}/{packageId}', ['as' => 'agency.update-combo-block', 'uses' => 'ComboPackagesController@updateComboBlockStatus']);
+
       
       Route::get('add-camping-packages',['as'=>'agency.add-camping-packages','uses'=>'CampingPackagesController@addCampingPackages']);
       Route::get('list-camping-packages',['as'=>'agency.list-camping-packages','uses'=>'CampingPackagesController@index']);
@@ -80,7 +84,9 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       Route::get('delete-camping-package', ['as' => 'agency.delete-camping-package', 'uses' => 'CampingPackagesController@deleteCampingPackage']);
       Route::get('view-camping-package/{id}', ['as' => 'agency.view-camping-package', 'uses' => 'CampingPackagesController@viewCampingPackage']);
       Route::get('edit-camping-package/{id}', ['as' => 'agency.edit-camping-package', 'uses' => 'CampingPackagesController@editCampingPackage']);
-      Route::post('update-camping-package', ['as' => 'agency.update-camping-package', 'uses' => 'CampingPackagesController@updateCampingPackage']);
+      Route::post('update-camping-package', ['as' => 'agency.update-camping-package', 'uses' => 'CampingPackagesController@updateCampingPackage']);      
+      Route::get('update-camping-block/{status}/{packageId}', ['as' => 'agency.update-camping-block', 'uses' => 'CampingPackagesController@updateCampingBlockStatus']);
+
 
    });
    
@@ -117,9 +123,25 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::post('update-activity', ['as' => 'admin.update-activity', 'uses' => 'ActivityController@updateActivity']);
     Route::get('deactivate-activity', ['as' => 'admin.deactivate-activity', 'uses' => 'ActivityController@deactivateActivity']);
     Route::get('activate-activity', ['as' => 'admin.activate-activity', 'uses' => 'ActivityController@activateActivity']);
+
     Route::get('list-agency-activity/{id}', ['as' => 'admin.list-activity', 'uses' => 'AgencyController@listActivity']);
     Route::get('delete-activity', ['as' => 'admin.delete-activity', 'uses' => 'AgencyController@deleteActivity']);
     Route::get('view-activity/{id}', ['as' => 'admin.view-activity', 'uses' => 'AgencyController@viewActivity']);
+
+    Route::get('list-camping-packages/{id}', ['as' => 'admin.list-camping-packages', 'uses' => 'AgencyController@listCampingPackages']);
+    Route::get('delete-camping-package/{agencyId}/{packageId}', ['as' => 'admin.delete-camping-package', 'uses' => 'AgencyController@deleteCampingPackage']);
+    Route::get('view-camping-package/{agencyId}/{packageId}', ['as' => 'admin.view-camping-package', 'uses' => 'AgencyController@viewCampingPackage']);
+    Route::get('update-camping-package-status/{status}/{agencyId}/{packageId}', ['as' => 'admin.update-camping-package-status', 'uses' => 'AgencyController@updateCampingPackageStatus']);
+
+
+
+    Route::get('list-combo-packages/{id}', ['as' => 'admin.list-combo-packages', 'uses' => 'AgencyController@listComboPackages']);
+    Route::get('delete-combo-package/{agencyId}/{packageId}', ['as' => 'admin.delete-combo-package', 'uses' => 'AgencyController@deleteComboPackage']);
+    Route::get('view-combo-package/{agencyId}/{packageId}', ['as' => 'admin.view-combo-package', 'uses' => 'AgencyController@viewComboPackage']);
+    Route::get('update-combo-package-status/{status}/{agencyId}/{packageId}', ['as' => 'admin.update-combo-package-status', 'uses' => 'AgencyController@updateComboPackageStatus']);
+
+
+    
 
 
 

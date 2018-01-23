@@ -368,4 +368,19 @@ class ComboPackagesController extends Controller
             return redirect('agency/list-combo-packages');
         }
     }
+
+    public function updateComboBlockStatus($status,$packageId)
+    {
+        $comboDetail=ComboPackages::where("id",$packageId)->first();
+        $comboDetail->is_blocked=$status;
+        if($comboDetail->save())
+        {
+            \Session::flash('success',"Combo Package has been updated successfully");
+        }
+        else
+        {
+            \Session::flash('error',"Error Occurred. Please try again.");
+        }
+        return redirect('agency/list-combo-packages');
+    }
 }

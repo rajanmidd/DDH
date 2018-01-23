@@ -58,9 +58,9 @@ use App\Helpers\CustomHelper;
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">Package Description</label>
+                                            <label class="control-label col-md-3">Camping Location</label>
                                             <div class="col-md-9">
-                                                {{ Form::text('camping_location', null, ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Description']) }}
+                                                {{ Form::text('camping_location', null, ['id' => 'location','class' => 'form-control','placeholder'=>'Camping Location']) }}
                                                 <input type="hidden" name="latitude" id="latitude" value="" />
                                                 <input type="hidden" name="longitude" id="longitude" value="" />
                                             </div>
