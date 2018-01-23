@@ -433,7 +433,7 @@ $(document).ready(function () {
             if(k < max_fields)
             {
                   k++;
-                  var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">Add Meal</label><div class="form-group"><textarea class="form-control" id="meal-'+k+'" name="meal[]" value="" placeholder="Add Meal" rows="3"></textarea></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field_button_meal"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+                  var html='<div class="form-group"><div class="col-md-10"><textarea class="form-control" id="meal-'+k+'" name="meal[]" value="" placeholder="Add Meal" rows="3"></textarea></div> <div class="col-md-2"><button type="button" class="btn pull-right btn-danger btn-remove remove_field_button_meal">Remove </button></div> </div>';
                   $(meal_wrapper).append(html); //add input box
             }
       });
@@ -454,7 +454,7 @@ $(document).ready(function () {
             if(n < max_fields)
             {
                   n++;
-                  var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">Add Inclusion Detail</label><div class="form-group"><textarea class="form-control" id="inclusion-'+n+'" name="inclusion[]" value="" placeholder="Add Inclusion Detail" rows="3"></textarea></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field_button_inclusion"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+                  var html='<div class="form-group"><div class="col-md-10"><textarea class="form-control" id="inclusion-'+n+'" name="inclusion[]" value="" placeholder="Add Inclusion Detail" rows="3"></textarea></div><div class="col-md-2"><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field_button_inclusion">Remove</button></div></div>';
                   $(inclusion_wrapper).append(html); //add input box
             }
       });
@@ -476,7 +476,7 @@ $(document).ready(function () {
             if(m < max_fields)
             {
                   m++;
-                  var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">Add Exclusion Detail</label><div class="form-group"><textarea class="form-control" id="exclusion-'+m+'" name="exclusion[]" value="" placeholder="Add Exclusion Detail" rows="3"></textarea></div></div><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field_button_exclusion"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div>';
+                  var html='<div class="form-group"><div class="col-md-10"><textarea class="form-control" id="exclusion-'+m+'" name="exclusion[]" value="" placeholder="Add Exclusion Detail" rows="3"></textarea></div><div class="col-md-2"><button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field_button_exclusion">Remove</button></div> </div> ';
                   $(exclusion_wrapper).append(html); //add input box
             }
       });

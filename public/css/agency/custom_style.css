@@ -162,7 +162,7 @@ textarea{resize:none;}
 .form_btn{text-align: center;}
 .form_btn button{width: 120px; height: 40px; font-weight: bold;}
 
-
+.heading_form .checkbox-inline{padding-top: 0 !important;}
 /*18-01-2018*/
 
 
