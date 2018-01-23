@@ -235,14 +235,16 @@ use App\Helpers\CustomHelper;
                                             <div class="input_fields_wrap_terms">  
                                                 @if(count($activityDetail->activityTerms)>0 )
                                                     @foreach($activityDetail->activityTerms as $key=>$value)
-                                                                                                   
-                                                            <div class="col-md-12"> 
-                                                                <button type="button" class="btn pull-right btn-danger btn-remove remove_terms_field">
-                                                                    Remove
-                                                                </button>
+                                                         <div class="form-group">                                          
+                                                            <div class="col-md-10"> 
                                                                 <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Terms & Condition" rows="3">{{$value['file_url']}}</textarea>
                                                             </div>
-                                                        
+                                                            <div class="col-md-2">
+                                                                 <button type="button" class="btn pull-right btn-danger btn-remove remove_terms_field">
+                                                                    Remove
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     @endforeach
                                                 @endif
                                             </div>
@@ -265,19 +267,20 @@ use App\Helpers\CustomHelper;
                                             <div class="input_fields_wrap_notes row"> 
                                                 @if(count($activityDetail->activityNotes)>0 )
                                                     @foreach($activityDetail->activityNotes as $key=>$value) 
-                                                        <div>                                              
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-md-3">Special Notes</label>
-                                                                    <div class="col-md-9">
-                                                                        <textarea class="form-control" id="notes-{{$key+1}}" name="notes[]" placeholder="Special Notes" rows="3">{{$value['file_url']}}</textarea>
-                                                                    </div>
-                                                                </div>
+                                                                                                      
+                                                        <div class="form-group">
+                                                            <div class="col-md-10">
+                                                                <textarea class="form-control" id="notes-{{$key+1}}" name="notes[]" placeholder="Special Notes" rows="3">{{$value['file_url']}}</textarea>
+                                                            </div>
+                                                            <div class="col-md-2">
                                                                 <button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_notes_field">
-                                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
+                                                                    Remove
                                                                 </button>
                                                             </div>
                                                         </div>
+                                                        
+                                                            
+                                                        
                                                     @endforeach
                                                 @endif
                                             </div>
