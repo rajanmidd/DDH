@@ -208,6 +208,21 @@ class AgencyController extends Controller
     return view('admin.agency.viewActivity',['activityDetail'=>$activityDetail]);
   }
 
+  public function updateActivityStatus($status,$agencyId,$activityId)
+  {
+    $activityDetail=AgencyActivities::where("id",$activityId)->first();
+    $activityDetail->status=$status;
+    if($activityDetail->save())
+    {
+      \Session::flash('success',"Activity status has been updated successfully");
+    }
+    else
+    {
+      \Session::flash('error',"Error Occurred. Please try again.");
+    }
+    return redirect('admin/list-agency-activity/'.$agencyId);
+  }
+
   public function listCampingPackages(Request $request)
   {
     $data=$request->all();

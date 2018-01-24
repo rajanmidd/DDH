@@ -24,6 +24,27 @@
         <h3>Manage Activity</h3>
       </div>
     </div>
+
+    @if (session()->has('success'))
+    <div class="row">
+      <div class="col-xs-12"> 
+        <div class="alert alert-success">      
+          <p>{!! session()->get('success') !!}</p>
+        </div>
+      </div>
+    </div>
+    @endif
+
+    @if (session()->has('error'))
+    <div class="row">
+      <div class="col-xs-12"> 
+        <div class="alert alert-error">      
+          <p>{!! session()->get('error') !!}</p>
+        </div>
+      </div>
+    </div>
+    @endif
+    
     <!-- END PAGE HEADER-->
     <ul class="nav nav-tabs">
       <li class="">
@@ -84,7 +105,6 @@
                     <th> Activity Name </th>
                     <th>Title</th>
                     <th>Location</th>
-                    <th>Capacity</th>
                     <th>Price/Perosn</th>
                     <th> Status </th>
                     <th> Action</th>
@@ -99,14 +119,17 @@
                           <td> {{ucfirst($value->activityName['name'])}}</td>
                           <td> {{ucfirst($value['title'])}}</td>
                           <td> {{$value['location']}}</td>
-                          <td> {{$value['capacity']}}</td>
                           <td> {{$value['price_per_person']}}</td>
                           <td>
-                            @if($value['status']==0)
-                              Not Active
-                            @else
-                              Active
-                            @endif
+                          @if($value['status']==0)
+                            <a href="{{URL::to('/admin/update-activity-status')}}/1/{{Request::segment(3)}}/{{$value['id']}}" class="btn btn-xs green">
+                              Activate
+                            </a>
+                          @else
+                              <a href="{{URL::to('/admin/update-activity-status')}}/0/{{Request::segment(3)}}/{{$value['id']}}" class="btn btn-xs red">
+                                De-activate
+                              </a>
+                          @endif
                           </td>
                           <td class="numeric">
                             <div class="actions">

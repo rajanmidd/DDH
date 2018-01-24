@@ -127,6 +127,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('list-agency-activity/{id}', ['as' => 'admin.list-activity', 'uses' => 'AgencyController@listActivity']);
     Route::get('delete-activity', ['as' => 'admin.delete-activity', 'uses' => 'AgencyController@deleteActivity']);
     Route::get('view-activity/{id}', ['as' => 'admin.view-activity', 'uses' => 'AgencyController@viewActivity']);
+    Route::get('update-activity-status/{status}/{agencyId}/{activityId}', ['as' => 'admin.update-activity-status', 'uses' => 'AgencyController@updateActivityStatus']);
+
 
     Route::get('list-camping-packages/{id}', ['as' => 'admin.list-camping-packages', 'uses' => 'AgencyController@listCampingPackages']);
     Route::get('delete-camping-package/{agencyId}/{packageId}', ['as' => 'admin.delete-camping-package', 'uses' => 'AgencyController@deleteCampingPackage']);
