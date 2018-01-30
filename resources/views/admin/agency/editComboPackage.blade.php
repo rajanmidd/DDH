@@ -1,4 +1,4 @@
-@extends('agency.mainLayout.template')
+@extends('admin.mainLayout.template')
   @section('title')
     Edit Package
   @endsection
@@ -14,7 +14,7 @@ use App\Helpers\CustomHelper;
             <ul class="page-breadcrumb">
                 <li>
                     <i class="fa fa-home"></i>
-                    <a href="{{URL::to('/agency/agency-dashboard')}}">Home</a>
+                    <a href="{{URL::to('/admin/admin-dashboard')}}">Home</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
@@ -944,7 +944,7 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="combo" @if($comboDetail['camping'] == 1) style="display:none" @endif>
+                                            <div id="combo" @if($comboDetail['camping'] ==1) style="display:none" @endif>
                                                 <div class="form-body">                                        
                                                     <div class="form-group">
                                                         <label class="control-label">Package Price</label>

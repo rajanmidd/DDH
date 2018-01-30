@@ -136,25 +136,25 @@ use App\Helpers\CustomHelper;
                                                 <div class="form-group">
                                                     <label class="control-label">Length In KM</label>
                                                     <div class="form-group">
-                                                        {{ Form::selectRange('service[rafting][length]', 1, 15,null,['id' => 'rafting_length','class' => 'form-control','disabled'=>'disabled']) }}
+                                                        {{ Form::text('service[rafting][length]', null, ['id' => 'rafting_length','class' => 'form-control','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Duration In Min.</label>
                                                     <div class="form-group">
-                                                        {{ Form::selectRange('service[rafting][duration]', 1, 15,null,['id' => 'rafting_duration','class' => 'form-control','disabled'=>'disabled']) }}
+                                                        {{ Form::text('service[rafting][duration]', null, ['id' => 'rafting_duration','class' => 'form-control','placeholder'=>'Duration In Min.','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">From Location</label>
                                                     <div class="form-group">
-                                                        {{ Form::text('service[rafting][from_location]', null,['id' => 'from_location','class' => 'form-control','disabled'=>'disabled']) }}
+                                                        {{ Form::text('service[rafting][from_location]', null,['id' => 'from_location','class' => 'form-control','placeholder'=>'From Location','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">To Location</label>
                                                     <div class="form-group">
-                                                        {{ Form::text('service[rafting][to_location]',null,['id' => 'to_location','class' => 'form-control','disabled'=>'disabled']) }}
+                                                        {{ Form::text('service[rafting][to_location]',null,['id' => 'to_location','class' => 'form-control','placeholder'=>'To Location','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
                                             </div>

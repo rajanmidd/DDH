@@ -81,13 +81,11 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       Route::get('add-camping-packages',['as'=>'agency.add-camping-packages','uses'=>'CampingPackagesController@addCampingPackages']);
       Route::get('list-camping-packages',['as'=>'agency.list-camping-packages','uses'=>'CampingPackagesController@index']);
       Route::post('save-camping-package',['as'=>'agency.save-camping-package','uses'=>'CampingPackagesController@saveCampingPackage']);
-      Route::get('delete-camping-package', ['as' => 'agency.delete-camping-package', 'uses' => 'CampingPackagesController@deleteCampingPackage']);
+      Route::get('delete-x-package', ['as' => 'agency.delete-camping-package', 'uses' => 'CampingPackagesController@deleteCampingPackage']);
       Route::get('view-camping-package/{id}', ['as' => 'agency.view-camping-package', 'uses' => 'CampingPackagesController@viewCampingPackage']);
       Route::get('edit-camping-package/{id}', ['as' => 'agency.edit-camping-package', 'uses' => 'CampingPackagesController@editCampingPackage']);
       Route::post('update-camping-package', ['as' => 'agency.update-camping-package', 'uses' => 'CampingPackagesController@updateCampingPackage']);      
       Route::get('update-camping-block/{status}/{packageId}', ['as' => 'agency.update-camping-block', 'uses' => 'CampingPackagesController@updateCampingBlockStatus']);
-
-
    });
    
 });
@@ -134,6 +132,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('delete-camping-package/{agencyId}/{packageId}', ['as' => 'admin.delete-camping-package', 'uses' => 'AgencyController@deleteCampingPackage']);
     Route::get('view-camping-package/{agencyId}/{packageId}', ['as' => 'admin.view-camping-package', 'uses' => 'AgencyController@viewCampingPackage']);
     Route::get('update-camping-package-status/{status}/{agencyId}/{packageId}', ['as' => 'admin.update-camping-package-status', 'uses' => 'AgencyController@updateCampingPackageStatus']);
+    Route::get('edit-camping-package/{id}', ['as' => 'admin.edit-camping-package', 'uses' => 'AgencyController@editCampingPackage']);
+    Route::post('update-camping-package', ['as' => 'admin.update-camping-package', 'uses' => 'AgencyController@updateCampingPackage']);      
 
 
 
@@ -141,7 +141,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('delete-combo-package/{agencyId}/{packageId}', ['as' => 'admin.delete-combo-package', 'uses' => 'AgencyController@deleteComboPackage']);
     Route::get('view-combo-package/{agencyId}/{packageId}', ['as' => 'admin.view-combo-package', 'uses' => 'AgencyController@viewComboPackage']);
     Route::get('update-combo-package-status/{status}/{agencyId}/{packageId}', ['as' => 'admin.update-combo-package-status', 'uses' => 'AgencyController@updateComboPackageStatus']);
-
+    Route::get('edit-combo-package/{id}', ['as' => 'admin.edit-combo-package', 'uses' => 'AgencyController@editComboPackage']);
+    Route::post('update-combo-package', ['as' => 'admin.update-combo-package', 'uses' => 'AgencyController@updateComboPackage']);
 
     
 
