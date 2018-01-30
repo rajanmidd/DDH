@@ -14,7 +14,7 @@ use App\Helpers\CustomHelper;
             <ul class="page-breadcrumb">
                 <li>
                     <i class="fa fa-home"></i>
-                    <a href="{{URL::to('/agency/agency-dashboard')}}">Home</a>
+                    <a href="{{URL::to('/admin/admin-dashboard')}}">Home</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
