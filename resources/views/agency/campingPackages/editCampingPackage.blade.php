@@ -36,13 +36,11 @@ use App\Helpers\CustomHelper;
                 <div class="col-md-10">                                
                 <!-- BEGIN FORM-->
                 {!! Form::open(array('route' => 'agency.update-camping-package', 'class' => 'form','id'=>'activity-form','enctype'=>'multipart/form-data')) !!}
-                                    <div class="form-body">
-
-                                        <h3 class="heading_form">
-                                            Add Camping Packages
-                                        </h3>
-                                        
-                                        <div class="form">
+                                    
+                                    <div class="form">
+                                             <h3 class="heading_form">
+                                                Add Camping Packages
+                                            </h3>
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Camping Name</label>
@@ -58,7 +56,7 @@ use App\Helpers\CustomHelper;
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Description</label>
-                                                    <div class="form-group col-md-9">
+                                                    <div class="col-md-9">
                                                         {{ Form::textarea('camping_description', $campingDetail['camping_description'], ['id' => 'camping_description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
                                                     </div>
                                                 </div>
@@ -76,15 +74,14 @@ use App\Helpers\CustomHelper;
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
+                                
                                     <div class="form">
                                         <h3 class="heading_form">
                                             Camp Itinerary
                                         </h3>
                                         
                                         <div class="form-body">                                        
-                                            <div class="input_fields_wrap_itenory row">
+                                            <div class="input_fields_wrap_itenory">
                                                 @if(count($campingDetail->campItinerary)>0 )
                                                     @foreach($campingDetail->campItinerary as $key=>$value)
                                                         <div class="form-group">
@@ -99,10 +96,12 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>   
                     
-                    
-                                    <div class="portlet box green">
+                                    <div class="form">
                                         <h3 class="heading_form">
-                                            Services
+                                            Rafting
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="rafting" id="inlineCheckbox21" class="services" data-service="rafting">
+                                            </label>
                                         </h3>
                                         
                                         
@@ -117,54 +116,55 @@ use App\Helpers\CustomHelper;
                                             $rafting=json_decode($rafting_key,true);
                                         }
                                         ?>
-                                        <div class="form">
+                                        
                                             <div class="form-body"> 
                                                 <div class="row">
                                                     <div class="col-md-12 rafting">
                                                         <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Rafting
-                                                                        <input type="checkbox" name="rafting" id="inlineCheckbox21" class="services" data-service="rafting">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Title</label>
-                                                            <div class="col-md-9">
-                                                                {{ Form::text('service[rafting][title]', $rafting['title'], ['id' => 'rafting_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Length In KM</label>
-                                                            <div class="form-group col-md-9">
-                                                                {{ Form::selectRange('service[rafting][length]', 1, 15,$rafting['length'],['id' => 'rafting_length','class' => 'form-control','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Duration In Min.</label>
-                                                            <div class="col-md-9">
-                                                                {{ Form::selectRange('service[rafting][duration]', 1, 15,$rafting['duration'],['id' => 'rafting_duration','class' => 'form-control','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">From Location</label>
-                                                            <div class="form-group col-md-9">
-                                                                {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">To Location</label>
-                                                            <div class="col-md-9">
-                                                                {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','disabled'=>'disabled']) }}
-                                                            </div>
+                                                        <label class="control-label col-md-3">Title</label>
+                                                        <div class="col-md-9">
+                                                            {{ Form::text('service[rafting][title]', $rafting['title'], ['id' => 'rafting_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
                                                         </div>
                                                     </div>
+                                                        <div class="form-group">
+                                                        <label class="control-label col-md-3">Length In KM</label>
+                                                        <div class=" col-md-9">
+                                                            {{ Form::selectRange('service[rafting][length]', 1, 15,$rafting['length'],['id' => 'rafting_length','class' => 'form-control','disabled'=>'disabled']) }}
+                                                        </div>
+                                                    </div>
+                                                        <div class="form-group">
+                                                        <label class="control-label col-md-3">Duration In Min.</label>
+                                                        <div class="col-md-9">
+                                                            {{ Form::selectRange('service[rafting][duration]', 1, 15,$rafting['duration'],['id' => 'rafting_duration','class' => 'form-control','disabled'=>'disabled']) }}
+                                                        </div>
+                                                    </div>
+                                                        <div class="form-group">
+                                                        <label class="control-label col-md-3">From Location</label>
+                                                        <div class="col-md-9">
+                                                            {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','disabled'=>'disabled']) }}
+                                                        </div>
+                                                    </div>
+                                                        <div class="form-group">
+                                                        <label class="control-label col-md-3">To Location</label>
+                                                        <div class="col-md-9">
+                                                            {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','disabled'=>'disabled']) }}
+                                                        </div>
+                                                    </div>
+                                                    </div>
                                                 </div>
+                                            </div>
+                                        </div>    
+                                            
+                                    <div class="form">
+                                                <h3 class="heading_form">
+                                                    Bunjee
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" name="bunjee" id="inlineCheckbox21" class="services" data-service="bunjee">
+                                                    </label>
+                                                </h3>
                                                 
-                                                <?php
+                                                <div class="form-body">
+                                                    <?php
                                                 $bunjee=array(
                                                     'title'=>'','height'=>''
                                                 );
@@ -176,16 +176,6 @@ use App\Helpers\CustomHelper;
                                                 ?>      
                                                 <div class="row">
                                                     <div class="col-md-12 bunjee">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Bunjee
-                                                                        <input type="checkbox" name="bunjee" id="inlineCheckbox21" class="services" data-service="bunjee">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
@@ -201,7 +191,18 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div> 
                                                 
-                                                <?php
+                                                </div>
+                                            </div>
+                                            
+                                    <div class="form">
+                                                <h3 class="heading_form">
+                                                    Flying Fox Tandom
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" name="flying_fox_tandom" id="inlineCheckbox21" class="services" data-service="flying_fox_tandom">
+                                                    </label>
+                                                </h3>
+                                                <div class="form-body">
+                                                     <?php
                                                 $flying_fox_tandom=array(
                                                     'title'=>'','height'=>'','length'=>''
                                                 );
@@ -213,16 +214,6 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 flying_fox_tandom">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Flying Fox Tandom
-                                                                        <input type="checkbox" name="flying_fox_tandom" id="inlineCheckbox21" class="services" data-service="flying_fox_tandom">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
@@ -243,8 +234,18 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
-                                                <?php
+                                                </div>
+                                            </div>
+                    
+                                    <div class="form">
+                                                <h3 class="heading_form">
+                                                    Flying Fox Solo
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" name="flying_fox_solo" id="inlineCheckbox21" class="services" data-service="flying_fox_solo">
+                                                    </label>
+                                                </h3>
+                                                <div class="form-body">
+                                                    <?php
                                                 $flying_fox_solo=array(
                                                     'title'=>'','height'=>'','length'=>''
                                                 );
@@ -256,16 +257,6 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 flying_fox_solo">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Flying Fox Solo
-                                                                        <input type="checkbox" name="flying_fox_solo" id="inlineCheckbox21" class="services" data-service="flying_fox_solo">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="form-group col-md-9">
@@ -286,7 +277,18 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </div>
+                                            </div>                          
+                    
+                                    <div class="form">
+                                                <h3 class="heading_form">
+                                                    Swing
+                                                    <label class="checkbox-inline col-md-3">
+                                                        <input type="checkbox" name="swing" id="inlineCheckbox21" class="services" data-service="swing">
+                                                    </label>  
+                                                </h3>
                                                 
+                                                <div class="form-body">
                                                 <?php
                                                 $swing=array(
                                                     'title'=>'','height'=>''
@@ -299,16 +301,6 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 swing">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Swing
-                                                                        <input type="checkbox" name="swing" id="inlineCheckbox21" class="services" data-service="swing">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
@@ -323,8 +315,19 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr />
-                                                <?php
+                                                </div>
+                                            </div>                           
+                                              
+                                    <div class="form">
+                                                <h3 class="heading_form">
+                                                    Air Safari
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" name="air_safari" id="inlineCheckbox21" class="services" data-service="air_safari"> 
+                                                    </label>
+                                                </h3>
+                                                
+                                                <div class="form-body">
+                                                      <?php
                                                 $air_safari=array(
                                                     'title'=>'','duration'=>''
                                                 );
@@ -337,18 +340,8 @@ use App\Helpers\CustomHelper;
                                                 <div class="row">
                                                     <div class="col-md-12 air_safari">
                                                         <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Air Safari
-                                                                        <input type="checkbox" name="air_safari" id="inlineCheckbox21" class="services" data-service="air_safari">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label class="control-label col-md-3">Title</label>
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-9">
                                                                 {{ Form::text('service[air_safari][title]', $air_safari['title'], ['id' => 'air_safari_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
                                                             </div>
                                                         </div>
@@ -361,8 +354,20 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div>
                                                 
+                                                </div>
+                                            </div>
+                    
+                                    <div class="form">
+                                                <h3 class="heading_form">
+                                                    Air Balloon
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" name="air_balloon" id="inlineCheckbox21" class="services" data-service="air_balloon">
+                                                    </label>
+                                                </h3>
                                                 
-                                                <?php
+                                                
+                                                <div class="form-body">
+                                                     <?php
                                                 $air_balloon=array(
                                                     'title'=>'','duration'=>''
                                                 );
@@ -374,16 +379,6 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 air_balloon">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Air Balloon
-                                                                        <input type="checkbox" name="air_balloon" id="inlineCheckbox21" class="services" data-service="air_balloon">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
@@ -398,8 +393,19 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </div>
+                                            </div>
                                                 
-                                                <?php
+                                    <div class="form">
+                                                    <h3 class="heading_form">
+                                                    Cycling
+                                                   <label class="checkbox-inline">
+                                                        <input type="checkbox" name="cycling" id="inlineCheckbox21" class="services" data-service="cycling">
+                                                    </label>
+                                                   </h3>
+                                                   
+                                                   <div class="form-body">
+                                                        <?php
                                                 $cycling=array(
                                                     'title'=>'','length'=>'','duration'=>''
                                                 );
@@ -411,16 +417,6 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 cycling">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Cycling
-                                                                        <input type="checkbox" name="cycling" id="inlineCheckbox21" class="services" data-service="cycling">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
@@ -441,7 +437,19 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr />
+                                                
+                                                   </div>
+                                               </div>
+                                                
+                                    <div class="form">
+                                                   <h3 class="heading_form">
+                                                     ZipLine
+                                                   <label class="checkbox-inline">
+                                                        <input type="checkbox" name="zip_line" id="inlineCheckbox21" class="services" data-service="zip_line">
+                                                    </label>
+                                                   </h3>
+                                                    <div class="form-body">
+                                                        
                                                 <?php
                                                 $zip_line=array(
                                                     'title'=>'','height'=>'','length'=>''
@@ -454,16 +462,6 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 zip_line">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        ZipLine
-                                                                        <input type="checkbox" name="zip_line" id="inlineCheckbox21" class="services" data-service="zip_line">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
@@ -485,7 +483,18 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div>
                                                 
-                                                <?php
+                                                    </div>
+                                                </div>
+                                                
+                                    <div class="form">
+                                                    <h3 class="heading_form">
+                                                        Trekking
+                                                    <label class="checkbox-inline">    
+                                                        <input type="checkbox" name="trekking" id="inlineCheckbox21" class="services" data-service="trekking">
+                                                    </label>
+                                                    </h3>
+                                                    <div class="form-body">
+                                                         <?php
                                                 $trekking=array(
                                                     'title'=>'','length'=>'','duration'=>''
                                                 );
@@ -497,16 +506,6 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 trekking">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Trekking
-                                                                        <input type="checkbox" name="trekking" id="inlineCheckbox21" class="services" data-service="trekking">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
@@ -527,8 +526,19 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr />
-                                                <?php
+                                                                                                
+                                                    </div>
+                                                </div>
+                    
+                                    <div class="form">
+                                                    <h3 class="heading_form">
+                                                        Paint Ball
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" name="pain_ball" id="inlineCheckbox21" class="services" data-service="pain_ball">
+                                                    </label>
+                                                    </h3>
+                                                    <div class="form-body">
+                                                         <?php
                                                 $pain_ball=array(
                                                     'no_of_round'=>'','no_of_ball'=>''
                                                 );
@@ -540,16 +550,6 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 pain_ball">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Paint Ball
-                                                                        <input type="checkbox" name="pain_ball" id="inlineCheckbox21" class="services" data-service="pain_ball">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Number Of Round</label>
                                                             <div class="col-md-9">
@@ -564,8 +564,21 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr />
-                                                <?php
+                                                
+                                                
+                                                    </div>
+                                                </div>
+                    
+                                    <div class="form">
+                                                    <h3 class="heading_form">
+                                                    Paragliding
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" name="paragliding" id="inlineCheckbox21" class="services" data-service="paragliding">
+                                                    </label>
+                                                    </h3>
+                                                    
+                                                    <div class="form-body">
+                                                          <?php
                                                 $paragliding=array(
                                                     'duration'=>'','height'=>''
                                                 );
@@ -577,16 +590,6 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 paragliding">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Paragliding
-                                                                        <input type="checkbox" name="paragliding" id="inlineCheckbox21" class="services" data-service="paragliding">                                                            
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Height In Meter</label>
                                                             <div class="col-md-9">
@@ -601,9 +604,9 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            
+                                                    </div>
+                                                </div>
 
                                     <div class="form">
                                         
@@ -638,7 +641,7 @@ use App\Helpers\CustomHelper;
                                     <div class="form">
                                         <h3 class="heading_form">
                                            Inclusions Details If Any 
-                                            <button type="button" title="Inclusion Details" class="btn btn-add pull-right add_field_button_inclusion" >
+                                            <button type="button" title="Inclusion Details" class="btn btn-success btn-add pull-right add_field_button_inclusion" >
                                                Add Details
                                             </button>
                                         </h3>
@@ -666,11 +669,10 @@ use App\Helpers\CustomHelper;
                                         
                                     </div>
 
-
                                     <div class="form">
                                         <h3 class="heading_form">
                                             Exclusions Details If Any
-                                             <button type="button" title="Exclusion Details" class="btn btn-add pull-right add_field_button_exclusion" >
+                                             <button type="button" title="Exclusion Details" class="btn btn-success btn-add pull-right add_field_button_exclusion" >
                                                     Add Details
                                              </button>
                                         </h3>
@@ -698,7 +700,6 @@ use App\Helpers\CustomHelper;
                                     </div>
 
                                     <div class="form">
-                                    
                                         <h3 class="heading_form">
                                             Activity Images   
                                             <button type="button" title="Add Images" class="btn btn-success btn-add pull-right add_field_button" >
@@ -713,7 +714,7 @@ use App\Helpers\CustomHelper;
                                             <div class="img_gallery">
                                                 @if(count($campingDetail->campingImages)>0 )
                                                     @foreach($campingDetail->campingImages as $key=>$value)
-                                                        <div class="">
+                                                        <div class="clearfix">
                                                             <label class="upload_img">
                                                                 <img src="{{$value['file_url']}}" />
                                                                 <button type="button" class="remove_img btn-remove remove_field" data-href="{{URL::to('/agency/delete-activity-image')}}/{{$value['id']}}/{{$value['agency_activity_id']}}">X</button>
@@ -726,7 +727,6 @@ use App\Helpers\CustomHelper;
                                     
                                     </div>
 
-
                                     <div class="form">
                                         <h3 class="heading_form">
                                            Activity Videos
@@ -737,7 +737,7 @@ use App\Helpers\CustomHelper;
                                         
                                         
                                         <div class="form-body">                                        
-                                            <div class="input_fields_wrap_video row"></div>
+                                            <div class="input_fields_wrap_video"></div>
                                             <div class="row video_gallery">
                                                 @if(count($campingDetail->campingVideos)>0 )
                                                     @foreach($campingDetail->campingVideos as $key=>$value)
@@ -758,9 +758,8 @@ use App\Helpers\CustomHelper;
 
                                     </div>
 
-
                                     <div class="form">
-                                        <h3 class="caption">
+                                        <h3 class="heading_form">
                                             Terms & Conditions
                                             <button type="button" title="Add Terms & Condition" class="btn btn-success btn-add pull-right add_terms_button" >
                                                 Add Terms & Consitions
@@ -791,14 +790,13 @@ use App\Helpers\CustomHelper;
                                         
                                     </div>
 
-
                                     <div class="form">
-                                        <div class="heading_form">
+                                        <h3 class="heading_form">
                                             Special Notes 
                                             <button type="button" title="Add Special Notes" class="btn btn-success btn-add pull-right add_notes_button" >
                                                 Add Notes
                                             </button>
-                                        </div>
+                                        </h3>
                                             
                                         
                                         
@@ -845,7 +843,6 @@ use App\Helpers\CustomHelper;
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                     </div>
                             
                                     <input type="hidden" name="camping_id" value="{{Request::segment(3)}}" />
