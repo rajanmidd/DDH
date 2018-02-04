@@ -1,6 +1,6 @@
-@extends('agency.mainLayout.template')
+@extends('admin.mainLayout.template')
   @section('title')
-    Edit Package
+    Edit Camping Package
   @endsection
 @section('content')
 <?php 
@@ -8,23 +8,22 @@ use App\Helpers\CustomHelper;
 ?>
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
-
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
                     <i class="fa fa-home"></i>
-                    <a href="{{URL::to('/agency/agency-dashboard')}}">Home</a>
+                    <a href="{{URL::to('/admin/admin-dashboard')}}">Home</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">Edit Package</a>
+                    <a href="javascript:void(0);">Edit Camping Package</a>
                 </li>
             </ul>
          </div>
         <h3 class="page-title">
-            Edit Package : {{ucfirst($comboDetail['combo_name'])}}
+            Edit Camping Package : {{ucfirst($campingDetail['camping_name'])}}
         </h3>
         <!-- END PAGE HEADER-->
         <!-- BEGIN DASHBOARD STATS -->
@@ -35,121 +34,67 @@ use App\Helpers\CustomHelper;
                         <div class="row">
                             <div class="col-md-12">                                
                                 <!-- BEGIN FORM-->
-                                {!! Form::open(array('route' => 'agency.update-combo-package', 'class' => 'form','id'=>'combo-form','enctype'=>'multipart/form-data')) !!}
+                                {!! Form::open(array('route' => 'agency.update-camping-package', 'class' => 'form','id'=>'activity-form','enctype'=>'multipart/form-data')) !!}
                                     <div class="portlet box yellow">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa fa-gift"></i> Add Combo Packages
+                                                <i class="fa fa-gift"></i> Add Camping Packages
                                             </div>
                                         </div>
                                         <div class="portlet-body form">
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label class="control-label">Package Name</label>
+                                                    <label class="control-label">Camping Name</label>
                                                     <div class="form-group">
-                                                        {{ Form::text('combo_name', $comboDetail['combo_name'], ['id' => 'combo_name','class' => 'form-control','placeholder'=>'Enter Package Name']) }}
+                                                        {{ Form::text('camping_name', $campingDetail['camping_name'], ['id' => 'camping_name','class' => 'form-control','placeholder'=>'Enter Camping Name']) }}
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label">Package Title</label>
+                                                    <label class="control-label">Camping Title</label>
                                                     <div class="form-group">
-                                                        {{ Form::text('combo_title', $comboDetail['combo_title'], ['id' => 'combo_title','class' => 'form-control','placeholder'=>'Enter Package Title']) }}
+                                                        {{ Form::text('camping_title', $campingDetail['camping_title'], ['id' => 'camping_title','class' => 'form-control','placeholder'=>'Enter Camping Title']) }}
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Description</label>
                                                     <div class="form-group">
-                                                        {{ Form::textarea('combo_description', $comboDetail['combo_description'], ['id' => 'combo_description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
+                                                        {{ Form::textarea('camping_description', $campingDetail['camping_description'], ['id' => 'camping_description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label">Location</label>
+                                                    <label class="control-label">Days</label>
                                                     <div class="form-group">
-                                                    {{ Form::text('combo_location', $comboDetail['combo_location'], ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Location']) }}
-                                                    <input type="hidden" name="latitude" id="latitude" value="{{$comboDetail['latitude']}}" />
-                                                    <input type="hidden" name="longitude" id="longitude" value="{{$comboDetail['longitude']}}" />
+                                                        {{ Form::selectRange('days', 1, 15,$campingDetail['days'],['id' => 'days','class' => 'form-control']) }}
+                                                    </div>
+                                                </div>    
+                                                <div class="form-group">
+                                                    <label class="control-label">Night</label>
+                                                    <div class="form-group">
+                                                        {{ Form::selectRange('night', 0, 14,$campingDetail['night'],['id' => 'night','class' => 'form-control']) }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="portlet box green">
+                                    <div class="portlet box blue">
                                         <div class="portlet-title">
                                             <div class="caption">
                                                 <i class="fa fa-gift"></i>
-                                                Camping
-                                            </div>
-                                        </div>
-                                        <div class="portlet-body form">
-                                            <div class="form-body"> 
-                                                <div class="row">
-                                                    <div class="col-md-12 camping">
-                                                        <div class="form-group">
-                                                            <div class="checkbox-list row">
-                                                                <label class="checkbox-inline col-md-3">
-                                                                    <h3>
-                                                                        Camping
-                                                                        <input type="checkbox" name="camping" id="inlineCheckbox21" class="services" data-service="camping" @if($comboDetail['camping'] ==1) checked @endif>
-                                                                    </h3>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Camp Description</label>
-                                                            <div class="form-group">
-                                                                @if($comboDetail['camping'] ==1)
-                                                                    {{ Form::textarea('camp_description', $comboDetail['camp_description'], ['id' => 'camp_description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
-                                                                @else
-                                                                {{ Form::textarea('camp_description', $comboDetail['camp_description'], ['id' => 'camp_description','class' => 'form-control','placeholder'=>'Enter Description','disabled'=>'disabled','rows'=>5]) }}
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Days</label>
-                                                            <div class="form-group">
-                                                                @if($comboDetail['camping'] ==1)
-                                                                    {{ Form::selectRange('days', 1, 15,$comboDetail['days'],['id' => 'days','class' => 'form-control']) }}
-                                                                @else
-                                                                {{ Form::selectRange('days', 1, 15,$comboDetail['days'],['id' => 'days','class' => 'form-control','disabled'=>'disabled']) }}
-                                                                @endif
-                                                            </div>
-                                                        </div>    
-                                                        <div class="form-group">
-                                                            <label class="control-label">Night</label>
-                                                            <div class="form-group">
-                                                                @if($comboDetail['camping'] ==1)
-                                                                {{ Form::selectRange('night', 0, 14,$comboDetail['night'],['id' => 'night','class' => 'form-control']) }}
-                                                                @else
-                                                                {{ Form::selectRange('night', 0, 14,$comboDetail['night'],['id' => 'night','class' => 'form-control','disabled'=>'disabled']) }}
-                                                                @endif
-                                                                
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div id="camItenary" class="portlet box blue" @if($comboDetail['camping'] ==0) style="display:none" @endif>
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                                <i class="fa fa-gift"></i>
-                                                Combo Package Itinerary
+                                                Camp Itinerary
                                             </div>
                                         </div>
                                         <div class="portlet-body form">
                                             <div class="form-body">                                        
                                                 <div class="input_fields_wrap_itenory row">
-                                                    @if(count($comboDetail->comboItinerary)>0 )
-                                                        @foreach($comboDetail->comboItinerary as $key=>$value)
+                                                    @if(count($campingDetail->campItinerary)>0 )
+                                                        @foreach($campingDetail->campItinerary as $key=>$value)
                                                             <div>                                              
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Day {{$key+1}}</label>
                                                                         <div class="form-group">
-                                                                            <textarea class="form-control" id="itinerary-1" name="itinerary[]" placeholder="itinerary" rows="3" @if($comboDetail['camping'] ==0) disabled="disabled" @endif>{{$value['day_text']}}</textarea>
+                                                                            <textarea class="form-control" id="itinerary-1" name="itinerary[]" placeholder="itinerary" rows="3">{{$value['day_text']}}</textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -169,13 +114,13 @@ use App\Helpers\CustomHelper;
                                         </div>
                                         
                                         <?php
-                                        $combo_serivces=$comboDetail->comboService->toArray();
+                                        $camp_serivces=$campingDetail->campService->toArray();
                                         $rafting=array(
                                             'title'=>'','length'=>'','duration'=>'','from_location'=>'','to_location'=>''
                                         );
-                                        if(checkService($combo_serivces,'rafting') >=0)
+                                        if(checkService($camp_serivces,'rafting') >=0)
                                         {
-                                            $rafting_key=($combo_serivces[checkService($combo_serivces,'rafting')]['service_value']);
+                                            $rafting_key=($camp_serivces[checkService($camp_serivces,'rafting')]['service_value']);
                                             $rafting=json_decode($rafting_key,true);
                                         }
                                         ?>
@@ -230,9 +175,9 @@ use App\Helpers\CustomHelper;
                                                 $bunjee=array(
                                                     'title'=>'','height'=>''
                                                 );
-                                                if(checkService($combo_serivces,'bunjee') >=0)
+                                                if(checkService($camp_serivces,'bunjee') >=0)
                                                 {
-                                                    $bunjee_key=($combo_serivces[checkService($combo_serivces,'bunjee')]['service_value']);
+                                                    $bunjee_key=($camp_serivces[checkService($camp_serivces,'bunjee')]['service_value']);
                                                     $bunjee=json_decode($bunjee_key,true);
                                                 }
                                                 ?>      
@@ -267,9 +212,9 @@ use App\Helpers\CustomHelper;
                                                 $flying_fox_tandom=array(
                                                     'title'=>'','height'=>'','length'=>''
                                                 );
-                                                if(checkService($combo_serivces,'flying_fox_tandom') >=0)
+                                                if(checkService($camp_serivces,'flying_fox_tandom') >=0)
                                                 {
-                                                    $flying_fox_tandom_key=($combo_serivces[checkService($combo_serivces,'flying_fox_tandom')]['service_value']);
+                                                    $flying_fox_tandom_key=($camp_serivces[checkService($camp_serivces,'flying_fox_tandom')]['service_value']);
                                                     $flying_fox_tandom=json_decode($flying_fox_tandom_key,true);
                                                 }
                                                 ?>
@@ -310,9 +255,9 @@ use App\Helpers\CustomHelper;
                                                 $flying_fox_solo=array(
                                                     'title'=>'','height'=>'','length'=>''
                                                 );
-                                                if(checkService($combo_serivces,'flying_fox_solo') >=0)
+                                                if(checkService($camp_serivces,'flying_fox_solo') >=0)
                                                 {
-                                                    $flying_fox_solo_key=($combo_serivces[checkService($combo_serivces,'flying_fox_solo')]['service_value']);
+                                                    $flying_fox_solo_key=($camp_serivces[checkService($camp_serivces,'flying_fox_solo')]['service_value']);
                                                     $flying_fox_solo=json_decode($flying_fox_solo_key,true);
                                                 }
                                                 ?>
@@ -353,9 +298,9 @@ use App\Helpers\CustomHelper;
                                                 $swing=array(
                                                     'title'=>'','height'=>''
                                                 );
-                                                if(checkService($combo_serivces,'swing') >=0)
+                                                if(checkService($camp_serivces,'swing') >=0)
                                                 {
-                                                    $swing_key=($combo_serivces[checkService($combo_serivces,'swing')]['service_value']);
+                                                    $swing_key=($camp_serivces[checkService($camp_serivces,'swing')]['service_value']);
                                                     $swing=json_decode($swing_key,true);
                                                 }
                                                 ?>
@@ -390,9 +335,9 @@ use App\Helpers\CustomHelper;
                                                 $air_safari=array(
                                                     'title'=>'','duration'=>''
                                                 );
-                                                if(checkService($combo_serivces,'air_safari') >=0)
+                                                if(checkService($camp_serivces,'air_safari') >=0)
                                                 {
-                                                    $air_safari_key=($combo_serivces[checkService($combo_serivces,'air_safari')]['service_value']);
+                                                    $air_safari_key=($camp_serivces[checkService($camp_serivces,'air_safari')]['service_value']);
                                                     $air_safari=json_decode($air_safari_key,true);
                                                 }
                                                 ?>
@@ -427,9 +372,9 @@ use App\Helpers\CustomHelper;
                                                 $air_balloon=array(
                                                     'title'=>'','duration'=>''
                                                 );
-                                                if(checkService($combo_serivces,'air_balloon') >=0)
+                                                if(checkService($camp_serivces,'air_balloon') >=0)
                                                 {
-                                                    $air_balloon_key=($combo_serivces[checkService($combo_serivces,'air_balloon')]['service_value']);
+                                                    $air_balloon_key=($camp_serivces[checkService($camp_serivces,'air_balloon')]['service_value']);
                                                     $air_balloon=json_decode($air_balloon_key,true);
                                                 }
                                                 ?>
@@ -464,9 +409,9 @@ use App\Helpers\CustomHelper;
                                                 $cycling=array(
                                                     'title'=>'','length'=>'','duration'=>''
                                                 );
-                                                if(checkService($combo_serivces,'cycling') >=0)
+                                                if(checkService($camp_serivces,'cycling') >=0)
                                                 {
-                                                    $cycling_key=($combo_serivces[checkService($combo_serivces,'cycling')]['service_value']);
+                                                    $cycling_key=($camp_serivces[checkService($camp_serivces,'cycling')]['service_value']);
                                                     $cycling=json_decode($cycling_key,true);
                                                 }
                                                 ?>
@@ -507,9 +452,9 @@ use App\Helpers\CustomHelper;
                                                 $zip_line=array(
                                                     'title'=>'','height'=>'','length'=>''
                                                 );
-                                                if(checkService($combo_serivces,'zip_line') >=0)
+                                                if(checkService($camp_serivces,'zip_line') >=0)
                                                 {
-                                                    $zip_line_key=($combo_serivces[checkService($combo_serivces,'zip_line')]['service_value']);
+                                                    $zip_line_key=($camp_serivces[checkService($camp_serivces,'zip_line')]['service_value']);
                                                     $zip_line=json_decode($zip_line_key,true);
                                                 }
                                                 ?>
@@ -550,9 +495,9 @@ use App\Helpers\CustomHelper;
                                                 $trekking=array(
                                                     'title'=>'','length'=>'','duration'=>''
                                                 );
-                                                if(checkService($combo_serivces,'trekking') >=0)
+                                                if(checkService($camp_serivces,'trekking') >=0)
                                                 {
-                                                    $trekking_key=($combo_serivces[checkService($combo_serivces,'trekking')]['service_value']);
+                                                    $trekking_key=($camp_serivces[checkService($camp_serivces,'trekking')]['service_value']);
                                                     $trekking=json_decode($trekking_key,true);
                                                 }
                                                 ?>
@@ -593,9 +538,9 @@ use App\Helpers\CustomHelper;
                                                 $pain_ball=array(
                                                     'no_of_round'=>'','no_of_ball'=>''
                                                 );
-                                                if(checkService($combo_serivces,'pain_ball') >=0)
+                                                if(checkService($camp_serivces,'pain_ball') >=0)
                                                 {
-                                                    $pain_ball_key=($combo_serivces[checkService($combo_serivces,'pain_ball')]['service_value']);
+                                                    $pain_ball_key=($camp_serivces[checkService($camp_serivces,'pain_ball')]['service_value']);
                                                     $pain_ball=json_decode($pain_ball_key,true);
                                                 }
                                                 ?>
@@ -630,9 +575,9 @@ use App\Helpers\CustomHelper;
                                                 $paragliding=array(
                                                     'duration'=>'','height'=>''
                                                 );
-                                                if(checkService($combo_serivces,'paragliding') >=0)
+                                                if(checkService($camp_serivces,'paragliding') >=0)
                                                 {
-                                                    $paragliding_key=($combo_serivces[checkService($combo_serivces,'paragliding')]['service_value']);
+                                                    $paragliding_key=($camp_serivces[checkService($camp_serivces,'paragliding')]['service_value']);
                                                     $paragliding=json_decode($paragliding_key,true);
                                                 }
                                                 ?>
@@ -680,14 +625,14 @@ use App\Helpers\CustomHelper;
                                         <div class="portlet-body form">
                                             <div class="form-body">                                        
                                                 <div class="input_fields_wrap_meal row">  
-                                                    @if(count($comboDetail->comboMeal)>0 )
-                                                        @foreach($comboDetail->comboMeal as $key=>$value)
+                                                    @if(count($campingDetail->campingMeal)>0 )
+                                                        @foreach($campingDetail->campingMeal as $key=>$value)
                                                             <div>                                              
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Meal</label>
                                                                         <div class="form-group">
-                                                                            <textarea class="form-control" id="meal-{{$key+1}}" name="meal[]" placeholder="Add Meal" rows="3">{{$value['file_url']}}</textarea>
+                                                                            <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Meal" rows="3">{{$value['file_url']}}</textarea>
                                                                         </div>
                                                                     </div>
                                                                     <button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field_button_meal">
@@ -716,14 +661,14 @@ use App\Helpers\CustomHelper;
                                         <div class="portlet-body form">
                                             <div class="form-body">                                        
                                                 <div class="input_fields_wrap_inclusion row">  
-                                                    @if(count($comboDetail->comboInclusion)>0 )
-                                                        @foreach($comboDetail->comboInclusion as $key=>$value)
+                                                    @if(count($campingDetail->campingInclusion)>0 )
+                                                        @foreach($campingDetail->campingInclusion as $key=>$value)
                                                             <div>                                              
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Add Inclusions Detail </label>
+                                                                        <label class="control-label">Inclusions Details If Any </label>
                                                                         <div class="form-group">
-                                                                            <textarea class="form-control" id="inclusion-{{$key+1}}" name="inclusion[]" placeholder="Inclusions Details If Any " rows="3">{{$value['file_url']}}</textarea>
+                                                                            <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Inclusions Details If Any " rows="3">{{$value['file_url']}}</textarea>
                                                                         </div>
                                                                     </div>
                                                                     <button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field_button_inclusion">
@@ -753,14 +698,14 @@ use App\Helpers\CustomHelper;
                                         <div class="portlet-body form">
                                             <div class="form-body">                                        
                                                 <div class="input_fields_wrap_exclusion row">  
-                                                    @if(count($comboDetail->comboExclusion)>0 )
-                                                        @foreach($comboDetail->comboExclusion as $key=>$value)
+                                                    @if(count($campingDetail->campingExclusion)>0 )
+                                                        @foreach($campingDetail->campingExclusion as $key=>$value)
                                                             <div>                                              
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Add Exclusions Details</label>
+                                                                        <label class="control-label">Terms & Conditions</label>
                                                                         <div class="form-group">
-                                                                            <textarea class="form-control" id="exclusion-{{$key+1}}" name="exclusion[]" placeholder="Exclusions Details If Any " rows="3">{{$value['file_url']}}</textarea>
+                                                                            <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Terms & Condition" rows="3">{{$value['file_url']}}</textarea>
                                                                         </div>
                                                                     </div>
                                                                     <button type="button" class="btn btn-success pull-right btn-danger btn-remove remove_field_button_exclusion">
@@ -792,8 +737,8 @@ use App\Helpers\CustomHelper;
                                             <div class="form-body">
                                                 <div class="input_fields_wrap row"></div>
                                                 <div class="row img_gallery">
-                                                    @if(count($comboDetail->comboImages)>0 )
-                                                        @foreach($comboDetail->comboImages as $key=>$value)
+                                                    @if(count($campingDetail->campingImages)>0 )
+                                                        @foreach($campingDetail->campingImages as $key=>$value)
                                                             <div class="col-md-3 form-group">
                                                                 <img src="{{$value['file_url']}}" />
                                                                 <center>
@@ -825,8 +770,8 @@ use App\Helpers\CustomHelper;
                                             <div class="form-body">                                        
                                                 <div class="input_fields_wrap_video row"></div>
                                                 <div class="row video_gallery">
-                                                    @if(count($comboDetail->comboVideos)>0 )
-                                                        @foreach($comboDetail->comboVideos as $key=>$value)
+                                                    @if(count($campingDetail->campingVideos)>0 )
+                                                        @foreach($campingDetail->campingVideos as $key=>$value)
                                                             <div class="col-md-3 form-group">
                                                                 <video width="100%" controls>
                                                                     <source src="{{$value['file_url']}}" type="video/mp4">
@@ -859,8 +804,8 @@ use App\Helpers\CustomHelper;
                                         <div class="portlet-body form">
                                             <div class="form-body">                                        
                                                 <div class="input_fields_wrap_terms row">  
-                                                    @if(count($comboDetail->comboTerms)>0 )
-                                                        @foreach($comboDetail->comboTerms as $key=>$value)
+                                                    @if(count($campingDetail->campingTerms)>0 )
+                                                        @foreach($campingDetail->campingTerms as $key=>$value)
                                                             <div>                                              
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
@@ -897,8 +842,8 @@ use App\Helpers\CustomHelper;
                                         <div class="portlet-body form">
                                             <div class="form-body">                                        
                                                 <div class="input_fields_wrap_notes row"> 
-                                                    @if(count($comboDetail->comboNotes)>0 )
-                                                        @foreach($comboDetail->comboNotes as $key=>$value)
+                                                    @if(count($campingDetail->campingNotes)>0 )
+                                                        @foreach($campingDetail->campingNotes as $key=>$value)
                                                             <div>                                              
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
@@ -919,7 +864,6 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
 
-
                                     <div class="portlet box purple">
                                         <div class="portlet-title">
                                             <div class="caption">
@@ -927,39 +871,27 @@ use App\Helpers\CustomHelper;
                                             </div>
                                         </div>
                                         <div class="portlet-body form">
-                                            <div id="camping" @if($comboDetail['camping'] ==0) style="display:none" @endif>
-                                                <div class="form-body">                                        
+                                            <div class="form-body">                                        
+                                                <div class="form-group">
+                                                    <label class="control-label">Triple/Quarter Sharing Price</label>
                                                     <div class="form-group">
-                                                        <label class="control-label">Triple/Quarter Sharing Price</label>
-                                                        <div class="form-group">
-                                                            {{ Form::text('triple_sharing', $comboDetail['triple_sharing'], ['id' => 'triple_sharing','class' => 'form-control','placeholder'=>'Triple/Quarter Sharing Price']) }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-body">                                        
-                                                    <div class="form-group">
-                                                        <label class="control-label">Double Sharing Price</label>
-                                                        <div class="form-group">
-                                                            {{ Form::text('double_sharing', $comboDetail['double_sharing'], ['id' => 'double_sharing','class' => 'form-control','placeholder'=>'Double Sharing Price']) }}
-                                                        </div>
+                                                        {{ Form::text('triple_sharing', $campingDetail['triple_sharing'], ['id' => 'triple_sharing','class' => 'form-control','placeholder'=>'Triple/Quarter Sharing Price']) }}
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="combo" @if($comboDetail['camping'] == 1) style="display:none" @endif>
-                                                <div class="form-body">                                        
+
+                                            <div class="form-body">                                        
+                                                <div class="form-group">
+                                                    <label class="control-label">Double Sharing Price</label>
                                                     <div class="form-group">
-                                                        <label class="control-label">Package Price</label>
-                                                        <div class="form-group">
-                                                            {{ Form::text('price',  $comboDetail['price'], ['id' => 'price','class' => 'form-control','placeholder'=>'Double Sharing Price']) }}
-                                                        </div>
+                                                        {{ Form::text('double_sharing', $campingDetail['double_sharing'], ['id' => 'double_sharing','class' => 'form-control','placeholder'=>'Double Sharing Price']) }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                             
-                                    <input type="hidden" name="combo_id" value="{{Request::segment(3)}}" />
+                                    <input type="hidden" name="camping_id" value="{{Request::segment(3)}}" />
                                     <div class="form-actions right">
                                         <button type="button" class="btn default">
                                             Cancel
@@ -984,10 +916,10 @@ use App\Helpers\CustomHelper;
 
 
 <?php
-function checkService($ombo_serives,$value)
+function checkService($camp_serives,$value)
 {
-    if(array_search($value, array_column($ombo_serives, 'service_name')) !== False) {
-        return array_search($value, array_column($ombo_serives, 'service_name'));
+    if(array_search($value, array_column($camp_serives, 'service_name')) !== False) {
+        return array_search($value, array_column($camp_serives, 'service_name'));
     } 
     else 
     {
