@@ -82,7 +82,7 @@ use App\Helpers\CustomHelper;
                                 
                                 
                                 <div class="view_data">
-                                    <h3 class="heading_form"> Activity Images</h3>
+                                    <h3 class="heading_form"> Images</h3>
                                     <div class="form">                                    
                                         <div class="form-body actimages">
                                             <div class="row">
@@ -104,7 +104,7 @@ use App\Helpers\CustomHelper;
                                     </div>
                                 </div>
                                 <div class="view_data">
-                                    <h3 class="heading_form"> Activity Videos</h3>
+                                    <h3 class="heading_form"> Videos</h3>
                                     <div class="form">
                                         <div class="form-body actimages">
                                             <div class="row">

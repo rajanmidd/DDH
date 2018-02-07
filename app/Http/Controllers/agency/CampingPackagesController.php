@@ -17,10 +17,26 @@ class CampingPackagesController extends Controller
         $agency_id=auth()->guard('agency')->user()->id;
         $camping_packages = CampingPackages::where("agency_id",$agency_id)->where("is_deleted",'1');
     
-        // if ($request->search_text <> '')
-        // {
-        //   $activity_list->WhereRaw('(name LIKE "%' . $request->search_text. '%")');
-        // }
+        if ($request->status <> '' && $request->status==2)
+        {
+            $camping_packages->where('status','1');
+        }
+
+        if ($request->status <> '' && $request->status==3)
+        {
+            $camping_packages->where('is_blocked','2');
+        }
+
+        if ($request->status <> '' && $request->status==4)
+        {
+            $camping_packages->where('status','0');
+        }
+
+        if ($request->status <> '' && $request->status==5)
+        {
+            $camping_packages->where('status','2');
+        }
+        
         $camping_packages = $camping_packages->orderBy('id', 'desc')->paginate(10);
         return view('agency.campingPackages.index', ['camping_packages' => $camping_packages]);
     }
@@ -213,6 +229,9 @@ class CampingPackagesController extends Controller
         $campingDetail->camping_description=$data['camping_description'];
         $campingDetail->days=$data['days'];
         $campingDetail->night=$data['night'];
+        $campingDetail->camping_location=$data['camping_location'];
+        $campingDetail->latitude=$data['latitude'];
+        $campingDetail->longitude=$data['longitude'];
         $campingDetail->triple_sharing=$data['triple_sharing'];
         $campingDetail->double_sharing=$data['double_sharing'];
         if($campingDetail->save())
@@ -243,9 +262,9 @@ class CampingPackagesController extends Controller
                 }
             }
 
+            ActivityUploads::where('agency_activity_id',$id)->where('type','5')->delete();
             if(isset($data['meal']) &&  count($data['meal']) >0)
-            {
-                ActivityUploads::where('agency_activity_id',$id)->where('type','5')->delete();
+            {                
                 foreach($data['meal'] as $key=>$value)
                 {
                     $activityUploads=new ActivityUploads();
@@ -255,10 +274,10 @@ class CampingPackagesController extends Controller
                     $activityUploads->save();
                 }
             }
-
+            
+            ActivityUploads::where('agency_activity_id',$id)->where('type','6')->delete();
             if(isset($data['inclusion']) &&  count($data['inclusion']) >0)            
-            {
-                ActivityUploads::where('agency_activity_id',$id)->where('type','6')->delete();
+            {                
                 foreach($data['inclusion'] as $key=>$value)
                 {
                     $activityUploads=new ActivityUploads();
@@ -269,9 +288,9 @@ class CampingPackagesController extends Controller
                 }
             }
 
+            ActivityUploads::where('agency_activity_id',$id)->where('type','7')->delete();
             if(isset($data['exclusion']) &&  count($data['exclusion']) >0)
-            {
-                ActivityUploads::where('agency_activity_id',$id)->where('type','7')->delete();
+            {                
                 foreach($data['exclusion'] as $key=>$value)
                 {
                     $activityUploads=new ActivityUploads();
@@ -308,9 +327,9 @@ class CampingPackagesController extends Controller
                 }
             }
 
+            ActivityUploads::where('agency_activity_id',$id)->where('type','10')->delete();
             if(isset($data['terms']) &&  count($data['terms']) >0)
-            {
-                ActivityUploads::where('agency_activity_id',$id)->where('type','10')->delete();
+            {                
                 foreach($data['terms'] as $key=>$value)
                 {
                     $activityUploads=new ActivityUploads();
@@ -321,9 +340,9 @@ class CampingPackagesController extends Controller
                 }
             }
 
+            ActivityUploads::where('agency_activity_id',$id)->where('type','11')->delete();
             if(isset($data['notes']) &&  count($data['notes']) >0)
-            {
-                ActivityUploads::where('agency_activity_id',$id)->where('type','11')->delete();
+            {                
                 foreach($data['notes'] as $key=>$value)
                 {
                     $activityUploads=new ActivityUploads();

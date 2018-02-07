@@ -19,10 +19,26 @@ class ActivityController extends Controller
     $agency_id=auth()->guard('agency')->user()->id;
     $activity_list = AgencyActivities::where("is_deleted",'1')->where("agency_id",$agency_id);
     
-    if ($request->search_text <> '')
+    if ($request->status <> '' && $request->status==2)
     {
-      $activity_list->WhereRaw('(name LIKE "%' . $request->search_text. '%")');
+        $activity_list->where('status','1');
     }
+
+    if ($request->status <> '' && $request->status==3)
+    {
+        $activity_list->where('is_blocked','2');
+    }
+
+    if ($request->status <> '' && $request->status==4)
+    {
+        $activity_list->where('status','0');
+    }
+
+    if ($request->status <> '' && $request->status==5)
+    {
+        $activity_list->where('status','2');
+    }
+
     $activity_list = $activity_list->orderBy('id', 'desc')->paginate(10);
     return view('agency.activity.index', ['activity_list' => $activity_list]);
   }

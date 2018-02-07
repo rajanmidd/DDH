@@ -284,7 +284,7 @@ use App\Helpers\CustomHelper;
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="fa fa-gift"></i>
-                                            Combo package Images
+                                            Images
                                         </div>
                                     </div>
                                     <div class="portlet-body form">                                    
@@ -310,7 +310,7 @@ use App\Helpers\CustomHelper;
                                 <div class="portlet box green">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-gift"></i>Combo package Images
+                                            <i class="fa fa-gift"></i>Videos
                                         </div>
                                     </div>
                                     <div class="portlet-body form">

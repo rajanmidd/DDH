@@ -112,19 +112,9 @@ $(document).ready(function () {
                   {
                         required: true
                   },
-                  total_cost_after_discount:
-                  {
-                        required: true,
-                        number: true
-                  },
                   difficult_level:
                   {
                         required: true
-                  },
-                  minimum_amount_percent:
-                  {
-                        required: true,
-                        number: true
                   },
                   price_per_person:
                   {
@@ -136,10 +126,6 @@ $(document).ready(function () {
                         required: true
                   },
                   close_time:
-                  {
-                        required: true
-                  },
-                  description:
                   {
                         required: true
                   },
@@ -158,11 +144,7 @@ $(document).ready(function () {
                   "terms[]":
                   {
                         required: true
-                  },
-                  "notes[]":
-                  {
-                        required: true
-                  },
+                  }
             },
             errorPlacement: function (error, element) {
             $(element).closest('.form-group').append(error);
@@ -184,8 +166,7 @@ $(document).ready(function () {
 
       $('.unit_type_value').each(function(e) {
             $(this).rules('add', {
-                  required: true,
-                  number: true
+                  required: true
             });
       });
 
@@ -421,7 +402,7 @@ $(document).ready(function () {
       });
       $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
             e.preventDefault(); 
-            $(this).parent('div').parent('div').remove(); x--;
+            $(this).parent('label.upload_img').remove(); x--;
       });
 
       var video_wrapper         = $(".input_fields_wrap_video"); //Fields wrapper
@@ -448,7 +429,7 @@ $(document).ready(function () {
 
       $(video_wrapper).on("click",".remove_video_field", function(e){ //user click on remove text
             e.preventDefault(); 
-            $(this).parent('div').parent('div').remove(); x--;
+            $(this).parent('label.upload_img').remove(); x--;
       });
 
 
@@ -608,6 +589,17 @@ $(document).ready(function () {
                         $("#combo").find('input[type="text"]').prop("disabled",false);
                   }
             }
+      });
+
+      $("select[name='status']").change(function(){
+            $("#search_frm").submit();
+      });
+
+      $("#days").change(function(){
+            var current_value=parseInt($(this).val())+1;
+            $('#night option').filter(function() {
+                  return $(this).val() >current_value;
+              }).prop('disabled', true);
       });
 
 });

@@ -161,7 +161,7 @@ use App\Helpers\CustomHelper;
                                 <!-- Upload Images -->
                                     <div class="form">
                                         <h3 class="heading_form"> 
-                                        Activity Images  
+                                        Images  
                                         <button type="button" title="Add Images" class="btn btn-success pull-right add_field_button" >
                                             Add Images
                                         </button>
@@ -192,7 +192,7 @@ use App\Helpers\CustomHelper;
                                         
                                     <div class="form">
                                          <h3 class="heading_form"> 
-                                            Activity Videos
+                                            Videos
                                             <button type="button" title="Add Videos" class="btn btn-success pull-right add_video_button">
                                               Add Video
                                             </button>

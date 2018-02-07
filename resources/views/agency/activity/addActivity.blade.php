@@ -154,7 +154,7 @@ use App\Helpers\CustomHelper;
                             <!-- Top form -->
                            <!-- Add Images --> 
                             <div class="form">
-                                <h3 class="heading_form">Activity Images
+                                <h3 class="heading_form">Images
                                     <button type="button" title="Add Images" class="btn btn-success btn-add pull-right add_field_button" >
                                        Add Images
                                     </button>
@@ -170,7 +170,7 @@ use App\Helpers\CustomHelper;
                                         
                             <div class="form">
                                 <h3 class="heading_form">
-                                 Activity Videos
+                                 Videos
                                  <button type="button" title="Add Videos" class="btn btn-success btn-add pull-right add_video_button" >
                                    Add Videos
                                 </button>

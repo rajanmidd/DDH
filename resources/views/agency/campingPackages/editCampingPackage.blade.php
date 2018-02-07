@@ -61,6 +61,14 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label class="control-label col-md-3">Camping Location</label>
+                                                    <div class="col-md-9">
+                                                        {{ Form::text('camping_location', $campingDetail['camping_location'], ['id' => 'location','class' => 'form-control','placeholder'=>'Camping Location']) }}
+                                                        <input type="hidden" name="latitude" id="latitude" value="{{$campingDetail['latitude']}}" />
+                                                        <input type="hidden" name="longitude" id="longitude" value="{{$campingDetail['longitude']}}" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
                                                     <label class="control-label col-md-3">Days</label>
                                                     <div class="col-md-9">
                                                         {{ Form::selectRange('days', 1, 15,$campingDetail['days'],['id' => 'days','class' => 'form-control']) }}
@@ -87,7 +95,7 @@ use App\Helpers\CustomHelper;
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Day {{$key+1}}</label>
                                                             <div class="col-md-9">
-                                                                <textarea class="form-control" id="itinerary-1" name="itinerary[]" placeholder="itinerary" rows="3">{{$value['day_text']}}</textarea>
+                                                                <textarea class="form-control" id="itinerary-1" name="itinerary[]" placeholder="itinerary">{{$value['day_text']}}</textarea>
                                                             </div>
                                                         </div>
                                                     @endforeach
@@ -121,39 +129,35 @@ use App\Helpers\CustomHelper;
                                                 <div class="row">
                                                     <div class="col-md-12 rafting">
                                                         <div class="form-group">
-                                                        <label class="control-label col-md-3">Title</label>
-                                                        <div class="col-md-9">
-                                                            {{ Form::text('service[rafting][title]', $rafting['title'], ['id' => 'rafting_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                            <label class="control-label col-md-3">Title</label>
+                                                            <div class="col-md-9">
+                                                                {{ Form::text('service[rafting][title]', $rafting['title'], ['id' => 'rafting_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Length In KM</label>
-                                                            <div class="form-group col-md-9">
+                                                            <div class=" col-md-9">
                                                                 {{ Form::text('service[rafting][length]', $rafting['length'], ['id' => 'rafting_length','class' => 'form-control','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
                                                             </div>
                                                         </div>
-                                                    </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">Duration In Min.</label>
                                                             <div class="col-md-9">
-                                                            {{ Form::text('service[rafting][duration]', $rafting['duration'], ['id' => 'rafting_duration','class' => 'form-control','placeholder'=>'Duration In Min.','disabled'=>'disabled']) }}
+                                                                {{ Form::text('service[rafting][duration]', $rafting['duration'], ['id' => 'rafting_duration','class' => 'form-control','placeholder'=>'Duration In Min.','disabled'=>'disabled']) }}
                                                             </div>
                                                         </div>
-                                                    </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">From Location</label>
-                                                            <div class="form-group col-md-9">
-                                                            {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','placeholder'=>'From Location','disabled'=>'disabled']) }}
+                                                            <div class="col-md-9">
+                                                                {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','placeholder'=>'From Location','disabled'=>'disabled']) }}
                                                             </div>
                                                         </div>
-                                                    </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-3">To Location</label>
                                                             <div class="col-md-9">
-                                                            {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','placeholder'=>'To Location','disabled'=>'disabled']) }}
+                                                                {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','placeholder'=>'To Location','disabled'=>'disabled']) }}
                                                             </div>
                                                         </div>
-                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -627,7 +631,7 @@ use App\Helpers\CustomHelper;
                                                     @foreach($campingDetail->campingMeal as $key=>$value)
                                                         <div class="form-group">
                                                             <div class="col-md-10">
-                                                                <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Meal" rows="3">{{$value['file_url']}}</textarea>
+                                                                <textarea class="form-control" id="meal-{{$key+1}}" name="meal[]" placeholder="Meal">{{$value['file_url']}}</textarea>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <button type="button" class="btn pull-right btn-danger btn-remove remove_field_button_meal">
@@ -658,7 +662,7 @@ use App\Helpers\CustomHelper;
                                                         
                                                         <div class="form-group">
                                                             <div class="col-md-10">
-                                                                <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Inclusions Details If Any " rows="3">{{$value['file_url']}}</textarea>
+                                                                <textarea class="form-control" id="inclusion-{{$key+1}}" name="inclusion[]" placeholder="Add Inclusion Detail">{{$value['file_url']}}</textarea>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <button type="button" class="btn pull-right btn-danger btn-remove remove_field_button_inclusion">
@@ -687,7 +691,7 @@ use App\Helpers\CustomHelper;
                                                     @foreach($campingDetail->campingExclusion as $key=>$value)
                                                     <div class="form-group">
                                                         <div class="col-md-10">
-                                                            <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Terms & Condition" rows="3">{{$value['file_url']}}</textarea>
+                                                            <textarea class="form-control" id="exclusion-{{$key+1}}" name="exclusion[]" placeholder="Add Exclusion Detail">{{$value['file_url']}}</textarea>
                                                         </div>
                                                         <div class="col-md-2">
                                                             <button type="button" class="btn pull-right btn-danger btn-remove remove_field_button_exclusion">
@@ -705,7 +709,7 @@ use App\Helpers\CustomHelper;
 
                                     <div class="form">
                                         <h3 class="heading_form">
-                                            Activity Images   
+                                            Images   
                                             <button type="button" title="Add Images" class="btn btn-success btn-add pull-right add_field_button" >
                                                Add Images
                                             </button>
@@ -733,7 +737,7 @@ use App\Helpers\CustomHelper;
 
                                     <div class="form">
                                         <h3 class="heading_form">
-                                           Activity Videos
+                                           Videos
                                              <button type="button"  title="Add Videos" class="btn btn-success btn-add pull-right add_video_button" >
                                                 Add Videos
                                             </button>
@@ -778,7 +782,7 @@ use App\Helpers\CustomHelper;
                                                     @foreach($campingDetail->campingTerms as $key=>$value)
                                                     <div class="form-group">
                                                         <div class="col-md-10">
-                                                            <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Terms & Condition" rows="3">{{$value['file_url']}}</textarea>
+                                                            <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Terms & Condition">{{$value['file_url']}}</textarea>
                                                         </div>
                                                         <div class="col-md-2">
                                                             <button type="button" class="btn pull-right btn-danger btn-remove remove_terms_field">
@@ -810,7 +814,7 @@ use App\Helpers\CustomHelper;
                                                         @foreach($campingDetail->campingNotes as $key=>$value)
                                                             <div class="form-group">
                                                                 <div class="col-md-10">
-                                                                    <textarea class="form-control" id="notes-{{$key+1}}" name="notes[]" placeholder="Special Notes" rows="3">{{$value['file_url']}}</textarea>
+                                                                    <textarea class="form-control" id="notes-{{$key+1}}" name="notes[]" placeholder="Special Notes" >{{$value['file_url']}}</textarea>
                                                                 </div>
                                                                 <div class="col-md-2">
                                                                     <button type="button" class="btn pull-right btn-danger btn-remove remove_notes_field">

@@ -30,21 +30,14 @@
       <div class="col-xs-12"> 
         <form class="form-inline " id="search_frm" name="search_frm" method="get" action="">
           <div class="pull-right">
-            <div class="form-group">              
-              <input value="<?php if (isset($_GET['search_text'])) { echo $_GET['search_text'];} ?>" type="text" name="search_text" class="form-control" placeholder="Search For..."> 
-            </div>
             <div class=" form-group">
               <select class="form-control" name="status">
-                <option value="">Select Option</option>
-                <option value="0" <?php if (isset($_GET['status']) && $_GET['status'] == '0') { echo 'selected';} ?>>Not Active</option>
-                <option value="1" <?php if (isset($_GET['status']) && $_GET['status'] == '1') { echo 'selected';} ?>>Active</option>
+                <option value="1" <?php if (isset($_GET['status']) && $_GET['status'] == '1') { echo 'selected';} ?>>All Packages</option>
+                <option value="2" <?php if (isset($_GET['status']) && $_GET['status'] == '2') { echo 'selected';} ?>>Active Packages</option>
+                <option value="3" <?php if (isset($_GET['status']) && $_GET['status'] == '3') { echo 'selected';} ?>>Packages Blocked by Agency</option>
+                <option value="4" <?php if (isset($_GET['status']) && $_GET['status'] == '4') { echo 'selected';} ?>>Packages in Goweeks Review</option>
+                <option value="5" <?php if (isset($_GET['status']) && $_GET['status'] == '5') { echo 'selected';} ?>>Packages Cancelled by Goweeks</option>
               </select> 
-            </div>
-            <div class=" form-group">
-              <button style=" margin-bottom: 0px;margin-right: 0px;" type="submit" class="btn btn-default">Go</button>
-            </div>
-            <div class=" form-group">
-              <a href="list-camping-packages" style=" margin-bottom: 0px;margin-right: 0px;"  class="btn btn-default">Reset</a>
             </div>
             <div class=" form-group">
               <a href="add-camping-packages" style=" margin-bottom: 0px;margin-right: 0px;"  class="btn btn-default">Add Camping Packages</a>
@@ -62,7 +55,9 @@
           <div class="portlet-title">
             <div class="caption">
               <i class="fa fa-table"></i>Camping Packages
+              
             </div>
+            <h4 class="pull-right">Total :- {{$camping_packages->total()}}</h4>
           </div>
           <div class="portlet-body flip-scroll">
             <table class="table table-bordered table-striped table-condensed flip-content">
@@ -86,7 +81,7 @@
                         <td>{{$i}}</td>
                         <td>{{ucfirst($value['camping_name'])}}</td>
                         <td> {{ucfirst($value['camping_title'])}}</td>
-                        <td width="40%"> {{$value['camping_description']}}</td>
+                        <td width="40%"> {{substr($value['camping_description'],0,140)}}</td>
                         <td> {{$value['days']}}</td>
                         <td> {{$value['night']}}</td>
                         <td>
@@ -131,7 +126,7 @@
             <div class="row">
               <div class="col-md-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_paginate">
-                  {{$camping_packages->links() }}
+                  {{$camping_packages->appends(Request::only('status'))->links()}}
                 </div>
               </div>
             </div>

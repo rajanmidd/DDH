@@ -279,7 +279,7 @@ use App\Helpers\CustomHelper;
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="fa fa-gift"></i>
-                                            Camping Images
+                                            Images
                                         </div>
                                     </div>
                                     <div class="portlet-body form">                                    

@@ -624,7 +624,7 @@ use App\Helpers\CustomHelper;
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="fa fa-gift"></i>
-                                        Combo Package Images
+                                       Images
                                     </div>
                                     <div class="caption pull-right">
                                         <button type="button" title="Add Images" class="btn btn-success btn-add pull-right add_field_button" >
@@ -642,7 +642,7 @@ use App\Helpers\CustomHelper;
                             <div class="portlet box green">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-gift"></i>Combo Package Videos
+                                        <i class="fa fa-gift"></i>Videos
                                     </div>
                                     <div class="caption pull-right">
                                         <button type="button" title="Add Videos" class="btn btn-success btn-add pull-right add_video_button" >
