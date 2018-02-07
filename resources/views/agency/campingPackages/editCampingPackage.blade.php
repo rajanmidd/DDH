@@ -159,295 +159,290 @@ use App\Helpers\CustomHelper;
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                            
-                                    <div class="form">
-                                                <h3 class="heading_form">
-                                                    Bunjee
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" name="bunjee" id="inlineCheckbox21" class="services" data-service="bunjee">
-                                                    </label>
-                                                </h3>
-                                                
-                                                <div class="form-body">
-                                                    <?php
-                                                $bunjee=array(
-                                                    'title'=>'','height'=>''
-                                                );
-                                                if(checkService($camp_serivces,'bunjee') >=0)
-                                                {
-                                                    $bunjee_key=($camp_serivces[checkService($camp_serivces,'bunjee')]['service_value']);
-                                                    $bunjee=json_decode($bunjee_key,true);
-                                                }
-                                                ?>      
-                                                <div class="row">
-                                                    <div class="col-md-12 bunjee">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Title</label>
-                                                            <div class="col-md-9">
-                                                                {{ Form::text('service[bunjee][title]', $bunjee['title'], ['id' => 'bunjee_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Height In Meter</label>
-                                                            <div class="col-md-9">
-                                                            {{ Form::text('service[bunjee][height]', $bunjee['height'], ['id' => 'bunjee_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> 
-                                                
-                                                </div>
-                                            </div>
-                                            
-                                    <div class="form">
-                                                <h3 class="heading_form">
-                                                    Flying Fox Tandom
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" name="flying_fox_tandom" id="inlineCheckbox21" class="services" data-service="flying_fox_tandom">
-                                                    </label>
-                                                </h3>
-                                                <div class="form-body">
-                                                     <?php
-                                                $flying_fox_tandom=array(
-                                                    'title'=>'','height'=>'','length'=>''
-                                                );
-                                                if(checkService($camp_serivces,'flying_fox_tandom') >=0)
-                                                {
-                                                    $flying_fox_tandom_key=($camp_serivces[checkService($camp_serivces,'flying_fox_tandom')]['service_value']);
-                                                    $flying_fox_tandom=json_decode($flying_fox_tandom_key,true);
-                                                }
-                                                ?>
-                                                <div class="row">
-                                                    <div class="col-md-12 flying_fox_tandom">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Title</label>
-                                                            <div class="col-md-9">
-                                                                {{ Form::text('service[flying_fox_tandom][title]', $flying_fox_tandom['title'], ['id' => 'flying_fox_tandom_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Length In Meter</label>
-                                                            <div class="form-group col-md-9">
-                                                            {{ Form::text('service[flying_fox_tandom][length]', $flying_fox_tandom['length'], ['id' => 'flying_fox_tandom_length','class' => 'form-control','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Height In Meter</label>
-                                                            <div class="col-md-9">
-                                                            {{ Form::text('service[flying_fox_tandom][height]', $flying_fox_tandom['height'], ['id' => 'flying_fox_tandom_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>
                     
                                     <div class="form">
-                                                <h3 class="heading_form">
-                                                    Flying Fox Solo
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" name="flying_fox_solo" id="inlineCheckbox21" class="services" data-service="flying_fox_solo">
-                                                    </label>
-                                                </h3>
-                                                <div class="form-body">
-                                                    <?php
-                                                $flying_fox_solo=array(
-                                                    'title'=>'','height'=>'','length'=>''
-                                                );
-                                                if(checkService($camp_serivces,'flying_fox_solo') >=0)
-                                                {
-                                                    $flying_fox_solo_key=($camp_serivces[checkService($camp_serivces,'flying_fox_solo')]['service_value']);
-                                                    $flying_fox_solo=json_decode($flying_fox_solo_key,true);
-                                                }
-                                                ?>
-                                                <div class="row">
-                                                    <div class="col-md-12 flying_fox_solo">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Title</label>
-                                                            <div class="form-group col-md-9">
-                                                                {{ Form::text('service[flying_fox_solo][title]', $flying_fox_solo['title'], ['id' => 'flying_fox_solo_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Length In Meter</label>
-                                                            <div class="form-group col-md-9">
-                                                                {{ Form::text('service[flying_fox_solo][length]', $flying_fox_solo['length'], ['id' => 'flying_fox_solo_length','class' => 'form-control','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Height In Meter</label>
-                                                            <div class="form-group col-md-9">
-                                                                {{ Form::text('service[flying_fox_solo][height]', $flying_fox_solo['height'], ['id' => 'flying_fox_solo_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>                          
-                    
-                                    <div class="form">
-                                                <h3 class="heading_form">
-                                                    Swing
-                                                    <label class="checkbox-inline col-md-3">
-                                                        <input type="checkbox" name="swing" id="inlineCheckbox21" class="services" data-service="swing">
-                                                    </label>  
-                                                </h3>
+                                        <h3 class="heading_form">
+                                            Bunjee
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="bunjee" id="inlineCheckbox21" class="services" data-service="bunjee">
+                                            </label>
+                                        </h3>
                                                 
-                                                <div class="form-body">
+                                        <div class="form-body">
                                                 <?php
-                                                $swing=array(
-                                                    'title'=>'','height'=>''
-                                                );
-                                                if(checkService($camp_serivces,'swing') >=0)
-                                                {
-                                                    $swing_key=($camp_serivces[checkService($camp_serivces,'swing')]['service_value']);
-                                                    $swing=json_decode($swing_key,true);
-                                                }
-                                                ?>
-                                                <div class="row">
-                                                    <div class="col-md-12 swing">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Title</label>
-                                                            <div class="col-md-9">
-                                                                {{ Form::text('service[swing][title]', $swing['title'], ['id' => 'swing_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
-                                                            </div>
+                                            $bunjee=array(
+                                                'title'=>'','height'=>''
+                                            );
+                                            if(checkService($camp_serivces,'bunjee') >=0)
+                                            {
+                                                $bunjee_key=($camp_serivces[checkService($camp_serivces,'bunjee')]['service_value']);
+                                                $bunjee=json_decode($bunjee_key,true);
+                                            }
+                                            ?>      
+                                            <div class="row">
+                                                <div class="col-md-12 bunjee">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Title</label>
+                                                        <div class="col-md-9">
+                                                            {{ Form::text('service[bunjee][title]', $bunjee['title'], ['id' => 'bunjee_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Height In Meter</label>
-                                                            <div class="col-md-9">
-                                                            {{ Form::text('service[swing][height]', $swing['height'], ['id' => 'swing_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
-                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Height In Meter</label>
+                                                        <div class="col-md-9">
+                                                        {{ Form::text('service[bunjee][height]', $bunjee['height'], ['id' => 'bunjee_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div> 
+                                            
+                                            </div>
+                                        </div>
+                                            
+                                    <div class="form">
+                                        <h3 class="heading_form">
+                                            Flying Fox Tandom
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="flying_fox_tandom" id="inlineCheckbox21" class="services" data-service="flying_fox_tandom">
+                                            </label>
+                                        </h3>
+                                        <div class="form-body">
+                                             <?php
+                                        $flying_fox_tandom=array(
+                                            'title'=>'','height'=>'','length'=>''
+                                        );
+                                        if(checkService($camp_serivces,'flying_fox_tandom') >=0)
+                                        {
+                                            $flying_fox_tandom_key=($camp_serivces[checkService($camp_serivces,'flying_fox_tandom')]['service_value']);
+                                            $flying_fox_tandom=json_decode($flying_fox_tandom_key,true);
+                                        }
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-md-12 flying_fox_tandom">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Title</label>
+                                                    <div class="col-md-9">
+                                                        {{ Form::text('service[flying_fox_tandom][title]', $flying_fox_tandom['title'], ['id' => 'flying_fox_tandom_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                    </div>
                                                 </div>
-                                            </div>                           
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Length In Meter</label>
+                                                    <div class="form-group col-md-9">
+                                                    {{ Form::text('service[flying_fox_tandom][length]', $flying_fox_tandom['length'], ['id' => 'flying_fox_tandom_length','class' => 'form-control','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Height In Meter</label>
+                                                    <div class="col-md-9">
+                                                    {{ Form::text('service[flying_fox_tandom][height]', $flying_fox_tandom['height'], ['id' => 'flying_fox_tandom_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="form">
+                                        <h3 class="heading_form">
+                                            Flying Fox Solo
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="flying_fox_solo" id="inlineCheckbox21" class="services" data-service="flying_fox_solo">
+                                            </label>
+                                        </h3>
+                                        <div class="form-body">
+                                            <?php
+                                        $flying_fox_solo=array(
+                                            'title'=>'','height'=>'','length'=>''
+                                        );
+                                        if(checkService($camp_serivces,'flying_fox_solo') >=0)
+                                        {
+                                            $flying_fox_solo_key=($camp_serivces[checkService($camp_serivces,'flying_fox_solo')]['service_value']);
+                                            $flying_fox_solo=json_decode($flying_fox_solo_key,true);
+                                        }
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-md-12 flying_fox_solo">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Title</label>
+                                                    <div class="form-group col-md-9">
+                                                        {{ Form::text('service[flying_fox_solo][title]', $flying_fox_solo['title'], ['id' => 'flying_fox_solo_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Length In Meter</label>
+                                                    <div class="form-group col-md-9">
+                                                        {{ Form::text('service[flying_fox_solo][length]', $flying_fox_solo['length'], ['id' => 'flying_fox_solo_length','class' => 'form-control','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Height In Meter</label>
+                                                    <div class="form-group col-md-9">
+                                                        {{ Form::text('service[flying_fox_solo][height]', $flying_fox_solo['height'], ['id' => 'flying_fox_solo_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>                          
+                    
+                                    <div class="form">
+                                        <h3 class="heading_form">
+                                            Swing
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="swing" id="inlineCheckbox21" class="services" data-service="swing">
+                                            </label>  
+                                        </h3>
+                                                
+                                        <div class="form-body">
+                                        <?php
+                                        $swing=array(
+                                            'title'=>'','height'=>''
+                                        );
+                                        if(checkService($camp_serivces,'swing') >=0)
+                                        {
+                                            $swing_key=($camp_serivces[checkService($camp_serivces,'swing')]['service_value']);
+                                            $swing=json_decode($swing_key,true);
+                                        }
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-md-12 swing">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Title</label>
+                                                    <div class="col-md-9">
+                                                        {{ Form::text('service[swing][title]', $swing['title'], ['id' => 'swing_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Height In Meter</label>
+                                                    <div class="col-md-9">
+                                                    {{ Form::text('service[swing][height]', $swing['height'], ['id' => 'swing_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>                           
                                               
                                     <div class="form">
-                                                <h3 class="heading_form">
-                                                    Air Safari
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" name="air_safari" id="inlineCheckbox21" class="services" data-service="air_safari"> 
-                                                    </label>
-                                                </h3>
-                                                
-                                                <div class="form-body">
-                                                      <?php
-                                                $air_safari=array(
-                                                    'title'=>'','duration'=>''
-                                                );
-                                                if(checkService($camp_serivces,'air_safari') >=0)
-                                                {
-                                                    $air_safari_key=($camp_serivces[checkService($camp_serivces,'air_safari')]['service_value']);
-                                                    $air_safari=json_decode($air_safari_key,true);
-                                                }
-                                                ?>
-                                                <div class="row">
-                                                    <div class="col-md-12 air_safari">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Title</label>
-                                                            <div class="col-md-9">
-                                                                {{ Form::text('service[air_safari][title]', $air_safari['title'], ['id' => 'air_safari_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Durtion In Minutes</label>
-                                                            <div class="col-md-9">
-                                                            {{ Form::text('service[air_safari][duration]', $air_safari['duration'], ['id' => 'air_safari_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
+                                        <h3 class="heading_form">
+                                            Air Safari
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="air_safari" id="inlineCheckbox21" class="services" data-service="air_safari"> 
+                                            </label>
+                                        </h3>
+
+                                        <div class="form-body">
+                                              <?php
+                                        $air_safari=array(
+                                            'title'=>'','duration'=>''
+                                        );
+                                        if(checkService($camp_serivces,'air_safari') >=0)
+                                        {
+                                            $air_safari_key=($camp_serivces[checkService($camp_serivces,'air_safari')]['service_value']);
+                                            $air_safari=json_decode($air_safari_key,true);
+                                        }
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-md-12 air_safari">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Title</label>
+                                                    <div class="col-md-9">
+                                                        {{ Form::text('service[air_safari][title]', $air_safari['title'], ['id' => 'air_safari_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
-                                                
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Durtion In Minutes</label>
+                                                    <div class="col-md-9">
+                                                    {{ Form::text('service[air_safari][duration]', $air_safari['duration'], ['id' => 'air_safari_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        </div>
+                                    </div>
                     
                                     <div class="form">
-                                                <h3 class="heading_form">
-                                                    Air Balloon
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" name="air_balloon" id="inlineCheckbox21" class="services" data-service="air_balloon">
-                                                    </label>
-                                                </h3>
-                                                
-                                                
-                                                <div class="form-body">
-                                                     <?php
-                                                $air_balloon=array(
-                                                    'title'=>'','duration'=>''
-                                                );
-                                                if(checkService($camp_serivces,'air_balloon') >=0)
-                                                {
-                                                    $air_balloon_key=($camp_serivces[checkService($camp_serivces,'air_balloon')]['service_value']);
-                                                    $air_balloon=json_decode($air_balloon_key,true);
-                                                }
-                                                ?>
-                                                <div class="row">
-                                                    <div class="col-md-12 air_balloon">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Title</label>
-                                                            <div class="col-md-9">
-                                                                {{ Form::text('service[air_balloon][title]', $air_balloon['title'], ['id' => 'air_balloon_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Durtion In Minutes</label>
-                                                            <div class="col-md-9">
-                                                            {{ Form::text('service[air_balloon][duration]', $air_balloon['duration'], ['id' => 'air_balloon_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
+                                        <h3 class="heading_form">
+                                            Air Balloon
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="air_balloon" id="inlineCheckbox21" class="services" data-service="air_balloon">
+                                            </label>
+                                        </h3>
+                                        <div class="form-body">
+                                             <?php
+                                        $air_balloon=array(
+                                            'title'=>'','duration'=>''
+                                        );
+                                        if(checkService($camp_serivces,'air_balloon') >=0)
+                                        {
+                                            $air_balloon_key=($camp_serivces[checkService($camp_serivces,'air_balloon')]['service_value']);
+                                            $air_balloon=json_decode($air_balloon_key,true);
+                                        }
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-md-12 air_balloon">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Title</label>
+                                                    <div class="col-md-9">
+                                                        {{ Form::text('service[air_balloon][title]', $air_balloon['title'], ['id' => 'air_balloon_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Durtion In Minutes</label>
+                                                    <div class="col-md-9">
+                                                    {{ Form::text('service[air_balloon][duration]', $air_balloon['duration'], ['id' => 'air_balloon_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        </div>
+                                    </div>
                                                 
                                     <div class="form">
-                                                    <h3 class="heading_form">
-                                                    Cycling
-                                                   <label class="checkbox-inline">
-                                                        <input type="checkbox" name="cycling" id="inlineCheckbox21" class="services" data-service="cycling">
-                                                    </label>
-                                                   </h3>
-                                                   
-                                                   <div class="form-body">
-                                                        <?php
-                                                $cycling=array(
-                                                    'title'=>'','length'=>'','duration'=>''
-                                                );
-                                                if(checkService($camp_serivces,'cycling') >=0)
-                                                {
-                                                    $cycling_key=($camp_serivces[checkService($camp_serivces,'cycling')]['service_value']);
-                                                    $cycling=json_decode($cycling_key,true);
-                                                }
-                                                ?>
-                                                <div class="row">
-                                                    <div class="col-md-12 cycling">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Title</label>
-                                                            <div class="col-md-9">
-                                                                {{ Form::text('service[cycling][title]', $cycling['title'], ['id' => 'cycling_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Length In KM</label>
-                                                            <div class=" col-md-9">
-                                                            {{ Form::text('service[cycling][length]', $cycling['title'], ['id' => 'cycling_length','class' => 'form-control','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Durtion In Minutes</label>
-                                                            <div class="col-md-9">
-                                                            {{ Form::text('service[cycling][duration]', $cycling['title'], ['id' => 'cycling_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
-                                                            </div>
-                                                        </div>
+                                        <h3 class="heading_form">
+                                        Cycling
+                                       <label class="checkbox-inline">
+                                            <input type="checkbox" name="cycling" id="inlineCheckbox21" class="services" data-service="cycling">
+                                        </label>
+                                       </h3>
+
+                                       <div class="form-body">
+                                            <?php
+                                    $cycling=array(
+                                        'title'=>'','length'=>'','duration'=>''
+                                    );
+                                    if(checkService($camp_serivces,'cycling') >=0)
+                                    {
+                                        $cycling_key=($camp_serivces[checkService($camp_serivces,'cycling')]['service_value']);
+                                        $cycling=json_decode($cycling_key,true);
+                                    }
+                                    ?>
+                                    <div class="row">
+                                        <div class="col-md-12 cycling">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Title</label>
+                                                <div class="col-md-9">
+                                                    {{ Form::text('service[cycling][title]', $cycling['title'], ['id' => 'cycling_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Length In KM</label>
+                                                <div class=" col-md-9">
+                                                {{ Form::text('service[cycling][length]', $cycling['title'], ['id' => 'cycling_length','class' => 'form-control','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                                    <label class="control-label col-md-3">Durtion In Minutes</label>
+                                                    <div class="col-md-9">
+                                                    {{ Form::text('service[cycling][duration]', $cycling['title'], ['id' => 'cycling_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
+                                        </div>
+                                    </div>
                                                 
-                                                   </div>
-                                               </div>
+                                        </div>
+                                    </div>
                                                 
                                     <div class="form">
                                                    <h3 class="heading_form">
