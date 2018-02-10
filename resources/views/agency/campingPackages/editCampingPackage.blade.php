@@ -103,8 +103,6 @@ use App\Helpers\CustomHelper;
                                                 <input type="checkbox" name="rafting" id="inlineCheckbox21" class="services" data-service="rafting">
                                             </label>
                                         </h3>
-                                        
-                                        
                                         <?php
                                         $camp_serivces=$campingDetail->campService->toArray();
                                         $rafting=array(
@@ -117,44 +115,47 @@ use App\Helpers\CustomHelper;
                                         }
                                         ?>
                                         
-                                            <div class="form-body"> 
-                                                <div class="row">
-                                                    <div class="col-md-12 rafting">
-                                                        <div class="form-group">
-                                                        <label class="control-label col-md-3">Title</label>
+                                        <div class="form-body"> 
+                                            <div class="row">
+                                                <div class="col-md-12 rafting">
+                                                    <div class="form-group">
+                                                    <label class="control-label col-md-3">Title</label>
+                                                    <div class="col-md-9">
+                                                        {{ Form::text('service[rafting][title]', $rafting['title'], ['id' => 'rafting_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                    </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Length In KM</label>
                                                         <div class="col-md-9">
-                                                            {{ Form::text('service[rafting][title]', $rafting['title'], ['id' => 'rafting_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
-                                                        </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Length In KM</label>
-                                                            <div class="form-group col-md-9">
-                                                                {{ Form::text('service[rafting][length]', $rafting['length'], ['id' => 'rafting_length','class' => 'form-control','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
-                                                            </div>
+                                                            {{ Form::text('service[rafting][length]', $rafting['length'], ['id' => 'rafting_length','class' => 'form-control','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
                                                         </div>
                                                     </div>
-
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">Duration In Min.</label>
-                                                            <div class="col-md-9">
-                                                            {{ Form::text('service[rafting][duration]', $rafting['duration'], ['id' => 'rafting_duration','class' => 'form-control','placeholder'=>'Duration In Min.','disabled'=>'disabled']) }}
-                                                            </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Duration In Min.</label>
+                                                        <div class="col-md-9">
+                                                        {{ Form::text('service[rafting][duration]', $rafting['duration'], ['id' => 'rafting_duration','class' => 'form-control','placeholder'=>'Duration In Min.','disabled'=>'disabled']) }}
                                                         </div>
                                                     </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">From Location</label>
-                                                            <div class="form-group col-md-9">
-                                                            {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','placeholder'=>'From Location','disabled'=>'disabled']) }}
-                                                            </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">From Location</label>
+                                                        <div class=" col-md-9">
+                                                        {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','placeholder'=>'From Location','disabled'=>'disabled']) }}
                                                         </div>
                                                     </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-3">To Location</label>
-                                                            <div class="col-md-9">
-                                                            {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','placeholder'=>'To Location','disabled'=>'disabled']) }}
-                                                            </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">To Location</label>
+                                                        <div class="col-md-9">
+                                                        {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','placeholder'=>'To Location','disabled'=>'disabled']) }}
                                                         </div>
                                                     </div>
+                                                    
+                                                </div>        
+                                            </div>
+                                        </div>                    
+                                    </div>
                     
                                     <div class="form">
                                         <h3 class="heading_form">
@@ -223,7 +224,7 @@ use App\Helpers\CustomHelper;
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Length In Meter</label>
-                                                    <div class="form-group col-md-9">
+                                                    <div class="col-md-9">
                                                     {{ Form::text('service[flying_fox_tandom][length]', $flying_fox_tandom['length'], ['id' => 'flying_fox_tandom_length','class' => 'form-control','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
