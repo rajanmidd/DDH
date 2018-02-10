@@ -251,14 +251,6 @@ $(document).ready(function () {
                   {
                         required: true
                   },
-                  camping_title:
-                  {
-                        required: true
-                  },
-                  camping_description:
-                  {
-                        required: true,
-                  },
                   camping_location:
                   {
                         required: true,
@@ -598,6 +590,7 @@ $(document).ready(function () {
       $("#days").change(function(){
             var current_value=parseInt($(this).val())+1;
             $('#night option').filter(function() {
+                  console.log($(this).val() ,current_value);
                   return $(this).val() >current_value;
               }).prop('disabled', true);
       });

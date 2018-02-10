@@ -770,7 +770,7 @@ use App\Helpers\CustomHelper;
                                     
                                     </div>
 
-                                    <div class="form">
+                                    <!-- <div class="form">
                                         <h3 class="heading_form">
                                            Videos
                                              <button type="button"  title="Add Videos" class="btn btn-success btn-add pull-right add_video_button" >
@@ -799,7 +799,7 @@ use App\Helpers\CustomHelper;
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> -->
 
                                     <div class="form">
                                         <h3 class="heading_form">
