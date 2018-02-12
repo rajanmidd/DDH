@@ -52,7 +52,7 @@ use App\Helpers\CustomHelper;
 </div>
                                     <div class="form-group ">
                                         <label class="control-label col-md-3">Description</label>
-                                        <div class="col-md-3">
+                                        <div class="col-md-9">
                                             {{ Form::textarea('description', null, ['id' => 'description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
                                         </div>
 </div>
@@ -68,7 +68,7 @@ use App\Helpers\CustomHelper;
                                         <div class="col-md-9">
                                             <div class="checkbox-list">
                                                 @foreach ( $unitType as $i => $unit_type )
-                                                <div class="col-md-12">
+                                                <div class="col-md-3">
                                                     <label class="control-label">{{$unit_type}}</label>
                                                     <input type="checkbox" name="unit_type[]" id="inlineCheckbox21" class="unit_type_check" value="{{$i}}">  
                                                     <span style="display:none;" id="unit_type_value_div_{{$i}}" >

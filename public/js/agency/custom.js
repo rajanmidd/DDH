@@ -550,7 +550,7 @@ $(document).ready(function () {
                   var k=parseInt(length)+1;
                   for(var r=k;r<=days;r++)
                   {
-                        var html='<div><div class="col-md-12"><div class="form-group"><label class="control-label">Day '+r+'</label><div class="form-group"><textarea class="form-control" id="itinerary-'+r+'" name="itinerary[]" value="" placeholder="Itinerary" rows="3"></textarea></div></div></div></div>';
+                        var html='<div class="col-md-12"><div class="form-group row"><label class="control-label col-md-3">Day '+r+'</label><div class="col-md-9"><textarea class="form-control" id="itinerary-'+r+'" name="itinerary[]" value="" placeholder="Itinerary" rows="3"></textarea></div></div></div>';
                         $(".input_fields_wrap_itenory").append(html); //add input box
                   }
             }

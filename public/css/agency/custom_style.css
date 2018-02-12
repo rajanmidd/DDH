@@ -118,10 +118,10 @@
 
 /*Amit papnai 14-01-2017*/
 textarea{resize:none;}
-.form-horizontal .control-label{text-align: left; font-size: 13px;}
+.form-horizontal .control-label{text-align: left; font-size: 13px; font-weight: 600;}
 .heading_form{border-bottom: 1px solid #ddd; margin: 15px 0; padding-bottom: 15px;}
 .heading_form h3{}
-.upload_img{width: 100px; height: 100px; float:left; line-height: 115px; background: #f1f1f1; color: #777; text-align: center; cursor: pointer; position: relative;}
+.upload_img{width: 100px; height: 100px; float:left; line-height: 115px; background: #f1f1f1; color: #777; text-align: center; cursor: pointer; position: relative; margin-right: 15px;}
 .upload_img img{float: left; width: 100%; height: 100%;}
 .upload_img i{font-size: 36px !important;}
 .upload_img input{display: none;}
