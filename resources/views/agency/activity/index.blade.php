@@ -6,6 +6,12 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
   <div class="page-content">
+      
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Manage Activity</h3>
+      </div>
+    </div>
     <!-- BEGIN PAGE HEADER-->
     <div class="page-bar">
       <ul class="page-breadcrumb">
@@ -19,15 +25,11 @@
         </li>
       </ul>
     </div>
-    <div class="page-title">
-      <div class="title_left">
-        <h3>Manage Activity</h3>
-      </div>
-    </div>
+    
     <!-- END PAGE HEADER-->
     <!-- BEGIN PAGE CONTENT-->
     <div class="row form-group">
-      <div class="col-xs-12"> 
+      <div class="col-md-10"> 
         <form class="form-inline " id="search_frm" name="search_frm" method="get" action="">
           <div class="pull-right">
             <div class=" form-group">
@@ -48,78 +50,97 @@
     </div>
     
     <div class="row form-group">
-      <div class="col-xs-12 "> 
+      <div class="col-md-10 "> 
         <div class="clearfix"></div>
         <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet box green">
+        <div class="">
+            
+<!--
           <div class="portlet-title">
             <div class="caption">
               <i class="fa fa-table"></i>Manage Activity
             </div>
             <h4 class="pull-right">Total :- {{$activity_list->total()}}</h4>
           </div>
-          <div class="portlet-body flip-scroll">
-            <table class="table table-bordered table-striped table-condensed flip-content">
-              <thead class="flip-content">
-                <tr>
-                  <th> Sr No. </th>
-                  <th> Activity Name </th>
-                  <th>Title</th>
-                  <th>Location</th>
-                  <th>Price/Perosn</th>
-                  <th> Status </th>
-                  <th> Action</th>
-                </tr>
-              </thead>
-              <tbody>
+-->
+          <div class="flip-scroll">
+            <div class="flip-content">
+                
                 @if(count($activity_list)>0)
                   <?php $i = $activity_list->perPage() * ($activity_list->currentPage() - 1) + 1; ?>
                     @foreach($activity_list as $key=>$value)
-                      <tr>
-                        <td>{{$i}}</td>
-                        <td>{{ucfirst($value->activityName['name'])}}</td>
-                        <td> {{ucfirst($value['title'])}}</td>
-                        <td> {{$value['location']}}</td>
-                        <td> {{$value['price_per_person']}}</td>
-                        <td>
-                          @if($value['status']==0)
-                            Not Active
-                          @else
-                            Active
-                          @endif
-                        </td>
-                        <td class="numeric">
-                          <div class="actions">
-                            <a title="Edit" href="{{URL::to('/agency/edit-activity')}}/information/{{$value['id']}}"  class="btn btn-circle">
+                  
+                  <!--Data Loop -->
+                  
+                    <div class="manage_data_wrap @if($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @else pending_bg @endif">
+                        <div class="data_row clearfix action">
+                            <a title="Edit" href="{{URL::to('/agency/edit-activity')}}/information/{{$value['id']}}"  class=" btn-circle">
                               <i class="fa fa-pencil"></i>
+                                Edit
                             </a>
-                            <a title="View" href="{{URL::to('/agency/view-activity')}}/{{$value['id']}}"  class="btn btn-circle">
+                            
+                            <a title="View" href="{{URL::to('/agency/view-activity')}}/{{$value['id']}}"  class=" btn-circle">
                               <i class="fa fa-eye"></i>
+                                View
                             </a>
-                            <a title="Delete" href="javascript:void(0);" class="btn btn-icon-only confirm_button" data-href="{{URL::to('/agency/delete-activity')}}?id={{$value['id']}}">
+                            <a title="Delete" href="javascript:void(0);" class=" confirm_button" data-href="{{URL::to('/agency/delete-activity')}}?id={{$value['id']}}">
                               <i class="fa fa-trash"></i>
+                                Delete
                             </a>
                             <?php if ($value['is_blocked'] == 1) { ?>
-                              <a title="Block" class="btn btn-icon-only" style="color:green;" onclick="return confirm('Are you sure want to block this activity?');" href="{{URL::to('/agency/update-activity-block')}}/2/{{$value['id']}}">
+                              <a title="Block" class="" style="color:green;" onclick="return confirm('Are you sure want to block this activity?');" href="{{URL::to('/agency/update-activity-block')}}/2/{{$value['id']}}">
                                 <i class="fa icon-ban"></i>
+                                  Block
                               </a>
                             <?php } else { ?>
-                              <a title="Unblock" class="btn btn-icon-only" style="color:red;" onclick="return confirm('Are you sure want to unblock this activity?');" href="{{URL::to('/agency/update-activity-block')}}/1/{{$value['id']}}">
+                              <a title="Unblock" class="" style="color:red;" onclick="return confirm('Are you sure want to unblock this activity?');" href="{{URL::to('/agency/update-activity-block')}}/1/{{$value['id']}}">
                                 <i class="fa icon-ban"></i>
+                                  Unblock
                               </a>
-                            <?php } ?>
-                          </div>
-                        </td>
-                      </tr>
+                        <?php }?>
+                        </div>
+                        
+                        <div class="data_row clearfix">
+                            <label>Activity Name</label>
+                            <span>{{ucfirst($value->activityName['name'])}} </span>
+                        </div>
+
+                        <div class="data_row clearfix">
+                            <label>Title</label>
+                            <span>{{ucfirst($value['title'])}} </span>
+                        </div>
+                        
+                        <div class="data_row clearfix">
+                            <label>Price</label>
+                            <span>{{$value['price_per_person']}} </span>
+                        </div>
+
+                        <div class="data_row clearfix">
+                            <label>Status</label>
+                            <span>@if($value['status']==0)
+                                    Not Active
+                                  @else
+                                    Active
+                                  @endif</span>
+                        </div>
+                    </div>
+                  
+                  
+                  <!--Data Loop -->
+                  
+                  
+                  
+                  
+                      
                     <?php $i++; ?>
                     @endforeach
                   @else
-                  <tr>
-                    <td colspan="8"><center>Sorry, No Result Found</center></td>
-                  </tr>
+                  
+                    <div class="no-data">Sorry, No Result Found</div>
+                  
                 @endif
-              </tbody>
-            </table>
+            
+            </div>
             <div class="row">
               <div class="col-md-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_paginate">
@@ -129,6 +150,12 @@
             </div>
           </div>
         </div>
+          
+          
+          
+          
+          
+          
       </div>
     </div>
   </div>
