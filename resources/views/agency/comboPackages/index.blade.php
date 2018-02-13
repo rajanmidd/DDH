@@ -6,6 +6,12 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
   <div class="page-content">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Combo Packages</h3>
+      </div>
+    </div>
+      
     <!-- BEGIN PAGE HEADER-->
     <div class="page-bar">
       <ul class="page-breadcrumb">
@@ -19,16 +25,12 @@
         </li>
       </ul>
     </div>
-    <div class="page-title">
-      <div class="title_left">
-        <h3>Combo Packages</h3>
-      </div>
-    </div>
+    
     <!-- END PAGE HEADER-->
     <!-- BEGIN PAGE CONTENT-->
     <div class="row form-group">
-      <div class="col-xs-12"> 
-        <form class="form-inline " id="search_frm" name="search_frm" method="get" action="">
+      <div class="col-md-10"> 
+        <form class="form-inline" id="search_frm" name="search_frm" method="get" action="">
           <div class="pull-right">
             <div class=" form-group">
               <select class="form-control" name="status">
@@ -48,80 +50,75 @@
     </div>
     
     <div class="row form-group">
-      <div class="col-xs-12 "> 
+      <div class="col-md-10"> 
         <div class="clearfix"></div>
         <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet box green">
-          <div class="portlet-title">
-            <div class="caption">
-              <i class="fa fa-table"></i>Combo Packages
-            </div>
-            <h4 class="pull-right">Total :- {{$combo_packages->total()}}</h4>
-          </div>
-          <div class="portlet-body flip-scroll">
-            <table class="table table-bordered table-striped table-condensed flip-content">
-              <thead class="flip-content">
-                <tr>
-                  <th> Sr No. </th>
-                  <th> Name </th>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Days</th>
-                  <th>Night</th>
-                  <th> Status </th>
-                  <th> Action</th>
-                </tr>
-              </thead>
-              <tbody>
+        <div class="">
+          <div class=" flip-scroll">
+            <div class="flip-content">
+              
                 @if(count($combo_packages)>0)
                   <?php $i = $combo_packages->perPage() * ($combo_packages->currentPage() - 1) + 1; ?>
                     @foreach($combo_packages as $key=>$value)
-                      <tr>
-                        <td>{{$i}}</td>
-                        <td>{{ucfirst($value['combo_name'])}}</td>
-                        <td> {{ucfirst($value['combo_title'])}}</td>
-                        <td width="50%"> {{substr($value['combo_description'],0,140)}}</td>
-                        <td> {{$value['days']}}</td>
-                        <td> {{$value['night']}}</td>
-                        <td>
-                          @if($value['status']==0)
+                  
+                  
+                  <div class="manage_data_wrap @if($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @else pending_bg @endif">
+                      <div class="data_row action clearfix">
+                        <a title="Edit" href="{{URL::to('/agency/edit-combo-package')}}/{{$value['id']}}"  class="btn-circle">
+                              <i class="fa fa-pencil"></i>
+                            Edit
+                        </a>
+                        <a title="View" href="{{URL::to('/agency/view-combo-package')}}/{{$value['id']}}"  class="btn-circle">
+                            <i class="fa fa-eye"></i>
+                            View
+                        </a>
+                        <a title="Delete" href="javascript:void(0);" class="confirm_button" data-href="{{URL::to('/agency/delete-combo-package')}}?id={{$value['id']}}">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                        </a>
+                            <?php if ($value['is_blocked'] == 1) { ?>
+                         <a title="Block" class="" style="color:green;" onclick="return confirm('Are you sure want to block this package?');" href="{{URL::to('/agency/update-combo-block')}}/2/{{$value['id']}}">
+                            <i class="fa icon-ban"></i>
+                             Block
+                          </a>
+                            <?php } else { ?>
+                          <a title="Unblock" class="" style="color:red;" onclick="return confirm('Are you sure want to unblock this package?');" href="{{URL::to('/agency/update-combo-block')}}/1/{{$value['id']}}">
+                              <i class="fa icon-ban"></i>
+                              Unblock
+                          </a>
+                            <?php } ?>
+                      </div>
+                      
+                      <div class="data_row clearfix">
+                        <label>Combo Name</label>
+                        <span>{{ucfirst($value['combo_name'])}}</span>
+                      </div>
+                      
+                      <div class="data_row clearfix">
+                        <label>Combo Title</label>
+                        <span>{{ucfirst($value['combo_title'])}}</span>
+                      </div>
+                      
+                      <div class="data_row clearfix">
+                        <label>Status</label>
+                        <span>
+                            @if($value['status']==0)
                             Not Active
                           @else
                             Active
-                          @endif
-                        </td>
-                        <td class="numeric">
-                          <div class="actions">
-                            <a title="Edit" href="{{URL::to('/agency/edit-combo-package')}}/{{$value['id']}}"  class="btn btn-circle">
-                              <i class="fa fa-pencil"></i>
-                            </a>
-                            <a title="View" href="{{URL::to('/agency/view-combo-package')}}/{{$value['id']}}"  class="btn btn-circle">
-                              <i class="fa fa-eye"></i>
-                            </a>
-                            <a title="Delete" href="javascript:void(0);" class="btn btn-icon-only confirm_button" data-href="{{URL::to('/agency/delete-combo-package')}}?id={{$value['id']}}">
-                              <i class="fa fa-trash"></i>
-                            </a>
-                            <?php if ($value['is_blocked'] == 1) { ?>
-                              <a title="Block" class="btn btn-icon-only" style="color:green;" onclick="return confirm('Are you sure want to block this package?');" href="{{URL::to('/agency/update-combo-block')}}/2/{{$value['id']}}">
-                                <i class="fa icon-ban"></i>
-                              </a>
-                            <?php } else { ?>
-                              <a title="Unblock" class="btn btn-icon-only" style="color:red;" onclick="return confirm('Are you sure want to unblock this package?');" href="{{URL::to('/agency/update-combo-block')}}/1/{{$value['id']}}">
-                                <i class="fa icon-ban"></i>
-                              </a>
-                            <?php } ?>
-                          </div>
-                        </td>
-                      </tr>
+                          @endif  
+                        </span>
+                      </div>
+                  </div>
+                  
                     <?php $i++; ?>
                     @endforeach
                   @else
-                  <tr>
-                    <td colspan="8"><center>Sorry, No Result Found</center></td>
-                  </tr>
+                    <div class="no-data">Sorry, No Result Found</div>  
                 @endif
-              </tbody>
-            </table>
+            </div>
+              
+              
             <div class="row">
               <div class="col-md-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_paginate">
