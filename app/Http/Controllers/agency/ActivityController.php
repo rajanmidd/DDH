@@ -61,6 +61,7 @@ class ActivityController extends Controller
     $agency_id=auth()->guard('agency')->user()->id;
     $data['agency_id']=$agency_id;
     $data['location']=(string)$data['location'];
+    $data['total_cost_after_discount']=$data['total_cost_after_discount']?$data['total_cost_after_discount']:0;
     $data['open_time']=date("H:i",strtotime($data['open_time']));
     $data['close_time']=date("H:i",strtotime($data['close_time']));
     $data['unit_type']=implode(',',$data['unit_type']);
@@ -296,14 +297,15 @@ class ActivityController extends Controller
     $activityDetail->unit_type=implode(',',$data['unit_type']);
     $activityDetail->unit_type_value=json_encode($data['unit_type_value']);
     $activityDetail->difficult_level=$data['difficult_level'];
-    $activityDetail->minimum_amount_percent=$data['minimum_amount_percent'];
+    // $activityDetail->minimum_amount_percent=$data['minimum_amount_percent'];
+    $activityDetail->total_cost_after_discount=$data['total_cost_after_discount']?$data['total_cost_after_discount']:0;
     $activityDetail->price_per_person=$data['price_per_person'];
     $activityDetail->description=$data['description'];
     $activityDetail->latitude=$data['latitude'];
     $activityDetail->longitude=$data['longitude'];
     $activityDetail->open_time=date("H:i",strtotime($data['open_time']));
     $activityDetail->close_time=date("H:i",strtotime($data['close_time']));
-    $activityDetail->season=(isset($data['days'])) ? implode(',',$data['season']):"";
+    $activityDetail->season=(isset($data['season'])) ? implode(',',$data['season']):"";
     $activityDetail->days=(isset($data['days'])) ? implode(',',$data['days']):"";
     if($activityDetail->save())
     {
@@ -332,10 +334,9 @@ class ActivityController extends Controller
           $activityUploads->save();
         }
       }
-
+      ActivityUploads::where('agency_activity_id',$activityId)->where('type','3')->delete();
       if(isset($data['terms']) &&  count($data['terms']) >0)
-      {
-        ActivityUploads::where('agency_activity_id',$activityId)->where('type','3')->delete();
+      {        
         foreach($data['terms'] as $key=>$value)
         {
           $activityUploads=new ActivityUploads();
@@ -346,9 +347,9 @@ class ActivityController extends Controller
         }
       }
 
+      ActivityUploads::where('agency_activity_id',$activityId)->where('type','4')->delete();
       if(isset($data['notes']) &&  count($data['notes']) >0)
-      {
-        ActivityUploads::where('agency_activity_id',$activityId)->where('type','4')->delete();
+      {        
         foreach($data['notes'] as $key=>$value)
         {
           $activityUploads=new ActivityUploads();

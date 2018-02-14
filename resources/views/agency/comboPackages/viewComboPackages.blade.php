@@ -307,7 +307,7 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="portlet box green">
+                                <!-- <div class="portlet box green">
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="fa fa-gift"></i>Videos
@@ -334,7 +334,7 @@ use App\Helpers\CustomHelper;
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

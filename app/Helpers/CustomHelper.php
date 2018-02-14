@@ -32,17 +32,20 @@ class CustomHelper
         $days=self::getDays();
         $selectedDays=explode(',',$day);
         $res="";
-        foreach($selectedDays as $kry=>$value)
-        {
-            if($res=="")
+        if($day !="")
+        {       
+            foreach($selectedDays as $kry=>$value)
             {
-                $res=$days[$value];
-            }
-            else
-            {
-                $res=$res.', '.$days[$value];
-            }
-        }        
+                if($res=="")
+                {
+                    $res=$days[$value];
+                }
+                else
+                {
+                    $res=$res.', '.$days[$value];
+                }
+            }     
+        }   
 
         return $res;
     } 
@@ -52,17 +55,20 @@ class CustomHelper
         $months=self::getMonths();
         $selectedMonths=explode(',',$month);
         $res="";
-        foreach($selectedMonths as $kry=>$value)
+        if($month !="")
         {
-            if($res=="")
+            foreach($selectedMonths as $kry=>$value)
             {
-                $res=$months[$value];
-            }
-            else
-            {
-                $res=$res.', '.$months[$value];
-            }
-        }        
+                if($res=="")
+                {
+                    $res=$months[$value];
+                }
+                else
+                {
+                    $res=$res.', '.$months[$value];
+                }
+            }    
+        }    
 
         return $res;
     }

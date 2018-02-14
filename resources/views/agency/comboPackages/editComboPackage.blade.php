@@ -135,6 +135,15 @@ use App\Helpers\CustomHelper;
                                                         </div>
                                                     </div>
                                                     @endforeach
+                                                @else
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Day 1</label>
+                                                        <div class="col-md-9">
+                                                            <textarea class="form-control" id="itinerary-1" name="itinerary[]" placeholder="itinerary" rows="3" disabled="disabled"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 @endif                                                    
                                             </div>
                                         </div>
@@ -142,25 +151,25 @@ use App\Helpers\CustomHelper;
                                 
                                 
                                     <div class="form">
+                                        <?php
+                                            $combo_serivces=$comboDetail->comboService->toArray();
+                                            $rafting=array(
+                                                'title'=>'','length'=>'','duration'=>'','from_location'=>'','to_location'=>''
+                                            );
+                                            $rafting_check=false;
+                                            if(checkService($combo_serivces,'rafting') >=0)
+                                            {
+                                                $rafting_check=true;
+                                                $rafting_key=($combo_serivces[checkService($combo_serivces,'rafting')]['service_value']);
+                                                $rafting=json_decode($rafting_key,true);
+                                            }
+                                        ?>
                                         <h3 class="heading_form">
                                             Rafting
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="rafting" id="inlineCheckbox21" class="services" data-service="rafting">                                   
-                                        </label>
-                                        </h3>
-                                        
-                                        <?php
-                                        $combo_serivces=$comboDetail->comboService->toArray();
-                                        $rafting=array(
-                                            'title'=>'','length'=>'','duration'=>'','from_location'=>'','to_location'=>''
-                                        );
-                                        if(checkService($combo_serivces,'rafting') >=0)
-                                        {
-                                            $rafting_key=($combo_serivces[checkService($combo_serivces,'rafting')]['service_value']);
-                                            $rafting=json_decode($rafting_key,true);
-                                        }
-                                        ?>
-                                        
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="rafting" id="inlineCheckbox21" class="services" data-service="rafting" @if($rafting_check ==true) checked @endif>
+                                            </label>
+                                        </h3>                                        
                                         <div class="form-body"> 
                                             <div class="row">
                                                 <div class="col-md-12 rafting">
@@ -567,7 +576,7 @@ use App\Helpers\CustomHelper;
                                     
                                     <div class="form">
                                         <h3 class="heading_form">
-                                            Pain Ball
+                                            Paint Ball
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="pain_ball" id="inlineCheckbox21" class="services" data-service="pain_ball">
                                         </label>
@@ -575,7 +584,7 @@ use App\Helpers\CustomHelper;
                                         <div class="form-body">
                                               <?php
                                                 $pain_ball=array(
-                                                    'no_of_round'=>'','no_of_ball'=>''
+                                                    'title'=>'', 'no_of_round'=>'', 'no_of_ball'=>''
                                                 );
                                                 if(checkService($combo_serivces,'pain_ball') >=0)
                                                 {
@@ -585,6 +594,12 @@ use App\Helpers\CustomHelper;
                                                 ?>
                                                 <div class="row">
                                                     <div class="col-md-12 pain_ball">
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-3">Title</label>
+                                                            <div class="col-md-9">
+                                                                {{ Form::text('service[pain_ball][title]', $pain_ball['title'], ['id' => 'pain_ball_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                            </div>
+                                                        </div>
                                                         <div class="form-group row">
                                                             <label class="control-label col-md-3">Number Of Round</label>
                                                             <div class="col-md-9">
@@ -612,7 +627,7 @@ use App\Helpers\CustomHelper;
                                         <div class="form-body">
                                         <?php
                                         $paragliding=array(
-                                            'duration'=>'','height'=>''
+                                            'title'=>'','duration'=>'','height'=>''
                                         );
                                         if(checkService($combo_serivces,'paragliding') >=0)
                                         {
@@ -622,6 +637,12 @@ use App\Helpers\CustomHelper;
                                         ?>
                                         <div class="row">
                                             <div class="col-md-12 paragliding">
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-3">Title</label>
+                                                    <div class="col-md-9">
+                                                        {{ Form::text('service[paragliding][title]', $paragliding['height'], ['id' => 'paragliding_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                    </div>
+                                                </div>
                                                 <div class="form-group row">
                                                     <label class="control-label col-md-3">Height In Meter</label>
                                                     <div class="col-md-9">
@@ -734,38 +755,6 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
 
-<<<<<<< HEAD
-                                    <div class="portlet box blue">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                                <i class="fa fa-gift"></i>
-                                                Images                                                
-                                            </div>
-                                            <div class="caption pull-right">
-                                                <button type="button" title="Add Images" class="btn btn-success btn-add pull-right add_field_button" >
-                                                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="portlet-body form">
-                                            <!-- BEGIN FORM-->
-                                            <div class="form-body">
-                                                <div class="input_fields_wrap row"></div>
-                                                <div class="row img_gallery">
-                                                    @if(count($comboDetail->comboImages)>0 )
-                                                        @foreach($comboDetail->comboImages as $key=>$value)
-                                                            <div class="col-md-3 form-group">
-                                                                <img src="{{$value['file_url']}}" />
-                                                                <center>
-                                                                    <span class="btn-group btn-group-xs btn-group-solid">
-                                                                        <button type="button" class="btn red confirm_button" class="confirm" data-href="{{URL::to('/agency/delete-activity-image')}}/{{$value['id']}}/{{$value['agency_activity_id']}}">Delete</button>
-                                                                    </span>
-                                                                </center>
-                                                            </div>
-                                                        @endforeach
-                                                    @endif                                                
-                                                </div>
-=======
                                     <div class="form">
                                         <h3 class="heading_form">
                                             Activity Images   
@@ -787,45 +776,11 @@ use App\Helpers\CustomHelper;
                                                     </label>
                                                     @endforeach
                                                 @endif                                                
->>>>>>> amit_dev
                                             </div>
                                         </div>
                                     </div>
 
-<<<<<<< HEAD
-
-                                    <div class="portlet box green">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                                <i class="fa fa-gift"></i>Videos
-                                            </div>
-                                            <div class="caption pull-right">
-                                                <button type="button"  title="Add Videos" class="btn btn-success btn-add pull-right add_video_button" >
-                                                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="portlet-body form">
-                                            <div class="form-body">                                        
-                                                <div class="input_fields_wrap_video row"></div>
-                                                <div class="row video_gallery">
-                                                    @if(count($comboDetail->comboVideos)>0 )
-                                                        @foreach($comboDetail->comboVideos as $key=>$value)
-                                                            <div class="col-md-3 form-group">
-                                                                <video width="100%" controls>
-                                                                    <source src="{{$value['file_url']}}" type="video/mp4">
-                                                                </video>
-                                                                <center>
-                                                                    <span class="btn-group btn-group-xs btn-group-solid">
-                                                                        <button type="button" class="btn red confirm_button" class="confirm" data-href="{{URL::to('/agency/delete-activity-video')}}/{{$value['id']}}/{{$value['agency_activity_id']}}">Delete</button>
-                                                                    </span>
-                                                                </center>
-                                                            </div>
-                                                        @endforeach
-                                                    @endif                                                
-                                                </div>
-=======
-                                    <div class="form">
+                                    <!-- <div class="form">
                                         <h3 class="heading_form">
                                             Activity Videos
                                             <button type="button"  title="Add Videos" class="btn btn-success btn-add pull-right add_video_button" >
@@ -846,11 +801,10 @@ use App\Helpers\CustomHelper;
                                                     </label>
                                                     @endforeach
                                                 @endif                                                
->>>>>>> amit_dev
                                             </div>
                                         </div>
                                         
-                                    </div>
+                                    </div> -->
 
                                     <div class="form">
                                         <div class="portlet-title">

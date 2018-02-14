@@ -131,7 +131,6 @@ $(document).ready(function () {
                   },
                   "activityImages[]":
                   {
-                        required: true,
                         extension: "jpg|jpeg|png",
                         filesize: 31457280,
                   },
@@ -147,20 +146,29 @@ $(document).ready(function () {
                   }
             },
             errorPlacement: function (error, element) {
-            $(element).closest('.form-group').append(error);
+                  $(element).closest('.form-group').append(error);
             },
             invalidHandler: function (event, validator) { //display error alert on form submit   
 
             },
             highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+                  $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
             },
             success: function (label) {
-            label.closest('.form-group').removeClass('has-error');
-            label.remove();
+                  label.closest('.form-group').removeClass('has-error');
+                  label.remove();
             },
             submitHandler: function (form) {
-            form.submit();
+                  var len=$(".input_fields_wrap_terms").find("input[name='terms[]']").length;
+                  if(len>0)
+                  {
+                        form.submit();
+                  }
+                  else
+                  {
+                        swal("Cancelled", "Please enter at least one terms & condition :)", "error");
+                  }
+                  
             }
       });
 
@@ -558,10 +566,11 @@ $(document).ready(function () {
             if($(this).is(":checked"))
             {
                   $("."+service).find('input[type="text"],select,textarea').prop("disabled",false);
-                  $("#camItenary").show();
-                  $("#camItenary").find('textarea').prop("disabled",false);
+                  
                   if(service=="camping")
                   {
+                        $("#camItenary").show();
+                        $("#camItenary").find('textarea').prop("disabled",false);
                         $("#camping").show();
                         $("#camping").find('input[type="text"]').prop("disabled",false);
                         $("#combo").hide();
@@ -571,10 +580,11 @@ $(document).ready(function () {
             else
             {
                   $("."+service).find('input[type="text"],select,textarea').prop("disabled",true);
-                  $("#camItenary").hide();
-                  $("#camItenary").find('textarea').prop("disabled",true);
+                 
                   if(service=="camping")
                   {
+                        $("#camItenary").hide();
+                        $("#camItenary").find('textarea').prop("disabled",true);
                         $("#camping").hide();
                         $("#camping").find('input[type="text"]').prop("disabled",true);
                         $("#combo").show();
@@ -593,6 +603,13 @@ $(document).ready(function () {
                   console.log($(this).val() ,current_value);
                   return $(this).val() >current_value;
               }).prop('disabled', true);
+      });
+
+      $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+                  event.preventDefault();
+                  return false;
+            }
       });
 
 });

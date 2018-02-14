@@ -463,17 +463,23 @@ use App\Helpers\CustomHelper;
                                     <div class="row">
                                         <div class="col-md-12 pain_ball">
                                             <div class="form-group">
-                                                    <label class="control-label col-md-3">Number Of Round</label>
-                                                    <div class="col-md-9">
-                                                        {{ Form::text('service[pain_ball][no_of_round]', null, ['id' => 'no_of_round','class' => 'form-control','placeholder'=>'Number Of Round','disabled'=>'disabled']) }}
-                                                    </div>
+                                                <label class="control-label col-md-3">Title</label>
+                                                <div class="col-md-9">
+                                                    {{ Form::text('service[pain_ball][title]', null, ['id' => 'pain_ball_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
                                                 </div>
+                                            </div>
                                             <div class="form-group">
-                                                    <label class="control-label col-md-3">Number Of Ball</label>
-                                                    <div class="col-md-9">
-                                                    {{ Form::text('service[pain_ball][no_of_ball]', null, ['id' => 'no_of_ball','class' => 'form-control','placeholder'=>'Number Of Ball','disabled'=>'disabled']) }}
-                                                    </div>
+                                                <label class="control-label col-md-3">Number Of Round</label>
+                                                <div class="col-md-9">
+                                                    {{ Form::text('service[pain_ball][no_of_round]', null, ['id' => 'no_of_round','class' => 'form-control','placeholder'=>'Number Of Round','disabled'=>'disabled']) }}
                                                 </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Number Of Ball</label>
+                                                <div class="col-md-9">
+                                                {{ Form::text('service[pain_ball][no_of_ball]', null, ['id' => 'no_of_ball','class' => 'form-control','placeholder'=>'Number Of Ball','disabled'=>'disabled']) }}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -494,11 +500,17 @@ use App\Helpers\CustomHelper;
                                     <div class="row">
                                         <div class="col-md-12 paragliding">
                                             <div class="form-group">
+                                                <label class="control-label col-md-3">Title</label>
+                                                <div class="col-md-9">
+                                                    {{ Form::text('service[paragliding][title]', null, ['id' => 'paragliding_title','class' => 'form-control','placeholder'=>'Title','disabled'=>'disabled']) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                     <label class="control-label col-md-3">Height In Meter</label>
                                                     <div class="col-md-9">
                                                         {{ Form::text('service[paragliding][height]', null, ['id' => 'paragliding_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
                                                     </div>
-                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                     <label class="control-label col-md-3">Duration In Minutes</label>
                                                     <div class="col-md-9">
