@@ -43,25 +43,25 @@ use App\Helpers\CustomHelper;
                                         <div class="col-md-9">
                                             {{ Form::select('activity_id', $activities, null, ['id' => 'activity_id','class' => 'form-control','placeholder'=>'Select Activity']) }}
                                         </div>
-</div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Title</label>
                                         <div class=" col-md-9">
                                             {{ Form::text('title', null, ['id' => 'title','class' => 'form-control','placeholder'=>'Enter Activity Title']) }}
                                         </div>
-</div>
+                                    </div>
                                     <div class="form-group ">
                                         <label class="control-label col-md-3">Description</label>
                                         <div class="col-md-3">
                                             {{ Form::textarea('description', null, ['id' => 'description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
                                         </div>
-</div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Location</label>
                                         <div class="col-md-9">
                                             {{ Form::text('location', null, ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Location']) }}
                                         </div>
-</div>                                        
+                                    </div>                                        
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Select Activity Unit Type</label>
@@ -78,26 +78,26 @@ use App\Helpers\CustomHelper;
                                                 @endforeach
                                             </div>
                                         </div>
-</div>
+                                    </div>
 
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="control-label col-md-3">Minimum % amount to book this activity</label>
                                         <div class="col-md-9">
                                             {{ Form::text('minimum_amount_percent', null, ['id' => 'minimum_amount_percent','class' => 'form-control','placeholder'=>'Enter Minimum % amount to book this activity']) }}
                                         </div>
-</div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Total Cost Per Person</label>
                                         <div class="col-md-9">
                                             {{ Form::text('price_per_person', null, ['id' => 'price_per_person','class' => 'form-control','placeholder'=>'Enter Price Per Person']) }}
                                         </div>
-</div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Total Cost After Discount Per Person</label>
                                         <div class="col-md-9">
                                             {{ Form::text('total_cost_after_discount', null, ['id' => 'total_cost_after_discount','class' => 'form-control','placeholder'=>'Enter Total Cost After Discount Per Person']) }}
                                         </div>
- </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Select Season</label>
@@ -112,7 +112,7 @@ use App\Helpers\CustomHelper;
                                                 @endforeach
                                             </div>
                                         </div>
-</div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Open Days</label>
                                         <div class="col-md-9">
@@ -126,25 +126,25 @@ use App\Helpers\CustomHelper;
                                                 @endforeach
                                             </div>
                                         </div>
-</div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Open Time</label>
                                         <div class="col-md-9">
                                             {{ Form::text('open_time', null, ['id' => 'open_time','class' => 'form-control timepicker timepicker-no-seconds','placeholder'=>'Enter Open Time']) }}
                                         </div>
-</div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Close Time</label>
                                         <div class="col-md-9">
                                             {{ Form::text('close_time', null, ['id' => 'close_time','class' => 'form-control timepicker timepicker-no-seconds','placeholder'=>'Enter Close Time']) }}
                                         </div>
-</div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Difficulty Level</label>
                                         <div class="col-md-9">
                                             {{ Form::select('difficult_level', $levels, null, ['id' => 'difficult_level','class' => 'form-control','placeholder'=>'Select Difficulty Level']) }}
                                         </div>
-</div>
+                                    </div>
                                 </div>
                                 <input type="hidden" name="latitude" id="latitude" value="" />
                                 <input type="hidden" name="longitude" id="longitude" value="" />
@@ -168,7 +168,7 @@ use App\Helpers\CustomHelper;
                             <!-- Add Images -->
                             <!-- Add Videos -->            
                                         
-                            <div class="form">
+                            <!-- <div class="form">
                                 <h3 class="heading_form">
                                  Videos
                                  <button type="button" title="Add Videos" class="btn btn-success btn-add pull-right add_video_button" >
@@ -179,7 +179,7 @@ use App\Helpers\CustomHelper;
                                 <div class="form-body">                                        
                                     <div class="input_fields_wrap_video row"></div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- Add Videos -->  
                                         
                              <!--Terms & Conditions -->           

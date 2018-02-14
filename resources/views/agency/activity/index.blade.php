@@ -65,7 +65,7 @@
                   <th> Sr No. </th>
                   <th> Activity Name </th>
                   <th>Title</th>
-                  <th>Location</th>
+                  <th width="25%">Location</th>
                   <th>Price/Perosn</th>
                   <th> Status </th>
                   <th> Action</th>

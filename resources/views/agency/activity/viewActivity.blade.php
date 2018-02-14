@@ -53,8 +53,8 @@ use App\Helpers\CustomHelper;
                                                 </div>
                                                 <div class="col-md-6">
                                                     <dl class="dl-horizontal">
-                                                        <dt>Min. % Amount :</dt>
-                                                        <dd>{{$activityDetail['minimum_amount_percent']}}</dd>
+                                                        <!-- <dt>Min. % Amount :</dt>
+                                                        <dd>{{$activityDetail['minimum_amount_percent']}}</dd> -->
                                                         <dt>Price Per Person</dt>
                                                         <dd>{{$activityDetail['price_per_person']}}</dd>
                                                         <dt>Open Days :</dt>
@@ -103,7 +103,7 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="view_data">
+                                <!-- <div class="view_data">
                                     <h3 class="heading_form"> Videos</h3>
                                     <div class="form">
                                         <div class="form-body actimages">
@@ -126,7 +126,7 @@ use App\Helpers\CustomHelper;
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="view_data">
                                     <h3 class="heading_form">Terms & Conditions </h3>
                                     <div class="form">

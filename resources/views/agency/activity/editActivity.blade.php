@@ -83,12 +83,12 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
 
-                                     <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="control-label col-md-3">Minimum % amount to book this activity</label>
                                         <div class="col-md-9">
                                             {{ Form::text('minimum_amount_percent', $activityDetail['minimum_amount_percent'], ['id' => 'minimum_amount_percent','class' => 'form-control','placeholder'=>'Enter Minimum % amount to book this activity']) }}
                                         </div>
-                                    </div>
+                                    </div> -->
                                      <div class="form-group">
                                             <label class="control-label col-md-3">Total Cost Per Person</label>
                                             <div class="col-md-9">
@@ -190,7 +190,7 @@ use App\Helpers\CustomHelper;
 
                                     <!-- Upload Videos -->
                                         
-                                    <div class="form">
+                                    <!-- <div class="form">
                                          <h3 class="heading_form"> 
                                             Videos
                                             <button type="button" title="Add Videos" class="btn btn-success pull-right add_video_button">
@@ -217,7 +217,7 @@ use App\Helpers\CustomHelper;
                                                 @endif                                                
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 
                                     <!-- Upload Videos -->
                                     
