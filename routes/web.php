@@ -22,6 +22,7 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
    Route::post('/agency-login',['as'=>'agency.login','uses'=>'LoginController@store']);
    Route::post('/agency-forgetPasswordMail',['as'=>'agency.forgetPasswordMail','uses'=>'LoginController@forgetPasswordMail']);
    Route::get('/verification-pending',['uses'=>'LoginController@verificationPending']);
+
    Route::get('/verification-completed',['uses'=>'LoginController@verificationCompleted']);
    Route::get('/verify/{token}',['uses'=>'VerificationController@confirmEmail']);
    Route::get('/password/reset/{token}',['uses'=>'PasswordController@checkToken']);
@@ -31,10 +32,13 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
    
       Route::group(['middleware' => 'agency'], function () {
          
-      Route::get('/agency-dashboard',['as'=>'agency.dashboard','uses'=>'DashboardController@index']);
+      Route::get('/agency-dashboard',['as'=>'agency.dashboard','uses'=>'DashboardController@index','middleware'=> 'checkstatus']);
       Route::get('/notifications',['as'=>'notifications','uses'=>'DashboardController@notifications']);
       Route::get('/agency-logout',['as'=>'agency.logout','uses'=>'LoginController@logout']);
       
+      Route::get('/pending',['as'=>'agency.pending','uses'=>'LoginController@accountPending']);
+      Route::get('/rejected',['as'=>'agency.rejected','uses'=>'LoginController@accountRejected']);
+
       /*** Profile routes ***/
       Route::get('/profile',['as'=>'profile','uses'=>'ProfileController@index']);
       Route::get('/view-profile',['as'=>'view-profile','uses'=>'ProfileController@viewProfile']);
@@ -42,50 +46,50 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
       /*** Profile routes ***/
 
       /*** Change Password ***/
-      Route::get('/password',['as'=>'password','uses'=>'ProfileController@password']);
-      Route::post('/change-password',['as'=>'change-password','uses'=>'ProfileController@changePassword']);
+      Route::get('/password',['as'=>'password','uses'=>'ProfileController@password','middleware'=> 'checkstatus']);
+      Route::post('/change-password',['as'=>'change-password','uses'=>'ProfileController@changePassword','middleware'=> 'checkstatus']);
       /*** Change Password ***/
 
 
-      Route::get('add-activity',['as'=>'agency.add-activity','uses'=>'ActivityController@addActivity']);
-      Route::post('save-activity-basic-info',['as'=>'agency.save-activity-basic-info','uses'=>'ActivityController@saveActivityBasicInfo']);
-      Route::post('save-activity-images',['as'=>'agency.save-activity-images','uses'=>'ActivityController@saveActivityImages']);
-      Route::post('save-activity-videos',['as'=>'agency.save-activity-videos','uses'=>'ActivityController@saveActivityVideos']);
-      Route::post('save-activity-terms',['as'=>'agency.save-activity-terms','uses'=>'ActivityController@saveActivityTerms']);
-      Route::post('save-activity-notes',['as'=>'agency.save-activity-notes','uses'=>'ActivityController@saveActivityNotes']);
-      Route::get('list-activity', ['as' => 'agency.list-activity', 'uses' => 'ActivityController@index']);
-      Route::get('delete-activity', ['as' => 'agency.delete-activity', 'uses' => 'ActivityController@deleteActivity']);
-      Route::get('view-activity/{id}', ['as' => 'agency.view-activity', 'uses' => 'ActivityController@viewActivity']);
-      Route::get('edit-activity/{page}/{id}', ['as' => 'agency.edit-activity', 'uses' => 'ActivityController@editActivity']);
+      Route::get('add-activity',['as'=>'agency.add-activity','uses'=>'ActivityController@addActivity','middleware'=> 'checkstatus']);
+      Route::post('save-activity-basic-info',['as'=>'agency.save-activity-basic-info','uses'=>'ActivityController@saveActivityBasicInfo','middleware'=> 'checkstatus']);
+      Route::post('save-activity-images',['as'=>'agency.save-activity-images','uses'=>'ActivityController@saveActivityImages','middleware'=> 'checkstatus']);
+      Route::post('save-activity-videos',['as'=>'agency.save-activity-videos','uses'=>'ActivityController@saveActivityVideos','middleware'=> 'checkstatus']);
+      Route::post('save-activity-terms',['as'=>'agency.save-activity-terms','uses'=>'ActivityController@saveActivityTerms','middleware'=> 'checkstatus']);
+      Route::post('save-activity-notes',['as'=>'agency.save-activity-notes','uses'=>'ActivityController@saveActivityNotes','middleware'=> 'checkstatus']);
+      Route::get('list-activity', ['as' => 'agency.list-activity', 'uses' => 'ActivityController@index','middleware'=> 'checkstatus']);
+      Route::get('delete-activity', ['as' => 'agency.delete-activity', 'uses' => 'ActivityController@deleteActivity','middleware'=> 'checkstatus']);
+      Route::get('view-activity/{id}', ['as' => 'agency.view-activity', 'uses' => 'ActivityController@viewActivity','middleware'=> 'checkstatus']);
+      Route::get('edit-activity/{page}/{id}', ['as' => 'agency.edit-activity', 'uses' => 'ActivityController@editActivity','middleware'=> 'checkstatus']);
       
-      Route::post('update-activity-basic-info',['as'=>'agency.update-activity-basic-info','uses'=>'ActivityController@updateActivityBasicInfo']);
-      Route::post('update-activity-images',['as'=>'agency.update-activity-images','uses'=>'ActivityController@updateActivityImages']);
-      Route::post('update-activity-videos',['as'=>'agency.update-activity-videos','uses'=>'ActivityController@updateActivityVideos']);
-      Route::post('update-activity-terms',['as'=>'agency.update-activity-terms','uses'=>'ActivityController@updateActivityTerms']);
-      Route::post('update-activity-notes',['as'=>'agency.update-activity-notes','uses'=>'ActivityController@updateActivityNotes']);
-      Route::get('delete-activity-image/{id}/{activityId}', ['as' => 'agency.delete-activity-image', 'uses' => 'ActivityController@deleteActivityImage']);
-      Route::get('delete-activity-video/{id}/{activityId}', ['as' => 'agency.delete-activity-video', 'uses' => 'ActivityController@deleteActivityVideo']);
-      Route::get('update-activity-block/{status}/{activityId}', ['as' => 'agency.update-activity-block', 'uses' => 'ActivityController@updateActivityBlockStatus']);
+      Route::post('update-activity-basic-info',['as'=>'agency.update-activity-basic-info','uses'=>'ActivityController@updateActivityBasicInfo','middleware'=> 'checkstatus']);
+      Route::post('update-activity-images',['as'=>'agency.update-activity-images','uses'=>'ActivityController@updateActivityImages','middleware'=> 'checkstatus']);
+      Route::post('update-activity-videos',['as'=>'agency.update-activity-videos','uses'=>'ActivityController@updateActivityVideos','middleware'=> 'checkstatus']);
+      Route::post('update-activity-terms',['as'=>'agency.update-activity-terms','uses'=>'ActivityController@updateActivityTerms','middleware'=> 'checkstatus']);
+      Route::post('update-activity-notes',['as'=>'agency.update-activity-notes','uses'=>'ActivityController@updateActivityNotes','middleware'=> 'checkstatus']);
+      Route::get('delete-activity-image/{id}/{activityId}', ['as' => 'agency.delete-activity-image', 'uses' => 'ActivityController@deleteActivityImage','middleware'=> 'checkstatus']);
+      Route::get('delete-activity-video/{id}/{activityId}', ['as' => 'agency.delete-activity-video', 'uses' => 'ActivityController@deleteActivityVideo','middleware'=> 'checkstatus']);
+      Route::get('update-activity-block/{status}/{activityId}', ['as' => 'agency.update-activity-block', 'uses' => 'ActivityController@updateActivityBlockStatus','middleware'=> 'checkstatus']);
 
 
-      Route::get('add-combo-packages',['as'=>'agency.add-combo-packages','uses'=>'ComboPackagesController@addComboPackages']);
-      Route::get('list-combo-packages',['as'=>'agency.list-combo-packages','uses'=>'ComboPackagesController@index']);
-      Route::post('save-combo-package',['as'=>'agency.save-combo-package','uses'=>'ComboPackagesController@saveComboPackage']);
-      Route::get('delete-combo-package', ['as' => 'agency.delete-combo-package', 'uses' => 'ComboPackagesController@deleteComboPackage']);
-      Route::get('view-combo-package/{id}', ['as' => 'agency.view-combo-package', 'uses' => 'ComboPackagesController@viewComboPackage']);
-      Route::get('edit-combo-package/{id}', ['as' => 'agency.edit-combo-package', 'uses' => 'ComboPackagesController@editComboPackage']);
-      Route::post('update-combo-package', ['as' => 'agency.update-combo-package', 'uses' => 'ComboPackagesController@updateComboPackage']);
-      Route::get('update-combo-block/{status}/{packageId}', ['as' => 'agency.update-combo-block', 'uses' => 'ComboPackagesController@updateComboBlockStatus']);
+      Route::get('add-combo-packages',['as'=>'agency.add-combo-packages','uses'=>'ComboPackagesController@addComboPackages','middleware'=> 'checkstatus']);
+      Route::get('list-combo-packages',['as'=>'agency.list-combo-packages','uses'=>'ComboPackagesController@index','middleware'=> 'checkstatus']);
+      Route::post('save-combo-package',['as'=>'agency.save-combo-package','uses'=>'ComboPackagesController@saveComboPackage','middleware'=> 'checkstatus']);
+      Route::get('delete-combo-package', ['as' => 'agency.delete-combo-package', 'uses' => 'ComboPackagesController@deleteComboPackage','middleware'=> 'checkstatus']);
+      Route::get('view-combo-package/{id}', ['as' => 'agency.view-combo-package', 'uses' => 'ComboPackagesController@viewComboPackage','middleware'=> 'checkstatus']);
+      Route::get('edit-combo-package/{id}', ['as' => 'agency.edit-combo-package', 'uses' => 'ComboPackagesController@editComboPackage','middleware'=> 'checkstatus']);
+      Route::post('update-combo-package', ['as' => 'agency.update-combo-package', 'uses' => 'ComboPackagesController@updateComboPackage','middleware'=> 'checkstatus']);
+      Route::get('update-combo-block/{status}/{packageId}', ['as' => 'agency.update-combo-block', 'uses' => 'ComboPackagesController@updateComboBlockStatus','middleware'=> 'checkstatus']);
 
       
-      Route::get('add-camping-packages',['as'=>'agency.add-camping-packages','uses'=>'CampingPackagesController@addCampingPackages']);
-      Route::get('list-camping-packages',['as'=>'agency.list-camping-packages','uses'=>'CampingPackagesController@index']);
-      Route::post('save-camping-package',['as'=>'agency.save-camping-package','uses'=>'CampingPackagesController@saveCampingPackage']);
-      Route::get('delete-x-package', ['as' => 'agency.delete-camping-package', 'uses' => 'CampingPackagesController@deleteCampingPackage']);
-      Route::get('view-camping-package/{id}', ['as' => 'agency.view-camping-package', 'uses' => 'CampingPackagesController@viewCampingPackage']);
-      Route::get('edit-camping-package/{id}', ['as' => 'agency.edit-camping-package', 'uses' => 'CampingPackagesController@editCampingPackage']);
-      Route::post('update-camping-package', ['as' => 'agency.update-camping-package', 'uses' => 'CampingPackagesController@updateCampingPackage']);      
-      Route::get('update-camping-block/{status}/{packageId}', ['as' => 'agency.update-camping-block', 'uses' => 'CampingPackagesController@updateCampingBlockStatus']);
+      Route::get('add-camping-packages',['as'=>'agency.add-camping-packages','uses'=>'CampingPackagesController@addCampingPackages','middleware'=> 'checkstatus']);
+      Route::get('list-camping-packages',['as'=>'agency.list-camping-packages','uses'=>'CampingPackagesController@index','middleware'=> 'checkstatus']);
+      Route::post('save-camping-package',['as'=>'agency.save-camping-package','uses'=>'CampingPackagesController@saveCampingPackage','middleware'=> 'checkstatus']);
+      Route::get('delete-x-package', ['as' => 'agency.delete-camping-package', 'uses' => 'CampingPackagesController@deleteCampingPackage','middleware'=> 'checkstatus']);
+      Route::get('view-camping-package/{id}', ['as' => 'agency.view-camping-package', 'uses' => 'CampingPackagesController@viewCampingPackage','middleware'=> 'checkstatus']);
+      Route::get('edit-camping-package/{id}', ['as' => 'agency.edit-camping-package', 'uses' => 'CampingPackagesController@editCampingPackage','middleware'=> 'checkstatus']);
+      Route::post('update-camping-package', ['as' => 'agency.update-camping-package', 'uses' => 'CampingPackagesController@updateCampingPackage','middleware'=> 'checkstatus']);      
+      Route::get('update-camping-block/{status}/{packageId}', ['as' => 'agency.update-camping-block', 'uses' => 'CampingPackagesController@updateCampingBlockStatus','middleware'=> 'checkstatus']);
    });
    
 });

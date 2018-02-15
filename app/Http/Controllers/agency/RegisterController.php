@@ -32,6 +32,7 @@ class RegisterController extends Controller {
     $data = $request->all();
     $data['temp_access_token'] = $verification_code;
     $data['password'] = bcrypt($data['password']);
+    $data['terms_condition'] = (isset($data['terms_condition']) && $data['terms_condition']==1) ? '1': '0';
     $data['is_email_verified'] = '0';
     $agency = Agency::create($data);
 

@@ -45,8 +45,6 @@ use App\Helpers\CustomHelper;
                                                         <dd>{{ucfirst($activityDetail['title'])}}</dd>
                                                         <dt>Location :</dt>
                                                         <dd>{{ucfirst($activityDetail['location'])}}</dd>
-                                                        <dt>Capacity :</dt>
-                                                        <dd>{{ucfirst($activityDetail['capacity'])}}</dd>
                                                         <dt>Level :</dt>
                                                         <dd>{{ucfirst($activityDetail->difficultyLevel['name'])}}</dd>
                                                     </dl>

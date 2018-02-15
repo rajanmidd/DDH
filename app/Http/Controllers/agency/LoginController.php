@@ -76,21 +76,24 @@ class LoginController extends Controller
       {
          return \Redirect::back()->withErrors(["Sorry, Your email is not verified."]);
       }
-      else if($agencyDetail->status =='0')
-      {
-         return \Redirect::back()->withErrors("Sorry, Verification is pending from admin end, Contact to support.");
-      }
-      else if($agencyDetail->status =='2')
-      {
-         return \Redirect::back()->withErrors(["Sorry, Your account has been rejected. Please contact to support."]);
-      }
       else
       {
-
          $remember = (isset($data['remember']) && $data['remember'] =='1') ? true : false;
-         if(\Auth::guard('agency')->attempt(['email' => $request->email, 'password' => $request->password,'status'=>'1','is_email_verified'=>'1'],$remember)) 
+         if(\Auth::guard('agency')->attempt(['email' => $request->email, 'password' => $request->password,'is_email_verified'=>'1'],$remember)) 
          { 
-            return redirect()->route('agency.dashboard');
+            if($agencyDetail->status =='0')
+            {
+              return redirect()->route('agency.pending');
+            }
+            else if($agencyDetail->status =='2')
+            {
+              return redirect()->route('agency.rejected');            
+            }
+            else
+            {
+              return redirect()->route('agency.dashboard');
+            }
+            
          }      
          else
          {
@@ -144,5 +147,15 @@ class LoginController extends Controller
             return redirect('agency');
          } 
       }     
+   }
+
+   public function accountPending()
+   {
+      return view('agency.login.pending');
+   }
+
+   public function accountRejected()
+   {
+      return view('agency.login.rejected');
    }
 }

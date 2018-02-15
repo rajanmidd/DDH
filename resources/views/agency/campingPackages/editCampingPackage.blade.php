@@ -126,7 +126,7 @@ use App\Helpers\CustomHelper;
                         <div class="form-body"> 
                             <div class="row">
                                 <div class="col-md-12 rafting">
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">Title</label>
                                         <div class="col-md-9">
                                             @if($rafting_check ==true)
@@ -136,7 +136,7 @@ use App\Helpers\CustomHelper;
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">Length In KM</label>
                                         <div class=" col-md-9">
                                             @if($rafting_check ==true)
@@ -146,7 +146,7 @@ use App\Helpers\CustomHelper;
                                             @endif                                            
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">Duration In Min.</label>
                                         <div class="col-md-9">
                                             @if($rafting_check ==true)
@@ -157,7 +157,7 @@ use App\Helpers\CustomHelper;
                                             
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">From Location</label>
                                         <div class="col-md-9">
                                             @if($rafting_check ==true)
@@ -168,7 +168,7 @@ use App\Helpers\CustomHelper;
                                             
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">To Location</label>
                                         <div class="col-md-9">
                                             @if($rafting_check ==true)
@@ -207,7 +207,7 @@ use App\Helpers\CustomHelper;
                         <div class="form-body">                                  
                             <div class="row">
                                 <div class="col-md-12 bunjee">
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">Title</label>
                                         <div class="col-md-9">                                            
                                             @if($bunjee_check ==true)
@@ -217,7 +217,7 @@ use App\Helpers\CustomHelper;
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">Height In Meter</label>
                                         <div class="col-md-9">                                        
                                             @if($bunjee_check ==true)
@@ -255,7 +255,7 @@ use App\Helpers\CustomHelper;
                             
                             <div class="row">
                                 <div class="col-md-12 flying_fox_tandom">
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">Title</label>
                                         <div class="col-md-9">
                                             @if($flying_fox_tandom_check ==true)
@@ -265,7 +265,7 @@ use App\Helpers\CustomHelper;
                                             @endif                                            
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">Length In Meter</label>
                                         <div class="col-md-9">
                                             @if($flying_fox_tandom_check ==true)
@@ -275,7 +275,7 @@ use App\Helpers\CustomHelper;
                                             @endif                                            
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">Height In Meter</label>
                                         <div class="col-md-9">
                                             @if($flying_fox_tandom_check ==true)
@@ -312,7 +312,7 @@ use App\Helpers\CustomHelper;
                         <div class="form-body">                            
                         <div class="row">
                             <div class="col-md-12 flying_fox_solo">
-                                <div class="form-group">
+                                <div class="form-group row">
                                     <label class="control-label col-md-3">Title</label>
                                     <div class="form-group col-md-9">
                                         @if($flying_fox_solo_check ==true)
@@ -322,7 +322,7 @@ use App\Helpers\CustomHelper;
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group row">
                                     <label class="control-label col-md-3">Length In Meter</label>
                                     <div class="form-group col-md-9">
                                         @if($flying_fox_solo_check ==true)
@@ -332,7 +332,7 @@ use App\Helpers\CustomHelper;
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group row">
                                     <label class="control-label col-md-3">Height In Meter</label>
                                     <div class="form-group col-md-9">
                                         @if($flying_fox_solo_check ==true)
@@ -371,7 +371,7 @@ use App\Helpers\CustomHelper;
                                         
                                         <div class="row">
                                             <div class="col-md-12 swing">
-                                                <div class="form-group">
+                                                <div class="form-group row">
                                                     <label class="control-label col-md-3">Title</label>
                                                     <div class="col-md-9">
                                                         @if($swing_check ==true)
@@ -381,7 +381,7 @@ use App\Helpers\CustomHelper;
                                                         @endif
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group row">
                                                     <label class="control-label col-md-3">Height In Meter</label>
                                                     <div class="col-md-9">
                                                         @if($swing_check ==true)
@@ -419,7 +419,7 @@ use App\Helpers\CustomHelper;
                                         <div class="form-body">                                            
                                         <div class="row">
                                             <div class="col-md-12 air_safari">
-                                                <div class="form-group">
+                                                <div class="form-group row">
                                                     <label class="control-label col-md-3">Title</label>
                                                     <div class="col-md-9">
                                                         @if($air_safari_check ==true)
@@ -429,7 +429,7 @@ use App\Helpers\CustomHelper;
                                                         @endif
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group row">
                                                     <label class="control-label col-md-3">Durtion In Minutes</label>
                                                     <div class="col-md-9">
                                                         @if($air_safari_check ==true)
@@ -468,7 +468,7 @@ use App\Helpers\CustomHelper;
                                         
                                         <div class="row">
                                             <div class="col-md-12 air_balloon">
-                                                <div class="form-group">
+                                                <div class="form-group row">
                                                     <label class="control-label col-md-3">Title</label>
                                                     <div class="col-md-9">
                                                         @if($air_balloon_check ==true)
@@ -478,7 +478,7 @@ use App\Helpers\CustomHelper;
                                                         @endif
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group row">
                                                     <label class="control-label col-md-3">Durtion In Minutes</label>
                                                     <div class="col-md-9">
                                                         @if($air_balloon_check ==true)
@@ -517,7 +517,7 @@ use App\Helpers\CustomHelper;
                                         
                                     <div class="row">
                                         <div class="col-md-12 cycling">
-                                            <div class="form-group">
+                                            <div class="form-group row">
                                                 <label class="control-label col-md-3">Title</label>
                                                 <div class="col-md-9">
                                                     @if($cycling_check ==true)
@@ -527,7 +527,7 @@ use App\Helpers\CustomHelper;
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group row">
                                                 <label class="control-label col-md-3">Length In KM</label>
                                                 <div class=" col-md-9">
                                                     @if($cycling_check ==true)
@@ -537,7 +537,7 @@ use App\Helpers\CustomHelper;
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group row">
                                                 <label class="control-label col-md-3">Durtion In Minutes</label>
                                                 <div class="col-md-9">
                                                 @if($cycling_check ==true)
@@ -577,7 +577,7 @@ use App\Helpers\CustomHelper;
                                                 
                                                 <div class="row">
                                                     <div class="col-md-12 zip_line">
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
                                                             @if($zip_line_check ==true)
@@ -587,7 +587,7 @@ use App\Helpers\CustomHelper;
                                                             @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Length In Meter</label>
                                                             <div class="col-md-9">
                                                             @if($zip_line_check ==true)
@@ -597,7 +597,7 @@ use App\Helpers\CustomHelper;
                                                             @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Height In Meter</label>
                                                             <div class="col-md-9">
                                                             @if($zip_line_check ==true)
@@ -626,17 +626,16 @@ use App\Helpers\CustomHelper;
                                                         $trekking=json_decode($trekking_key,true);
                                                     }
                                                 ?>
-                                                    <h3 class="heading_form">
-                                                        Trekking
-                                                    <label class="checkbox-inline">    
-                                                        <input type="checkbox" name="trekking" id="inlineCheckbox21" class="services" data-service="trekking" @if($trekking_check ==true) checked @endif>
-                                                    </label>
-                                                    </h3>
-                                                    <div class="form-body">
-                                                        
+                                                <h3 class="heading_form">
+                                                    Trekking
+                                                <label class="checkbox-inline">    
+                                                    <input type="checkbox" name="trekking" id="inlineCheckbox21" class="services" data-service="trekking" @if($trekking_check ==true) checked @endif>
+                                                </label>
+                                                </h3>
+                                            <div class="form-body">                                                        
                                                 <div class="row">
                                                     <div class="col-md-12 trekking">
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
                                                                 @if($trekking_check ==true)
@@ -646,7 +645,7 @@ use App\Helpers\CustomHelper;
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Length In KM</label>
                                                             <div class="col-md-9">
                                                                 @if($trekking_check ==true)
@@ -656,7 +655,7 @@ use App\Helpers\CustomHelper;
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Duration In Minutes</label>
                                                             <div class="col-md-9">
                                                                 @if($trekking_check ==true)
@@ -695,7 +694,7 @@ use App\Helpers\CustomHelper;
                                                         
                                                 <div class="row">
                                                     <div class="col-md-12 pain_ball">
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
                                                             @if($pain_ball_check ==true)
@@ -705,7 +704,7 @@ use App\Helpers\CustomHelper;
                                                             @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Number Of Round</label>
                                                             <div class="col-md-9">
                                                                 @if($pain_ball_check ==true)
@@ -715,7 +714,7 @@ use App\Helpers\CustomHelper;
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Number Of Ball</label>
                                                             <div class="col-md-9">
                                                                 @if($pain_ball_check ==true)
@@ -756,7 +755,7 @@ use App\Helpers\CustomHelper;
                                                         
                                                 <div class="row">
                                                     <div class="col-md-12 paragliding">
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Title</label>
                                                             <div class="col-md-9">
                                                                 @if($paragliding_check ==true)
@@ -766,7 +765,7 @@ use App\Helpers\CustomHelper;
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Height In Meter</label>
                                                             <div class="col-md-9">
                                                                 @if($paragliding_check ==true)
@@ -776,7 +775,7 @@ use App\Helpers\CustomHelper;
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <label class="control-label col-md-3">Duration In Minutes</label>
                                                             <div class="col-md-9">
                                                                 @if($paragliding_check ==true)
@@ -804,7 +803,7 @@ use App\Helpers\CustomHelper;
                                             <div class="input_fields_wrap_meal">  
                                                 @if(count($campingDetail->campingMeal)>0 )
                                                     @foreach($campingDetail->campingMeal as $key=>$value)
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <div class="col-md-10">
                                                                 <textarea class="form-control" id="meal-{{$key+1}}" name="meal[]" placeholder="Meal">{{$value['file_url']}}</textarea>
                                                             </div>
@@ -835,7 +834,7 @@ use App\Helpers\CustomHelper;
                                                 @if(count($campingDetail->campingInclusion)>0 )
                                                     @foreach($campingDetail->campingInclusion as $key=>$value)
                                                         
-                                                        <div class="form-group">
+                                                        <div class="form-group row">
                                                             <div class="col-md-10">
                                                                 <textarea class="form-control" id="inclusion-{{$key+1}}" name="inclusion[]" placeholder="Add Inclusion Detail">{{$value['file_url']}}</textarea>
                                                             </div>
@@ -864,7 +863,7 @@ use App\Helpers\CustomHelper;
                                             <div class="input_fields_wrap_exclusion row">  
                                                 @if(count($campingDetail->campingExclusion)>0 )
                                                     @foreach($campingDetail->campingExclusion as $key=>$value)
-                                                    <div class="form-group">
+                                                    <div class="form-group row">
                                                         <div class="col-md-10">
                                                             <textarea class="form-control" id="exclusion-{{$key+1}}" name="exclusion[]" placeholder="Add Exclusion Detail">{{$value['file_url']}}</textarea>
                                                         </div>

@@ -88,7 +88,11 @@
          <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Mobile</label>
             <input class="form-control placeholder-no-fix" type="text" placeholder="Mobile" name="mobile"/>
-         </div>           
+         </div>     
+         <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Company Name</label>
+            <input class="form-control placeholder-no-fix" type="text" placeholder="Company Name" name="company"/>
+         </div>      
          <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Certificate Upload</label>
             <input type="file" name="certificate_image" id="certificate" class="filestyle" data-buttonName="btn-primary" data-buttonText="Choose Certificate">
@@ -96,6 +100,11 @@
          <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Adhar-Card or other Govt Proof</label>
              <input type="file" name="id_proof" id="license_image" class="filestyle" data-buttonName="btn-primary" data-buttonText="Adhar-Card or other Govt Proof ">
+         </div>
+         <div class="form-group">
+         
+         <input type="checkbox" name="terms_condition" id="inlineCheckbox21" value='1'>
+              I declared that i have read all terms and conditions and privacy policy of goweeks         
          </div>
          
          <div class="form-actions">

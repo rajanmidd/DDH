@@ -191,6 +191,14 @@ var Login = function () {
                required: true,
                equalTo: "#password"
             },
+            company: 
+            {
+               required: true
+            }, 
+            terms_condition: 
+            {
+               required: true
+            }, 
             mobile: 
             {
                required: true,
@@ -209,6 +217,9 @@ var Login = function () {
                remote: "Email is already exists."
             },
          },
+         errorPlacement: function (error, element) {
+                $(element).closest('.form-group').append(error);
+          },
          invalidHandler: function (event, validator) { //display error alert on form submit   
 
          },
