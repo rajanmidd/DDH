@@ -89,26 +89,43 @@
                             <?php } ?>
                       </div>
                       
-                      <div class="data_row clearfix">
-                        <label>Combo Name</label>
-                        <span>{{ucfirst($value['combo_name'])}}</span>
+                      <div class="clearfix">
+                          <div class="data_row col-md-6">
+                            <label>Combo Name</label>
+                            <span>{{ucfirst($value['combo_name'])}}</span>
+                          </div>
+                          <div class="data_row col-md-6">
+                            <label>Combo Title</label>
+                            <span>{{ucfirst($value['combo_title'])}}</span>
+                          </div>
                       </div>
                       
-                      <div class="data_row clearfix">
-                        <label>Combo Title</label>
-                        <span>{{ucfirst($value['combo_title'])}}</span>
+                      <div class="clearfix">
+                        <div class="data_row col-md-6">
+                            <label>Goweek Status</label>
+                            <span>
+                                @if($value['status']==0)
+                                Not Active
+                              @else
+                                Active
+                              @endif  
+                            </span>
+                        </div>
+                          
+                          <div class="data_row col-md-6">
+                              <label>Agency Status</label>
+                                <span>
+                                   Dummy 
+                                </span>
+                          
+                          </div>
+                          
+                          
                       </div>
                       
-                      <div class="data_row clearfix">
-                        <label>Status</label>
-                        <span>
-                            @if($value['status']==0)
-                            Not Active
-                          @else
-                            Active
-                          @endif  
-                        </span>
-                      </div>
+                      
+                      
+                      
                   </div>
                   
                     <?php $i++; ?>

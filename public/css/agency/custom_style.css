@@ -179,7 +179,7 @@ textarea{resize:none;}
     border-bottom: 1px solid #ddd;
 }
 
-.data_row:last-child{border: 0;}
+.manage_data_wrap > div:last-child .data_row{border: 0;}
 
 .data_row > label{font-size: 13px; color: #777; font-weight: 500; display: inline-block; width: 30%;}
 .data_row > span{font-size: 13px; color: #333; font-weight: 600;}

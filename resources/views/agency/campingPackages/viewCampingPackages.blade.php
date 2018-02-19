@@ -33,13 +33,9 @@ use App\Helpers\CustomHelper;
                     <div class="tab-content">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="portlet box yellow">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i> Camping Package Information 
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                
+                                    
+                                <div class="view_data">
                                         <div class="form-body">  
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -72,43 +68,45 @@ use App\Helpers\CustomHelper;
                                             </div>
                                         </div>
                                     </div>
+                                
+
+                                <div class="view_data">
+                                    <h3 class="heading_form">
+                                         Camp Itinerary
+                                    </h3>
+                                    
+                                    
+                                    <div class="form-body">
+                                        <ul class="list-group">                                            
+                                            @if(count($campingDetail->campItinerary)>0 )
+                                                @foreach($campingDetail->campItinerary as $key=>$value)
+                                                    <li class="list-group-item">  
+                                                        <h4>Day {{$key+1}}</h4>                                                 
+                                                        {{$value['day_text']}}
+                                                    </li>
+                                                @endforeach
+                                            @else
+                                            <div class="col-md-12 col-sm-12">    
+                                                <div class="form-group">
+                                                    <center>Sorry, No Itinerary Found </center>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </ul>
+                                    </div>   
+                                        
+                                        
+                                        
+                                        
+                                    
                                 </div>
 
-                                <div class="portlet box blue">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i> Camp Itinerary
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
-                                        <div class="form-body">
-                                            <ul class="list-group">                                            
-                                                @if(count($campingDetail->campItinerary)>0 )
-                                                    @foreach($campingDetail->campItinerary as $key=>$value)
-                                                        <li class="list-group-item">  
-                                                            <h4>Day {{$key+1}}</h4>                                                 
-                                                            {{$value['day_text']}}
-                                                        </li>
-                                                    @endforeach
-                                                @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Itinerary Found </center>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </ul>
-                                        </div>                                        
-                                    </div>
-                                </div>
-
-                                <div class="portlet box blue">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i> Camp Services
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                <div class="view_data">
+                                    <h3 class="heading_form">
+                                        Camp Services
+                                    </h3>
+                                    
+                                    <div class="form">
                                         <div class="form-body">
                                             <ul class="list-group">                                      
                                                 @if(count($campingDetail->campService)>0 )
@@ -137,13 +135,12 @@ use App\Helpers\CustomHelper;
                                     </div>
                                 </div>
 
-                                <div class="portlet box blue">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Meal
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                <div class="view_data">
+                                    <h3 class="heading_form">
+                                        Meal
+                                    </h3>
+                                    
+                                    <div class="form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
                                                 @if(count($campingDetail->campingMeal)>0 )
@@ -164,13 +161,11 @@ use App\Helpers\CustomHelper;
                                     </div>
                                 </div>
 
-                                <div class="portlet box yellow">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Inclusions Details
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                <div class="view_data">
+                                    <h3 class="heading_form">
+                                        Inclusions Details
+                                    </h3>
+                                    <div class="form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
                                                 @if(count($campingDetail->campingInclusion)>0 )
@@ -191,13 +186,13 @@ use App\Helpers\CustomHelper;
                                     </div>
                                 </div>
 
-                                <div class="portlet box purple-plum">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Exclusion Details 
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                <div class="view_data">
+                                    
+                                    <h3 class="heading_form">
+                                        Exclusion Details 
+                                    </h3>
+                                    
+                                    <div class="form">
                                         <div class="form-body">
                                             <ul class="list-group">                                            
                                                 @if(count($campingDetail->campingExclusion)>0 )

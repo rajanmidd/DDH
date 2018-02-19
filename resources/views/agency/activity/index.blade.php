@@ -73,63 +73,69 @@
                   <!--Data Loop -->
                   
                     <div class="manage_data_wrap @if($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @else pending_bg @endif">
-                        <div class="data_row clearfix action">
-                            <a title="Edit" href="{{URL::to('/agency/edit-activity')}}/information/{{$value['id']}}"  class=" btn-circle">
-                              <i class="fa fa-pencil"></i>
-                                Edit
-                            </a>
+                        <div class="clearfix">
+                            <div class="col-md-12 action data_row">
+                                <a title="Edit" href="{{URL::to('/agency/edit-activity')}}/information/{{$value['id']}}"  class=" btn-circle">
+                                  <i class="fa fa-pencil"></i>
+                                    Edit
+                                </a>
+
+                                <a title="View" href="{{URL::to('/agency/view-activity')}}/{{$value['id']}}"  class=" btn-circle">
+                                  <i class="fa fa-eye"></i>
+                                    View
+                                </a>
+                                <a title="Delete" href="javascript:void(0);" class=" confirm_button" data-href="{{URL::to('/agency/delete-activity')}}?id={{$value['id']}}">
+                                  <i class="fa fa-trash"></i>
+                                    Delete
+                                </a>
+                                <?php if ($value['is_blocked'] == 1) { ?>
+                                  <a title="Block" class="" style="color:green;" onclick="return confirm('Are you sure want to block this activity?');" href="{{URL::to('/agency/update-activity-block')}}/2/{{$value['id']}}">
+                                    <i class="fa icon-ban"></i>
+                                      Block
+                                  </a>
+                                <?php } else { ?>
+                                  <a title="Unblock" class="" style="color:red;" onclick="return confirm('Are you sure want to unblock this activity?');" href="{{URL::to('/agency/update-activity-block')}}/1/{{$value['id']}}">
+                                    <i class="fa icon-ban"></i>
+                                      Unblock
+                                  </a>
+                                <?php }?>                            
+                            </div>
+                        </div>
+                        
+                        <div class="clearfix">
+                            <div class="data_row col-md-6">
+                                <label>Activity Name</label>
+                                <span>{{ucfirst($value->activityName['name'])}} </span>
+                            </div>
                             
-                            <a title="View" href="{{URL::to('/agency/view-activity')}}/{{$value['id']}}"  class=" btn-circle">
-                              <i class="fa fa-eye"></i>
-                                View
-                            </a>
-                            <a title="Delete" href="javascript:void(0);" class=" confirm_button" data-href="{{URL::to('/agency/delete-activity')}}?id={{$value['id']}}">
-                              <i class="fa fa-trash"></i>
-                                Delete
-                            </a>
-                            <?php if ($value['is_blocked'] == 1) { ?>
-                              <a title="Block" class="" style="color:green;" onclick="return confirm('Are you sure want to block this activity?');" href="{{URL::to('/agency/update-activity-block')}}/2/{{$value['id']}}">
-                                <i class="fa icon-ban"></i>
-                                  Block
-                              </a>
-                            <?php } else { ?>
-                              <a title="Unblock" class="" style="color:red;" onclick="return confirm('Are you sure want to unblock this activity?');" href="{{URL::to('/agency/update-activity-block')}}/1/{{$value['id']}}">
-                                <i class="fa icon-ban"></i>
-                                  Unblock
-                              </a>
-                        <?php }?>
+                            <div class="data_row col-md-6">
+                                <label>Title</label>
+                                <span>{{ucfirst($value['title'])}} </span>
+                            </div>
                         </div>
                         
-                        <div class="data_row clearfix">
-                            <label>Activity Name</label>
-                            <span>{{ucfirst($value->activityName['name'])}} </span>
+                        <div class="clearfix">
+                            <div class="data_row col-md-6">
+                                <label>Status Goweek</label>
+                                <span>@if($value['status']==0)
+                                        Not Active
+                                      @else
+                                        Active
+                                      @endif</span>
+                            </div>
+                            
+                            <div class="clearfix">
+                                <div class="col-md-6 data_row">
+                                    <label>Agency Status </label>
+                                    <span>Blank</span>
+                                </div>
+                            </div>                            
                         </div>
-
-                        <div class="data_row clearfix">
-                            <label>Title</label>
-                            <span>{{ucfirst($value['title'])}} </span>
-                        </div>
-                        
-                        <div class="data_row clearfix">
-                            <label>Price</label>
-                            <span>{{$value['price_per_person']}} </span>
-                        </div>
-
-                        <div class="data_row clearfix">
-                            <label>Status</label>
-                            <span>@if($value['status']==0)
-                                    Not Active
-                                  @else
-                                    Active
-                                  @endif</span>
-                        </div>
+                                                
                     </div>
                   
                   
                   <!--Data Loop -->
-                  
-                  
-                  
                   
                       
                     <?php $i++; ?>
