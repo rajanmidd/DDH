@@ -573,8 +573,6 @@ use App\Helpers\CustomHelper;
                                         </label>
                                         </h3>
                                         <div class="form-body">
-                                                        
-                                                
                                                 <div class="row">
                                                     <div class="col-md-12 zip_line">
                                                         <div class="form-group row">

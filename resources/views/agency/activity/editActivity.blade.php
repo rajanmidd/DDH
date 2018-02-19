@@ -69,9 +69,9 @@ use App\Helpers\CustomHelper;
                                             $selected_unit_type=explode(',',$activityDetail['unit_type']);
                                             $selected_unit_type_value=json_decode($activityDetail['unit_type_value'],true);
                                             ?>
-                                            <div class="checkbox-list">
+                                            <div class="checkbox-list row">
                                                 @foreach ( $unitType as $i => $unit_type )
-                                                <div class="col-md-12">
+                                                <div class="col-md-4">
                                                     <label class="control-label">{{$unit_type}}</label>
                                                     <input type="checkbox" name="unit_type[]" id="inlineCheckbox21" class="unit_type_check" value="{{$i}}" @if(in_array($i,$selected_unit_type)) checked @endif>                                                        
                                                     <span style="@if(!in_array($i,$selected_unit_type)) display:none;  @endif" id="unit_type_value_div_{{$i}}" >

@@ -121,6 +121,10 @@ $(document).ready(function () {
                         required: true,
                         number: true
                   },
+                  total_cost_after_discount:
+                  {
+                        number: true
+                  },
                   open_time:
                   {
                         required: true
@@ -159,7 +163,7 @@ $(document).ready(function () {
                   label.remove();
             },
             submitHandler: function (form) {
-                  var len=$(".input_fields_wrap_terms").find("input[name='terms[]']").length;
+                  var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
                   if(len>0)
                   {
                         form.submit();
@@ -297,7 +301,15 @@ $(document).ready(function () {
                   label.remove();
             },
             submitHandler: function (form) {
-                  form.submit();
+                  var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
+                  if(len>0)
+                  {
+                        form.submit();
+                  }
+                  else
+                  {
+                        swal("Cancelled", "Please enter at least one terms & condition :)", "error");
+                  }
             }
       });
 
@@ -367,7 +379,15 @@ $(document).ready(function () {
                   label.remove();
             },
             submitHandler: function (form) {
-                  form.submit();
+                  var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
+                  if(len>0)
+                  {
+                        form.submit();
+                  }
+                  else
+                  {
+                        swal("Cancelled", "Please enter at least one terms & condition :)", "error");
+                  }
             }
       });
 

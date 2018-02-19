@@ -66,9 +66,9 @@ use App\Helpers\CustomHelper;
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Select Activity Unit Type</label>
                                         <div class="col-md-9">
-                                            <div class="checkbox-list">
+                                            <div class="checkbox-list row">
                                                 @foreach ( $unitType as $i => $unit_type )
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <label class="control-label">{{$unit_type}}</label>
                                                     <input type="checkbox" name="unit_type[]" id="inlineCheckbox21" class="unit_type_check" value="{{$i}}">  
                                                     <span style="display:none;" id="unit_type_value_div_{{$i}}" >
