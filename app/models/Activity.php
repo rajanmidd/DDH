@@ -8,7 +8,7 @@ class Activity extends Model
 {
   protected $table = 'activity';
   
-  protected $fillable = ['name', 'unit_type','status'];
+  protected $fillable = ['name', 'activity_image','unit_type','status'];
   
   public function activityUnitType()
   {

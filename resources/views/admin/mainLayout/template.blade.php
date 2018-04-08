@@ -37,6 +37,7 @@
 <link href="{{asset('assets/admin/layout/css/themes/darkblue.css')}}" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="{{asset('assets/admin/layout/css/custom.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('css/admin/custom_style.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('css/common.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('css/sweetalert.css')}}" rel="stylesheet" type="text/css"/>
 <script src="{{asset('js/sweetalert-dev.js')}}" type="text/javascript"></script>
 <!-- END THEME STYLES -->

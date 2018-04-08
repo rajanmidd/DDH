@@ -30,7 +30,7 @@ use App\Helpers\CustomHelper;
         <!-- END PAGE HEADER-->
         <!-- BEGIN DASHBOARD STATS -->
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <div class="tabbable-line boxless tabbable-reversed">
                     <div class="tab-content">
                         <div class="row">
@@ -137,7 +137,7 @@ use App\Helpers\CustomHelper;
                                                     @endforeach
                                                 @else
                                                 <div class="col-md-12">
-                                                    <div class="form-group">
+                                                    <div class="form-group row">
                                                         <label class="control-label col-md-3">Day 1</label>
                                                         <div class="col-md-9">
                                                             <textarea class="form-control" id="itinerary-1" name="itinerary[]" placeholder="itinerary" rows="3" disabled="disabled"></textarea>
@@ -984,7 +984,7 @@ use App\Helpers\CustomHelper;
                                                                 <textarea class="form-control" id="terms-{{$key+1}}" name="terms[]" placeholder="Terms & Condition" rows="3">{{$value['file_url']}}</textarea>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <button type="button" class="pull-right btn-danger btn-remove remove_terms_field">
+                                                                <button type="button" class="btn pull-right btn-danger btn-remove remove_terms_field">
                                                                     Remove
                                                                 </button>
                                                             </div>
@@ -1034,10 +1034,9 @@ use App\Helpers\CustomHelper;
                                         <h3 class="heading_form">
                                             Price
                                         </h3>
-                                        
-                                        <div class="form-body">
-                                            <div id="camping" @if($comboDetail['camping'] ==0) style="display:none" @endif>
-                                                <div class="form-group row">
+                                        <div id="camping" @if($comboDetail['camping'] ==0) style="display:none" @endif>
+                                            <div class="form-body">                                        
+                                                <div class="form-group clearfix">
                                                     <label class="control-label col-md-3">Triple/Quarter Sharing Price</label>
                                                     <div class="col-md-9">
                                                         @if($comboDetail['camping'] ==0)
@@ -1047,8 +1046,10 @@ use App\Helpers\CustomHelper;
                                                         @endif
                                                     </div>
                                                 </div>
-                                                                                        
-                                                <div class="form-group row">
+                                            </div>
+                                                                                    
+                                            <div class="form-body">                                        
+                                                <div class="form-group clearfix">
                                                     <label class="control-label col-md-3">Double Sharing Price</label>
                                                     <div class="form-group col-md-9">
                                                         @if($comboDetail['camping'] ==0)
@@ -1059,8 +1060,10 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="combo" @if($comboDetail['camping'] == 1) style="display:none" @endif>
-                                                <div class="form-group">
+                                        </div>
+                                        <div id="combo" @if($comboDetail['camping'] == 1) style="display:none" @endif>
+                                            <div class="form-body">                                        
+                                                <div class="form-group clearfix">
                                                     <label class="control-label col-md-3">Package Price</label>
                                                     <div class="col-md-9">
                                                         @if($comboDetail['camping'] ==0)

@@ -95,10 +95,6 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
 });
 
 
-
-
-
-
 /******************** Admin Routes ***************************/
 Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
   /*   * * admin login routes ** */
@@ -112,7 +108,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     /*** List Agency routes ***/
     Route::get('/list-agency',['as'=>'admin.list-agency','uses'=>'AgencyController@index']);
     Route::get('/agency-profile', ['as' => 'admin.agency-profile', 'uses' => 'AgencyController@agencyProfile']);
-    Route::post('/update-agency', ['as' => 'admin.update-agency', 'uses' => 'AgencyController@updateAgency']);
+    Route::post('/update-agency-profile', ['as' => 'admin.update-agency-profile', 'uses' => 'AgencyController@updateAgencyProfile']);
     Route::post('/upload-image', ['as' => 'admin.upload-image', 'uses' => 'AgencyController@uploadAgencyImage']);
     Route::post('/agency-accept-reject', ['as' => 'admin.agency-accept', 'uses' => 'AgencyController@agencyAcceptReject']);
     Route::get('/block-agency', ['as' => 'admin.block-agency', 'uses' => 'AgencyController@blockAgency']);
@@ -127,7 +123,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('activate-activity', ['as' => 'admin.activate-activity', 'uses' => 'ActivityController@activateActivity']);
 
     Route::get('list-agency-activity/{id}', ['as' => 'admin.list-activity', 'uses' => 'AgencyController@listActivity']);
-    Route::get('delete-activity', ['as' => 'admin.delete-activity', 'uses' => 'AgencyController@deleteActivity']);
+    Route::get('delete-activity/{agencyId}/{activityId}', ['as' => 'admin.delete-activity', 'uses' => 'AgencyController@deleteActivity']);
     Route::get('view-activity/{id}', ['as' => 'admin.view-activity', 'uses' => 'AgencyController@viewActivity']);
     Route::get('update-activity-status/{status}/{agencyId}/{activityId}', ['as' => 'admin.update-activity-status', 'uses' => 'AgencyController@updateActivityStatus']);
 
@@ -136,7 +132,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('delete-camping-package/{agencyId}/{packageId}', ['as' => 'admin.delete-camping-package', 'uses' => 'AgencyController@deleteCampingPackage']);
     Route::get('view-camping-package/{agencyId}/{packageId}', ['as' => 'admin.view-camping-package', 'uses' => 'AgencyController@viewCampingPackage']);
     Route::get('update-camping-package-status/{status}/{agencyId}/{packageId}', ['as' => 'admin.update-camping-package-status', 'uses' => 'AgencyController@updateCampingPackageStatus']);
-    Route::get('edit-camping-package/{id}', ['as' => 'admin.edit-camping-package', 'uses' => 'AgencyController@editCampingPackage']);
+    Route::get('edit-camping-package/{agencyId}/{packageId}', ['as' => 'admin.edit-camping-package', 'uses' => 'AgencyController@editCampingPackage']);
     Route::post('update-camping-package', ['as' => 'admin.update-camping-package', 'uses' => 'AgencyController@updateCampingPackage']);      
 
 
@@ -145,7 +141,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('delete-combo-package/{agencyId}/{packageId}', ['as' => 'admin.delete-combo-package', 'uses' => 'AgencyController@deleteComboPackage']);
     Route::get('view-combo-package/{agencyId}/{packageId}', ['as' => 'admin.view-combo-package', 'uses' => 'AgencyController@viewComboPackage']);
     Route::get('update-combo-package-status/{status}/{agencyId}/{packageId}', ['as' => 'admin.update-combo-package-status', 'uses' => 'AgencyController@updateComboPackageStatus']);
-    Route::get('edit-combo-package/{id}', ['as' => 'admin.edit-combo-package', 'uses' => 'AgencyController@editComboPackage']);
+    Route::get('edit-combo-package/{agencyId}/{packageId}', ['as' => 'admin.edit-combo-package', 'uses' => 'AgencyController@editComboPackage']);
     Route::post('update-combo-package', ['as' => 'admin.update-combo-package', 'uses' => 'AgencyController@updateComboPackage']);
 
     

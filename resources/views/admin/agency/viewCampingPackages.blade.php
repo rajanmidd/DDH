@@ -18,6 +18,11 @@ use App\Helpers\CustomHelper;
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
+                    <i class="fa fa-eye"></i>
+                    <a href="{{URL::to('admin/list-camping-packages/'.$campingDetail->agency_id)}}">Manage Camping Package</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
                     <a href="javascript:void(0);">View Camping Package</a>
                 </li>
             </ul>
@@ -33,13 +38,8 @@ use App\Helpers\CustomHelper;
                     <div class="tab-content">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="portlet box yellow">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i> Camping Package Information 
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
+                                <div class="view_data">
+                                    <div class="form">
                                         <div class="form-body">  
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -58,62 +58,47 @@ use App\Helpers\CustomHelper;
                                                         <dd>{{$campingDetail['double_sharing']}}</dd>
                                                         <dt>Tripe/Quarter Sharing</dt>
                                                         <dd>{{$campingDetail['triple_sharing']}}</dd>
-                                                        
                                                         <dt>Night :</dt>
                                                         <dd>{{$campingDetail['night']}}</dd>
                                                     </dl>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="view_data">
+                                    <h3 class="heading_form"> Itenary</h3>
+                                    <div class="form">                                    
+                                        <div class="form-body actimages">
                                             <div class="row">
-                                                <div class="col-md-12">
-                                                    <dt>Package Description</dt>
-                                                    <dd>{{$campingDetail['camping_description']}}</dd>
-                                                </div>
+                                                @if(count($campingDetail->campItinerary)>0 )
+                                                    @foreach($campingDetail->campItinerary as $key=>$value)
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h4>Day {{$key+1}}</h4>
+                                                            {{$value['day_text']}}
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    <div class="col-md-12 col-sm-12">    
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Images Found
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="portlet box blue">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i> Camp Itinerary
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
-                                        <div class="form-body">
-                                            <ul class="list-group">                                            
-                                                @if(count($campingDetail->campItinerary)>0 )
-                                                    @foreach($campingDetail->campItinerary as $key=>$value)
-                                                        <li class="list-group-item">  
-                                                            <h4>Day {{$key+1}}</h4>                                                 
-                                                            {{$value['day_text']}}
-                                                        </li>
-                                                    @endforeach
-                                                @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Itinerary Found </center>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </ul>
-                                        </div>                                        
-                                    </div>
-                                </div>
-
-                                <div class="portlet box blue">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i> Camp Services
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
-                                        <div class="form-body">
-                                            <ul class="list-group">                                      
+                                <div class="view_data">
+                                    <h3 class="heading_form"> Services</h3>
+                                    <div class="form">
+                                        <div class="form-body actimages">
+                                            <div class="row">
                                                 @if(count($campingDetail->campService)>0 )
                                                     @foreach($campingDetail->campService as $key=>$value)                                                        
-                                                        <li class="list-group-item">  
+                                                        <div class="col-md-3 col-sm-3">  
                                                             <h4>{{ucfirst(str_replace('_',' ',$value['service_name']))}}</h4>
                                                             @if($value['service_value'] != null || $value['service_value']!="" )
                                                                 <?php $service_value=json_decode($value['service_value'],true);?>
@@ -123,166 +108,92 @@ use App\Helpers\CustomHelper;
                                                                     @endforeach
                                                                 </ul>
                                                             @endif
-                                                        </li>
+                                                        </div>
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Camp Service Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Camp Service Found
                                                         </div>
                                                     </div>
                                                 @endif
-                                            </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="portlet box blue">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Meal
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
-                                        <div class="form-body">
-                                            <ul class="list-group">                                            
+                                <div class="view_data">
+                                    <h3 class="heading_form"> Meal</h3>
+                                    <div class="form">                                    
+                                        <div class="form-body actimages">
+                                            <div class="row">
                                                 @if(count($campingDetail->campingMeal)>0 )
                                                     @foreach($campingDetail->campingMeal as $key=>$value)
-                                                        <li class="list-group-item">                                                   
+                                                        <div class="col-md-12 col-sm-12">
                                                             {{$value['file_url']}}
-                                                        </li>
+                                                        </div>
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Meal Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Meal Found
                                                         </div>
                                                     </div>
                                                 @endif
-                                            </ul>
-                                        </div>                                        
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="portlet box yellow">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Inclusions Details
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
-                                        <div class="form-body">
-                                            <ul class="list-group">                                            
+                                <div class="view_data">
+                                    <h3 class="heading_form"> Inclusions Details</h3>
+                                    <div class="form">                                    
+                                        <div class="form-body actimages">
+                                            <div class="row">
                                                 @if(count($campingDetail->campingInclusion)>0 )
                                                     @foreach($campingDetail->campingInclusion as $key=>$value)
-                                                        <li class="list-group-item">                                                   
+                                                        <div class="col-md-12 col-sm-12">
                                                             {{$value['file_url']}}
-                                                        </li>
+                                                        </div>
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Inclusions Details Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Meal Found
                                                         </div>
                                                     </div>
                                                 @endif
-                                            </ul>
-                                        </div>                                        
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="portlet box purple-plum">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Exclusion Details 
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
-                                        <div class="form-body">
-                                            <ul class="list-group">                                            
+                                <div class="view_data">
+                                    <h3 class="heading_form"> Exclusion Details</h3>
+                                    <div class="form">                                    
+                                        <div class="form-body actimages">
+                                            <div class="row">
                                                 @if(count($campingDetail->campingExclusion)>0 )
                                                     @foreach($campingDetail->campingExclusion as $key=>$value)
-                                                        <li class="list-group-item">                                                   
+                                                        <div class="col-md-12 col-sm-12">
                                                             {{$value['file_url']}}
-                                                        </li>
+                                                        </div>
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Exclusion Details Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Meal Found
                                                         </div>
                                                     </div>
                                                 @endif
-                                            </ul>
-                                        </div>                                        
-                                    </div>
-                                </div>
-
-
-                                <div class="portlet box red">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Terms & Conditions 
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
-                                        <div class="form-body">
-                                            <ul class="list-group">                                            
-                                                @if(count($campingDetail->campingTerms)>0 )
-                                                    @foreach($campingDetail->campingTerms as $key=>$value)
-                                                        <li class="list-group-item">                                                   
-                                                            {{$value['file_url']}}
-                                                        </li>
-                                                    @endforeach
-                                                @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Terms & Conditions Found </center>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </ul>
-                                        </div>                                        
-                                    </div>
-                                </div>
-
-
-                                <div class="portlet box yellow">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>
-                                            Special Notes 
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
-                                        <div class="form-body">
-                                            <ul class="list-group">                                            
-                                                @if(count($campingDetail->campingNotes)>0 )
-                                                    @foreach($campingDetail->campingNotes as $key=>$value)
-                                                        <li class="list-group-item">                                                   
-                                                            {{$value['file_url']}}
-                                                        </li>
-                                                    @endforeach
-                                                @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Notes Found </center>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="portlet box grey-cascade">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>
-                                            Camping Images
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">                                    
+                                
+                                <div class="view_data">
+                                    <h3 class="heading_form"> Images</h3>
+                                    <div class="form">                                    
                                         <div class="form-body actimages">
                                             <div class="row">
                                                 @if(count($campingDetail->campingImages)>0 )
@@ -293,8 +204,8 @@ use App\Helpers\CustomHelper;
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Images Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Images Found
                                                         </div>
                                                     </div>
                                                 @endif
@@ -302,31 +213,47 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="portlet box green">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-gift"></i>Camping Videos
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body form">
-                                        <div class="form-body actimages">
-                                            <div class="row">
-                                                @if(count($campingDetail->campingVideos)>0 )
-                                                    @foreach($campingDetail->campingVideos as $key=>$value)
-                                                        <div class="col-md-3 col-sm-3">                                                        
-                                                            <video width="100%" controls>
-                                                                <source src="{{$value['file_url']}}" type="video/mp4">
-                                                            </video>
-                                                        </div>
+                                <div class="view_data">
+                                    <h3 class="heading_form">Terms & Conditions </h3>
+                                    <div class="form">
+                                        <div class="form-body">
+                                            <ul class="list-group">                                            
+                                                @if(count($campingDetail->campingTerms)>0 )
+                                                    @foreach($campingDetail->campingTerms as $key=>$value)
+                                                        <li class="list-group-item">                                                   
+                                                            {{$value['file_url']}}
+                                                        </li>
                                                     @endforeach
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
-                                                        <div class="form-group">                                                    
-                                                            <center>Sorry, No Videos Found </center>
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Terms & Conditions Found
                                                         </div>
                                                     </div>
                                                 @endif
-                                            </div>
+                                            </ul>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <div class="view_data">
+                                    <h3 class="heading_form">Special Notes</h3>
+                                    <div class="form">
+                                        <div class="form-body">
+                                            <ul class="list-group">                                            
+                                                @if(count($campingDetail->campingNotes)>0 )
+                                                    @foreach($campingDetail->campingNotes as $key=>$value)
+                                                        <li class="list-group-item">                                                   
+                                                            {{$value['file_url']}}
+                                                        </li>
+                                                    @endforeach
+                                                @else
+                                                    <div class="col-md-12 col-sm-12">    
+                                                        <div class="alert alert-warning">
+                                                            Sorry, No Notes Found
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

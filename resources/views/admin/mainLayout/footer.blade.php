@@ -59,11 +59,6 @@
 <script src="{{asset('assets/admin/pages/scripts/tasks.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/admin/parsley.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/admin/custom.js')}}" type="text/javascript"></script>
-
-
-
-
-
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {
@@ -82,11 +77,10 @@ jQuery(document).ready(function() {
    ComponentsPickers.init();
 });
 </script>
-
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAndRE4jOIvk10Gi2J-5MhSNoVhM7lBDLQ&libraries=places"></script>
 <script type="text/javascript">
     google.maps.event.addDomListener(window, 'load', function () {
-        var places = new google.maps.places.Autocomplete(document.getElementById('address'));
+        var places = new google.maps.places.Autocomplete(document.getElementById('location'));
         google.maps.event.addListener(places, 'place_changed', function () {
             var place = places.getPlace();
             var address = place.formatted_address; 
@@ -100,12 +94,7 @@ jQuery(document).ready(function() {
             alert(mesg);  */
         });
     });
-    
-    
 </script>
-
-
-
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

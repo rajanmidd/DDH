@@ -76,7 +76,7 @@ class CustomHelper
 
    public static function saveImageOnCloudanary($images)
    {      
-      $imageName = time().'.'.$images->getClientOriginalExtension();
+      $imageName = rand().time().'.'.$images->getClientOriginalExtension();
       $t = Storage::disk('s3')->put($imageName, file_get_contents($images));
       $imageName = Storage::disk('s3')->url($imageName);
       return $imageName;

@@ -70,7 +70,9 @@
          </div>
          <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Address</label>
-            <textarea class="form-control placeholder-no-fix" placeholder="Address" name="address"></textarea>
+            <textarea class="form-control placeholder-no-fix" placeholder="Address" id="address" name="address"></textarea>
+            <input type="hidden" name="latitude" id="latitude">
+            <input type="hidden" name="longitude" id="longitude">
          </div>
          <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->

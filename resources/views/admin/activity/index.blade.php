@@ -47,24 +47,15 @@
     <!-- END PAGE HEADER-->
     <!-- BEGIN PAGE CONTENT-->
     <div class="row form-group">
-      <div class="col-xs-12"> 
+      <div class="col-xs-10"> 
         <form class="form-inline " id="search_frm" name="search_frm" method="get" action="">
           <div class="pull-right">
-            <div class="form-group">              
-              <input value="<?php if (isset($_GET['search_text'])) { echo $_GET['search_text'];} ?>" type="text" name="search_text" class="form-control" placeholder="Search For..."> 
-            </div>
             <div class=" form-group">
               <select class="form-control" name="status">
                 <option value="">Select Option</option>
                 <option value="0" <?php if (isset($_GET['status']) && $_GET['status'] == '0') { echo 'selected';} ?>>Not Active</option>
                 <option value="1" <?php if (isset($_GET['status']) && $_GET['status'] == '1') { echo 'selected';} ?>>Active</option>
               </select> 
-            </div>
-            <div class=" form-group">
-              <button style=" margin-bottom: 0px;margin-right: 0px;" type="submit" class="btn btn-default">Go</button>
-            </div>
-            <div class=" form-group">
-              <a href="list-activity" style=" margin-bottom: 0px;margin-right: 0px;"  class="btn btn-default">Reset</a>
             </div>
             <div class=" form-group">
               <a href="add-activity" style=" margin-bottom: 0px;margin-right: 0px;"  class="btn btn-default">Add New Activity</a>
@@ -75,83 +66,56 @@
     </div>
     
     <div class="row form-group">
-      <div class="col-xs-12 "> 
+      <div class="col-xs-10 "> 
         <div class="clearfix"></div>
         <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet box green">
-          <div class="portlet-title">
-            <div class="caption">
-              <i class="fa fa-table"></i>Manage Activity
-            </div>
-          </div>
-          <div class="portlet-body flip-scroll">
-            <table class="table table-bordered table-striped table-condensed flip-content">
-              <thead class="flip-content">
-                <tr>
-                  <th>
-                    Sr No.
-                  </th>
-                  <th>
-                    Activity Name
-                  </th>
-<!--                  <th>
-                    Unit Type
-                  </th>-->
-                  <th>
-                    Status
-                  </th>
-                  <th>
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
+        <div class="">
+          <div class="flip-scroll">
+            <div class="flip-content">
                 @if(count($activity_list)>0)
                   <?php $i = $activity_list->perPage() * ($activity_list->currentPage() - 1) + 1; ?>
                     @foreach($activity_list as $key=>$value)
-                      <tr>
-                        <td>
-                          {{$i}}
-                        </td>
-                        <td>  
-                          {{$value['name']}}
-                        </td>
-<!--                        <td>
-                          {{--$value->activityUnitType->unit_name--}}
-                        </td>-->
-                        <td>
-                          @if($value['status']==0)
-                            Not Active
-                          @else
-                            Active
-                          @endif
-                        </td>
-                        <td class="numeric">
-                          <div class="actions">
-                            <a title="Edit" href="{{URL::to('/admin/edit-activity')}}?id={{$value['id']}}"  class="btn btn-circle">
-                              <i class="fa fa-pencil"></i>
-                            </a>
-                            <?php if ($value['status'] == 0) { ?>
-                              <a title="Activate" class="btn btn-icon-only" style="color:green;" onclick="return confirm('Are you sure want to activate this activity?');" href="{{URL::to('/admin/activate-activity')}}?id={{$value['id']}}">
-                                <i class="fa icon-ban"></i>
+                      <div class="manage_data_wrap @if($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @else pending_bg @endif">
+                          <div class="data_row clearfix action">
+                              <a title="Edit" href="{{URL::to('/admin/edit-activity')}}?id={{$value['id']}}"  class="btn btn-circle">
+                                <i class="fa fa-pencil"></i>
+                                  Edit
                               </a>
-                            <?php } else { ?>
-                              <a title="Deactivate" class="btn btn-icon-only" style="color:red;" onclick="return confirm('Are you sure want to deactivate this activity?');" href="{{URL::to('/admin/deactivate-activity')}}?id={{$value['id']}}">
-                                <i class="fa icon-ban"></i>
-                              </a>
-                            <?php } ?>
+                              <?php if ($value['status'] == 1) { ?>
+                                <a title="In Active" class="" style="color:red;" onclick="return confirm('Are you sure want to in active this activity?');" href="{{URL::to('/admin/deactivate-activity')}}?id={{$value['id']}}">
+                                  <i class="fa icon-ban"></i>
+                                    In Active
+                                </a>
+                              <?php } else { ?>
+                                <a title="Active" class="" style="color:green;" onclick="return confirm('Are you sure want to active this activity?');" href="{{URL::to('/admin/activate-activity')}}?id={{$value['id']}}">
+                                  <i class="fa icon-ban"></i>
+                                  Active
+                                </a>
+                          <?php }?>
+                          </div>                          
+                          <div class="data_row clearfix">
+                              <label>Activity Name</label>
+                              <span>{{ucfirst($value['name'])}} </span>
                           </div>
-                        </td>
-                      </tr>
+                          <div class="data_row clearfix">
+                              <label>Activity Icon</label>
+                              @if($value['activity_image'])
+                                <img height="50px" width="50px"  src="{{$value['activity_image']}}" />
+                              @else
+                                 No icon exists
+                              @endif
+                          </div>
+                          <div class="data_row clearfix">
+                              <label>Status</label>
+                              <span>@if($value['status']==0) Not Active @else Active @endif</span>
+                          </div>
+                      </div>
                     <?php $i++; ?>
                     @endforeach
                   @else
-                  <tr>
-                    <td colspan="5"><center>Sorry, No Result Found</center></td>
-                  </tr>
+                  <div class="no-data">Sorry, No Result Found</div>
                 @endif
-              </tbody>
-            </table>
+            </div>
             <div class="row">
               <div class="col-md-12 col-sm-12">
                 <div class="dataTables_paginate paging_bootstrap_full_number pull-right" id="sample_1_paginate">

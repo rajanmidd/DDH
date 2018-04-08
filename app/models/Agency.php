@@ -17,7 +17,7 @@ class Agency extends Authenticatable {
    * @var array
    */
   protected $fillable = [
-      'owner_name', 'email', 'password', 'mobile','address','company', 'terms_condition','geom','temp_access_token', 'team_size', 'is_document_verified', 'is_email_verified', 'status','is_block','is_deleted','created_at','updated_at', 'rejection_message'];
+      'owner_name', 'email', 'password', 'mobile','address','agency_image','company', 'terms_condition','geom','temp_access_token', 'team_size', 'is_document_verified', 'is_email_verified', 'status','is_block','is_deleted','created_at','updated_at', 'rejection_message'];
 
   public function confirmEmail() {
     $this->is_email_verified = '1';

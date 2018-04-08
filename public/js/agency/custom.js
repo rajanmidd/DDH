@@ -618,9 +618,9 @@ $(document).ready(function () {
       });
 
       $("#days").change(function(){
+            $('#night>option').removeAttr("disabled");
             var current_value=parseInt($(this).val())+1;
             $('#night option').filter(function() {
-                  console.log($(this).val() ,current_value);
                   return $(this).val() >current_value;
               }).prop('disabled', true);
       });

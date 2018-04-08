@@ -21,15 +21,14 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
-      public function index()
-      {
-         
-         if(auth()->guard('admin')->check())
-         {
+    public function index()
+    {       
+        if(auth()->guard('admin')->check())
+        {
             return redirect()->route('admin.dashboard');
-         }
-         return view('admin.login.login');
-      }   
+        }
+        return view('admin.login.login');
+    }   
   
    /**
     * Function used for check the login functionality
@@ -38,41 +37,26 @@ class LoginController extends Controller
     */
    
    public function store(Request $request)
-   {
-      
-      $validator=$this->validate($request, [
-         'email' => 'required|email',
-         'password' => 'required',
-      ]);
-     // echo \Hash::make('123456'); die;
-      $data=$request->all();
-      $AdminDetail=Admin::whereEmail($data['email'])->first();     
-      if(empty($AdminDetail))
-      {
-         return \Redirect::back()->withErrors(["Sorry, Your account doesn't exists."]);
-      }
-      else if(!\Hash::check($data['password'],$AdminDetail->password))
-      {
-         // echo "here"; die;
-         return \Redirect::back()->withErrors(['Sorry, your password is incorrect.']);
-      }
-     
-      else
-      {
-        
-         if(\Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) 
-         {
-//           echo "<pre>";
-//           print_r(auth()->guard('admin')->user());
-//           echo "</pre>";die;   
-            return redirect()->route('admin.dashboard');
-         }      
-         else
-         {
-            return \Redirect::back()->withErrors(['Sorry, Error ocurred. Please try again.']);
-         }
-      }    
-   }
+   {      
+        $validator=$this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        // echo \Hash::make('123456'); die;
+        $data=$request->all();
+        $AdminDetail=Admin::whereEmail($data['email'])->first();     
+        if(empty($AdminDetail)) {
+            return \Redirect::back()->withErrors(["Sorry, Your account doesn't exists."]);
+        } else if(!\Hash::check($data['password'],$AdminDetail->password)) {
+            return \Redirect::back()->withErrors(['Sorry, your password is incorrect.']);
+        } else {       
+            if(\Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password]))  {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return \Redirect::back()->withErrors(['Sorry, Error ocurred. Please try again.']);
+            }
+        }    
+    }
    
    /**
     * Function used for logout from the admin panel
@@ -80,11 +64,9 @@ class LoginController extends Controller
     * @return type
     */
    
-   public function logout()
-   {
-      \Auth::guard('admin')->logout();
-      return redirect('admin');
-   }
-   
- 
+    public function logout()
+    {
+        \Auth::guard('admin')->logout();
+        return redirect('admin');
+    }
 }

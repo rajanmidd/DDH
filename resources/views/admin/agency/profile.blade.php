@@ -77,12 +77,12 @@
 
           <div class="col-md-9 col-sm-9 col-xs-12">
             <!-- BEGIN REGISTRATION FORM -->
-            {!! Form::open(['class'=>'register-form form-horizontal form-row-seperated','id'=>'addPharmacy','enctype'=>'multipart/form-data']) !!}
+            {!! Form::open(array('route' => 'admin.update-agency-profile', 'class'=>'register-form form-horizontal form-row-seperated','id'=>'update-profile-form','enctype'=>'multipart/form-data')) !!}
             <div class="form-body">
               <div class="form-group">
                 <label class="control-label col-md-3">Owner Name</label>
                 <div class="col-md-9">
-                  <input disabled class="form-control placeholder-no-fix" type="text" placeholder="Owner Name" name="name" value="{{$agencyDetail['owner_name']}}" />
+                  <input class="form-control placeholder-no-fix" type="text" placeholder="Owner Name" name="name" value="{{$agencyDetail['owner_name']}}" />
                 </div>
               </div>
             </div>
@@ -90,7 +90,7 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Mobile</label>
                 <div class="col-md-9">
-                  <input  disabled class="form-control placeholder-no-fix"  type="number" placeholder="Mobile" name="mobile" value="{{$agencyDetail['mobile']}}"/>
+                  <input  class="form-control placeholder-no-fix"  type="number" placeholder="Mobile" name="mobile" value="{{$agencyDetail['mobile']}}"/>
                 </div>
               </div>
             </div>
@@ -99,46 +99,79 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Email</label>
                 <div class="col-md-9">
-                  <input disabled class="form-control placeholder-no-fix" type="text" placeholder="Email" id="email" value="{{$agencyDetail['email']}}"/>
+                  <input class="form-control placeholder-no-fix" type="text" placeholder="Email" id="email"  name="email" value="{{$agencyDetail['email']}}"/>
                 </div>
               </div>
             </div>
 
             <div class="form-body">
               <div class="form-group">
-                <label class="control-label col-md-3">Address</label>
-                <div class="col-md-9">
-                  <input class="form-control placeholder-no-fix" type="text" id="address" placeholder="Address" name="address" value="{{$agencyDetail['address']}}"/>
-                </div>
-              </div>
+                  <label class="control-label col-md-3">Company</label>
+                  <div class="col-md-9">
+                     <input class="form-control placeholder-no-fix" type="text" id="company" placeholder="Comapny" name="company" value="{{$agencyDetail['company']}}"/>
+                  </div>
+               </div>
+            </div>
+            <div class="form-body">
+              <div class="form-group">
+                  <label class="control-label col-md-3">Address</label>
+                  <div class="col-md-9">
+                     <input class="form-control placeholder-no-fix" type="text" id="location" placeholder="Address" name="address" value="{{$agencyDetail['address']}}"/>
+                  </div>
+               </div>
+            </div>
+
+            <div class="form-body">
+              <div class="form-group">
+                  <label class="control-label col-md-3">Latitude</label>
+                  <div class="col-md-9">
+                     <input readonly class="form-control placeholder-no-fix" type="text" id="latitude" placeholder="Latitude" name="latitude" value="{{$agencyDetail['latitude']}}"/>
+                  </div>
+               </div>
+            </div>
+
+            <div class="form-body">
+              <div class="form-group">
+                  <label class="control-label col-md-3">Longitude</label>
+                  <div class="col-md-9">
+                     <input readonly class="form-control placeholder-no-fix" type="text" id="longitude" placeholder="Longitude" name="longitude" value="{{$agencyDetail['longitude']}}"/>
+                  </div>
+               </div>
             </div>
 
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Certificate Image</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-
-                @if ($agencyDetail->agencyDocuments['certificate_image']!='')
-                <a href="{{$agencyDetail->agencyDocuments['certificate_image']}}" title="Certificate Image" target="_blank"><button type="button" class="btn btn-info btn-xs">View</button></a>
-                <a href="{{URL::to('/admin/delete-image')}}?id={{app('request')->input('id') }}&type=license_image" title="Delete licence image" onclick="return confirm('Are you sure you want to delete this uploaded image?');"> <button type="button" class="btn btn-danger btn-xs">Delete</button></a> 
-                @endif
-                <button type="button" class="btn btn-success btn-xs  SetModel" data-toggle="modal" data-target="#IDModal-{{ app('request')->input('id') }}" onclick="setModel('certificate_image')">Upload</button>
-              </div>
+               <label class="control-label col-md-3 col-sm-3 col-xs-12">Agency Logo</label>
+               <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input type="file" name="agency_image"  />
+               </div>
+            </div>
+            
+            <div class="form-group">
+               <label class="control-label col-md-3 col-sm-3 col-xs-12">Certificate Image</label>
+               <div class="col-md-9 col-sm-9 col-xs-12">
+                  @if ($agencyDetail->agencyDocuments['certificate_image']!='')
+                     <a href="{{$agencyDetail->agencyDocuments['certificate_image']}}" title="Certificate Image" target="_blank"><button type="button" class="btn btn-info btn-xs">View</button></a>
+                     <a href="{{URL::to('/admin/delete-image')}}?id={{app('request')->input('id') }}&type=license_image" title="Delete licence image" onclick="return confirm('Are you sure you want to delete this uploaded image?');"> <button type="button" class="btn btn-danger btn-xs">Delete</button></a> 
+                  @endif
+                  <button type="button" class="btn btn-success btn-xs  SetModel" data-toggle="modal" data-target="#IDModal-{{ app('request')->input('id') }}" onclick="setModel('certificate_image')">Upload</button>
+               </div>
             </div>
 
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Id Proof</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                @if ($agencyDetail->agencyDocuments['id_proof']!='')
-                <a href="{{$agencyDetail->agencyDocuments['id_proof']}}" title="Id Proof Image" target="_blank"><button type="button" class="btn btn-info btn-xs">View</button></a>
-                <a href="{{URL::to('/admin/delete-image')}}?id={{app('request')->input('id') }}&type=phar_image" title="delete uploaded doc" onclick="return confirm('Are you sure you want to delete this uploaded Image?');"> <button type="button" class="btn btn-danger btn-xs">Delete</button></a>
-                @endif
-                <button type="button" class="btn btn-success btn-xs  SetModel" data-toggle="modal" data-target="#IDModal-{{ app('request')->input('id') }}" onclick="setModel('id_proof')">Upload</button>
-              </div>
+               <label class="control-label col-md-3 col-sm-3 col-xs-12">Id Proof</label>
+               <div class="col-md-9 col-sm-9 col-xs-12">
+                  @if ($agencyDetail->agencyDocuments['id_proof']!='')
+                     <a href="{{$agencyDetail->agencyDocuments['id_proof']}}" title="Id Proof Image" target="_blank"><button type="button" class="btn btn-info btn-xs">View</button></a>
+                     <a href="{{URL::to('/admin/delete-image')}}?id={{app('request')->input('id') }}&type=phar_image" title="delete uploaded doc" onclick="return confirm('Are you sure you want to delete this uploaded Image?');"> <button type="button" class="btn btn-danger btn-xs">Delete</button></a>
+                  @endif
+                  <button type="button" class="btn btn-success btn-xs  SetModel" data-toggle="modal" data-target="#IDModal-{{ app('request')->input('id') }}" onclick="setModel('id_proof')">Upload</button>
+               </div>
             </div>
             <div class="form-actions">
               <div class="row">
                 <div class="col-md-9 pull-right">
                   <a href="{{URL::to('/admin/list-agency')}}" class="btn btn-success uppercase">Back</a>
+                  <input type="submit" class="btn btn-default" value="Update Profile" > 
                   @if ($agencyDetail['status']== 0)
                     <a data-toggle="modal" data-target="#IDModalReason-{{$agencyDetail['id']}}" onclick="return acceptAgency({{$agencyDetail['id']}})" class="btn btn-success add_field_button_skype">Accept</a>
                     <a data-toggle="modal" data-target="#IDModalReason-{{$agencyDetail['id']}}" onclick="return rejectAgency({{$agencyDetail['id']}})" class="btn btn-danger add_field_button_skype">Reject</a>
@@ -150,6 +183,7 @@
                 </div>
               </div>
             </div>
+            <input type="hidden" name="id" value="{{$agencyDetail['id']}}" />
             {!! Form::close() !!}
           </div>
         </div>

@@ -11,270 +11,292 @@ use App\models\AgencyDocuments;
 use App\models\AgencyActivities;
 use App\models\CampingPackages;
 use App\models\ComboPackages;
+use App\models\Itinerary;
+use App\models\CampingService;
+use App\models\ActivityUploads;
 
 class AgencyController extends Controller
 {
 
   public function index(Request $request)
   {
-    $agency_list = Agency::where('is_deleted', '0');
-    if ($request->status <> '' && $request->status == 0)
-    {
-      $agency_list->where('status', $request->status);
-    }
-    if ($request->status <> '' && $request->status == 1)
-    {
-      $agency_list->where('status', $request->status);
-    }
-    if ($request->status <> '' && $request->status == 2)
-    {
-      $agency_list->where('status', $request->status);
-    }
-    if ($request->search_text <> '')
-    {
-      $agency_list->WhereRaw('(owner_name LIKE "%' . $request->search_text . '%" or email LIKE "%' . $request->search_text . '%" or mobile LIKE "%' . $request->search_text . '%")');
-    }
-    $agency_list = $agency_list->orderBy('id', 'desc')->paginate(10);
-    return view('admin.agency.index', ['agency_list' => $agency_list]);
+      $agency_list = Agency::where('is_deleted', '0');
+      if ($request->status <> '' && $request->status == 0)
+      {
+         $agency_list->where('status', $request->status);
+      }
+      if ($request->status <> '' && $request->status == 1)
+      {
+         $agency_list->where('status', $request->status);
+      }
+      if ($request->status <> '' && $request->status == 2)
+      {
+         $agency_list->where('status', $request->status);
+      }
+      $agency_list = $agency_list->orderBy('id', 'desc')->paginate(10);
+      return view('admin.agency.index', ['agency_list' => $agency_list]);
   }
 
-  /**
+   /**
    * Function used to get Pharmacy profile details
    *    
    * @return type
    */
-  public function agencyProfile(Request $request)
-  {
-    $agencyDetail = Agency::where('id', $request->id)->first();
-    return view('admin.agency.profile', ["agencyDetail" => $agencyDetail]);
-  }
+    public function agencyProfile(Request $request)
+    {
+        $agencyDetail = Agency::where('id', $request->id)->first();
+        return view('admin.agency.profile', ["agencyDetail" => $agencyDetail]);
+    }
+
+    public function updateAgencyProfile(Request $request)
+    {
+        $data=$request->all();
+        $agencyDetail = Agency::where('id', $request->id)->first();
+        $agencyDetail->owner_name=$data['name'];
+        $agencyDetail->mobile=$data['mobile'];
+        $agencyDetail->email=$data['email'];
+        $agencyDetail->company=$data['company'];
+        $agencyDetail->address=$data['address'];
+        $agencyDetail->latitude=$data['latitude'];
+        $agencyDetail->longitude=$data['longitude'];
+        if($request->file('agency_image')) {
+            $agencyDetail->agency_image = CustomHelper::saveImageOnCloudanary($request->file('agency_image'));
+        }
+        
+        if($agencyDetail->save()) {
+            \Session::flash('success', "Agency profile has been uploaded successfully");
+        } else {
+            \Session::flash('error', "Something went wrong");
+        }
+        return redirect('admin/agency-profile?id=' . $request->id);
+        
+    }
+
 
   public function uploadAgencyImage(Request $request)
   {
-    $image = $request->file('IDProof');
-    $docType = $request->uploadType;
-    $check_image = AgencyDocuments::where('agency_id', $request->ID)->first();
-    if (isset($check_image))
-    {
-      $image = CustomHelper::saveImageOnCloudanary($image);
-      $agencyDetails = AgencyDocuments::where('agency_id', $request->ID)->first();
-      $agencyDetails->$docType = $image;
-      if ($agencyDetails->save())
-      {
-        \Session::flash('success', "Image has been uploaded successfully");
-      } else
-      {
-        \Session::flash('error', "Error occurred. Please try again.");
+      $image = $request->file('IDProof');
+      $docType = $request->uploadType;
+      $check_image = AgencyDocuments::where('agency_id', $request->ID)->first();
+      if (isset($check_image)){
+         $image = CustomHelper::saveImageOnCloudanary($image);
+         $agencyDetails = AgencyDocuments::where('agency_id', $request->ID)->first();
+         $agencyDetails->$docType = $image;
+         if ($agencyDetails->save()) {
+            \Session::flash('success', "Image has been uploaded successfully");
+         } else {
+            \Session::flash('error', "Error occurred. Please try again.");
+         }
+      } else {
+         $image = CustomHelper::saveImageOnCloudanary($image);
+         $agencyDetails[$docType] = $image;
+         $remaining_field = $docType == 'certificate_image' ? 'id_proof' : 'certificate_image';
+         $agencyDetails[$remaining_field] = '';
+         $agencyDetails['agency_id'] = $request->ID;
+         if (AgencyDocuments::create($agencyDetails)){
+            \Session::flash('success', "Image has been uploaded successfully");
+         } else{
+            \Session::flash('error', "Error occurred. Please try again.");
+         }
       }
-    } else
-    {
-      $image = CustomHelper::saveImageOnCloudanary($image);
-      $agencyDetails[$docType] = $image;
-      $remaining_field = $docType == 'certificate_image' ? 'id_proof' : 'certificate_image';
-      $agencyDetails[$remaining_field] = '';
-      $agencyDetails['agency_id'] = $request->ID;
-      if (AgencyDocuments::create($agencyDetails))
-      {
-        \Session::flash('success', "Image has been uploaded successfully");
-      } else
-      {
-        \Session::flash('error', "Error occurred. Please try again.");
+      return redirect('admin/agency-profile?id=' . $request->ID);
+   }
+
+   public function agencyAcceptReject(Request $request){
+      $agency_id = $request->agency_id_field;
+      $reason = $request->reason;
+      $status = $request->agency_status;
+      if ($status == 1){
+         if ($agency_id && $reason && $status){
+            $agencyDetail = Agency::where('id', $agency_id)->first();
+
+            $agencyDetail->status = $status;
+            $agencyDetail->rejection_message = $reason;
+
+            if ($agencyDetail->save())
+            {
+               \Session::flash('success', "Accepted successfully");
+            } else
+            {
+               \Session::flash('error', "Something went wrong");
+            }
+            } else
+            {
+               \Session::flash('error', "Something went wrong");
+            }
+            return redirect('admin/agency-profile?id=' . $request->agency_id_field);
       }
-    }
-    return redirect('admin/agency-profile?id=' . $request->ID);
-  }
 
-  public function agencyAcceptReject(Request $request)
-  {
-    $agency_id = $request->agency_id_field;
-    $reason = $request->reason;
-    $status = $request->agency_status;
-    if ($status == 1)
-    {
-      if ($agency_id && $reason && $status)
+      if ($status == 2)
       {
-        $agencyDetail = Agency::where('id', $agency_id)->first();
+         if ($agency_id && $reason && $status)
+         {
+            $agencyDetail = Agency::where('id', $agency_id)->first();
 
-        $agencyDetail->status = $status;
-        $agencyDetail->rejection_message = $reason;
-
-        if ($agencyDetail->save())
-        {
-          \Session::flash('success', "Accepted successfully");
-        } else
-        {
-          \Session::flash('error', "Something went wrong");
-        }
-      } else
-      {
-        \Session::flash('error', "Something went wrong");
+            $agencyDetail->status = $status;
+            $agencyDetail->rejection_message = $reason;
+            if ($agencyDetail->save())
+            {
+               \Session::flash('success', "Rejected successfully");
+            } else
+            {
+               \Session::flash('error', "Something went wrong");
+            }
+         } else
+         {
+            \Session::flash('error', "Something went wrong");
+         }
+         return redirect('admin/agency-profile?id=' . $request->agency_id_field);
       }
-      return redirect('admin/agency-profile?id=' . $request->agency_id_field);
-    }
-
-    if ($status == 2)
-    {
-      if ($agency_id && $reason && $status)
-      {
-        $agencyDetail = Agency::where('id', $agency_id)->first();
-
-        $agencyDetail->status = $status;
-        $agencyDetail->rejection_message = $reason;
-        if ($agencyDetail->save())
-        {
-          \Session::flash('success', "Rejected successfully");
-        } else
-        {
-          \Session::flash('error', "Something went wrong");
-        }
-      } else
-      {
-        \Session::flash('error', "Something went wrong");
-      }
-      return redirect('admin/agency-profile?id=' . $request->agency_id_field);
-    }
-  }
+   }
 
   /**
    * Function used to block Pharmacy
    *    
    * @return type
    */
-  public function blockAgency(Request $request)
-  {
-    $agencyDetail = Agency::where('id', $request->id)->first();
-    $agencyDetail->is_block = '1';
-    if ($agencyDetail->save())
-    {
-      \Session::flash('success', "Agency has been blocked successfully.");
-    } else
-    {
-      \Session::flash('error', "Something went wrong.");
-    }
-    return redirect('admin/list-agency');
-  }
+   public function blockAgency(Request $request)
+   {
+      $agencyDetail = Agency::where('id', $request->id)->first();
+      $agencyDetail->is_block = '1';
+      if ($agencyDetail->save())
+      {
+         \Session::flash('success', "Agency has been blocked successfully.");
+      } else
+      {
+         \Session::flash('error', "Something went wrong.");
+      }
+      return redirect('admin/list-agency');
+   }
 
   /**
    * Function used to unblock Pharmacy
    *    
    * @return type
    */
-  public function unBlockAgency(Request $request)
-  {
-    $agencyDetail = Agency::where('id', $request->id)->first();
-    $agencyDetail->is_block = '0';
-    if ($agencyDetail->save())
-    {
-      \Session::flash('success', "Agency has been un-blocked successfully.");
-    } else
-    {
-      \Session::flash('error', "Something went wrong.");
-    }
-    return redirect('admin/list-agency');
-  }
+   public function unBlockAgency(Request $request)
+   {
+      $agencyDetail = Agency::where('id', $request->id)->first();
+      $agencyDetail->is_block = '0';
+      if ($agencyDetail->save())
+      {
+         \Session::flash('success', "Agency has been un-blocked successfully.");
+      } else
+      {
+         \Session::flash('error', "Something went wrong.");
+      }
+      return redirect('admin/list-agency');
+   }
 
-  public function listActivity(Request $request,$id)
-  {
-    $agency_id=$id;
-    $activity_list = AgencyActivities::where("is_deleted",'1')->where('agency_id',$agency_id);
-    
-    if ($request->search_text <> '')
-    {
-      $activity_list->WhereRaw('(name LIKE "%' . $request->search_text. '%")');
-    }
-    $activity_list = $activity_list->orderBy('id', 'desc')->paginate(10);
-    return view('admin.agency.agencyActivities', ['activity_list' => $activity_list]);
-  }
+   public function listActivity(Request $request,$id)
+   {
+      $agency_id=$id;
+      $activity_list = AgencyActivities::where("is_deleted",'1')->where('agency_id',$agency_id);
+      
+      if ($request->status <> '' && $request->status == 0)
+      {
+         $activity_list->where('status', $request->status);
+      }
+      if ($request->status <> '' && $request->status == 1)
+      {
+         $activity_list->where('status', $request->status);
+      }
+      $activity_list = $activity_list->orderBy('id', 'desc')->paginate(10);
+      return view('admin.agency.agencyActivities', ['activity_list' => $activity_list]);
+   }
 
-  public function deleteActivity(Request $request)
+  public function deleteActivity($agencyId,$activityId)
   {
-    $data=$request->all();
-    $activityDetail=AgencyActivities::where("id",$data['id'])->first();
-    $activityDetail->is_deleted='2';
-    if($activityDetail->save())
-    {
-      \Session::flash('success',"Activity has been deleted successfully");
-    }
-    else
-    {
-      \Session::flash('error',"Error Occurred. Please try again.");
-    }
-    return redirect('admin/list-agency-activity');
+      $activityDetail=AgencyActivities::where("id",$activityId)->first();
+      $activityDetail->is_deleted='2';
+      if($activityDetail->save())
+      {
+         \Session::flash('success',"Activity has been deleted successfully");
+      }
+      else
+      {
+         \Session::flash('error',"Error Occurred. Please try again.");
+      }
+      return redirect('admin/list-agency-activity/'.$agencyId);
   }
 
   public function viewActivity($id)
   {
-    $activityDetail=AgencyActivities::where("id",$id)->first();
-    return view('admin.agency.viewActivity',['activityDetail'=>$activityDetail]);
+      $activityDetail=AgencyActivities::where("id",$id)->first();
+      return view('admin.agency.viewActivity',['activityDetail'=>$activityDetail]);
   }
 
   public function updateActivityStatus($status,$agencyId,$activityId)
   {
-    $activityDetail=AgencyActivities::where("id",$activityId)->first();
-    $activityDetail->status=$status;
-    if($activityDetail->save())
-    {
-      \Session::flash('success',"Activity status has been updated successfully");
-    }
-    else
-    {
-      \Session::flash('error',"Error Occurred. Please try again.");
-    }
-    return redirect('admin/list-agency-activity/'.$agencyId);
+      $activityDetail=AgencyActivities::where("id",$activityId)->first();
+      $activityDetail->status=$status;
+      if($activityDetail->save())
+      {
+         \Session::flash('success',"Activity status has been updated successfully");
+      }
+      else
+      {
+         \Session::flash('error',"Error Occurred. Please try again.");
+      }
+      return redirect('admin/list-agency-activity/'.$agencyId);
   }
 
   public function listCampingPackages(Request $request)
   {
-    $data=$request->all();
-    $agency_id=\Request::segment(3);
-    $camping_packages = CampingPackages::where("is_deleted",'1')->where('agency_id',$agency_id);
-    if ($request->search_text <> '')
-    {
-      $camping_packages->WhereRaw('(name LIKE "%' . $request->search_text. '%")');
-    }
-    $camping_packages = $camping_packages->orderBy('id', 'desc')->paginate(10);
-    return view('admin.agency.agencyCampingPackages', ['camping_packages' => $camping_packages]);
+      $data=$request->all();
+      $agency_id=\Request::segment(3);
+      $camping_packages = CampingPackages::where("is_deleted",'1')->where('agency_id',$agency_id);
+      if ($request->status <> '' && $request->status == 0)
+      {
+         $camping_packages->where('status', $request->status);
+      }
+      if ($request->status <> '' && $request->status == 1)
+      {
+         $camping_packages->where('status', $request->status);
+      }
+      $camping_packages = $camping_packages->orderBy('id', 'desc')->paginate(10);
+      return view('admin.agency.agencyCampingPackages', ['camping_packages' => $camping_packages]);
   }
   
   public function viewCampingPackage($agencyId,$packageId)
   {
-    $campingDetail=CampingPackages::where("id",$packageId)->first();
-    return view('admin.agency.viewCampingPackages',['campingDetail'=>$campingDetail]);
+      $campingDetail=CampingPackages::where("id",$packageId)->first();
+      return view('admin.agency.viewCampingPackages',['campingDetail'=>$campingDetail]);
   }
 
   public function deleteCampingPackage($agencyId,$packageId)
   {
-    $campingDetail=CampingPackages::where("id",$packageId)->first();
-    $campingDetail->is_deleted='2';
-    if($campingDetail->save())
-    {
-        \Session::flash('success',"Camping Package has been deleted successfully");
-    }
-    else
-    {
-        \Session::flash('error',"Error Occurred. Please try again.");
-    }
-    return redirect('admin/list-camping-packages/'.$agencyId);
+      $campingDetail=CampingPackages::where("id",$packageId)->first();
+      $campingDetail->is_deleted='2';
+      if($campingDetail->save())
+      {
+         \Session::flash('success',"Camping Package has been deleted successfully");
+      }
+      else
+      {
+         \Session::flash('error',"Error Occurred. Please try again.");
+      }
+      return redirect('admin/list-camping-packages/'.$agencyId);
   }
 
 
   public function updateCampingPackageStatus($status,$agencyId,$packageId)
   {
-    $campingDetail=CampingPackages::where("id",$packageId)->first();
-    $campingDetail->status=$status;
-    if($campingDetail->save())
-    {
-        \Session::flash('success',"Package status has been updated successfully");
-    }
-    else
-    {
-        \Session::flash('error',"Error Occurred. Please try again.");
-    }
-    return redirect('admin/list-camping-packages/'.$agencyId);
+      $campingDetail=CampingPackages::where("id",$packageId)->first();
+      $campingDetail->status=$status;
+      if($campingDetail->save())
+      {
+         \Session::flash('success',"Package status has been updated successfully");
+      }
+      else
+      {
+         \Session::flash('error',"Error Occurred. Please try again.");
+      }
+      return redirect('admin/list-camping-packages/'.$agencyId);
   }
-  public function editCampingPackage($id=null)
+  public function editCampingPackage($agencyId,$packageId=null)
   {
-      $campingDetail=CampingPackages::where("id",$id)->first();
+      $campingDetail=CampingPackages::where("id",$packageId)->first();
       return view('admin.agency.editCampingPackage',['campingDetail'=>$campingDetail]);
   }
 
@@ -282,6 +304,7 @@ class AgencyController extends Controller
   {
       $data=$request->all();
       $id=$data['camping_id'];
+      $agencyId=$data['agency_id'];
       $campingDetail=CampingPackages::where("id",$id)->first();
       $campingDetail->camping_name=$data['camping_name'];
       $campingDetail->camping_title=$data['camping_title'];
@@ -292,31 +315,31 @@ class AgencyController extends Controller
       $campingDetail->double_sharing=$data['double_sharing'];
       if($campingDetail->save())
       {
-          if(isset($data['itinerary']) && count($data['itinerary']) >0 && $data['itinerary'][0] !="")
-          {
-              Itinerary::where('camping_id',$id)->where('type','1')->delete();
-              foreach($data['itinerary'] as $key=>$value)
-              {
-                  $itinerary=new Itinerary();
-                  $itinerary->camping_id=$id;
-                  $itinerary->day_text=$value;
-                  $itinerary->type='1';
-                  $itinerary->save();
-              }
-          }
-          if(isset($data['service']) && count($data['service']) >0)
-          {
-              CampingService::where('camping_id',$id)->where('type','1')->delete();
-              foreach($data['service'] as $key=>$value)
-              {
-                  $campingService=new CampingService();
-                  $campingService->camping_id=$id;
-                  $campingService->service_name=$key;
-                  $campingService->service_value=json_encode($value);
-                  $campingService->type='1';
-                  $campingService->save();
-              }
-          }
+         if(isset($data['itinerary']) && count($data['itinerary']) >0 && $data['itinerary'][0] !="")
+         {
+            Itinerary::where('camping_id',$id)->where('type','1')->delete();
+            foreach($data['itinerary'] as $key=>$value)
+            {
+               $itinerary=new Itinerary();
+               $itinerary->camping_id=$id;
+               $itinerary->day_text=$value;
+               $itinerary->type='1';
+               $itinerary->save();
+            }
+         }
+         if(isset($data['service']) && count($data['service']) >0)
+         {
+            CampingService::where('camping_id',$id)->where('type','1')->delete();
+            foreach($data['service'] as $key=>$value)
+            {
+               $campingService=new CampingService();
+               $campingService->camping_id=$id;
+               $campingService->service_name=$key;
+               $campingService->service_value=json_encode($value);
+               $campingService->type='1';
+               $campingService->save();
+            }
+         }
 
           if(isset($data['meal']) &&  count($data['meal']) >0)
           {
@@ -425,10 +448,14 @@ class AgencyController extends Controller
     $data=$request->all();
     $agency_id=\Request::segment(3);
     $combo_packages = ComboPackages::where("is_deleted",'1')->where('agency_id',$agency_id);
-    if ($request->search_text <> '')
-    {
-      $combo_packages->WhereRaw('(name LIKE "%' . $request->search_text. '%")');
-    }
+    if ($request->status <> '' && $request->status == 0)
+   {
+      $combo_packages->where('status', $request->status);
+   }
+   if ($request->status <> '' && $request->status == 1)
+   {
+      $combo_packages->where('status', $request->status);
+   }
     $combo_packages = $combo_packages->orderBy('id', 'desc')->paginate(10);
     return view('admin.agency.agencyComboPackages', ['combo_packages' => $combo_packages]);
   }
@@ -469,9 +496,9 @@ class AgencyController extends Controller
     return redirect('admin/list-combo-packages/'.$agencyId);
   }
 
-  public function editComboPackage($id=null)
+  public function editComboPackage($agencyId,$packageId=null)
   {
-      $comboDetail=ComboPackages::where("id",$id)->first();
+      $comboDetail=ComboPackages::where("id",$packageId)->first();
       return view('admin.agency.editComboPackage',['comboDetail'=>$comboDetail]);
   }
 
@@ -480,6 +507,7 @@ class AgencyController extends Controller
       $data=$request->all();
       
       $id=$data['combo_id'];
+      $agencyId=$data['agency_id'];
       $comboDetail=ComboPackages::where("id",$id)->first();
       $comboDetail->combo_name=$data['combo_name'];
       $comboDetail->combo_title=$data['combo_title'];
@@ -489,17 +517,23 @@ class AgencyController extends Controller
       $comboDetail->longitude=$data['longitude'];
       if(isset($data['camping']) && $data['camping']=="on")
       {
-          $comboDetail->camping='1';
-          $comboDetail->camp_description=$data['camp_description'];
-          $comboDetail->days=$data['days'];
-          $comboDetail->night=$data['night'];
-          $comboDetail->triple_sharing=$data['triple_sharing'];
-          $comboDetail->double_sharing=$data['double_sharing'];
+         $comboDetail->camping='1';
+         $comboDetail->camp_description=$data['camp_description'];
+         $comboDetail->days=$data['days'];
+         $comboDetail->night=$data['night'];
+         $comboDetail->triple_sharing=$data['triple_sharing'];
+         $comboDetail->double_sharing=$data['double_sharing'];
+         $comboDetail->price='0';
       }
       else
       {
-          $comboDetail->camping='0';
-          $comboDetail->price=$data['price'];
+         $comboDetail->camping='0';
+         $comboDetail->camp_description="";
+         $comboDetail->days=1;
+         $comboDetail->night=0;
+         $comboDetail->price=$data['price'];
+         $comboDetail->triple_sharing="0";
+         $comboDetail->double_sharing="0";
       }
       if($comboDetail->save())
       {
