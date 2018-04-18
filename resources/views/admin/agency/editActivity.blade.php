@@ -1,4 +1,4 @@
-@extends('agency.mainLayout.template')
+@extends('admin.mainLayout.template')
   @section('title')
     Edit Activity
   @endsection
@@ -36,7 +36,7 @@ use App\Helpers\CustomHelper;
                         <div class="row">
                             <div class="col-md-12">                                
                                 <!-- BEGIN FORM-->
-                                {!! Form::open(array('route' => 'agency.update-activity-basic-info', 'class' => 'form','id'=>'activity-form','enctype'=>'multipart/form-data')) !!}
+                                {!! Form::open(array('route' => 'admin.update-activity-basic-info', 'class' => 'form','id'=>'activity-form','enctype'=>'multipart/form-data')) !!}
                                    
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Select Activity</label>
@@ -138,7 +138,7 @@ use App\Helpers\CustomHelper;
                                                             <img src="{{$value['file_url']}}" />
                                                             <center>
                                                                 <span class="btn-group btn-group-xs btn-group-solid">
-                                                                <a type="button" class=" confirm_button" data-href="{{URL::to('/agency/delete-activity-image')}}/{{$value['id']}}/{{$value['agency_activity_id']}}"><i class="fa fa-trash"></i></a>
+                                                                    <a type="button" class=" confirm_button" data-href="{{URL::to('/agency/delete-activity-image')}}/{{$value['id']}}/{{$value['agency_activity_id']}}"><i class="fa fa-trash"></i></a>
                                                                 </span>
                                                             </center>
                                                         </div>
@@ -252,6 +252,7 @@ use App\Helpers\CustomHelper;
                                     <input type="hidden" name="latitude" id="latitude" value="{{$activityDetail['latitude']}}" />
                                     <input type="hidden" name="longitude" id="longitude" value="{{$activityDetail['longitude']}}" />
                                     <input type="hidden" name="agency_activity_id" value="{{Request::segment(4)}}" />
+                                    <input type="hidden" name="agency_id" value="{{Request::segment(3)}}" />
                                     <div class="form_btn">
                                         <button type="button" class="btn default">
                                             Cancel

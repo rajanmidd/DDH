@@ -11,7 +11,7 @@ use App\Helpers\CustomHelper;
     <div class="page-content">
         
         <h3 class="page-title">
-            Edit Camping Package : {{ucfirst($campingDetail['camping_name'])}}
+            Edit Camping Package : {{ucfirst($campingDetail['camping_title'])}}
         </h3>
         
         <!-- BEGIN PAGE HEADER-->
@@ -23,7 +23,12 @@ use App\Helpers\CustomHelper;
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">Edit Camping Package</a>
+                    <i class="fa fa-eye"></i>
+                    <a href="{{URL::to('admin/list-camping-packages/'.$campingDetail->agency_id)}}">Manage Camping Package</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">View Camping Package</a>
                 </li>
             </ul>
          </div>
@@ -41,12 +46,6 @@ use App\Helpers\CustomHelper;
                             Add Camping Packages
                         </h3>
                         <div class="form-body">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Camping Name</label>
-                                <div class="col-md-9">
-                                    {{ Form::text('camping_name', $campingDetail['camping_name'], ['id' => 'camping_name','class' => 'form-control','placeholder'=>'Enter Camping Name']) }}
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Camping Title</label>
                                 <div class="col-md-9">

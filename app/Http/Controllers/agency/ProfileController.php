@@ -49,6 +49,8 @@ class ProfileController extends Controller
         $profileDetail->email=$data['email'];
         $profileDetail->mobile=$data['mobile'];
         $profileDetail->address=$data['address'];
+        $profileDetail->latitude=$data['latitude'];
+        $profileDetail->longitude=$data['longitude'];
       
         $agencyDocuments=$profileDetail->agencyDocuments;
         

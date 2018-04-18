@@ -42,12 +42,6 @@ use App\Helpers\CustomHelper;
                         </h3>
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="control-label col-md-3">Camping Name</label>
-                                <div class="col-md-9">
-                                    {{ Form::text('camping_name', $campingDetail['camping_name'], ['id' => 'camping_name','class' => 'form-control','placeholder'=>'Enter Camping Name']) }}
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="control-label col-md-3">Camping Title</label>
                                 <div class="col-md-9">
                                     {{ Form::text('camping_title', $campingDetail['camping_title'], ['id' => 'camping_title','class' => 'form-control','placeholder'=>'Enter Camping Title']) }}
@@ -157,30 +151,7 @@ use App\Helpers\CustomHelper;
                                             
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3">From Location</label>
-                                        <div class="col-md-9">
-                                            @if($rafting_check ==true)
-                                                {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','placeholder'=>'From Location']) }}
-                                            @else
-                                                {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','placeholder'=>'From Location','disabled'=>'disabled']) }}
-                                            @endif
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-3">To Location</label>
-                                        <div class="col-md-9">
-                                            @if($rafting_check ==true)
-                                                {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','placeholder'=>'To Location']) }}
-                                            @else
-                                                {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','placeholder'=>'To Location','disabled'=>'disabled']) }}
-                                            @endif
-                                            
-                                        </div>
-                                    </div>
                                 </div>
-                                
                             </div>        
                         </div>                    
                     </div>

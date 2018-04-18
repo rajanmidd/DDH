@@ -72,7 +72,7 @@
                   
                   <!--Data Loop -->
                   
-                    <div class="manage_data_wrap @if($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @else pending_bg @endif">
+                    <div class="manage_data_wrap @if($value['is_blocked']==2  ) pending_bg @elseif($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg   @endif">
                         <div class="data_row clearfix action">
                             <a title="Edit" href="{{URL::to('/agency/edit-activity')}}/information/{{$value['id']}}"  class=" btn-circle">
                               <i class="fa fa-pencil"></i>
@@ -116,11 +116,20 @@
                         </div>
 
                         <div class="data_row clearfix">
-                            <label>Status</label>
+                            <label>Go Week Status</label>
                             <span>@if($value['status']==0)
-                                    Not Active
+                                    Pending
                                   @else
                                     Active
+                                  @endif</span>
+                        </div>
+
+                        <div class="data_row clearfix">
+                            <label>AGency Status</label>
+                            <span>@if($value['is_blocked']==1)
+                                    Not Blocked
+                                  @else
+                                    Blocked
                                   @endif</span>
                         </div>
                     </div>

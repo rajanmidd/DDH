@@ -55,13 +55,6 @@ use App\Helpers\CustomHelper;
                                                         <dd>{{$activityDetail['minimum_amount_percent']}}</dd> -->
                                                         <dt>Price Per Person</dt>
                                                         <dd>{{$activityDetail['price_per_person']}}</dd>
-                                                        <dt>Open Days :</dt>
-                                                        <dd>
-                                                            <?php 
-                                                                $open_days=CustomHelper::getOpenDays($activityDetail['days']); 
-                                                                echo $open_days;
-                                                            ?>
-                                                        </dd>
                                                         <dt>Season Months :</dt>
                                                         <dd>
                                                         <?php 
@@ -69,8 +62,6 @@ use App\Helpers\CustomHelper;
                                                             echo $seaons_months;
                                                         ?>
                                                         </dd>
-                                                        <dt>Open/Close Time :</dt>
-                                                        <dd>{{date('h:i A',strtotime($activityDetail['open_time']))}} - {{date('h:i A',strtotime($activityDetail['close_time']))}}</dd>
                                                     </dl>
                                                 </div>
                                             </div>

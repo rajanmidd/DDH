@@ -11,7 +11,7 @@ use App\Helpers\CustomHelper;
 
     <div class="page-content">
         <h3 class="page-title">
-            Edit Package : {{ucfirst($comboDetail['combo_name'])}}
+            Edit Package : {{ucfirst($comboDetail['combo_title'])}}
         </h3>
         <!-- BEGIN PAGE HEADER-->
         <div class="page-bar">
@@ -39,12 +39,6 @@ use App\Helpers\CustomHelper;
                                 {!! Form::open(array('route' => 'agency.update-combo-package', 'class' => 'form','id'=>'combo-form','enctype'=>'multipart/form-data')) !!}
                                     <div class="form">
                                         <div class="form-body">
-                                            <div class="form-group row">
-                                                    <label class="control-label col-md-3">Package Name</label>
-                                                    <div class="col-md-9">
-                                                        {{ Form::text('combo_name', $comboDetail['combo_name'], ['id' => 'combo_name','class' => 'form-control','placeholder'=>'Enter Package Name']) }}
-                                                    </div>
-                                                </div>
                                             <div class="form-group row">
                                                     <label class="control-label col-md-3">Package Title</label>
                                                     <div class="col-md-9">
@@ -204,27 +198,6 @@ use App\Helpers\CustomHelper;
                                                         
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="control-label col-md-3">From Location</label>
-                                                    <div class="col-md-9">
-                                                        @if($rafting_check ==true)
-                                                            {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','placeholder'=>'From Location']) }}
-                                                        @else
-                                                            {{ Form::text('service[rafting][from_location]', $rafting['from_location'],['id' => 'from_location','class' => 'form-control','placeholder'=>'From Location','disabled'=>'disabled']) }}
-                                                        @endif
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="control-label col-md-3">To Location</label>
-                                                    <div class="col-md-9">
-                                                        @if($rafting_check ==true)
-                                                            {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','placeholder'=>'To Location']) }}
-                                                        @else
-                                                            {{ Form::text('service[rafting][to_location]',$rafting['to_location'],['id' => 'to_location','class' => 'form-control','placeholder'=>'To Location','disabled'=>'disabled']) }}
-                                                        @endif
-                                                        
-                                                    </div>
                                                 </div>
                                                 </div>
                                             </div>

@@ -1,6 +1,6 @@
 @extends('admin.mainLayout.template')
   @section('title')
-    View Camping Package :: {{ucfirst($campingDetail['camping_name'])}}
+    View Camping Package :: {{ucfirst($campingDetail['camping_title'])}}
   @endsection
 @section('content')
 <?php 
@@ -28,7 +28,7 @@ use App\Helpers\CustomHelper;
             </ul>
          </div>
         <h3 class="page-title">
-            View Camping Package : {{ucfirst($campingDetail['camping_name'])}}
+            View Camping Package : {{ucfirst($campingDetail['camping_title'])}}
         </h3>
         <!-- END PAGE HEADER-->
         <!-- BEGIN DASHBOARD STATS -->
@@ -44,12 +44,12 @@ use App\Helpers\CustomHelper;
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <dl class="dl-horizontal">
-                                                        <dt>Package Name : </dt>
-                                                        <dd>{{ucfirst($campingDetail['camping_name'])}}</dd>
                                                         <dt>Package Title :</dt>
                                                         <dd>{{ucfirst($campingDetail['camping_title'])}}</dd>
                                                         <dt>Days :</dt>
                                                         <dd>{{$campingDetail['days']}}</dd>
+                                                        <dt>Location :</dt>
+                                                        <dd>{{$campingDetail['camping_location']}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="col-md-6">

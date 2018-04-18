@@ -411,4 +411,137 @@ $(document).ready(function () {
          return $(this).val() >current_value;
       }).prop('disabled', true);
    });
+
+   $('#activity-form').validate({
+      errorElement: 'span', //default input error message container
+      errorClass: 'help-block', // default input error message class
+      focusInvalid: true, // do not focus the last invalid input
+      ignore: "",
+      rules: {
+            activity_id:
+            {
+                  required: true
+            },
+            title:
+            {
+                  required: true
+            },
+            location:
+            {
+                  required: true
+            },
+            "unit_type[]":
+            {
+                  required: true
+            },
+            price_per_person:
+            {
+                  required: true,
+                  number: true
+            },
+            "activityImages[]":
+            {
+                  extension: "jpg|jpeg|png",
+                  filesize: 31457280,
+            },
+            "activityVideos[]":
+            {
+                  required: true,
+                  extension: "mp4",
+                  filesize: 10485760,
+            },
+            "terms[]":
+            {
+                  required: true
+            }
+      },
+      errorPlacement: function (error, element) {
+            $(element).closest('.col-md-9').append(error);
+      },
+      invalidHandler: function (event, validator) { //display error alert on form submit   
+
+      },
+      highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+      },
+      success: function (label) {
+            label.closest('.form-group').removeClass('has-error');
+            label.remove();
+      },
+      submitHandler: function (form) {
+            var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
+            if(len>0)
+            {
+                  form.submit();
+            }
+            else
+            {
+                  swal("Cancelled", "Please enter at least one terms & condition :)", "error");
+            }
+            
+      }
+   });
+
+   $('.unit_type_value').each(function(e) {
+         $(this).rules('add', {
+               required: true
+         });
+   });
+
+   $(".confirm_button").click(function (e) {
+      var href = $(this).attr('data-href');
+      e.preventDefault();
+      swal({
+            title: "",
+            text: "Are you sure want to delete?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+      },
+      function (isConfirm) {
+      if (isConfirm) {
+            window.location = href; // if you need redirect page 
+      }
+      else {
+            swal("Cancelled", "Your data is safe :)", "error");
+      }
+      })
 });
+
+   $(document).on('click', '.unit_type_check', function (){
+      var value=$(this).val();
+      if ($(this).is(':checked')) 
+      {
+          $("#unit_type_value_div_"+value).show();
+          $("#unit_type_value_"+value).prop("disabled",false);
+      } 
+      else 
+      {
+          $("#unit_type_value_"+value).val("")
+          $("#unit_type_value_div_"+value).hide();
+          $("#unit_type_value_"+value).prop("disabled",true);
+      }
+  });
+
+  function readURL(input,number) {
+      if (input.files && input.files[0]) {
+         var reader = new FileReader();
+
+         reader.onload = function (e) {
+            $("#blah"+number).attr('src', e.target.result);
+         }
+
+         reader.readAsDataURL(input.files[0]);
+      }
+   }
+
+   $(document).on('change', '.abc', function (){
+      var number=$(this).attr('data-number');
+      readURL(this,number);
+   });
+});
+
+function setModel(str)
+{
+	$('#uploadType').val(str);
+}

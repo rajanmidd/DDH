@@ -35,3 +35,24 @@ input.parsley-error, textarea.parsley-error, select.parsley-error {
 .btn-group .parsley-errors-list {
     display: none;
 }
+
+.checkbox-list > label.checkbox-inline:first-child {
+    padding-left: 20px;
+}
+
+.checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline {
+    margin-left: 0;
+}
+
+.img_gallery img {
+    height: 200px;
+    width: 200px;
+}
+
+.sweet-alert .sa-icon.sa-success .sa-placeholder {
+    border-radius: 50% !important;
+  }
+
+  .sweet-alert .sa-icon{
+    border-radius: 50% !important;
+}

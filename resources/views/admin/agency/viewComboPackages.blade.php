@@ -1,6 +1,6 @@
 @extends('admin.mainLayout.template')
   @section('title')
-    View Package :: {{ucfirst($comboDetail['combo_name'])}}
+    View Package :: {{ucfirst($comboDetail['combo_title'])}}
   @endsection
 @section('content')
 <?php 
@@ -28,7 +28,7 @@ use App\Helpers\CustomHelper;
             </ul>
          </div>
         <h3 class="page-title">
-            View Combo Package : {{ucfirst($comboDetail['combo_name'])}}
+            View Combo Package : {{ucfirst($comboDetail['combo_title'])}}
         </h3>
         <!-- END PAGE HEADER-->
         <!-- BEGIN DASHBOARD STATS -->
@@ -44,20 +44,18 @@ use App\Helpers\CustomHelper;
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <dl class="dl-horizontal">
-                                                        <dt>Package Name : </dt>
-                                                        <dd>{{ucfirst($comboDetail['combo_name'])}}</dd>
-                                                        <dt>Package Title : :</dt>
+                                                        <dt>Package Title :</dt>
                                                         <dd>{{ucfirst($comboDetail['combo_title'])}}</dd>
                                                         @if($comboDetail['camping'] ==1)
                                                             <dt>Days :</dt>
                                                             <dd>{{$comboDetail['days']}}</dd>
-                                                        @endif
+                                                        @endif                                                        
+                                                        <dt>Location : </dt>
+                                                        <dd>{{ucfirst($comboDetail['combo_location'])}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <dl class="dl-horizontal">
-                                                    <dt>Location :</dt>
-                                                        <dd>{{$comboDetail['combo_location']}}</dd>
                                                         @if($comboDetail['camping'] ==1)
                                                             <dt>Double Sharing Price :</dt>
                                                             <dd>{{$comboDetail['double_sharing']}}</dd>

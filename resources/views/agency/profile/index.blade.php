@@ -50,11 +50,29 @@
                         <div class="form-group">
                            <label class="control-label col-md-3">Address</label>
                            <div class="col-md-9">
-                              <input type="text" placeholder=Address" class="form-control" name="address" value="{{ (!empty($profileDetail->address)) ? $profileDetail->address:'' }}"  />
+                              <input type="text" placeholder="Address" class="form-control"  id="location" name="address" value="{{ (!empty($profileDetail->address)) ? $profileDetail->address:'' }}"  />
                               <div class="error">{{ $errors->first('address') }}</div>
                            </div>
                         </div>
                      </div>
+
+                     <div class="form-body">
+                      <div class="form-group">
+                          <label class="control-label col-md-3">Latitude</label>
+                          <div class="col-md-9">
+                            <input readonly class="form-control placeholder-no-fix" type="text" id="latitude" placeholder="Latitude" name="latitude" value="{{ (!empty($profileDetail->latitude)) ? $profileDetail->latitude:'' }}"/>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="form-body">
+                      <div class="form-group">
+                          <label class="control-label col-md-3">Longitude</label>
+                          <div class="col-md-9">
+                            <input readonly class="form-control placeholder-no-fix" type="text" id="longitude" placeholder="Longitude" name="longitude" value="{{ (!empty($profileDetail->longitude)) ? $profileDetail->longitude:'' }}"/>
+                          </div>
+                      </div>
+                    </div>
 
                      <div class="form-body">
                         <div class="form-group">

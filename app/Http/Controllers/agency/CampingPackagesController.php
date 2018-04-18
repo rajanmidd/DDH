@@ -49,14 +49,9 @@ class CampingPackagesController extends Controller
     public function saveCampingPackage(Request $request)
     {
         $data=$request->all();
-        // echo "<pre>";
-        // print_r($data);
-        // echo "</pre>";
-        // die;
         $campingData=array();
         $agency_id=auth()->guard('agency')->user()->id;
         $campingData['agency_id']=$agency_id;
-        $campingData['camping_name']=$data['camping_name'];
         $campingData['camping_title']=$data['camping_title'];
         $campingData['camping_description']=$data['camping_description'];
         $campingData['camping_location']=$data['camping_location'];
@@ -224,7 +219,6 @@ class CampingPackagesController extends Controller
         $data=$request->all();
         $id=$data['camping_id'];
         $campingDetail=CampingPackages::where("id",$id)->first();
-        $campingDetail->camping_name=$data['camping_name'];
         $campingDetail->camping_title=$data['camping_title'];
         $campingDetail->camping_description=$data['camping_description'];
         $campingDetail->days=$data['days'];

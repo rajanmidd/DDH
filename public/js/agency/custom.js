@@ -112,26 +112,10 @@ $(document).ready(function () {
                   {
                         required: true
                   },
-                  difficult_level:
-                  {
-                        required: true
-                  },
                   price_per_person:
                   {
                         required: true,
                         number: true
-                  },
-                  total_cost_after_discount:
-                  {
-                        number: true
-                  },
-                  open_time:
-                  {
-                        required: true
-                  },
-                  close_time:
-                  {
-                        required: true
                   },
                   "activityImages[]":
                   {
@@ -150,7 +134,7 @@ $(document).ready(function () {
                   }
             },
             errorPlacement: function (error, element) {
-                  $(element).closest('.form-group').append(error);
+                  $(element).closest('.col-md-9').append(error);
             },
             invalidHandler: function (event, validator) { //display error alert on form submit   
 
@@ -183,134 +167,166 @@ $(document).ready(function () {
       });
 
 
-      $('.update-profile-form').validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block', // default input error message class
-            focusInvalid: true, // do not focus the last invalid input
-            ignore: "",
-            rules: {
-                  owner_name: 
-                  {
-                        required: true
-                  },
-                  address: 
-                  {
-                        required: true
-                  },
-                  email: 
-                  {
-                        required: true,
-                        email: true,
-                        remote: {
-                              url: base_url+"/agency/check-email",
-                              type: "post"
-                        }
-                  },
-                  password: 
-                  {
-                        required: true
-                  },
-                  confirm_password: 
-                  {
-                        required: true,
-                        equalTo: "#password"
-                  },
-                  mobile: 
-                  {
-                        required: true,
-                        number:true,
-                  },          
-                  certificate_image: {
-                        extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
-                  },
-                  id_proof: {
-                        extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
-                  },
-            
+    $('.update-profile-form').validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block', // default input error message class
+        focusInvalid: true, // do not focus the last invalid input
+        ignore: "",
+        rules: {
+            owner_name: 
+            {
+                required: true
             },
-            messages: {
-                  email: {
-                        remote: "Email is already exists."
-                  },
+            address: 
+            {
+                required: true
             },
-            errorPlacement: function (error, element) {
-                  $(element).closest('.form-group .col-md-9').append(error);
+            latitude: 
+            {
+                required: true
             },
-            invalidHandler: function (event, validator) { //display error alert on form submit   
+            longitude: 
+            {
+                required: true
+            },
+            email: 
+            {
+                required: true,
+                email: true,
+                remote: {
+                    url: base_url+"/agency/check-email",
+                    type: "post"
+                }
+            },
+            password: 
+            {
+                required: true
+            },
+            confirm_password: 
+            {
+                required: true,
+                equalTo: "#password"
+            },
+            mobile: 
+            {
+                required: true,
+                number:true,
+            },
+            certificate_image: {
+                extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
+            },
+            id_proof: {
+                extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
+            },
+        },
+        messages: {
+            email: {
+                remote: "Email is already exists."
+            },
+        },
+        errorPlacement: function (error, element) {
+                $(element).closest('.form-group .col-md-9').append(error);
+        },
+        invalidHandler: function (event, validator) { //display error alert on form submit   
 
+        },
+        highlight: function (element) { // hightlight error inputs
+                $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+        },
+        success: function (label) {
+                label.closest('.form-group').removeClass('has-error');
+                label.remove();
+        },
+        submitHandler: function (form) {
+                form.submit();
+        }
+    });
+
+    $('#camping-form').validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block', // default input error message class
+        focusInvalid: true, // do not focus the last invalid input
+        ignore: "",
+        rules: {
+            camping_title: {
+                required: true
             },
-            highlight: function (element) { // hightlight error inputs
-                  $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+            camping_location: {
+                required: true,
             },
-            success: function (label) {
-                  label.closest('.form-group').removeClass('has-error');
-                  label.remove();
+            days: {
+                required: true,
             },
-            submitHandler: function (form) {
-                  form.submit();
+            night: {
+                required: true,
+            },
+            triple_sharing: {
+                required: true,
+                number:true
+            },
+            double_sharing:{
+                required: true,
+                number:true
+            },
+            'itinerary[]':
+            {
+                required: true,
+            },
+            'service[rafting][title]':{
+                required: true,
+            },
+            'service[bunjee][title]':{
+                required: true,
+            },
+            'service[flying_fox_tandom][title]':{
+                required: true,
+            },
+            'service[flying_fox_solo][title]':{
+                required: true,
+            },
+            'service[swing][title]':{
+                required: true,
+            },
+            'service[air_safari][title]':{
+                required: true,
+            },
+            'service[air_balloon][title]':{
+                required: true,
+            },
+            'service[zip_line][title]':{
+                required: true,
+            },
+            'service[trekking][title]':{
+                required: true,
+            },
+            'service[pain_ball][title]':{
+                required: true,
+            },
+            'service[paragliding][title]':{
+                required: true,
             }
-      });
+        },
+        invalidHandler: function (event, validator) { //display error alert on form submit   
 
-
-
-      $('#camping-form').validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block', // default input error message class
-            focusInvalid: true, // do not focus the last invalid input
-            ignore: "",
-            rules: {
-                  camping_name:
-                  {
-                        required: true
-                  },
-                  camping_location:
-                  {
-                        required: true,
-                  },
-                  days:
-                  {
-                        required: true,
-                  },
-                  night:
-                  {
-                        required: true,
-                  },
-                  triple_sharing:
-                  {
-                        required: true,
-                        number:true
-                  },
-                  double_sharing:
-                  {
-                        required: true,
-                        number:true
-                  },
-                  'itinerary[]':
-                  {
-                        required: true,
-                  },
-            },
-            invalidHandler: function (event, validator) { //display error alert on form submit   
-
-            },
-            highlight: function (element) { // hightlight error inputs
-                  $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-            },
-            success: function (label) {
-                  label.closest('.form-group').removeClass('has-error');
-                  label.remove();
-            },
-            submitHandler: function (form) {
-                  var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
-                  if(len>0)
-                  {
-                        form.submit();
-                  }
-                  else
-                  {
-                        swal("Cancelled", "Please enter at least one terms & condition :)", "error");
-                  }
+        },
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+        },
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error');
+            label.remove();
+        },
+        submitHandler: function (form) {
+            var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
+            var serviceLen=$("[class='services']:checked").length;
+            if(serviceLen==0) {
+                swal("Cancelled", "Please select at least one service :)", "error");
+            } else if(len==0){
+                swal("Cancelled", "Please enter at least one terms & condition :)", "error");
+            }else {                
+                form.submit();
             }
+        }
       });
 
 
@@ -320,160 +336,174 @@ $(document).ready(function () {
             focusInvalid: true, // do not focus the last invalid input
             ignore: "",
             rules: {
-                  combo_name:
-                  {
-                        required: true
-                  },
-                  combo_title:
-                  {
-                        required: true
-                  },
-                  combo_description:
-                  {
-                        required: true,
-                  },
-                  combo_location:
-                  {
-                        required: true
-                  },
-                  price:
-                  {
-                        required: true,
-                        number:true
-                  },
-                  triple_sharing:
-                  {
-                        required: true,
-                        number:true
-                  },
-                  double_sharing:
-                  {
-                        required: true,
-                        number:true
-                  },
-                  'itinerary[]':
-                  {
-                        required: true,
-                  },
-                  days:
-                  {
-                        required: true,
-                  },
-                  night:
-                  {
-                        required: true,
-                  },
-                  camp_description:
-                  {
-                        required: true,
-                  },
+                combo_name:
+                {
+                    required: true
+                },
+                combo_title:
+                {
+                    required: true
+                },
+                combo_location:
+                {
+                    required: true
+                },
+                price:
+                {
+                    required: true,
+                    number:true
+                },
+                triple_sharing:
+                {
+                    required: true,
+                    number:true
+                },
+                double_sharing:
+                {
+                    required: true,
+                    number:true
+                },
+                'itinerary[]':
+                {
+                    required: true,
+                },
+                days:
+                {
+                    required: true,
+                },
+                night:
+                {
+                    required: true,
+                },
+                camp_description:
+                {
+                    required: true,
+                },
+                'service[rafting][title]':{
+                    required: true,
+                },
+                'service[bunjee][title]':{
+                    required: true,
+                },
+                'service[flying_fox_tandom][title]':{
+                    required: true,
+                },
+                'service[flying_fox_solo][title]':{
+                    required: true,
+                },
+                'service[swing][title]':{
+                    required: true,
+                },
+                'service[air_safari][title]':{
+                    required: true,
+                },
+                'service[air_balloon][title]':{
+                    required: true,
+                },
+                'service[zip_line][title]':{
+                    required: true,
+                },
+                'service[trekking][title]':{
+                    required: true,
+                },
+                'service[pain_ball][title]':{
+                    required: true,
+                },
+                'service[paragliding][title]':{
+                    required: true,
+                }
             },
             invalidHandler: function (event, validator) { //display error alert on form submit   
 
             },
             highlight: function (element) { // hightlight error inputs
-                  $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+                $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
             },
             success: function (label) {
-                  label.closest('.form-group').removeClass('has-error');
-                  label.remove();
+                label.closest('.form-group').removeClass('has-error');
+                label.remove();
             },
             submitHandler: function (form) {
-                  var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
-                  if(len>0)
-                  {
-                        form.submit();
-                  }
-                  else
-                  {
-                        swal("Cancelled", "Please enter at least one terms & condition :)", "error");
-                  }
+                var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
+                var serviceLen=$("[class='services']:checked").length;
+                if(serviceLen==0) {
+                    swal("Cancelled", "Please select at least one service :)", "error");
+                } else if(len==0){
+                    swal("Cancelled", "Please enter at least one terms & condition :)", "error");
+                }else {                
+                    form.submit();
+                }
             }
       });
 
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    var x = $(".img_gallery img").length; //initlal text box count
+    if(x==0) {
+        x=1;
+    } else {
+        x=x+1;
+    }
+    $(add_button).click(function(e){ //on add input button click
+        
+        e.preventDefault();
+        console.log(x , max_fields);
+        if(x <= max_fields){      
+            var html='<label class="upload_img"><input type="file" data-number="'+x+'" id="file-upload-'+x+'" name="activityImages[]" class="abc"><img src="http://placehold.it/50x50" id="blah'+x+'" alt="your image" width="50" height="50" /> <button type="button" class="remove_img btn-remove remove_field"> x </button></label>';
+            $(wrapper).append(html); //add input box
+            x++;
+        }
+    });
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); 
+        $(this).parent('label.upload_img').remove(); x--;
+    });
+
+    var video_wrapper         = $(".input_fields_wrap_video"); //Fields wrapper
+    var add_video_button      = $(".add_video_button"); //Add button ID
+    var y = $(".video_gallery video").length; //initlal text box count
+    if(y==0) {
+        y=1;
+    } else {
+        y=y+1;
+    }
+    $(add_video_button).click(function(e){
+        e.preventDefault();
+        if(y <= max_fields){                  
+            var html='<label class="upload_img"><input type="file" id="file-upload-'+y+'" name="activityVideos[]"><button type="button" class="remove_img btn-remove remove_video_field">x</button></label>';
+            $(video_wrapper).append(html); //add input box
+            y++;
+        }
+    });
+
+    $(video_wrapper).on("click",".remove_video_field", function(e){ //user click on remove text
+        e.preventDefault(); 
+        $(this).parent('label.upload_img').remove(); x--;
+    });
 
 
-
-      var max_fields      = 10; //maximum input boxes allowed
-      var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-      var add_button      = $(".add_field_button"); //Add button ID
-      var x = $(".img_gallery img").length; //initlal text box count
-      if(x==0)
-      {
-            x=1;
-      }
-      else
-      {
-            x=x+1;
-      }
-      $(add_button).click(function(e){ //on add input button click
-            
-            e.preventDefault();
-            console.log(x , max_fields);
-            if(x <= max_fields)
-            {
-                  
-               
-                     var html='<label class="upload_img"><input type="file" data-number="'+x+'" id="file-upload-'+x+'" name="activityImages[]" class="abc"><img src="http://placehold.it/50x50" id="blah'+x+'" alt="your image" width="50" height="50" /> <button type="button" class="remove_img btn-remove remove_field"> x </button></label>';
-                
-                  $(wrapper).append(html); //add input box
-                  x++;
-            }
-      });
-      $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-            e.preventDefault(); 
-            $(this).parent('label.upload_img').remove(); x--;
-      });
-
-      var video_wrapper         = $(".input_fields_wrap_video"); //Fields wrapper
-      var add_video_button      = $(".add_video_button"); //Add button ID
-      var y = $(".video_gallery video").length; //initlal text box count
-      if(y==0)
-      {
-            y=1;
-      }
-      else
-      {
-            y=y+1;
-      }
-      $(add_video_button).click(function(e){ //on add input button click
-            console.log(y);
-            e.preventDefault();
-            if(y <= max_fields)
-            {                  
-                   var html='<label class="upload_img"><input type="file" id="file-upload-'+y+'" name="activityVideos[]"><button type="button" class="remove_img btn-remove remove_video_field">x</button></label>';
-                  $(video_wrapper).append(html); //add input box
-                  y++;
-            }
-      });
-
-      $(video_wrapper).on("click",".remove_video_field", function(e){ //user click on remove text
-            e.preventDefault(); 
-            $(this).parent('label.upload_img').remove(); x--;
-      });
-
-
-      var terms_wrapper         = $(".input_fields_wrap_terms"); //Fields wrapper
-      var add_terms_button      = $(".add_terms_button"); //Add button ID
+    var terms_wrapper         = $(".input_fields_wrap_terms"); //Fields wrapper
+    var add_terms_button      = $(".add_terms_button"); //Add button ID
       
-      $(add_terms_button).click(function(e){ //on add input button click
-            var z = $(".input_fields_wrap_terms>div").length; //initlal text box count
-            if(z==0)
-            {
-                  z=1;
-            }
-            e.preventDefault();
-            if(z < max_fields)
-            {
-                  z++;
-                  var html='<div class=""><div class="form-group"><div class="col-md-10"><textarea class="form-control" id="terms-'+z+'" name="terms[]" value="" placeholder="Terms & Condition" ></textarea></div><div class="col-md-2"><button type="button" class="btn pull-right btn-danger btn-remove remove_terms_field">Remove</button> </div> </div></div>';
-                  $(terms_wrapper).append(html); //add input box
-            }
-      });
-      $(terms_wrapper).on("click",".remove_terms_field", function(e){ //user click on remove text
-            e.preventDefault(); 
-            $(this).parent('div').parent('div').remove(); x--;
-      });
+    $(add_terms_button).click(function(e){ //on add input button click
+        var z = $(".input_fields_wrap_terms>div").length; //initlal text box count
+        if(z==0) {
+                z=1;
+        } 
+        e.preventDefault();
+        if(z < max_fields)
+        {
+            z++;
+            var html='<div class=""><div class="form-group"><div class="col-md-10"><textarea class="form-control" id="terms-'+z+'" name="terms[]" value="" placeholder="Terms & Condition" ></textarea></div><div class="col-md-2"><button type="button" class="btn pull-right btn-danger btn-remove remove_terms_field">Remove</button> </div> </div></div>';
+            $(terms_wrapper).append(html); //add input box
+        }
+    });
+
+    $(terms_wrapper).on("click",".remove_terms_field", function(e){ //user click on remove text
+        e.preventDefault(); 
+        $(this).parent('div').parent('div').remove(); x--;
+    });
 
       var notes_wrapper         = $(".input_fields_wrap_notes"); //Fields wrapper
       var add_notes_button      = $(".add_notes_button"); //Add button ID

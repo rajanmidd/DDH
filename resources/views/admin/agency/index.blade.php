@@ -93,23 +93,23 @@
                               <label>Owner Name</label>
                               <span>{{$value['owner_name']}} </span>
                             </div>
+                            <div class="data_row clearfix">
+                              <label>Agency Name</label>
+                              <span>{{$value['company']}} </span>
+                            </div>
                             <div class="data_row clearify">
                               <label> Email</label>
-                              <span>{{$value['email']}}</span>
+                              <span>{{$value['email']}}
+                                (@if($value['is_email_verified']==0)
+                                  Pending
+                                @else
+                                  Verified
+                                @endif)
+                              </span>
                             </div>
                             <div class="data_row clearify">
                               <label> Mobile</label>
                               <span>{{$value['mobile']}}</span>
-                            </div>
-                            <div class="data_row clearify">
-                              <label>Account Status</label>
-                              <span>
-                                @if($value['is_email_verified']==0)
-                                  Pending
-                                @else
-                                  Verified
-                                @endif
-                              </span>
                             </div>
                             <div class="data_row clearfix">
                               <label>Go Week Status</label>

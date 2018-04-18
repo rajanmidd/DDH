@@ -1,6 +1,6 @@
 @extends('agency.mainLayout.template')
   @section('title')
-    View Package :: {{ucfirst($comboDetail['combo_name'])}}
+    View Package :: {{ucfirst($comboDetail['combo_title'])}}
   @endsection
 @section('content')
 <?php 
@@ -23,7 +23,7 @@ use App\Helpers\CustomHelper;
             </ul>
          </div>
         <h3 class="page-title">
-            View Combo Package : {{ucfirst($comboDetail['combo_name'])}}
+            View Combo Package : {{ucfirst($comboDetail['combo_title'])}}
         </h3>
         <!-- END PAGE HEADER-->
         <div class="row">
@@ -38,13 +38,13 @@ use App\Helpers\CustomHelper;
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <dl class="dl-horizontal">
-                                                        <dt>Package Name : </dt>
-                                                        <dd>{{ucfirst($comboDetail['combo_name'])}}</dd>
                                                         <dt>Package Title : :</dt>
                                                         <dd>{{ucfirst($comboDetail['combo_title'])}}</dd>
                                                         @if($comboDetail['camping'] ==1)
                                                             <dt>Days :</dt>
                                                             <dd>{{$comboDetail['days']}}</dd>
+                                                            <dt>Night :</dt>
+                                                            <dd>{{$comboDetail['night']}}</dd>
                                                         @endif
                                                     </dl>
                                                 </div>
@@ -57,8 +57,7 @@ use App\Helpers\CustomHelper;
                                                             <dd>{{$comboDetail['double_sharing']}}</dd>
                                                             <dt>Tripe/Quarter Sharing</dt>
                                                             <dd>{{$comboDetail['triple_sharing']}}</dd>                                                        
-                                                            <dt>Night :</dt>
-                                                            <dd>{{$comboDetail['night']}}</dd>
+                                                            
                                                         @else
                                                             <dt>Price :</dt>
                                                             <dd>{{$comboDetail['price']}}</dd>

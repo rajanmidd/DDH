@@ -92,12 +92,6 @@ use App\Helpers\CustomHelper;
                                             {{ Form::text('price_per_person', null, ['id' => 'price_per_person','class' => 'form-control','placeholder'=>'Enter Price Per Person']) }}
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Total Cost After Discount Per Person</label>
-                                        <div class="col-md-9">
-                                            {{ Form::text('total_cost_after_discount', null, ['id' => 'total_cost_after_discount','class' => 'form-control','placeholder'=>'Enter Total Cost After Discount Per Person']) }}
-                                        </div>
-                                    </div>
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Select Season</label>
@@ -111,32 +105,6 @@ use App\Helpers\CustomHelper;
                                                 </label>
                                                 @endforeach
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Open Days</label>
-                                        <div class="col-md-9">
-                                            <?php $working_days = CustomHelper::getDays();?>
-                                            <div class="checkbox-list row">
-                                                @foreach ( $working_days as $i => $working_day )
-                                                <label class="checkbox-inline col-md-3">
-                                                    <input type="checkbox" name="days[]" id="inlineCheckbox21" value="{{$i}}">
-                                                    {{$working_day}}
-                                                </label>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Open Time</label>
-                                        <div class="col-md-9">
-                                            {{ Form::text('open_time', null, ['id' => 'open_time','class' => 'form-control timepicker timepicker-no-seconds','placeholder'=>'Enter Open Time']) }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Close Time</label>
-                                        <div class="col-md-9">
-                                            {{ Form::text('close_time', null, ['id' => 'close_time','class' => 'form-control timepicker timepicker-no-seconds','placeholder'=>'Enter Close Time']) }}
                                         </div>
                                     </div>
                                     <div class="form-group">

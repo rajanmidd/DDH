@@ -85,7 +85,7 @@
                         <?php $i = $camping_packages->perPage() * ($camping_packages->currentPage() - 1) + 1; ?> 
                            @foreach($camping_packages as $key=>$value)
                               <?php $i++; ?>
-                              <div class="manage_data_wrap @if($value['status']==0) not_active_bg  @elseif($value['status']==1) active_bg @else pending_bg @endif">
+                              <div class="manage_data_wrap @if($value['is_blocked']==2) pending_bg @elseif($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @endif">
                                  <div class="data_row clearfix action">
                                     <a title="Edit" href="{{URL::to('/admin/edit-camping-package')}}/{{Request::segment(3)}}/{{$value['id']}}" class="btn btn-circle">
                                        <i class="fa fa-pencil"></i>
@@ -109,21 +109,25 @@
                                        </a>
                                     @endif
                                  </div>
-                                 <div class="data_row clearfix">
-                                    <label>Name</label>
-                                    <span>{{ucfirst($value['camping_name'])}} </span>
-                                 </div>
                                  <div class="data_row clearify">
                                     <label> Title</label>
                                     <span>{{ucfirst($value['camping_title'])}}</span>
                                  </div>
                                  <div class="data_row clearify">
-                                    <label> Description</label>
-                                    <span>{{$value['camping_description']}}</span>
+                                    <label>Location</label>
+                                    <span>{{$value['camping_location']}}</span>
                                  </div>
                                  <div class="data_row clearify">
-                                    <label>Days/Night</label>
-                                    <span>{{$value['days']}}/{{$value['night']}}</span>
+                                    <label>Double/Triple Sharing Price</label>
+                                    <span>{{$value['double_sharing']}}/{{$value['triple_sharing']}}</span>
+                                 </div>
+                                 <div class="data_row clearify">
+                                    <label>Agency Status</label>
+                                    <span>@if($value['is_blocked']==1) Not Blocked @else Blocked @endif </span>
+                                 </div>
+                                 <div class="data_row clearify">
+                                    <label>Go Week Status</label>
+                                    <span>@if($value['status']==0) Pending @else Active @endif </span>
                                  </div>
                               </div>
                            @endforeach 

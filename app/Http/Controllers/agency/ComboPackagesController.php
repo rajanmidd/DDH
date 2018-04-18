@@ -55,7 +55,6 @@ class ComboPackagesController extends Controller
         $comboData=array();
         $agency_id=auth()->guard('agency')->user()->id;
         $comboData['agency_id']=$agency_id;
-        $comboData['combo_name']=$data['combo_name'];
         $comboData['combo_title']=$data['combo_title'];
         $comboData['combo_description']=$data['combo_description'];
         $comboData['combo_location']=$data['combo_location'];
@@ -234,7 +233,6 @@ class ComboPackagesController extends Controller
         $data=$request->all();
         $id=$data['combo_id'];
         $comboDetail=ComboPackages::where("id",$id)->first();
-        $comboDetail->combo_name=$data['combo_name'];
         $comboDetail->combo_title=$data['combo_title'];
         $comboDetail->combo_description=$data['combo_description'];
         $comboDetail->combo_location=$data['combo_location'];

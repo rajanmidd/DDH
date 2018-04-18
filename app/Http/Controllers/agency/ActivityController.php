@@ -61,13 +61,9 @@ class ActivityController extends Controller
     $agency_id=auth()->guard('agency')->user()->id;
     $data['agency_id']=$agency_id;
     $data['location']=(string)$data['location'];
-    $data['total_cost_after_discount']=$data['total_cost_after_discount']?$data['total_cost_after_discount']:0;
-    $data['open_time']=date("H:i",strtotime($data['open_time']));
-    $data['close_time']=date("H:i",strtotime($data['close_time']));
     $data['unit_type']=implode(',',$data['unit_type']);
     $data['unit_type_value']=json_encode($data['unit_type_value']);
     $data['season']=(isset($data['season'])) ? implode(',',$data['season']):"";
-    $data['days']=(isset($data['days'])) ? implode(',',$data['days']):"";
     $id=AgencyActivities::create($data)->id;
     
     if($id)
@@ -297,16 +293,11 @@ class ActivityController extends Controller
     $activityDetail->unit_type=implode(',',$data['unit_type']);
     $activityDetail->unit_type_value=json_encode($data['unit_type_value']);
     $activityDetail->difficult_level=$data['difficult_level'];
-    // $activityDetail->minimum_amount_percent=$data['minimum_amount_percent'];
-    $activityDetail->total_cost_after_discount=$data['total_cost_after_discount']?$data['total_cost_after_discount']:0;
     $activityDetail->price_per_person=$data['price_per_person'];
     $activityDetail->description=$data['description'];
     $activityDetail->latitude=$data['latitude'];
     $activityDetail->longitude=$data['longitude'];
-    $activityDetail->open_time=date("H:i",strtotime($data['open_time']));
-    $activityDetail->close_time=date("H:i",strtotime($data['close_time']));
     $activityDetail->season=(isset($data['season'])) ? implode(',',$data['season']):"";
-    $activityDetail->days=(isset($data['days'])) ? implode(',',$data['days']):"";
     if($activityDetail->save())
     {
       if(isset($data['activityImages']) && count($data['activityImages']) >0)

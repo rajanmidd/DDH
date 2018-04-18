@@ -61,7 +61,7 @@
                   <?php $i = $camping_packages->perPage() * ($camping_packages->currentPage() - 1) + 1; ?>
                     @foreach($camping_packages as $key=>$value)
                   
-                  <div class="manage_data_wrap @if($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @else pending_bg @endif">
+                  <div class="manage_data_wrap @if($value['is_blocked']==2) pending_bg @elseif($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @endif">
                     
                       <div class="data_row action clearfix">
                         <a title="Edit" href="{{URL::to('/agency/edit-camping-package')}}/{{$value['id']}}"  class="btn-circle">
@@ -88,27 +88,35 @@
                           </a>
                         <?php } ?>
                     </div>
-                      
-                      <div class="data_row clearfix">
-                        <label>Camping Name</label>
-                        <span>{{ucfirst($value['camping_name'])}}</span>
-                      </div>
-                      
                       <div class="data_row clearfix">
                         <label>Title</label>
                         <span>{{ucfirst($value['camping_title'])}}</span>
                       </div>
-                      
                       <div class="data_row clearfix">
-                        <label>Status</label>
+                        <label>Location</label>
+                        <span>{{ucfirst($value['camping_location'])}}</span>
+                      </div>
+                      <div class="data_row clearfix">
+                        <label>Go Week Status</label>
                         <span>
                           @if($value['status']==0)
-                            Not Active
+                            Pending
                           @else
                             Active
                           @endif  
                         </span>
                       </div>
+                      <div class="data_row clearfix">
+                        <label>Agency Status</label>
+                        <span>
+                          @if($value['is_blocked']==1)
+                            Not Blocked
+                          @else
+                            Blocked
+                          @endif  
+                        </span>
+                      </div>
+                      
                       
                   </div>
                                      

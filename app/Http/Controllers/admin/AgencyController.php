@@ -14,6 +14,9 @@ use App\models\ComboPackages;
 use App\models\Itinerary;
 use App\models\CampingService;
 use App\models\ActivityUploads;
+use App\models\Activity;
+use App\models\ActivityUnitType;
+use App\models\ActivityDifficultyLevel;
 
 class AgencyController extends Controller
 {
@@ -75,7 +78,7 @@ class AgencyController extends Controller
 
   public function uploadAgencyImage(Request $request)
   {
-      $image = $request->file('IDProof');
+      $image = $request->file('IDProof');     
       $docType = $request->uploadType;
       $check_image = AgencyDocuments::where('agency_id', $request->ID)->first();
       if (isset($check_image)){
@@ -100,6 +103,95 @@ class AgencyController extends Controller
          }
       }
       return redirect('admin/agency-profile?id=' . $request->ID);
+   }
+
+   public function editAgencyActivity( $agencyId, $id=null)
+   {
+     $activityDetail=AgencyActivities::where("id",$id)->first();
+     $activities=Activity::where('status','1')->pluck('name', 'id');
+     $unitType=ActivityUnitType::where('status','1')->pluck('unit_name', 'id');
+     $levels=ActivityDifficultyLevel::where('status','1')->pluck('name', 'id');
+     return view('admin.agency.editActivity',['activityDetail'=>$activityDetail,'activities'=>$activities,'unitType'=>$unitType,'levels'=>$levels]);
+   }
+
+
+   public function updateActivityBasicInfo(Request $request)
+   {
+     $data=$request->all();
+     $activityId=$data['agency_activity_id'];
+     $agencyId=$data['agency_id'];
+     $activityDetail=AgencyActivities::where("id",$activityId)->first();
+     $activityDetail->activity_id=$data['activity_id'];
+     $activityDetail->title=$data['title'];
+     $activityDetail->location=(string)$data['location'];
+     $activityDetail->unit_type=implode(',',$data['unit_type']);
+     $activityDetail->unit_type_value=json_encode($data['unit_type_value']);
+     $activityDetail->difficult_level=$data['difficult_level'];
+     $activityDetail->price_per_person=$data['price_per_person'];
+     $activityDetail->description=$data['description'];
+     $activityDetail->latitude=$data['latitude'];
+     $activityDetail->longitude=$data['longitude'];
+     $activityDetail->season=(isset($data['season'])) ? implode(',',$data['season']):"";
+     if($activityDetail->save())
+     {
+       if(isset($data['activityImages']) && count($data['activityImages']) >0)
+       {
+         foreach($data['activityImages'] as $key=>$value)
+         {
+           $image_url = CustomHelper::saveImageOnCloudanary($value);
+           $activityUploads=new ActivityUploads();
+           $activityUploads->agency_activity_id=$activityId;
+           $activityUploads->file_url=$image_url;
+           $activityUploads->type='1';
+           $activityUploads->save();
+         }
+       }
+ 
+       if(isset($data['activityVideos']) &&count($data['activityVideos']) >0)
+       {
+         foreach($data['activityVideos'] as $key=>$value)
+         {
+           $video_url = CustomHelper::saveImageOnCloudanary($value);
+           $activityUploads=new ActivityUploads();
+           $activityUploads->agency_activity_id=$activityId;
+           $activityUploads->file_url=$video_url;
+           $activityUploads->type='2';
+           $activityUploads->save();
+         }
+       }
+       ActivityUploads::where('agency_activity_id',$activityId)->where('type','3')->delete();
+       if(isset($data['terms']) &&  count($data['terms']) >0)
+       {        
+         foreach($data['terms'] as $key=>$value)
+         {
+           $activityUploads=new ActivityUploads();
+           $activityUploads->agency_activity_id=$activityId;
+           $activityUploads->file_url=$value;
+           $activityUploads->type='3';
+           $activityUploads->save();
+         }
+       }
+ 
+       ActivityUploads::where('agency_activity_id',$activityId)->where('type','4')->delete();
+       if(isset($data['notes']) &&  count($data['notes']) >0)
+       {        
+         foreach($data['notes'] as $key=>$value)
+         {
+           $activityUploads=new ActivityUploads();
+           $activityUploads->agency_activity_id=$activityId;
+           $activityUploads->file_url=$value;
+           $activityUploads->type='4';
+           $activityUploads->save();
+         }
+       }
+       \Session::flash('success',"Congratulations, Activity information has been updated successfully.");
+       return redirect('admin/list-agency-activity/'.$agencyId);
+     }
+     else
+     {
+       \Session::flash('Error',"Sorry, error occurred. Please try again");
+       return redirect('admin/list-agency-activity/'.$agencyId);
+     }    
    }
 
    public function agencyAcceptReject(Request $request){
@@ -306,7 +398,6 @@ class AgencyController extends Controller
       $id=$data['camping_id'];
       $agencyId=$data['agency_id'];
       $campingDetail=CampingPackages::where("id",$id)->first();
-      $campingDetail->camping_name=$data['camping_name'];
       $campingDetail->camping_title=$data['camping_title'];
       $campingDetail->camping_description=$data['camping_description'];
       $campingDetail->days=$data['days'];
@@ -509,7 +600,6 @@ class AgencyController extends Controller
       $id=$data['combo_id'];
       $agencyId=$data['agency_id'];
       $comboDetail=ComboPackages::where("id",$id)->first();
-      $comboDetail->combo_name=$data['combo_name'];
       $comboDetail->combo_title=$data['combo_title'];
       $comboDetail->combo_description=$data['combo_description'];
       $comboDetail->combo_location=$data['combo_location'];

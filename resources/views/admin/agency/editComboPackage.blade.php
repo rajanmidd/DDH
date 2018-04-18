@@ -11,7 +11,7 @@ use App\Helpers\CustomHelper;
 
     <div class="page-content">
         <h3 class="page-title">
-            Edit Package : {{ucfirst($comboDetail['combo_name'])}}
+            Edit Package : {{ucfirst($comboDetail['combo_title'])}}
         </h3>
         <!-- BEGIN PAGE HEADER-->
         <div class="page-bar">
@@ -22,7 +22,12 @@ use App\Helpers\CustomHelper;
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">Edit Package</a>
+                    <i class="fa fa-eye"></i>
+                    <a href="{{URL::to('admin/list-combo-packages/'.$comboDetail->agency_id)}}">Manage Combo Package</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">View Combo Package</a>
                 </li>
             </ul>
          </div>
@@ -40,33 +45,26 @@ use App\Helpers\CustomHelper;
                                     <div class="form">
                                         <div class="form-body">
                                             <div class="form-group row">
-                                                    <label class="control-label col-md-3">Package Name</label>
-                                                    <div class="col-md-9">
-                                                        {{ Form::text('combo_name', $comboDetail['combo_name'], ['id' => 'combo_name','class' => 'form-control','placeholder'=>'Enter Package Name']) }}
-                                                    </div>
+                                                <label class="control-label col-md-3">Package Title</label>
+                                                <div class="col-md-9">
+                                                    {{ Form::text('combo_title', $comboDetail['combo_title'], ['id' => 'combo_title','class' => 'form-control','placeholder'=>'Enter Package Title']) }}
                                                 </div>
+                                            </div>
                                             <div class="form-group row">
-                                                    <label class="control-label col-md-3">Package Title</label>
-                                                    <div class="col-md-9">
-                                                        {{ Form::text('combo_title', $comboDetail['combo_title'], ['id' => 'combo_title','class' => 'form-control','placeholder'=>'Enter Package Title']) }}
-                                                    </div>
+                                                <label class="control-label col-md-3">Description</label>
+                                                <div class="col-md-9">
+                                                    {{ Form::textarea('combo_description', $comboDetail['combo_description'], ['id' => 'combo_description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
                                                 </div>
+                                            </div>
                                             <div class="form-group row">
-                                                    <label class="control-label col-md-3">Description</label>
-                                                    <div class="col-md-9">
-                                                        {{ Form::textarea('combo_description', $comboDetail['combo_description'], ['id' => 'combo_description','class' => 'form-control','placeholder'=>'Enter Description','rows'=>5]) }}
-                                                    </div>
+                                                <label class="control-label col-md-3">Location</label>
+                                                <div class="col-md-9">
+                                                {{ Form::text('combo_location', $comboDetail['combo_location'], ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Location']) }}
+                                                <input type="hidden" name="latitude" id="latitude" value="{{$comboDetail['latitude']}}" />
+                                                <input type="hidden" name="longitude" id="longitude" value="{{$comboDetail['longitude']}}" />
                                                 </div>
-                                            <div class="form-group row">
-                                                    <label class="control-label col-md-3">Location</label>
-                                                    <div class="col-md-9">
-                                                    {{ Form::text('combo_location', $comboDetail['combo_location'], ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Location']) }}
-                                                    <input type="hidden" name="latitude" id="latitude" value="{{$comboDetail['latitude']}}" />
-                                                    <input type="hidden" name="longitude" id="longitude" value="{{$comboDetail['longitude']}}" />
-                                                    </div>
-                                                </div>
-                                        </div>
-                                        
+                                            </div>
+                                        </div>                                        
                                     </div>
 
                                     <div class="form">

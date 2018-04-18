@@ -51,13 +51,13 @@
         <a href="javascript:void(0);">View Profile </a>
       </li>
       <li class="">
-        <a href="{{URL::to('/admin/list-agency-activity')}}/{{$agencyDetail['id']}}"> View Activities </a>
+        <a href="{{URL::to('/admin/list-agency-activity')}}/{{$agencyDetail['id']}}"> Activities </a>
       </li>
       <li class="">
-        <a href="{{URL::to('/admin/list-camping-packages')}}/{{$agencyDetail['id']}}"> View Camping Packages </a>
+        <a href="{{URL::to('/admin/list-camping-packages')}}/{{$agencyDetail['id']}}"> Camping Packages </a>
       </li>
       <li class="">
-        <a href="{{URL::to('/admin/list-combo-packages')}}/{{$agencyDetail['id']}}"> View Combo Packages </a>
+        <a href="{{URL::to('/admin/list-combo-packages')}}/{{$agencyDetail['id']}}"> Combo Packages </a>
       </li>
     </ul>
     <div class="tab-content">    

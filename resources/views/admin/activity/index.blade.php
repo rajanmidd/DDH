@@ -52,7 +52,7 @@
           <div class="pull-right">
             <div class=" form-group">
               <select class="form-control" name="status">
-                <option value="">Select Option</option>
+                <option value="">All</option>
                 <option value="0" <?php if (isset($_GET['status']) && $_GET['status'] == '0') { echo 'selected';} ?>>Not Active</option>
                 <option value="1" <?php if (isset($_GET['status']) && $_GET['status'] == '1') { echo 'selected';} ?>>Active</option>
               </select> 

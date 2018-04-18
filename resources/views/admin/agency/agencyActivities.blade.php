@@ -82,8 +82,12 @@
                         @if(count($activity_list)>0)
                            <?php $i = $activity_list->perPage() * ($activity_list->currentPage() - 1) + 1; ?> 
                            @foreach($activity_list as $key=>$value)
-                              <div class="manage_data_wrap @if($value['status']==0) not_active_bg  @elseif($value['status']==1) active_bg @else pending_bg @endif">
+                              <div class="manage_data_wrap @if($value['is_blocked']==2  ) pending_bg @elseif($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg   @endif">
                                  <div class="data_row clearfix action">
+                                    <a title="Edit" href="{{URL::to('/admin/edit-agency-activity')}}/{{Request::segment(3)}}/{{$value['id']}}"  class=" btn-circle">
+                                       <i class="fa fa-pencil"></i>
+                                       Edit
+                                    </a>
                                     <a title="View" href="{{URL::to('/admin/view-activity')}}/{{$value['id']}}" class="btn btn-circle">
                                        <i class="fa fa-eye"></i>
                                        View
@@ -117,6 +121,23 @@
                                  <div class="data_row clearify">
                                     <label>Price/Person</label>
                                     <span>{{$value['price_per_person']}}</span>
+                                 </div>
+                                 <div class="data_row clearfix">
+                                    <label>Go Week Status</label>
+                                    <span>@if($value['status']==0)
+                                             Pending
+                                          @else
+                                             Active
+                                          @endif</span>
+                                 </div>
+
+                                 <div class="data_row clearfix">
+                                    <label>AGency Status</label>
+                                    <span>@if($value['is_blocked']==1)
+                                             Not Blocked
+                                          @else
+                                             Blocked
+                                          @endif</span>
                                  </div>
                               </div>
                               <?php $i++; ?> 

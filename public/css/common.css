@@ -69,6 +69,6 @@ textarea{resize:none;}
 
 .active_bg{background: #e0fbdf;}
 .not_active_bg{background: #fbf0ed;}
-.pending_bg{background: #fbf8ed;}
+.pending_bg{background: #eeeeee;}
 
 .data_row.action{background: #fff;}

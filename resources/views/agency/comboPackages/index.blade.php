@@ -62,7 +62,7 @@
                     @foreach($combo_packages as $key=>$value)
                   
                   
-                  <div class="manage_data_wrap @if($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @else pending_bg @endif">
+                  <div class="manage_data_wrap @if($value['is_blocked']==2) pending_bg @elseif($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @endif">
                       <div class="data_row action clearfix">
                         <a title="Edit" href="{{URL::to('/agency/edit-combo-package')}}/{{$value['id']}}"  class="btn-circle">
                               <i class="fa fa-pencil"></i>
@@ -88,25 +88,32 @@
                           </a>
                             <?php } ?>
                       </div>
-                      
-                      <div class="data_row clearfix">
-                        <label>Combo Name</label>
-                        <span>{{ucfirst($value['combo_name'])}}</span>
-                      </div>
-                      
                       <div class="data_row clearfix">
                         <label>Combo Title</label>
                         <span>{{ucfirst($value['combo_title'])}}</span>
                       </div>
-                      
                       <div class="data_row clearfix">
-                        <label>Status</label>
+                        <label>Location</label>
+                        <span>{{ucfirst($value['combo_location'])}}</span>
+                      </div>
+                      <div class="data_row clearfix">
+                        <label>Go Week Status</label>
                         <span>
-                            @if($value['status']==0)
-                            Not Active
+                          @if($value['status']==0)
+                            Pending
                           @else
                             Active
                           @endif  
+                        </span>
+                      </div>
+                      <div class="data_row clearfix">
+                        <label>Agency Status</label>
+                        <span>
+                          @if($value['is_blocked']==1)
+                            Not Blocked
+                          @else
+                            Blocked
+                          @endif
                         </span>
                       </div>
                   </div>

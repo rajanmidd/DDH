@@ -84,7 +84,7 @@
 								<?php $i = $combo_packages->perPage() * ($combo_packages->currentPage() - 1) + 1; ?> 
 								@foreach($combo_packages as $key=>$value)
 								<?php $i++; ?>
-								<div class="manage_data_wrap @if($value['status']==0) not_active_bg  @elseif($value['status']==1) active_bg @else pending_bg @endif">
+								<div class="manage_data_wrap @if($value['is_blocked']==2) pending_bg @elseif($value['status']==0) not_active_bg @elseif($value['status']==1) active_bg @endif">
 									<div class="data_row clearfix action">
 										<a title="Edit" href="{{URL::to('/admin/edit-combo-package')}}/{{Request::segment(3)}}/{{$value['id']}}" class="btn btn-circle">
 											<i class="fa fa-pencil"></i>
@@ -108,21 +108,21 @@
 											</a>
 										@endif
 									</div>
-									<div class="data_row clearfix">
-										<label>Name</label>
-										<span>{{ucfirst($value['combo_name'])}} </span>
-									</div>
 									<div class="data_row clearify">
 										<label> Title</label>
 										<span>{{ucfirst($value['combo_title'])}}</span>
 									</div>
 									<div class="data_row clearify">
-										<label> Description</label>
-										<span>{{$value['combo_description']}}</span>
+										<label> Loction</label>
+										<span>{{$value['combo_location']}}</span>
 									</div>
-									<div class="data_row clearify">
-										<label>Days/Night</label>
-										<span>{{$value['days']}}/{{$value['night']}}</span>
+									<div class="data_row clearfix">
+										<label>Go Week Status</label>
+										<span> @if($value['status']==0) Pending @else Active @endif </span>
+									</div>
+									<div class="data_row clearfix">
+										<label>Agency Status</label>
+										<span> @if($value['is_blocked']==1) Not Blocked @else Blocked @endif </span>
 									</div>
 								</div>
 								@endforeach @else
