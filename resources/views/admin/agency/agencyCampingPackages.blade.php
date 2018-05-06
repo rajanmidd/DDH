@@ -126,7 +126,7 @@
                                     <span>@if($value['is_blocked']==1) Not Blocked @else Blocked @endif </span>
                                  </div>
                                  <div class="data_row clearify">
-                                    <label>Go Week Status</label>
+                                    <label>Goweeks Status</label>
                                     <span>@if($value['status']==0) Pending @else Active @endif </span>
                                  </div>
                               </div>

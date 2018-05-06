@@ -71,7 +71,7 @@
                 @if(count($agency_list)>0)
                     <?php $i = $agency_list->perPage() * ($agency_list->currentPage() - 1) + 1; ?>
                       @foreach($agency_list as $key=>$value)
-                        <div class="manage_data_wrap @if($value['status']==2) not_active_bg  @elseif($value['status']==1) active_bg @else pending_bg @endif">
+                        <div class="manage_data_wrap @if($value['status']==0 || $value['status']==2) not_active_bg  @elseif($value['status']==1 && $value['is_block']==0) active_bg @elseif($value['status']==1 && $value['is_block']==1) pending_bg @endif">
                             <div class="data_row clearfix action">
                                 <a title="View" href="{{URL::to('/admin/agency-profile')}}?id={{$value['id']}}"  class="btn btn-circle">
                                   <i class="fa fa-eye"></i>

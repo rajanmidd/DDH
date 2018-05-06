@@ -523,17 +523,7 @@ $(document).ready(function () {
       }
   });
 
-  function readURL(input,number) {
-      if (input.files && input.files[0]) {
-         var reader = new FileReader();
-
-         reader.onload = function (e) {
-            $("#blah"+number).attr('src', e.target.result);
-         }
-
-         reader.readAsDataURL(input.files[0]);
-      }
-   }
+  
 
    $(document).on('change', '.abc', function (){
       var number=$(this).attr('data-number');
@@ -545,3 +535,28 @@ function setModel(str)
 {
 	$('#uploadType').val(str);
 }
+
+function readURL(input,number) {
+   if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+         $("#blah"+number).attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+   }
+}
+
+function acceptAgency(agency_id){
+   $('#agency_id_field').val(agency_id);
+   $('#agency_status').val(1);
+  
+   }
+      
+    // reject Agency  
+  function rejectAgency(agency_id){
+    $('#agency_id_field').val(agency_id);
+   $('#agency_status').val(2);   
+      
+  }  

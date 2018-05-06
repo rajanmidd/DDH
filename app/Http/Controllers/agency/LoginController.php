@@ -56,49 +56,32 @@ class LoginController extends Controller
    
    public function store(Request $request)
    {
-      
       $validator=$this->validate($request, [
-         'email' => 'required|email',
-         'password' => 'required',
-      ]);
-      
+        'email' => 'required|email',
+        'password' => 'required',
+      ]);      
       $data=$request->all();
       $agencyDetail=Agency::whereEmail($data['email'])->first();
-      if(empty($agencyDetail))
-      {
-         return \Redirect::back()->withErrors(["Sorry, Your account doesn't exists."]);
-      }
-      else if(!\Hash::check($data['password'], $agencyDetail->password))
-      {
-         return \Redirect::back()->withErrors(["Sorry, your password is incorrect."]);
-      }
-      else if($agencyDetail->is_email_verified =='0')
-      {
-         return \Redirect::back()->withErrors(["Sorry, Your email is not verified."]);
-      }
-      else
-      {
-         $remember = (isset($data['remember']) && $data['remember'] =='1') ? true : false;
-         if(\Auth::guard('agency')->attempt(['email' => $request->email, 'password' => $request->password,'is_email_verified'=>'1'],$remember)) 
-         { 
-            if($agencyDetail->status =='0')
-            {
-              return redirect()->route('agency.pending');
-            }
-            else if($agencyDetail->status =='2')
-            {
-              return redirect()->route('agency.rejected');            
-            }
-            else
-            {
-              return redirect()->route('agency.dashboard');
-            }
-            
-         }      
-         else
-         {
-            return \Redirect::back()->withErrors(["Error occurred. Please try again."]);
-         }
+      if(empty($agencyDetail)) {
+        return \Redirect::back()->withErrors(["Sorry, Your account doesn't exists."]);
+      } else if(!\Hash::check($data['password'], $agencyDetail->password)) {
+        return \Redirect::back()->withErrors(["Sorry, your password is incorrect."]);
+      } else if($agencyDetail->is_email_verified =='0'){
+        return \Redirect::back()->withErrors(["Sorry, Your email is not verified."]);
+      } else if($agencyDetail->status =='0'){
+        return redirect()->route('agency.pending');
+      } else if($agencyDetail->status =='2'){
+        return redirect()->route('agency.rejected');
+      } else if($agencyDetail->is_block =='1'){
+        return redirect()->route('agency.blocked');
+      } else {
+        $remember = (isset($data['remember']) && $data['remember'] =='1') ? true : false;
+        if(\Auth::guard('agency')->attempt(['email' => $request->email, 'password' => $request->password,'is_email_verified'=>'1'],$remember)) 
+        { 
+          return redirect()->route('agency.dashboard');           
+        } else {
+          return \Redirect::back()->withErrors(["Error occurred. Please try again."]);
+        }
       }    
    }
    
@@ -111,6 +94,7 @@ class LoginController extends Controller
    public function logout()
    {
       \Auth::guard('agency')->logout();
+      \Session::flash('success','Your account has been logout successfully.');
       return redirect('agency');
    }
    
@@ -157,5 +141,9 @@ class LoginController extends Controller
    public function accountRejected()
    {
       return view('agency.login.rejected');
+   }
+   public function accountBlocked()
+   {
+      return view('agency.login.blocked');
    }
 }

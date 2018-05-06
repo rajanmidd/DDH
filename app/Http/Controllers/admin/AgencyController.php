@@ -23,21 +23,25 @@ class AgencyController extends Controller
 
   public function index(Request $request)
   {
-      $agency_list = Agency::where('is_deleted', '0');
-      if ($request->status <> '' && $request->status == 0)
-      {
-         $agency_list->where('status', $request->status);
-      }
-      if ($request->status <> '' && $request->status == 1)
-      {
-         $agency_list->where('status', $request->status);
-      }
-      if ($request->status <> '' && $request->status == 2)
-      {
-         $agency_list->where('status', $request->status);
-      }
-      $agency_list = $agency_list->orderBy('id', 'desc')->paginate(10);
-      return view('admin.agency.index', ['agency_list' => $agency_list]);
+    $agency_list = Agency::where('is_deleted', '0');
+    if ($request->status <> '' && $request->status == 0)
+    {
+        $agency_list->where('status', $request->status);
+    }
+    if ($request->status <> '' && $request->status == 1)
+    {
+        $agency_list->where('status', $request->status);
+    }
+    if ($request->status <> '' && $request->status == 2)
+    {
+        $agency_list->where('status', $request->status);
+    }
+    if ($request->status <> '' && $request->status == 3)
+    {
+        $agency_list->where('is_block', 2);
+    }
+    $agency_list = $agency_list->orderBy('id', 'desc')->paginate(10);
+    return view('admin.agency.index', ['agency_list' => $agency_list]);
   }
 
    /**
@@ -330,7 +334,7 @@ class AgencyController extends Controller
       {
          \Session::flash('error',"Error Occurred. Please try again.");
       }
-      return redirect('admin/list-agency-activity/'.$agencyId);
+      return \Redirect::back();
   }
 
   public function listCampingPackages(Request $request)
@@ -752,5 +756,24 @@ class AgencyController extends Controller
       }
       return redirect('admin/list-combo-packages/'.$agencyId);
   }
+
+
+    public function deleteImage(Request $request) {
+        if($request->type && $request->id){
+            $image='';
+            $type=$request->type;
+            $agencyDetail=AgencyDocuments::where('agency_id',$request->id)->first();
+            $agencyDetail->$type=$image;
+            if($agencyDetail->save())
+            {
+                \Session::flash('success',"Image Deleted Successfully");
+            } else {
+                \Session::flash('Error',"Sorry, error occurred. Please try again");        
+            }        
+        } else {
+            \Session::flash('Error',"Sorry, error occurred. Please try again");
+        }
+        return redirect('admin/agency-profile?id=' . $request->id);
+    }
 
 }

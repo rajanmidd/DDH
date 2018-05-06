@@ -125,7 +125,7 @@
                         </div>
 
                         <div class="data_row clearfix">
-                            <label>AGency Status</label>
+                            <label>Agency Status</label>
                             <span>@if($value['is_blocked']==1)
                                     Not Blocked
                                   @else

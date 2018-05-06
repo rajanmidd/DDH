@@ -117,7 +117,7 @@
 										<span>{{$value['combo_location']}}</span>
 									</div>
 									<div class="data_row clearfix">
-										<label>Go Week Status</label>
+										<label>Goweeks Status</label>
 										<span> @if($value['status']==0) Pending @else Active @endif </span>
 									</div>
 									<div class="data_row clearfix">

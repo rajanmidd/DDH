@@ -123,7 +123,7 @@
                                     <span>{{$value['price_per_person']}}</span>
                                  </div>
                                  <div class="data_row clearfix">
-                                    <label>Go Week Status</label>
+                                    <label>Goweeks Status</label>
                                     <span>@if($value['status']==0)
                                              Pending
                                           @else

@@ -76,15 +76,7 @@ class ProfileController extends Controller
         }
 
         if($profileDetail->save())
-        {
-            if($changeDoc =='1')
-            {  
-                //Send Mail to Admin
-                $Detail['email']=config('services.adminEmail');
-                $Detail['subject']='Agency Document';
-                $Detail['owner_name']=$data['owner_name'];
-                CustomHelper::sendMail('emails.changeDocument',$Detail); 
-            }      
+        {  
             $agencyDocuments->save();
             \Session::flash('success',"Profile details has been updated successfully.");
         }

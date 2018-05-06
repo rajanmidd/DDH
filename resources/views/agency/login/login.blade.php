@@ -65,14 +65,19 @@
             Enter your personal details below :
          </p>
          <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Owner Name</label>
-            <input class="form-control placeholder-no-fix" type="text" placeholder="Owner Name" name="owner_name"/>
-         </div>
+            <label class="control-label visible-ie8 visible-ie9">Agency Name</label>
+            <input class="form-control placeholder-no-fix" type="text" placeholder="Company Name" name="company"/>
+         </div>  
+         
          <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Address</label>
             <textarea class="form-control placeholder-no-fix" placeholder="Address" id="address" name="address"></textarea>
             <input type="hidden" name="latitude" id="latitude">
             <input type="hidden" name="longitude" id="longitude">
+         </div>
+         <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Owner Name</label>
+            <input class="form-control placeholder-no-fix" type="text" placeholder="Owner Name" name="owner_name"/>
          </div>
          <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -84,29 +89,26 @@
             <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="password" placeholder="Password" name="password"/>
          </div>
          <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label>
+            <label class="control-label visible-ie8 visible-ie9">Confirm Password</label>
             <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Re-type Your Password" name="confirm_password"/>
          </div>
          <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Mobile</label>
+            <label class="control-label visible-ie8 visible-ie9">Mobile Number</label>
             <input class="form-control placeholder-no-fix" type="text" placeholder="Mobile" name="mobile"/>
          </div>     
-         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Company Name</label>
-            <input class="form-control placeholder-no-fix" type="text" placeholder="Company Name" name="company"/>
-         </div>      
+             
          <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Certificate Upload</label>
             <input type="file" name="certificate_image" id="certificate" class="filestyle" data-buttonName="btn-primary" data-buttonText="Choose Certificate">
          </div>
          <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Adhar-Card or other Govt Proof</label>
-             <input type="file" name="id_proof" id="license_image" class="filestyle" data-buttonName="btn-primary" data-buttonText="Adhar-Card or other Govt Proof ">
+            <input type="file" name="id_proof" id="license_image" class="filestyle" data-buttonName="btn-primary" data-buttonText="Adhar-Card or other Govt Proof ">
          </div>
          <div class="form-group">
          
          <input type="checkbox" name="terms_condition" id="inlineCheckbox21" value='1'>
-              I declared that i have read all terms and conditions and privacy policy of goweeks         
+            I declared that i have read all terms and conditions and privacy policy of goweeks
          </div>
          
          <div class="form-actions">

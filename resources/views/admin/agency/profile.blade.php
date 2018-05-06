@@ -151,7 +151,7 @@
                <div class="col-md-9 col-sm-9 col-xs-12">
                   @if ($agencyDetail->agencyDocuments['certificate_image']!='')
                      <a href="{{$agencyDetail->agencyDocuments['certificate_image']}}" title="Certificate Image" target="_blank"><button type="button" class="btn btn-info btn-xs">View</button></a>
-                     <a href="{{URL::to('/admin/delete-image')}}?id={{app('request')->input('id') }}&type=license_image" title="Delete licence image" onclick="return confirm('Are you sure you want to delete this uploaded image?');"> <button type="button" class="btn btn-danger btn-xs">Delete</button></a> 
+                     <a href="{{URL::to('/admin/delete-image')}}?id={{app('request')->input('id') }}&type=certificate_image" title="Delete Certificate image" onclick="return confirm('Are you sure you want to delete this uploaded image?');"> <button type="button" class="btn btn-danger btn-xs">Delete</button></a> 
                   @endif
                   <button type="button" class="btn btn-success btn-xs  SetModel" data-toggle="modal" data-target="#IDModal-{{ app('request')->input('id') }}" onclick="setModel('certificate_image')">Upload</button>
                </div>
@@ -162,7 +162,7 @@
                <div class="col-md-9 col-sm-9 col-xs-12">
                   @if ($agencyDetail->agencyDocuments['id_proof']!='')
                      <a href="{{$agencyDetail->agencyDocuments['id_proof']}}" title="Id Proof Image" target="_blank"><button type="button" class="btn btn-info btn-xs">View</button></a>
-                     <a href="{{URL::to('/admin/delete-image')}}?id={{app('request')->input('id') }}&type=phar_image" title="delete uploaded doc" onclick="return confirm('Are you sure you want to delete this uploaded Image?');"> <button type="button" class="btn btn-danger btn-xs">Delete</button></a>
+                     <a href="{{URL::to('/admin/delete-image')}}?id={{app('request')->input('id') }}&type=id_proof" title="Delete Id Proof" onclick="return confirm('Are you sure you want to delete this uploaded Image?');"> <button type="button" class="btn btn-danger btn-xs">Delete</button></a>
                   @endif
                   <button type="button" class="btn btn-success btn-xs  SetModel" data-toggle="modal" data-target="#IDModal-{{ app('request')->input('id') }}" onclick="setModel('id_proof')">Upload</button>
                </div>
@@ -207,7 +207,7 @@
 
         <div class="form-group">
           <div class="col-md-12 col-sm-12 col-xs-12">
-            <input type="file" class="form-control filestyle IDProof" name="IDProof"  id="IDProof">
+            <input type="file" required class="form-control filestyle IDProof" name="IDProof"  id="IDProof">
             <input type="hidden" name="ID" value="{{ app('request')->input('id') }}" id="agencyId">
             <input type="hidden" name="uploadType" value="" id="uploadType">
             <img src="" id="blah" style="display:none;">

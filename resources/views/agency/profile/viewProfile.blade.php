@@ -36,23 +36,45 @@
                <div class="portlet-body form">
                   <!-- BEGIN FORM-->
                   {!! Form::model($profileDetail, ['method' => 'PATCH', 'route' => ['profile'], 'class'=>'form-horizontal form-row-seperated view-profile-form','files'=>true]) !!}
+                    <div class="form-body">
+                        <div class="form-group">
+                           <label class="control-label col-md-3">Agency Name</label>
+                           <div class="col-md-9">
+                              <label class="control-label">{{ (!empty($profileDetail->company)) ? $profileDetail->company:'' }}</label>
+                           </div>
+                        </div>
+                     </div> 
+
                      <div class="form-body">
                         <div class="form-group">
-                           <label class="control-label col-md-3">Owner Name</label>
+                           <label class="control-label col-md-3">Agency Address</label>
                            <div class="col-md-9">
-                              <label class="control-label">{{ (!empty($profileDetail->owner_name)) ? $profileDetail->owner_name:'' }}</label>
+                              <label class="control-label view_lable">{{ (!empty($profileDetail->address)) ? $profileDetail->address:'' }}</label>
                            </div>
                         </div>
                      </div>
 
                      <div class="form-body">
                         <div class="form-group">
-                           <label class="control-label col-md-3">Address</label>
+                           <label class="control-label col-md-3">Agency Logo</label>
                            <div class="col-md-9">
-                              <label class="control-label view_lable">{{ (!empty($profileDetail->address)) ? $profileDetail->address:'' }}</label>
+                             @if($profileDetail->agency_image)
+                                <img src="{{$profileDetail->agency_image}}" height="200px" width="200px" />
+                              @else
+                                No Logo found
+                              @endif
                            </div>
                         </div>
                      </div>
+                  
+                      <div class="form-body">
+                        <div class="form-group">
+                           <label class="control-label col-md-3">Owner Name</label>
+                           <div class="col-md-9">
+                              <label class="control-label">{{ (!empty($profileDetail->owner_name)) ? $profileDetail->owner_name:'' }}</label>
+                           </div>
+                        </div>
+                     </div>                     
 
                      <div class="form-body">
                         <div class="form-group">
