@@ -40,7 +40,8 @@ class ProfileController extends Controller
             'owner_name' => 'required|max:100',
             'mobile' => 'required|integer',
             'email' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'company'=>'required'
         ]);
         
         $agency_id=auth()->guard('agency')->user()->id;
@@ -51,12 +52,16 @@ class ProfileController extends Controller
         $profileDetail->address=$data['address'];
         $profileDetail->latitude=$data['latitude'];
         $profileDetail->longitude=$data['longitude'];
+        if ($request->file('agency_image')) {
+            $agency_image = $request->file('agency_image');
+            $image_url = CustomHelper::saveImageOnCloudanary($agency_image);
+            $profileDetail->agency_image = $image_url;
+        }
       
         $agencyDocuments=$profileDetail->agencyDocuments;
         
         $changeDoc=0;
-        if ($request->file('certificate_image')) 
-        {
+        if ($request->file('certificate_image')){
             $changeDoc=1;
             $certificate_image = $request->file('certificate_image');
             $image_url = CustomHelper::saveImageOnCloudanary($certificate_image);
@@ -65,8 +70,7 @@ class ProfileController extends Controller
             $profileDetail->is_document_verified='0';
         }
 
-        if ($request->file('id_proof')) 
-        {
+        if ($request->file('id_proof')){
             $changeDoc=1;
             $id_proof = $request->file('id_proof');
             $image_url = CustomHelper::saveImageOnCloudanary($id_proof);
@@ -155,20 +159,37 @@ class ProfileController extends Controller
    
    public function getUnreadNotification()
    {
-      $phar_id=auth()->guard('merchant')->user()->id;
-      $unreadNotification=PharmacyNotifications::where('phar_id',$phar_id)->where('is_read','0')->get();
-      $html="";
-      if(count($unreadNotification)>0)
-      {
-         foreach($unreadNotification as $key=>$value)
-         {
-            $html .='<li><a href="javascript:;"><span class="details"><span class="label label-sm label-icon label-warning"><i class="fa fa-bell-o"></i></span>'.substr($value->desciption,0,30).'...'.'</span><span class="time">'.$value->created_at->diffForHumans().'</span></a></li>';
-         }
-      }
+        $phar_id=auth()->guard('merchant')->user()->id;
+        $unreadNotification=PharmacyNotifications::where('phar_id',$phar_id)->where('is_read','0')->get();
+        $html="";
+        if(count($unreadNotification)>0)
+        {
+            foreach($unreadNotification as $key=>$value)
+            {
+                $html .='<li><a href="javascript:;"><span class="details"><span class="label label-sm label-icon label-warning"><i class="fa fa-bell-o"></i></span>'.substr($value->desciption,0,30).'...'.'</span><span class="time">'.$value->created_at->diffForHumans().'</span></a></li>';
+            }
+        }
       
-      $res=array();
-      $res['count']=count($unreadNotification);
-      $res['messages']=$html;
-      echo json_encode($res);
-   }
+        $res=array();
+        $res['count']=count($unreadNotification);
+        $res['messages']=$html;
+        echo json_encode($res);
+    }
+
+    public function deleteAgencyLogo()
+    {
+        $agency_id=auth()->guard('agency')->user()->id;
+        $profileDetail=Agency::where('id',$agency_id)->first();
+        if($profileDetail){
+            $profileDetail->agency_image="";
+            if($profileDetail->save()) { 
+                \Session::flash('success',"Company Logo has been deleted successfully.");
+            } else {
+                \Session::flash('error',"Error occurred. Please try again.");
+            }
+        } else {
+            \Session::flash('error',"No record found.");
+        }
+        return redirect('agency/view-profile');
+    }
 }

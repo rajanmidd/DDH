@@ -212,6 +212,9 @@ $(document).ready(function () {
                 required: true,
                 number:true,
             },
+            agency_image: {
+                extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
+            },
             certificate_image: {
                 extension: "png|jpeg|gif|PNG|JPEG|GIF|JPG|jpg"
             },

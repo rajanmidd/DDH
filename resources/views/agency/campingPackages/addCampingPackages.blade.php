@@ -182,9 +182,9 @@ use App\Helpers\CustomHelper;
                                                 </div>
 </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Height</label>
+                                                <label class="control-label col-md-3">Length</label>
                                                 <div class="col-md-9">
-                                                {{ Form::text('service[flying_fox_tandom][length]', null, ['id' => 'flying_fox_tandom_length','class' => 'form-control','placeholder'=>'Height','disabled'=>'disabled']) }}
+                                                {{ Form::text('service[flying_fox_tandom][length]', null, ['id' => 'flying_fox_tandom_length','class' => 'form-control','placeholder'=>'Length','disabled'=>'disabled']) }}
                                                 </div>
 </div>
                                             <div class="form-group">
@@ -218,9 +218,9 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div>
                                             <div class="form-group">
-                                                    <label class="control-label col-md-3">Height</label>
+                                                    <label class="control-label col-md-3">Length</label>
                                                     <div class="col-md-9">
-                                                        {{ Form::text('service[flying_fox_solo][length]', null, ['id' => 'flying_fox_solo_length','class' => 'form-control','placeholder'=>'Height','disabled'=>'disabled']) }}
+                                                        {{ Form::text('service[flying_fox_solo][length]', null, ['id' => 'flying_fox_solo_length','class' => 'form-control','placeholder'=>'Length','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
                                             <div class="form-group">
@@ -379,9 +379,9 @@ use App\Helpers\CustomHelper;
                                                     </div>
                                                 </div>
                                             <div class="form-group">
-                                                    <label class="control-label col-md-3">Height</label>
+                                                    <label class="control-label col-md-3">Length</label>
                                                     <div class="col-md-9">
-                                                    {{ Form::text('service[zip_line][length]', null, ['id' => 'zip_line_length','class' => 'form-control','placeholder'=>'Height','disabled'=>'disabled']) }}
+                                                    {{ Form::text('service[zip_line][length]', null, ['id' => 'zip_line_length','class' => 'form-control','placeholder'=>'Length','disabled'=>'disabled']) }}
                                                     </div>
                                                 </div>
                                             <div class="form-group">

@@ -57,11 +57,14 @@
                      <div class="form-body">
                         <div class="form-group">
                            <label class="control-label col-md-3">Agency Logo</label>
-                           <div class="col-md-9">
-                             @if($profileDetail->agency_image)
-                                <img src="{{$profileDetail->agency_image}}" height="200px" width="200px" />
+                           <div class="col-md-2">
+                              @if($profileDetail->agency_image)
+                                <a href="{{$profileDetail->agency_image}}" class="mix-preview fancybox-button view_img">
+                                  <img src="{{$profileDetail->agency_image}}" class="img-responsive" style="height:150px; width:150px;" />
+                                </a>
+                                <center><a href="{{URL::to('/agency/delete-agency-logo')}}"><i class="fa fa-trash"></i></a></center>
                               @else
-                                No Logo found
+                                No Logo Found
                               @endif
                            </div>
                         </div>
@@ -116,6 +119,12 @@
                                              <center>View Document</center>
                                           </a>
                                        </div>
+                                     @endif
+                                     
+                                     @if(!$profileDetail->agencyDocuments->certificate_image && !$profileDetail->agencyDocuments->id_proof)
+                                     <div class="col-md-9">
+                                        No Dcoument Found
+                                     </div>
                                      @endif
                                  </div>
                               </div>

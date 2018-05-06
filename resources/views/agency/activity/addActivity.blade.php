@@ -87,7 +87,7 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div> -->
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">Total Cost Per Person</label>
+                                        <label class="control-label col-md-3">Price Per Person</label>
                                         <div class="col-md-9">
                                             {{ Form::text('price_per_person', null, ['id' => 'price_per_person','class' => 'form-control','placeholder'=>'Enter Price Per Person']) }}
                                         </div>

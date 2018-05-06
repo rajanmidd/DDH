@@ -145,7 +145,6 @@ module.exports = function(app, express, client) {
         req.asyncValidationErrors().then(function() {
             // all good here 
             var data = req.body;
-			console.log(data);
             var name = data.name;
             var email = data.email;
             var password = data.password;
@@ -154,7 +153,6 @@ module.exports = function(app, express, client) {
             var device_type = data.deviceType || 1;
             client.query("select * from tbl_users where phone=? or email=?", [phone,email], function(error, result, fields) {
                 if (error) {
-					console.log(error);
                     Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
                 } 
                 else if (phone === "" || password === "") {
@@ -163,7 +161,7 @@ module.exports = function(app, express, client) {
                 else if (result.length > 0) {
                     Util.makeResponse(res, false, 200, "Sorry, phone or email is alread exists. Please try with different email.", '1.0.0', []);
                 } else {
-                    var pass= bcrypt.hashSync(password, salt);
+                    var pass= bcrypt.hashSync(password, 10);
                     var regFields = {
                         'name': name,
                         'email': email,
@@ -188,7 +186,6 @@ module.exports = function(app, express, client) {
                     client.query("INSERT INTO tbl_users SET ?", regFields, function(error1, result1, fields1) {
                         if(error1)
                         {
-							console.log(error1);
                            Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
                         } 
                         else
@@ -202,7 +199,6 @@ module.exports = function(app, express, client) {
                             client.query("INSERT INTO tbl_otp SET ?", otpFields, function(error2, result2, fields2) {
                                 if(error2)
                                 {
-									console.log(error2);
                                    Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
                                 } 
                                 else
@@ -427,7 +423,6 @@ module.exports = function(app, express, client) {
 
     api.post('/login', function(req, res) {
         var data=req.body;
-		console.log(data);
         if(data.loginType=='1')
         {
             var schema = {
@@ -468,7 +463,7 @@ module.exports = function(app, express, client) {
                 var match=data.phone;
                 var sql = "select * from tbl_users where phone=?";
             }
-            var pass= bcrypt.hashSync(data.password, salt);
+            
             client.query(sql, [match], function(error, result, fields) {
                 if (error) 
                 {
@@ -492,7 +487,8 @@ module.exports = function(app, express, client) {
                 }
                 else if(data.loginType=='1') 
                 {
-                    if(pass == result[0].password)
+					var pass= bcrypt.hashSync(data.password, result[0].password);
+                    if(pass != result[0].password)
                     {
                         Util.makeResponse(res, false, 200, "Password is Incorrect", '1.0.0', []);
                     }
@@ -591,25 +587,20 @@ module.exports = function(app, express, client) {
    **/
   
    api.post('/forgotPassword', function (req, res) {
-      var data=req.body;
-      var email=data.email;
-      client.query("select * from tbl_users where email=?", [email], function (error, result, fields) {
-         if(error) 
-         {
-             Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
-         } 
-         else if(result.length ==0)
-         {
-            Util.makeResponse(res, false, 200, "Sorry, user is not found.", '1.0.0', []);
-         }
-         else
-         {
-            var activationUrl = req.protocol + '://' + req.get('host') +'/recovery/?email='+result[0].email+'&activkey='+result[0].remember_token;
-            //send mail 
-            var res2=sendMail(email,'You have requested the password recovery','You have requested the password recovery. To receive a new password, please click on the link <a href="'+activationUrl+'">Click Here</a>');
-            Util.makeResponse(res, true, 200, "For furthur steps please check your email.", '1.0.0',[]);
-         }
-      });      
+		var data=req.body;
+		var email=data.email;
+		client.query("select * from tbl_users where email=?", [email], function (error, result, fields) {
+			if(error) {
+				Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
+			} else if(result.length ==0){
+				Util.makeResponse(res, false, 200, "Sorry, user is not found.", '1.0.0', []);
+			} else {
+				var activationUrl = req.protocol + '://' + req.get('host') +'/recovery/?email='+result[0].email+'&activkey='+result[0].remember_token;
+				//send mail 
+				var res2=sendMail(email,'You have requested the password recovery','You have requested the password recovery. To receive a new password, please click on the link <a href="'+activationUrl+'">Click Here</a>');
+				Util.makeResponse(res, true, 200, "For furthur steps please check your email.", '1.0.0',[]);
+			}
+		});      
    });
 
     // ---------------------------------------------------------
@@ -624,7 +615,6 @@ module.exports = function(app, express, client) {
             // verifies secret and checks expf.
             jwt.verify(token, app.get('superSecret'), function(err, decoded) {
                 if (err) {
-                    //console.log(err)
                     Util.makeResponse(res, false, 401, 'Authentication failed. Invalid Token.', '1.0.0', [])
                 } else {
                     // if everything is good, save to request for use in other routes
@@ -667,12 +657,10 @@ module.exports = function(app, express, client) {
 
 
     api.get('/activityList', function(req, res) {
-        client.query("select a.id as activityId,a.name as activityName from tbl_activity as a where a.status=? order by a.id desc", ['1'], function(error, result, fields) {
+        client.query("select a.id as activityId,a.name as activityName,a.activity_image as activityImage from tbl_activity as a where a.status=? order by a.id desc", ['1'], function(error, result, fields) {
             if (error) {
                 Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
-            }
-            else
-            {
+            } else {
                 Util.makeResponse(res, true, 200, "Activity Listing", '1.0.0', result);
             }
         });  
@@ -689,7 +677,9 @@ module.exports = function(app, express, client) {
      * @apiGroup Packages
      * @apiName comboPackages
      * ***************************************************************************************************************************************************************
-	 * @apiParam (Expected parameters) {Integer}      page              Page Number Integer (Default=1)
+	 * @apiParam (Expected parameters) {Integer}      page               			Page Number Integer (Default=1)
+	 * @apiParam (Expected parameters) {Integer}      priceSort          			Price Sort String (asc,desc)
+	 * @apiParam (Expected parameters) {Integer}      paginationRecored  			Pagination Limit Per Page Integer
      * ***************************************************************************************************************************************************************
      * @apiSuccess {Number=0,1}            Success           response status ( 0 for error, 1 for success )
      * @apiSuccess {Number}                Status             status code
@@ -708,46 +698,52 @@ module.exports = function(app, express, client) {
 		var data=req.query;		
 		if (data.hasOwnProperty("page")) {
 			var page=data.page;
-		}
-		else
-		{
+		} else {
 			var page=1;
 		}
-		var limit=10;
-		if(page ==1)
-		{
-			var start=0;
+		if(req.query.hasOwnProperty("paginationRecored") && req.query.paginationRecored !=""){
+			var limit=req.query.paginationRecored;
+		} else {
+			var limit=10;
 		}
-		else
-		{
-			var start =((page-1)*limit)
+		if(page ==1) {
+			var start=0;
+		} else {
+			var start =((page-1)*limit);
 		}
 		
-        client.query("select b.owner_name as agencyName, a.id, a.combo_name as name, a.combo_title as title, a.combo_description as description, a.days, a.night, a.camp_description as campDescription, a.combo_location as location, a.price, a.triple_sharing as tripleSharing, a.double_sharing as doubleSharing, a.camping as isCamping from tbl_combo_packages as a left join tbl_agency as b on b.id =a.agency_id where a.status=? and a.is_deleted=? and a.is_blocked=? order by a.id desc limit "+start +","+ limit, ['1','1','1'], function(error, result, fields) {
+		var sql="select b.company as agencyName, a.id as packageId, a.combo_title as title, a.combo_description as description, a.days, a.night, a.camp_description as campDescription, a.combo_location as location, FORMAT(a.price, 2) as price, FORMAT(a.triple_sharing, 2) as tripleSharing,  FORMAT(a.double_sharing, 2) as doubleSharing, a.camping as isCamping from tbl_combo_packages as a left join tbl_agency as b on b.id =a.agency_id where a.status=? and a.is_deleted=? and a.is_blocked=?";
+		
+		if(req.query.hasOwnProperty("priceSort") && req.query.priceSort !=""){
+			sql +=" order by CASE a.camping WHEN 0 THEN a.price  ELSE a.triple_sharing END "+req.query.priceSort;
+		}else {
+			sql +=" order by a.id desc";
+		}
+		
+		sql +=" limit "+start +","+ limit;
+		
+        client.query(sql, ['1','1','1'], function(error, result, fields) {
             if (error) {
+				console.log(error);
                 Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
-            }
-            else
-            {
+           } else {
 				var comboPackages=[];
 				if(result.length >0)
 				{
 					var j=0;
 					result.forEach(function (item){
-						common.getServices(client,item.id,'2').then(function(serviceRes){
+						common.getServices(client,item.packageId,'2').then(function(serviceRes){
 							item.services=serviceRes;
 							comboPackages.push(item);
 							j++;							
 							if(j== result.length)
 							{
-								comboPackages = _.sortBy(comboPackages,"id");
+								//comboPackages = _.sortBy(comboPackages,"packageId");
 								Util.makeResponse(res, true, 200, "Combo Packages Listing", '1.0.0', comboPackages.reverse());
 							}
 						});						
 					});
-				}
-				else
-				{
+				} else {
 					Util.makeResponse(res, true, 200, "Combo Packages Listing", '1.0.0', comboPackages);
 				}               
             }
@@ -784,46 +780,38 @@ module.exports = function(app, express, client) {
 		var data=req.query;		
 		if (data.hasOwnProperty("page")) {
 			var page=data.page;
-		}
-		else
-		{
+		} else {
 			var page=1;
 		}
 		var limit=10;
 		if(page ==1)
 		{
 			var start=0;
-		}
-		else
-		{
+		} else {
 			var start =((page-1)*limit)
 		}
 		
-        client.query("select b.id as agencyId, b.owner_name as agencyName, b.address as agencyAddress, a.id, a.combo_name as name, a.combo_title as title, a.combo_description as description, a.days, a.night, a.camp_description as campDescription, a.combo_location as location, FORMAT(a.price, 2) as price, FORMAT(a.triple_sharing, 2) as tripleSharing, FORMAT(a.double_sharing, 2) as doubleSharing, a.camping as isCamping from tbl_combo_packages as a left join tbl_agency as b on b.id =a.agency_id where a.status=? and a.is_deleted=? and a.is_blocked=? group by a.agency_id order by a.id desc limit "+start +","+ limit, ['1','1','1'], function(error, result, fields) {
+        client.query("select b.id as agencyId, b.company as agencyName, b.address as agencyAddress, a.id as packageId, a.combo_title as title, a.combo_description as description, a.days, a.night, a.camp_description as campDescription, a.combo_location as location, FORMAT(a.price, 2) as price, FORMAT(a.triple_sharing, 2) as tripleSharing, FORMAT(a.double_sharing, 2) as doubleSharing, a.camping as isCamping from tbl_combo_packages as a left join tbl_agency as b on b.id =a.agency_id where a.status=? and a.is_deleted=? and a.is_blocked=? group by a.agency_id order by a.id desc limit "+start +","+ limit, ['1','1','1'], function(error, result, fields) {
             if (error) {
                 Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
-            }
-            else
-            {
+            } else {
                 var comboPackages=[];
 				if(result.length >0)
 				{
 					var j=0;
 					result.forEach(function (item){
-						common.getServices(client,item.id,'2').then(function(serviceRes){
+						common.getServices(client,item.packageId,'2').then(function(serviceRes){
 							item.services=serviceRes;
 							comboPackages.push(item);
 							j++;							
 							if(j== result.length)
 							{
-								comboPackages = _.sortBy(comboPackages,"id");
+								comboPackages = _.sortBy(comboPackages,"packageId");
 								Util.makeResponse(res, true, 200, "Combo Packages Listing", '1.0.0', comboPackages.reverse());
 							}
 						});						
 					});
-				}
-				else
-				{
+				} else {
 					Util.makeResponse(res, true, 200, "Combo Packages Listing", '1.0.0', comboPackages);
 				} 
             }
@@ -840,7 +828,9 @@ module.exports = function(app, express, client) {
      * @apiGroup Packages
      * @apiName campingPackages
      * ***************************************************************************************************************************************************************
-     * @apiParam (Expected parameters) {Integer}      page              Page Number Integer (Default=1)
+     * @apiParam (Expected parameters) {Integer}      page             				Page Number Integer (Default=1)
+	 * @apiParam (Expected parameters) {Integer}      priceSort          			Price Sort String (asc,desc)
+	 * @apiParam (Expected parameters) {Integer}      paginationRecored  			Pagination Limit Per Page Integer
      * ***************************************************************************************************************************************************************
      * @apiSuccess {Number=0,1}            Success           response status ( 0 for error, 1 for success )
      * @apiSuccess {Number}                Status             status code
@@ -858,46 +848,54 @@ module.exports = function(app, express, client) {
 		var data=req.query;		
 		if (data.hasOwnProperty("page")) {
 			var page=data.page;
-		}
-		else
-		{
+		} else {
 			var page=1;
 		}
-		var limit=10;
+		if(req.query.hasOwnProperty("paginationRecored") && req.query.paginationRecored !=""){
+			var limit=req.query.paginationRecored;
+		} else {
+			var limit=10;
+		}
 		if(page ==1)
 		{
 			var start=0;
-		}
-		else
-		{
+		} else {
 			var start =((page-1)*limit)
 		}
 		
-        client.query("select b.owner_name as agencyName, a.id,a.camping_name as name, a.camping_title as title, a.camping_description as description, a.camping_location as location, a.days, a.night, FORMAT(a.triple_sharing, 2) as tripleSharing, FORMAT(a.double_sharing, 2) as doubleSharing from tbl_camping_packages as a left join tbl_agency as b on b.id =a.agency_id where a.status=? and a.is_deleted=? and a.is_blocked=? order by a.id desc limit "+start +","+ limit, ['1','1','1'], function(error, result, fields) {
+		var sql ="select b.company as agencyName, a.id as packageId, a.camping_title as title, a.camping_description as description, a.camping_location as location, a.days, a.night, FORMAT(a.triple_sharing, 2) as tripleSharing, FORMAT(a.double_sharing, 2) as doubleSharing from tbl_camping_packages as a left join tbl_agency as b on b.id =a.agency_id where a.status=? and a.is_deleted=? and a.is_blocked=? ";
+		
+		if(req.query.hasOwnProperty("priceSort") && req.query.priceSort !=""){
+			sql +=" order by a.triple_sharing "+req.query.priceSort;
+		}else {
+			sql +=" order by a.id desc";
+		}
+		
+		sql +=" limit "+start +","+ limit;
+		
+		console.log(sql);
+        client.query(sql, ['1','1','1'], function(error, result, fields) {
             if (error) {
+				console.log(error);
                 Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
-            }
-            else
-            {
+            } else {
                 var campingPackages=[];
 				if(result.length >0)
 				{
 					var j=0;
 					result.forEach(function (item){
-						common.getServices(client,item.id,'1').then(function(serviceRes){
+						common.getServices(client,item.packageId,'1').then(function(serviceRes){
 							item.services=serviceRes;
 							campingPackages.push(item);
 							j++;							
 							if(j== result.length)
 							{
-								campingPackages = _.sortBy(campingPackages,"id");
+								//campingPackages = _.sortBy(campingPackages,"packageId");
 								Util.makeResponse(res, true, 200, "Combo Packages Listing", '1.0.0', campingPackages.reverse());
 							}
 						});						
 					});
-				}
-				else
-				{
+				} else {
 					Util.makeResponse(res, true, 200, "Camping Packages Listing", '1.0.0', campingPackages);
 				} 
             }
@@ -933,46 +931,38 @@ module.exports = function(app, express, client) {
 		var data=req.query;		
 		if (data.hasOwnProperty("page")) {
 			var page=data.page;
-		}
-		else
-		{
+		} else {
 			var page=1;
 		}
 		var limit=10;
 		if(page ==1)
 		{
 			var start=0;
-		}
-		else
-		{
+		} else {
 			var start =((page-1)*limit)
 		}
 		
-        client.query("select b.id as agencyId, b.owner_name as agencyName, b.address as agencyAddress, a.id,a.camping_name as name, a.camping_title as title, a.camping_description as description, a.camping_location as location, a.days, a.night, FORMAT(a.triple_sharing, 2) as tripleSharing, FORMAT(a.double_sharing, 2) as doubleSharing from tbl_camping_packages as a left join tbl_agency as b on b.id =a.agency_id where a.status=? and a.is_deleted=? and a.is_blocked=? and  double_sharing = (SELECT MIN(double_sharing) FROM tbl_camping_packages c  WHERE c.agency_id = a.agency_id) group by a.agency_id order by a.id desc limit "+start +","+ limit, ['1','1','1'], function(error, result, fields) {
+        client.query("select b.id as agencyId, b.company as agencyName, b.address as agencyAddress, a.id as packageId, a.camping_title as title, a.camping_description as description, a.camping_location as location, a.days, a.night, FORMAT(a.triple_sharing, 2) as tripleSharing, FORMAT(a.double_sharing, 2) as doubleSharing from tbl_camping_packages as a left join tbl_agency as b on b.id =a.agency_id where a.status=? and a.is_deleted=? and a.is_blocked=? and  double_sharing = (SELECT MIN(double_sharing) FROM tbl_camping_packages c  WHERE c.agency_id = a.agency_id) group by a.agency_id order by a.id desc limit "+start +","+ limit, ['1','1','1'], function(error, result, fields) {
             if (error) {
                 Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
-            }
-            else
-            {
+            } else {
                 var campingPackages=[];
 				if(result.length >0)
 				{
 					var j=0;
 					result.forEach(function (item){
-						common.getServices(client,item.id,'1').then(function(serviceRes){
+						common.getServices(client,item.packageId,'1').then(function(serviceRes){
 							item.services=serviceRes;
 							campingPackages.push(item);
 							j++;							
 							if(j== result.length)
 							{
-								campingPackages = _.sortBy(campingPackages,"id");
+								campingPackages = _.sortBy(campingPackages,"packageId");
 								Util.makeResponse(res, true, 200, "Combo Packages Listing", '1.0.0', campingPackages.reverse());
 							}
 						});						
 					});
-				}
-				else
-				{
+				} else {
 					Util.makeResponse(res, true, 200, "Camping Packages Listing", '1.0.0', campingPackages);
 				} 
             }
@@ -992,7 +982,8 @@ module.exports = function(app, express, client) {
      * @apiName listActivities
      * ***************************************************************************************************************************************************************
      * @apiParam (Expected parameters) {String}      activityId                Activity ID string
-	 * @apiParam (Expected parameters) {Integer}      page              Page Number Integer (Default=1)
+	 * @apiParam (Expected parameters) {Integer}     page                      Page Number Integer (Default=1)
+	 * @apiParam (Expected parameters) {Integer}     priceSort                 Price Sort type String (asc,desc)
      * ***************************************************************************************************************************************************************
      * @apiSuccess {Number=0,1}            Success           response status ( 0 for error, 1 for success )
      * @apiSuccess {Number}                Status             status code
@@ -1028,19 +1019,23 @@ module.exports = function(app, express, client) {
 				if(page ==1)
 				{
 					var start=0;
-				}
-				else
-				{
+				} else {
 					var start =((page-1)*limit)
 				}
+				var sql="select b.company as agencyName, b.agency_image as agencyImage, c.name as activityName, a.id, a.title, a.location, a.description, a.unit_type as unitType, a.unit_type_value as unitTypeValue, a.season, FORMAT(a.price_per_person, 2) as price, a.difficult_level as difficultLevel from tbl_agency_activities as a left join tbl_agency as b on b.id =a.agency_id left join tbl_activity as c on c.id =a.activity_id  where a.activity_id=? and a.status=? and a.is_deleted=? and a.is_blocked=?";
+				if(req.query.hasOwnProperty("priceSort") && req.query.priceSort !=""){
+					sql +="order by a.price_per_person "+req.query.priceSort;
+				}else {
+					sql +="order by a.id desc";
+				}
 				
-                client.query("select b.owner_name as agencyName, c.name as activityName, a.id, a.title, a.location, a.description, a.days, a.unit_type as unitType, a.unit_type_value as unitTypeValue, a.season, FORMAT(a.price_per_person, 2) as price, a.difficult_level as difficultLevel, a.open_time as openTime, a.close_time as closeTime from tbl_agency_activities as a left join tbl_agency as b on b.id =a.agency_id left join tbl_activity as c on c.id =a.activity_id  where a.activity_id=? and a.status=? and a.is_deleted=? and a.is_blocked=?  order by a.id desc limit "+start +","+ limit, [activityId, '1','1','1'], function(error, result, fields) {
+				sql +=" limit "+start +","+ limit;
+                client.query(sql, [activityId, '1','1','1'], function(error, result, fields) {
                     if (error) 
                     {
+						console.log(error);
                         Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
-                    }
-                    else
-                    {
+                    } else {
 						var activityList=[];
 						if(result.length >0)
 						{
@@ -1048,19 +1043,17 @@ module.exports = function(app, express, client) {
 							result.forEach(function (item){
 								var activityDetail={
 									"agencyName":item.agencyName,
+									"agencyImage":item.agencyImage,
 									"activityName":item.activityName,
-									"id":item.id,
+									"activityId":item.id,
 									"title":item.title,				
 									"location":item.location,
 									"description":item.description,
-									"days":item.days,
 									"unitType":item.unitType,
 									"unitTypeValue":item.unitTypeValue?JSON.parse(item.unitTypeValue):{},
 									"season":item.season,
 									"price":item.price,
 									"difficultLevel":item.difficultLevel,
-									"openTime":item.openTime,
-									"closeTime":item.closeTime,
 								};
 								activityList.push(activityDetail);
 								j++;							
@@ -1070,9 +1063,7 @@ module.exports = function(app, express, client) {
 									Util.makeResponse(res, true, 200, "Activity Listing", '1.0.0', activityList);
 								}					
 							});
-						}
-						else
-						{
+						} else {
 							Util.makeResponse(res, true, 200, "Activity Listing", '1.0.0', activityList);
 						} 
                         
@@ -1133,19 +1124,15 @@ module.exports = function(app, express, client) {
 				if(page ==1)
 				{
 					var start=0;
-				}
-				else
-				{
+				} else {
 					var start =((page-1)*limit);
 				}
 		
-                client.query("select b.id as agencyId, b.owner_name as agencyName, b.address as agencyAddress, c.name as activityName, a.id, a.title, a.location, a.description, a.days, a.unit_type, a.unit_type_value, a.season, FORMAT(a.price_per_person, 2) as price, a.difficult_level as difficultLevel, a.open_time as openTime, a.close_time as closeTime from tbl_agency_activities as a left join tbl_agency as b on b.id =a.agency_id left join tbl_activity as c on c.id =a.activity_id  where a.activity_id=? and a.status=? and a.is_deleted=? and a.is_blocked=?  and price_per_person = (SELECT MIN(price_per_person) FROM tbl_agency_activities d WHERE d.agency_id = a.agency_id and d.activity_id="+activityId+") group by a.agency_id order by a.id desc limit "+start +","+ limit, [activityId, '1','1','1'], function(error, result, fields) {
+                client.query("select b.id as agencyId, b.company as agencyName, b.address as agencyAddress, c.name as activityName, a.id, a.title, a.location, a.description, a.days, a.unit_type, a.unit_type_value, a.season, FORMAT(a.price_per_person, 2) as price, a.difficult_level as difficultLevel from tbl_agency_activities as a left join tbl_agency as b on b.id =a.agency_id left join tbl_activity as c on c.id =a.activity_id  where a.activity_id=? and a.status=? and a.is_deleted=? and a.is_blocked=?  and price_per_person = (SELECT MIN(price_per_person) FROM tbl_agency_activities d WHERE d.agency_id = a.agency_id and d.activity_id="+activityId+") group by a.agency_id order by a.id desc limit "+start +","+ limit, [activityId, '1','1','1'], function(error, result, fields) {
                     if (error) 
                     {
                         Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
-                    }
-                    else
-                    {
+                    } else {
 						var activityList=[];
 						if(result.length >0)
 						{
@@ -1168,8 +1155,6 @@ module.exports = function(app, express, client) {
 									"season":item.season,
 									"price":item.price,
 									"difficultLevel":item.difficultLevel,
-									"openTime":moment(item.openTime,'HH:mm').format('hh:mm a'),
-									"closeTime":moment(item.closeTime,'HH:mm').format('hh:mm a'),
 									"moreActivity":[],
 								};
 								common.getMoreActivityByAgency(client,item.agencyId,req.query.activityId).then(function(moreActivity){
@@ -1183,9 +1168,7 @@ module.exports = function(app, express, client) {
 									}
 								});
 							});
-						}
-						else
-						{
+						} else {
 							Util.makeResponse(res, true, 200, "Agency Camping Packages", '1.0.0', activityList);
 						}
 					}
@@ -1207,6 +1190,7 @@ module.exports = function(app, express, client) {
      * @apiName agencyList
      * ***************************************************************************************************************************************************************
 	 * @apiParam (Expected parameters) {Integer}     page                      Page Number Integer (Default=1)
+	 * @apiParam (Expected parameters) {Integer}     searchParam               Search Keyword String
      * ***************************************************************************************************************************************************************
      * @apiSuccess {Number=0,1}            Success           response status ( 0 for error, 1 for success )
      * @apiSuccess {Number}                Status             status code
@@ -1225,7 +1209,7 @@ module.exports = function(app, express, client) {
 			'page': {
                 notEmpty: true,
                 errorMessage: 'Page Number is Required'
-            },
+            }
         };
         req.checkQuery(schema);
         req.asyncValidationErrors().then(function() {
@@ -1234,20 +1218,52 @@ module.exports = function(app, express, client) {
 			if(page ==1)
 			{
 				var start=0;
-			}
-			else
-			{
+			} else {
 				var start =((page-1)*limit)
 			}
-	
-			client.query("select a.id , a.owner_name as ownerName,a.address,a.company, if((select min(price_per_person) from tbl_agency_activities where agency_id=a.id),FORMAT((select min(price_per_person) from tbl_agency_activities where agency_id=a.id),2),0) as price from tbl_agency as a where a.status=? and a.is_block=? and a.is_deleted=? order by a.id desc limit "+start +","+ limit, ['1','0','0'], function(error, result, fields) {
-				if (error) 
-				{
+			
+			var sql ="select a.company , a.id , a.address, a.agency_image, if((select min(price_per_person) from tbl_agency_activities where agency_id=a.id),FORMAT((select min(price_per_person) from tbl_agency_activities where agency_id=a.id),2),0) as price, (select count(id) from tbl_camping_packages where agency_id=a.id and status='1' and is_deleted='1' and is_blocked='1') as campingPackages, (select count(id) from tbl_combo_packages where agency_id=a.id and status='1' and is_deleted='1' and is_blocked='1') as comboPackages, (select count(id) from tbl_agency_activities where agency_id=a.id and status='1' and is_deleted='1' and is_blocked='1') as agencyService from tbl_agency as a where a.status=? and a.is_block=? and a.is_deleted=?  ";
+			if(req.query.hasOwnProperty("searchParam") && req.query.searchParam !=""){
+				sql +=" and (a.company like '%"+req.query.searchParam+"% or a.address like '%"+req.query.searchParam+"%')";
+			}
+			sql +=" having campingPackages > 0 or comboPackages > 0 or agencyService >0 order by a.id desc  limit "+start +","+ limit;
+			client.query(sql, ['1','0','0'], function(error, result, fields) {
+				if (error) {
+					console.log(error)
 					Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
-				}
-				else
-				{
-					Util.makeResponse(res, true, 200, "Activity Listing", '1.0.0', result);
+				} else {
+					var agencyList=[];					
+					if(result.length >0){
+						var j=0;
+						result.forEach(function (item){
+							
+							var agencyDetail={
+								"companyName":item.company,
+								"agencyImage":item.agency_image,
+								"agencyId":item.id,		
+								"price":item.price,
+								"location":item.address,
+								"isCamp":(item.campingPackages >0)?'1':'0',
+								"isCambo":(item.comboPackages >0)?'1':'0',
+								"moreActivity":[],
+							};
+							common.getMoreActivityByAgency(client,item.id,req.query.activityId).then(function(moreActivity){
+								common.getAgencyActivities(client,item.id).then(function(services){
+									j++;
+									agencyDetail.moreActivity=moreActivity;									
+									agencyDetail.services=services;									
+									agencyList.push(agencyDetail);
+									if(j== result.length)
+									{
+										agencyList = _.sortBy(agencyList,"id");
+										Util.makeResponse(res, true, 200, "Agency List", '1.0.0', agencyList.reverse());
+									}
+								});
+							});
+						});
+					} else {
+						Util.makeResponse(res, true, 200, "Agency List", '1.0.0', agencyList);
+					}
 				}
 			});
         }, function(errors) {
@@ -1305,7 +1321,7 @@ module.exports = function(app, express, client) {
 			{
 				var start =((page-1)*limit)
 			}
-			client.query("select c.name as activityName, b.id as agencyId, b.mobile as agencyMobile, b.owner_name as agencyName, b.address as agencyAddress, a.id as activityId, a.title, a.location, FORMAT(a.price_per_person,2) as price, a.description, a.open_time as openTime, a.close_time as closeTime, a.latitude, a.longitude, a.difficult_level as difficultLevel from tbl_agency_activities as a left join tbl_agency as b on b.id=a.agency_id left join tbl_activity as c on c.id=a.activity_id where a.agency_id=? order by a.id desc limit "+start +","+ limit, [data.agencyId], function(error, result, fields) {
+			client.query("select c.name as activityName, b.company as agencyName,  a.title , FORMAT(a.price_per_person,2) as price,  a.location, b.id as agencyId, a.id as activityId from tbl_agency_activities as a left join tbl_agency as b on b.id=a.agency_id left join tbl_activity as c on c.id=a.activity_id where a.agency_id=? order by a.id desc limit "+start +","+ limit, [data.agencyId], function(error, result, fields) {
 				if (error) 
 				{
 					Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
@@ -1370,10 +1386,9 @@ module.exports = function(app, express, client) {
 			{
 				var start =((page-1)*limit)
 			}
-			client.query("select b.id as agencyId, b.mobile as agencyMobile, b.owner_name as agencyName, b.address as agencyAddress, a.id as packageId, a.combo_name, a.combo_title, a.combo_description, a.combo_location, a.days, a.night,a.camping, a.camp_description, FORMAT(a.price,2) as price, FORMAT(a.double_sharing,2) as doubleSharing, FORMAT(a.triple_sharing,2) as tripleSharing,  a.latitude, a.longitude from tbl_combo_packages as a left join tbl_agency as b on b.id=a.agency_id  where a.agency_id=? order by a.id desc limit "+start +","+ limit, [data.agencyId], function(error, result, fields) {
+			client.query("select b.id as agencyId, b.mobile as agencyMobile, b.company as agencyName, b.address as agencyAddress, a.id as packageId, a.combo_title, a.combo_description, a.combo_location, a.days, a.night,a.camping, a.camp_description, FORMAT(a.price,2) as price, FORMAT(a.double_sharing,2) as doubleSharing, FORMAT(a.triple_sharing,2) as tripleSharing,  a.latitude, a.longitude from tbl_combo_packages as a left join tbl_agency as b on b.id=a.agency_id  where a.agency_id=? order by a.id desc limit "+start +","+ limit, [data.agencyId], function(error, result, fields) {
 				if (error) 
 				{
-					console.log(error);
 					Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
 				}
 				else
@@ -1385,56 +1400,30 @@ module.exports = function(app, express, client) {
 						result.forEach(function (item){
 							
 							var packageDetail={
-								"packageId":item.packageId,
-								"activityName":item.activityName,
-								"agencyId":item.agencyId,
-								"agencyMobile":item.agencyMobile,
-								"agencyAddress":item.agencyAddress,
-								"name":item.combo_name,
 								"title":item.combo_title,
-								"description":item.combo_description,
-								"days":item.days,
-								"night":item.night,
-								"camping":item.camping,
-								"campDescription":item.camp_description,					
-								"location":item.combo_location,
 								"price":item.price,
 								"doubleSharing":item.doubleSharing,
 								"tripleSharing":item.tripleSharing,
+								"location":item.combo_location,
 								"latitude":item.latitude,
 								"longitude":item.longitude,
-								"meal":[],
-								"inclusion":[],
-								"exclusion":[],
-								"images":[],
-								"terms":[],
-								"notes":[]
+								"isCamping":item.camping,
+								"days":item.days,
+								"night":item.night,
+								"description":item.combo_description,
+								"agencyId":item.agencyId,								
+								"packageId":item.packageId							
 							};
-							common.getActivityVariables(client,item.packageId,'12').then(function(resMeal){
-								packageDetail.meal=resMeal;
-								common.getActivityVariables(client,item.packageId,'13').then(function(resInclusion){
-									packageDetail.inclusion=resInclusion;
-									common.getActivityVariables(client,item.packageId,'14').then(function(resExclusion){
-										packageDetail.exclusion=resExclusion;
-										common.getActivityVariables(client,item.packageId,'15').then(function(resImages){
-											packageDetail.images=resImages;
-											common.getActivityVariables(client,item.packageId,'17').then(function(resTerms){
-												packageDetail.terms=resTerms;
-												common.getActivityVariables(client,item.packageId,'18').then(function(resNotes){
-													j++;
-													packageDetail.notes=resNotes;
-													comboPackages.push(packageDetail);
-													if(j== result.length)
-													{
-														comboPackages = _.sortBy(comboPackages,"packageId");
-														Util.makeResponse(res, true, 200, "Agency Combo Package Details", '1.0.0', comboPackages.reverse());
-													}												
-												});
-											});
-										});
-									});
-								});
-							});	
+							common.getServices(client,item.packageId,'2').then(function(serviceRes){
+								packageDetail.services=serviceRes;
+								comboPackages.push(packageDetail);
+								j++;							
+								if(j== result.length)
+								{
+									comboPackages = _.sortBy(comboPackages,"packageId");
+									Util.makeResponse(res, true, 200, "Combo Packages Listing", '1.0.0', comboPackages.reverse());
+								}
+							});
 						});
 					}
 					else
@@ -1497,10 +1486,9 @@ module.exports = function(app, express, client) {
 			{
 				var start =((page-1)*limit)
 			}
-			client.query("select b.id as agencyId, b.mobile as agencyMobile, b.owner_name as agencyName, b.address as agencyAddress, a.id as packageId, a.camping_name, a.camping_title, a.camping_description, a.camping_location, a.days, a.night, FORMAT(a.double_sharing,2) as doubleSharing, FORMAT(a.triple_sharing,2) as tripleSharing,  a.latitude, a.longitude from tbl_camping_packages as a left join tbl_agency as b on b.id=a.agency_id where a.agency_id=? order by a.id desc limit "+start +","+ limit,[data.agencyId], function(error, result, fields) {
+			client.query("select b.id as agencyId, b.mobile as agencyMobile, b.company as agencyName, b.address as agencyAddress, a.id as packageId, a.camping_title, a.camping_description, a.camping_location, a.days, a.night, FORMAT(a.double_sharing,2) as doubleSharing, FORMAT(a.triple_sharing,2) as tripleSharing,  a.latitude, a.longitude from tbl_camping_packages as a left join tbl_agency as b on b.id=a.agency_id where a.agency_id=? order by a.id desc limit "+start +","+ limit,[data.agencyId], function(error, result, fields) {
 				if (error) 
 				{
-					console.log(error);
 					Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
 				}
 				else
@@ -1511,60 +1499,32 @@ module.exports = function(app, express, client) {
 						var j=0;
 						result.forEach(function (item){
 							var packageDetail={
-								"packageId":item.packageId,
-								"activityName":item.activityName,
-								"agencyId":item.agencyId,
-								"agencyMobile":item.agencyMobile,
-								"agencyAddress":item.agencyAddress,
-								"name":item.camping_name,
 								"title":item.camping_title,
-								"description":item.camping_description,
-								"days":item.days,
-								"night":item.night,				
-								"location":item.camping_location,
 								"doubleSharing":item.doubleSharing,
 								"tripleSharing":item.tripleSharing,
-								"latitude":item.latitude,
-								"longitude":item.longitude,
-								"meal":[],
-								"inclusion":[],
-								"exclusion":[],
-								"images":[],
-								"terms":[],
-								"notes":[]
+								"location":item.camping_location,
+								"days":item.days,
+								"night":item.night,	
+								"description":item.camping_description,
+								"agencyId":item.agencyId,
+								"packageId":item.packageId,						
 							};
-							common.getActivityVariables(client,item.packageId,'5').then(function(resMeal){
-								packageDetail.meal=resMeal;
-								common.getActivityVariables(client,item.packageId,'6').then(function(resInclusion){
-									packageDetail.inclusion=resInclusion;
-									common.getActivityVariables(client,item.packageId,'7').then(function(resExclusion){
-										packageDetail.exclusion=resExclusion;
-										common.getActivityVariables(client,item.packageId,'8').then(function(resImages){
-											packageDetail.images=resImages;
-											common.getActivityVariables(client,item.packageId,'10').then(function(resTerms){
-												packageDetail.terms=resTerms;
-												common.getActivityVariables(client,item.packageId,'11').then(function(resNotes){
-													j++;
-													packageDetail.notes=resNotes;
-													campingPackages.push(packageDetail);
-													if(j== result.length)
-													{
-														campingPackages = _.sortBy(campingPackages,"packageId");
-														Util.makeResponse(res, true, 200, "Agency Camping Packages", '1.0.0', campingPackages.reverse());
-													}	
-												});
-											});
-										});
-									});
-								});
+							common.getServices(client,item.packageId,'1').then(function(serviceRes){
+								packageDetail.services=serviceRes;
+								campingPackages.push(packageDetail);
+								j++;							
+								if(j== result.length)
+								{
+									campingPackages = _.sortBy(campingPackages,"id");
+									Util.makeResponse(res, true, 200, "Combo Packages Listing", '1.0.0', campingPackages.reverse());
+								}
 							});
 						});
 					}
 					else
 					{
 						Util.makeResponse(res, true, 200, "Sorry, No Camping Package Found", '1.0.0', campingPackages);	
-					}
-					
+					}					
 				}
 			});
         }, function(errors) {
@@ -1606,10 +1566,9 @@ module.exports = function(app, express, client) {
         req.checkQuery(schema);
         req.asyncValidationErrors().then(function() {
 			var data=req.query;
-			client.query("select c.name as activityName, b.id as agencyId, b.mobile as agencyMobile, b.owner_name as agencyName, b.address as agencyAddress, a.title, a.location, FORMAT(a.price_per_person,2) as price, a.description, a.open_time as openTime, a.close_time as closeTime, a.latitude, a.longitude, a.unit_type_value, d.name as difficultLevel from tbl_agency_activities as a left join tbl_agency as b on b.id=a.agency_id left join tbl_activity as c on c.id=a.activity_id left join tbl_activity_difficulty_level as d on d.id=a.difficult_level where a.id=? ", [data.activityId], function(error, result, fields) {
+			client.query("select c.name as activityName, b.id as agencyId, b.mobile as agencyMobile,b.company as agencyName, b.address as agencyAddress, a.title, a.location, FORMAT(a.price_per_person,2) as price, a.description, a.latitude, a.longitude, a.unit_type_value, d.name as difficultLevel from tbl_agency_activities as a left join tbl_agency as b on b.id=a.agency_id left join tbl_activity as c on c.id=a.activity_id left join tbl_activity_difficulty_level as d on d.id=a.difficult_level where a.id=? ", [data.activityId], function(error, result, fields) {
 				if (error) 
 				{
-					console.log(error);
 					Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
 				}
 				else
@@ -1627,12 +1586,10 @@ module.exports = function(app, express, client) {
 							"location":result[0].location,
 							"price":result[0].price,
 							"description":result[0].description,
-							"openTime":moment(result[0].openTime,'HH:mm').format('hh:mm a'),
-							"closeTime":moment(result[0].closeTime,'HH:mm').format('hh:mm a'),
 							"difficultLevel":result[0].difficultLevel,
 							"latitude":result[0].latitude,
 							"longitude":result[0].longitude,
-							"unityType":JSON.parse(result[0].unit_type_value),
+							"unityType":[],
 							"images":[],
 							"terms":[],
 							"notes":[]
@@ -1643,7 +1600,10 @@ module.exports = function(app, express, client) {
 								activityDetail.terms=resTerms;
 								common.getActivityVariables(client,data.activityId,'4').then(function(resNotes){
 									activityDetail.notes=resNotes;
-									Util.makeResponse(res, true, 200, "Activity Detail", '1.0.0', activityDetail);
+									common.getUnityTypeValue(client,result[0].unit_type_value).then(function(unitTypeValue){					
+										activityDetail.unityType=unitTypeValue;									
+										Util.makeResponse(res, true, 200, "Activity Detail", '1.0.0', activityDetail);
+									});
 								});
 							});
 						});
@@ -1695,7 +1655,7 @@ module.exports = function(app, express, client) {
         req.checkQuery(schema);
         req.asyncValidationErrors().then(function() {
 			var data=req.query;
-			client.query("select b.id as agencyId, b.mobile as agencyMobile, b.owner_name as agencyName, b.address as agencyAddress, a.combo_name, a.combo_title, a.combo_description, a.combo_location, a.days, a.night,a.camping, a.camp_description, FORMAT(a.price,2) as price, FORMAT(a.double_sharing,2) as doubleSharing, FORMAT(a.triple_sharing,2) as tripleSharing,  a.latitude, a.longitude from tbl_combo_packages as a left join tbl_agency as b on b.id=a.agency_id  where a.id=? ", [data.packageId], function(error, result, fields) {
+			client.query("select b.id as agencyId,  b.agency_image as agencyImage, b.mobile as agencyMobile, b.company as agencyName, b.address as agencyAddress, a.combo_title, a.combo_description, a.combo_location, a.days, a.night,a.camping, a.camp_description, FORMAT(a.price,2) as price, FORMAT(a.double_sharing,2) as doubleSharing, FORMAT(a.triple_sharing,2) as tripleSharing,  a.latitude, a.longitude from tbl_combo_packages as a left join tbl_agency as b on b.id=a.agency_id  where a.id=? ", [data.packageId], function(error, result, fields) {
 				if (error) 
 				{
 					console.log(error);
@@ -1709,15 +1669,16 @@ module.exports = function(app, express, client) {
 						var packageDetail={
 							"packageId":data.packageId,
 							"activityName":result[0].activityName,
+							"agencyImage":result[0].agencyImage,
+							"agencyName":result[0].agencyName,
 							"agencyId":result[0].agencyId,
 							"agencyMobile":result[0].agencyMobile,
 							"agencyAddress":result[0].agencyAddress,
-							"name":result[0].combo_name,
 							"title":result[0].combo_title,
 							"description":result[0].combo_description,
 							"days":result[0].days,
 							"night":result[0].night,
-							"camping":result[0].camping,
+							"isCamping":result[0].camping,
 							"campDescription":result[0].camp_description,					
 							"location":result[0].combo_location,
 							"price":result[0].price,
@@ -1744,7 +1705,13 @@ module.exports = function(app, express, client) {
 											packageDetail.terms=resTerms;
 											common.getActivityVariables(client,data.packageId,'18').then(function(resNotes){
 												packageDetail.notes=resNotes;
-												Util.makeResponse(res, true, 200, "Combo Package Details Detail", '1.0.0', packageDetail);
+												common.getServices(client,data.packageId,'2').then(function(serviceRes){
+													packageDetail.services=serviceRes;		
+													common.getServiceDetails(client,data.packageId,'2').then(function(serviceDetails){
+														packageDetail.serviceDetails=serviceDetails;								
+														Util.makeResponse(res, true, 200, "Combo Package Details", '1.0.0', packageDetail);
+													});													
+												});
 											});
 										});
 									});
@@ -1798,10 +1765,9 @@ module.exports = function(app, express, client) {
         req.checkQuery(schema);
         req.asyncValidationErrors().then(function() {
 			var data=req.query;
-			client.query("select b.id as agencyId, b.mobile as agencyMobile, b.owner_name as agencyName, b.address as agencyAddress, a.camping_name, a.camping_title, a.camping_description, a.camping_location, a.days, a.night, FORMAT(a.double_sharing,2) as doubleSharing, FORMAT(a.triple_sharing,2) as tripleSharing,  a.latitude, a.longitude from tbl_camping_packages as a left join tbl_agency as b on b.id=a.agency_id  where a.id=? ", [data.packageId], function(error, result, fields) {
+			client.query("select b.id as agencyId, b.mobile as agencyMobile,  b.agency_image as agencyImage, b.company as agencyName, b.address as agencyAddress, a.camping_title, a.camping_description, a.camping_location, a.days, a.night, FORMAT(a.double_sharing,2) as doubleSharing, FORMAT(a.triple_sharing,2) as tripleSharing,  a.latitude, a.longitude from tbl_camping_packages as a left join tbl_agency as b on b.id=a.agency_id  where a.id=? ", [data.packageId], function(error, result, fields) {
 				if (error) 
 				{
-					console.log(error);
 					Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
 				}
 				else
@@ -1812,10 +1778,11 @@ module.exports = function(app, express, client) {
 						var packageDetail={
 							"packageId":data.packageId,
 							"activityName":result[0].activityName,
+							"agencyName":result[0].agencyName,
+							"agencyImage":result[0].agencyImage,
 							"agencyId":result[0].agencyId,
 							"agencyMobile":result[0].agencyMobile,
 							"agencyAddress":result[0].agencyAddress,
-							"name":result[0].camping_name,
 							"title":result[0].camping_title,
 							"description":result[0].camping_description,
 							"days":result[0].days,
@@ -1844,7 +1811,14 @@ module.exports = function(app, express, client) {
 											packageDetail.terms=resTerms;
 											common.getActivityVariables(client,data.packageId,'11').then(function(resNotes){
 												packageDetail.notes=resNotes;
-												Util.makeResponse(res, true, 200, "Combo Package Details Detail", '1.0.0', packageDetail);
+												common.getServices(client,data.packageId,'1').then(function(serviceRes){
+													packageDetail.services=serviceRes;
+														common.getServiceDetails(client,data.packageId,'1').then(function(serviceDetails){
+														packageDetail.serviceDetails=serviceDetails;								
+														Util.makeResponse(res, true, 200, "Combo Package Details Detail", '1.0.0', packageDetail);
+													});													
+													
+												});												
 											});
 										});
 									});
@@ -1905,6 +1879,7 @@ module.exports = function(app, express, client) {
 			var data=req.query;
 			var page=data.page;
 			var limit=10;
+			
 			if(page ==1)
 			{
 				var start=0;
@@ -1913,10 +1888,9 @@ module.exports = function(app, express, client) {
 			{
 				var start =((page-1)*limit)
 			}
-			client.query("select c.name as activityName, b.id as agencyId, b.mobile as agencyMobile, b.owner_name as agencyName, b.address as agencyAddress, a.title, a.location, FORMAT(a.price_per_person,2) as price, a.description, a.open_time as openTime, a.close_time as closeTime, a.latitude, a.longitude, a.unit_type_value, d.name as difficultLevel from tbl_agency_activities as a left join tbl_agency as b on b.id=a.agency_id left join tbl_activity as c on c.id=a.activity_id left join tbl_activity_difficulty_level as d on d.id=a.difficult_level where a.agency_id=? and a.activity_id=?  order by a.id desc limit "+start +","+ limit, [data.agencyId,data.activityId], function(error, result, fields) {
+			client.query("select c.name as activityName, b.id as agencyId, b.mobile as agencyMobile, b.company as agencyName, b.address as agencyAddress, a.title, a.location, FORMAT(a.price_per_person,2) as price, a.description, a.latitude, a.longitude, a.unit_type_value, d.name as difficultLevel from tbl_agency_activities as a left join tbl_agency as b on b.id=a.agency_id left join tbl_activity as c on c.id=a.activity_id left join tbl_activity_difficulty_level as d on d.id=a.difficult_level where a.agency_id=? and a.activity_id=?  order by a.id desc limit "+start +","+ limit, [data.agencyId,data.activityId], function(error, result, fields) {
 				if (error) 
 				{
-					console.log(error);
 					Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
 				}
 				else
@@ -1939,8 +1913,6 @@ module.exports = function(app, express, client) {
 								"season":item.season,
 								"price":item.price,
 								"difficultLevel":item.difficultLevel,
-								"openTime":item.openTime,
-								"closeTime":item.closeTime,
 							};
 							activityList.push(activityDetail);
 							j++;							
@@ -1954,6 +1926,175 @@ module.exports = function(app, express, client) {
 					else
 					{
 						Util.makeResponse(res, true, 200, "Activity Listing", '1.0.0', activityList);
+					}					
+				}
+			});
+        }, function(errors) {
+            Util.makeResponse(res, false, 400, "Bad Request", '1.0.0', errors);
+        });
+    });
+	
+	/***************************************************************************************************************************************************************/
+    /************************************************************************ /favouriteAgency ************************************************************************/
+    /**
+     * @api {get} /favouriteAgency favouriteAgency
+     * @apiHeader {String} x-goweek-token Users unique x-goweek-token.
+     * @apiHeader {String} Content-Type application/x-www-form-urlencoded.
+     * @apiDescription http://54.172.221.76:10005/api/v1/favouriteAgency
+     * @apiGroup Favourite
+     * @apiName favouriteAgency
+     * ***************************************************************************************************************************************************************
+	 * @apiParam (Expected parameters) {Integer}     favouriteId                     Agency/Activity id Integer
+	 * @apiParam (Expected parameters) {Integer}     userId                          User id Integer
+	 * @apiParam (Expected parameters) {Integer}     type                            Type Integer (1=Agency,2=Activity)
+     * ***************************************************************************************************************************************************************
+     * @apiSuccess {Number=0,1}            Success            response status ( 0 for error, 1 for success )
+     * @apiSuccess {Number}                Status             status code
+     * @apiSuccess {String}                Message            response message string
+     * @apiSuccess {String}                AppVersion         APP version
+     * @apiSuccess {Object}                Result             result
+     * @apiSuccessExample {json} Success-Response
+     * {"Success":true,"Status":200,"Message":"Success","AppVersion":"1.0.0","Result":{}}
+     *   
+     * @apiVersion 1.0.0
+     **/
+
+
+    api.get('/favouriteAgency', function(req, res) {
+		console.log(req.query);
+        var schema = {
+			'userId': {
+                notEmpty: true,
+                errorMessage: 'User Id is Required'
+            },
+			'favouriteId': {
+                notEmpty: true,
+                errorMessage: 'Agency/Activity Id is Required'
+            },
+			'type': {
+                notEmpty: true,
+                errorMessage: 'Type is Required'
+            },
+        };
+        req.checkQuery(schema);
+        req.asyncValidationErrors().then(function() {
+			var data=req.query;
+			client.query("select * from tbl_favourites as a where a.user_id=? and a.favourite_id=? and a.type=? ", [data.userId, data.favouriteId, data.type], function(error, result, fields) {
+				if (error) {
+					Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', {});
+				} else {
+					if(result.length >0){
+						client.query("delete from tbl_favourites where user_id=? and favourite_id=? and type=? ", [data.userId, data.favouriteId, data.type], function(error, result) {
+							if (error) {
+								console.log(error);
+								Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', {});
+							} else {
+								Util.makeResponse(res, true, 200, "Success", '1.0.0', {});
+							}
+						});
+					} else {
+						 var favFields = {
+							'user_id': data.userId,
+							'favourite_id': data.favouriteId,
+							'created_at': moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+							'type': data.type,
+						};
+						client.query("INSERT INTO tbl_favourites SET ?", favFields, function(error1, result1, fields1) {
+							if(error1){
+								console.log(error1);
+							   Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', {});
+							} else {
+								Util.makeResponse(res, true, 200, "Success", '1.0.0',{} );
+							}
+						});
+					}					
+				}
+			});
+        }, function(errors) {
+            Util.makeResponse(res, false, 400, "Bad Request", '1.0.0', errors);
+        });
+    });
+	
+	
+	/***************************************************************************************************************************************************************/
+    /************************************************************************ /favouriteList ************************************************************************/
+    /**
+     * @api {get} /favouriteList favouriteList
+     * @apiHeader {String} x-goweek-token Users unique x-goweek-token.
+     * @apiHeader {String} Content-Type application/x-www-form-urlencoded.
+     * @apiDescription http://54.172.221.76:10005/api/v1/favouriteList
+     * @apiGroup Favourite
+     * @apiName favouriteList
+     * ***************************************************************************************************************************************************************
+	 * @apiParam (Expected parameters) {Integer}     userId                          User id Integer
+	 * @apiParam (Expected parameters) {Integer}     type                            Type Integer (1=Agency,2=Activity)
+     * ***************************************************************************************************************************************************************
+     * @apiSuccess {Number=0,1}            Success            response status ( 0 for error, 1 for success )
+     * @apiSuccess {Number}                Status             status code
+     * @apiSuccess {String}                Message            response message string
+     * @apiSuccess {String}                AppVersion         APP version
+     * @apiSuccess {Object}                Result             result
+     * @apiSuccessExample {json} Success-Response
+     * {"Success":true,"Status":200,"Message":"Favourite List","AppVersion":"1.0.0","Result":[{"activityName":"Rafting","activityImage":"","address":"Himachal Pradesh, India","title":"White River Rafting","latitude":"31.1048294","longitude":"77.1733901"}]}
+     *   
+     * @apiVersion 1.0.0
+     **/
+
+
+    api.get('/favouriteList', function(req, res) {
+		console.log(req.query);
+        var schema = {
+			'userId': {
+                notEmpty: true,
+                errorMessage: 'User Id is Required'
+            },
+			'type': {
+                notEmpty: true,
+                errorMessage: 'Type is Required'
+            },
+        };
+        req.checkQuery(schema);
+        req.asyncValidationErrors().then(function() {
+			var data=req.query;
+			var favouriteList=[];
+			var sql="select * from tbl_favourites as a ";
+			if(data.type==1){
+				sql +=" left join tbl_agency as b on b.id =a.favourite_id ";
+			} else if(data.type==2){
+				sql +=" left join tbl_agency_activities as b on b.id =a.favourite_id left join tbl_activity as c on c.id =b.activity_id";
+			}
+			sql +=" where a.user_id=? and a.type=?";
+			client.query(sql, [data.userId, data.type], function(error, result, fields) {
+				if (error) {
+					Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', {});
+				} else {
+					if(result.length >0){
+						var j=0;
+						result.forEach(function (item){
+							var favObj={};
+							if(data.type==1){
+								favObj.agencyName=item.company;
+								favObj.agencyid=item.favourite_id;
+								favObj.address=item.address;
+								favObj.latitude=item.latitude;
+								favObj.longitude=item.longitude;
+							} else {
+								favObj.activityName=item.name
+								favObj.activityImage=item.activity_image;
+								favObj.address=item.address;
+								favObj.title=item.title;
+								favObj.address=item.location;
+								favObj.latitude=item.latitude;
+								favObj.longitude=item.longitude;
+							}
+							favouriteList.push(favObj);
+							j++;							
+							if(j== result.length){
+								Util.makeResponse(res, true, 200, "Favourite List", '1.0.0', favouriteList);
+							}
+						});					
+					} else {
+						Util.makeResponse(res, true, 200, "Favourite List", '1.0.0', favouriteList);
 					}					
 				}
 			});
@@ -2068,7 +2209,6 @@ module.exports = function(app, express, client) {
      **/
 
     api.post('/editProfile', function(req, res) {
-        //console.log(req.body);
         var schema = {
             'userId': {
                 notEmpty: true,
@@ -2184,7 +2324,6 @@ module.exports = function(app, express, client) {
         req.asyncValidationErrors().then(function() {
             client.query('UPDATE tbl_users SET last_login = ?, updated_at=?, device_token=?  WHERE id = ? ', [moment().format('YYYY-MM-DD HH:mm:s'),moment().format('YYYY-MM-DD HH:mm:s'), '', req.query.userId], function(err, result) {
                 if (err) {
-                    //console.log(err)
                     Util.makeResponse(res, false, 500, "Something went wrong", '1.0.0', []);
                 } else {
                     Util.makeResponse(res, true, 200, "Logout Successfully", '1.0.0', []);

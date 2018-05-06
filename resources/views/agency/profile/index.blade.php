@@ -36,6 +36,15 @@
                <div class="portlet-body form">
                   <!-- BEGIN FORM-->
                   {!! Form::model($profileDetail, ['method' => 'PATCH', 'route' => ['profile'], 'class'=>'form-horizontal form-row-seperated update-profile-form','files'=>true]) !!}
+                    <div class="form-body">
+                        <div class="form-group">
+                           <label class="control-label col-md-3">Agency Name</label>
+                           <div class="col-md-9">
+                              <input type="text" placeholder="Agency Name" class="form-control" name="company" value="{{ (!empty($profileDetail->company)) ? $profileDetail->company:'' }}"  />
+                              <div class="error">{{ $errors->first('company') }}</div>
+                           </div>
+                        </div>
+                     </div>
                      <div class="form-body">
                         <div class="form-group">
                            <label class="control-label col-md-3">Owner Name</label>
@@ -45,7 +54,15 @@
                            </div>
                         </div>
                      </div>
+                     <div class="form-body">
+                        <div class="form-group">
+                           <label class="control-label col-md-3">Agecny Logo</label>
+                           <div class="col-md-9">
+                              <input type="file" name="agency_image" id="agency_image">
 
+                           </div>
+                        </div>
+                     </div>
                      <div class="form-body">
                         <div class="form-group">
                            <label class="control-label col-md-3">Address</label>
@@ -93,35 +110,6 @@
                            </div>
                         </div>
                      </div>
-                     @if($profileDetail->agencyDocuments)
-                        <div class="form-body">
-                           <div class="form-group">
-                              <label class="control-label col-md-3">Documents</label>
-                              <div class="col-md-9">
-                                 <div class="row">
-                                    @if($profileDetail->agencyDocuments->certificate_image)
-                                       <div class="col-md-2">
-                                          <a href="{{$profileDetail->agencyDocuments->certificate_image}}" class="mix-preview fancybox-button view_img">
-                                             <img style="height:100px; width:100px;" class="img-responsive" src="{{$profileDetail->agencyDocuments->certificate_image}}" />
-                                             <center>View Document</center>
-                                          </a>
-                                       </div>
-                                     @endif
-
-                                      @if($profileDetail->agencyDocuments->id_proof)
-                                       <div class="col-md-2">
-                                          <a href="{{$profileDetail->agencyDocuments->id_proof}}" class="mix-preview fancybox-button view_img">
-                                             <img style="height:100px; width:100px;" class="img-responsive" src="{{$profileDetail->agencyDocuments->id_proof}}" />
-                                             <center>View Document</center>
-                                          </a>
-                                       </div>
-                                     @endif
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     @endif
-
                      <div class="form-body">
                         <div class="form-group">
                            <label class="control-label col-md-3">Certificate Image</label>

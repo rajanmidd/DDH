@@ -43,6 +43,7 @@ Route::group(['prefix' => 'agency','namespace'=>'agency'], function () {
     Route::get('/profile',['as'=>'profile','uses'=>'ProfileController@index']);
     Route::get('/view-profile',['as'=>'view-profile','uses'=>'ProfileController@viewProfile']);
     Route::patch('/profile',['as'=>'profile','uses'=>'ProfileController@update']);
+    Route::get('/delete-agency-logo',['as'=>'agency.delete-agency-logo','uses'=>'ProfileController@deleteAgencyLogo']);
     /*** Profile routes ***/
 
     /*** Change Password ***/
