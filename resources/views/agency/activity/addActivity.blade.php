@@ -114,8 +114,8 @@ use App\Helpers\CustomHelper;
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" name="latitude" id="latitude" value="" />
-                                <input type="hidden" name="longitude" id="longitude" value="" />
+                                <input type="hidden" name="latitude" id="latitude" />
+                                <input type="hidden" name="longitude" id="longitude" />
                             </div>
                             
                             

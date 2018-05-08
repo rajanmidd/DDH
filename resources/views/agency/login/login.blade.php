@@ -71,7 +71,7 @@
          
          <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Address</label>
-            <textarea class="form-control placeholder-no-fix" placeholder="Address" id="address" name="address"></textarea>
+            <textarea class="form-control placeholder-no-fix" placeholder="Company Address" id="address" name="address"></textarea>
             <input type="hidden" name="latitude" id="latitude">
             <input type="hidden" name="longitude" id="longitude">
          </div>

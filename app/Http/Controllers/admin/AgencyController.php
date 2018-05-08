@@ -38,7 +38,7 @@ class AgencyController extends Controller
     }
     if ($request->status <> '' && $request->status == 3)
     {
-        $agency_list->where('is_block', 2);
+        $agency_list->where('is_block', '1');
     }
     $agency_list = $agency_list->orderBy('id', 'desc')->paginate(10);
     return view('admin.agency.index', ['agency_list' => $agency_list]);

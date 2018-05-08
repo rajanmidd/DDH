@@ -15,7 +15,7 @@ class DashboardController extends Controller
    {
       $pending_agency=Agency::where('status', '0')->count();
       $rejected_agency=Agency::where('status', '2')->count();
-      $blocked_agency=Agency::where('is_block', '2')->count();
+      $blocked_agency=Agency::where('is_block', '1')->count();
       $pending_activity=AgencyActivities::where("status",'0')->count();
       $blocked_activity=AgencyActivities::where("is_blocked",'2')->count();
       $deleted_activity=AgencyActivities::where("is_deleted",'2')->count();

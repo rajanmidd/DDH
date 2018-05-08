@@ -40,57 +40,60 @@ $(document).ready(function () {
             focusInvalid: true, // do not focus the last invalid input
             ignore: "",
             rules: {
-            old_password:
-                  {
-                  required: true
-                  },
-            new_password:
-                  {
-                  required: true
-                  },
-            confirm_new_password:
-                  {
-                  required: true,
-                  equalTo: "#new_password"
-                  },
-
+                old_password:
+                {
+                    required: true
+                },
+                new_password:
+                {
+                    required: true
+                },
+                confirm_new_password:
+                {
+                    required: true,
+                    equalTo: "#new_password"
+                },
             },
             invalidHandler: function (event, validator) { //display error alert on form submit   
 
             },
             highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+                $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
             },
             success: function (label) {
-            label.closest('.form-group').removeClass('has-error');
-            label.remove();
+                label.closest('.form-group').removeClass('has-error');
+                label.remove();
             },
             submitHandler: function (form) {
-            form.submit();
+                form.submit();
             }
       });
 
-      $.validator.addMethod('filesize', function (value, element, param) {
-            console.log(element.files[0].size);
+        $.validator.addMethod('filesize', function (value, element, param) {
             return this.optional(element) || (element.files[0].size <= param)
-      });
+        });
 
-      $.validator.addMethod("mytst", function (value, element) {
-            var flag = true;
-            $("[name^=unit_type_value]").each(function (i, j) {
-                  alert();
-                  $(this).parent('p').find('label.error').remove();
-                  $(this).parent('p').find('label.error').remove();                        
-                  if ($.trim($(this).val()) == '') {
-                        flag = false;
+        $.validator.addMethod("checkLat", function (value, element, param) {
+            var $otherElement = $(param);
+            if ($otherElement.val() != '') {
+                return true; 
+            } else{
+                return false; 
+            }
 
-                        $(this).parent('p').append('<label  id="id_ct'+i+'-error" class="error">This field is required.</label>');
-                  }
-            });
-            return flag;
-      }, "");
+        }, "Please select one of the location. ");
 
-      $('#activity-form').validate({
+        $.validator.addMethod("checkLong", function (value, element, param) {
+            var $otherElement = $(param);
+            if ($otherElement.val() != '') {
+                return true; 
+            } else{
+                return false; 
+            }
+
+        }, "Please select one of the location. ");
+
+        $('#activity-form').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
             focusInvalid: true, // do not focus the last invalid input
@@ -106,7 +109,9 @@ $(document).ready(function () {
                   },
                   location:
                   {
-                        required: true
+                        required: true,
+                        checkLat: "#latitude",
+                        checkLong: "#longitude",
                   },
                   "unit_type[]":
                   {
@@ -256,6 +261,8 @@ $(document).ready(function () {
             },
             camping_location: {
                 required: true,
+                checkLat: "#latitude",
+                checkLong: "#longitude",
             },
             days: {
                 required: true,
@@ -307,7 +314,67 @@ $(document).ready(function () {
             },
             'service[paragliding][title]':{
                 required: true,
-            }
+            },
+            'service[rafting][length]': {
+                require_from_group: [1, ".rafting_service"]
+            },
+            'service[rafting][duration]': {
+                require_from_group: [1, ".rafting_service"]
+            },
+            'service[bunjee][height]': {
+                require_from_group: [1, ".bunjee_service"]
+            },
+            'service[flying_fox_tandom][length]': {
+                require_from_group: [1, ".flying_fox_tandom_service"]
+            },
+            'service[flying_fox_tandom][height]': {
+                require_from_group: [1, ".flying_fox_tandom_service"]
+            },
+            'service[flying_fox_solo][length]': {
+                require_from_group: [1, ".flying_fox_solo_service"]
+            },
+            'service[flying_fox_solo][height]': {
+                require_from_group: [1, ".flying_fox_solo_service"]
+            },
+            'service[swing][height]': {
+                require_from_group: [1, ".swing_service"]
+            },
+            'service[air_safari][duration]': {
+                require_from_group: [1, ".air_safari_service"]
+            },
+            'service[air_balloon][duration]': {
+                require_from_group: [1, ".air_balloon_service"]
+            },
+            'service[cycling][length]': {
+                require_from_group: [1, ".cycling_service"]
+            },
+            'service[cycling][duration]': {
+                require_from_group: [1, ".cycling_service"]
+            },
+            'service[zip_line][length]': {
+                require_from_group: [1, ".zip_line_service"]
+            },
+            'service[zip_line][height]': {
+                require_from_group: [1, ".zip_line_service"]
+            },
+            'service[trekking][length]': {
+                require_from_group: [1, ".trekking_service"]
+            },
+            'service[trekking][duration]': {
+                require_from_group: [1, ".trekking_service"]
+            },
+            'service[pain_ball][no_of_round]':{
+                require_from_group: [1, ".pain_ball_service"]
+            },
+            'service[pain_ball][no_of_ball]':{
+                require_from_group: [1, ".pain_ball_service"]
+            },
+            'service[paragliding][height]': {
+                require_from_group: [1, ".paragliding_service"]
+            },
+            'service[paragliding][duration]': {
+                require_from_group: [1, ".paragliding_service"]
+            },
         },
         invalidHandler: function (event, validator) { //display error alert on form submit   
 
@@ -319,9 +386,9 @@ $(document).ready(function () {
             label.closest('.form-group').removeClass('has-error');
             label.remove();
         },
-        submitHandler: function (form) {
-            var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
+        submitHandler: function (form) {            
             var serviceLen=$("[class='services']:checked").length;
+            var len=$(".input_fields_wrap_terms").find("textarea[name='terms[]']").length;
             if(serviceLen==0) {
                 swal("Cancelled", "Please select at least one service :)", "error");
             } else if(len==0){
@@ -349,7 +416,9 @@ $(document).ready(function () {
                 },
                 combo_location:
                 {
-                    required: true
+                    required: true,
+                    checkLat: "#latitude",
+                    checkLong: "#longitude",
                 },
                 price:
                 {
@@ -414,7 +483,67 @@ $(document).ready(function () {
                 },
                 'service[paragliding][title]':{
                     required: true,
-                }
+                },
+                'service[rafting][length]': {
+                    require_from_group: [1, ".rafting_service"]
+                },
+                'service[rafting][duration]': {
+                    require_from_group: [1, ".rafting_service"]
+                },
+                'service[bunjee][height]': {
+                    require_from_group: [1, ".bunjee_service"]
+                },
+                'service[flying_fox_tandom][length]': {
+                    require_from_group: [1, ".flying_fox_tandom_service"]
+                },
+                'service[flying_fox_tandom][height]': {
+                    require_from_group: [1, ".flying_fox_tandom_service"]
+                },
+                'service[flying_fox_solo][length]': {
+                    require_from_group: [1, ".flying_fox_solo_service"]
+                },
+                'service[flying_fox_solo][height]': {
+                    require_from_group: [1, ".flying_fox_solo_service"]
+                },
+                'service[swing][height]': {
+                    require_from_group: [1, ".swing_service"]
+                },
+                'service[air_safari][duration]': {
+                    require_from_group: [1, ".air_safari_service"]
+                },
+                'service[air_balloon][duration]': {
+                    require_from_group: [1, ".air_balloon_service"]
+                },
+                'service[cycling][length]': {
+                    require_from_group: [1, ".cycling_service"]
+                },
+                'service[cycling][duration]': {
+                    require_from_group: [1, ".cycling_service"]
+                },
+                'service[zip_line][length]': {
+                    require_from_group: [1, ".zip_line_service"]
+                },
+                'service[zip_line][height]': {
+                    require_from_group: [1, ".zip_line_service"]
+                },
+                'service[trekking][length]': {
+                    require_from_group: [1, ".trekking_service"]
+                },
+                'service[trekking][duration]': {
+                    require_from_group: [1, ".trekking_service"]
+                },
+                'service[pain_ball][no_of_round]':{
+                    require_from_group: [1, ".pain_ball_service"]
+                },
+                'service[pain_ball][no_of_ball]':{
+                    require_from_group: [1, ".pain_ball_service"]
+                },
+                'service[paragliding][height]': {
+                    require_from_group: [1, ".paragliding_service"]
+                },
+                'service[paragliding][duration]': {
+                    require_from_group: [1, ".paragliding_service"]
+                },
             },
             invalidHandler: function (event, validator) { //display error alert on form submit   
 
@@ -666,3 +795,8 @@ $(document).ready(function () {
       });
 
 });
+
+function rediect(url)
+{
+    location.href=url;
+}

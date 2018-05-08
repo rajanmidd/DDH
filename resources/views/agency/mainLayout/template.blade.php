@@ -54,6 +54,8 @@
          title: "Congratulations",
          text:  "{!! session()->get('success') !!}",
          type: "success",
+         showCancelButton: true,
+         confirmButtonText: "Close",
       });
    </script>
 @endif
@@ -63,6 +65,8 @@
          title: "Sorry",
          text:  "{!! session()->get('error') !!}",
          type: "error",
+         showCancelButton: true,
+         confirmButtonText: "Close",
       });
    </script>
 @endif

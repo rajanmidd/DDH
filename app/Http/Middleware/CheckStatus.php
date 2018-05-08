@@ -18,14 +18,12 @@ class CheckStatus
         $response = $next($request);
         //If the status is not approved redirect to login 
         if(Auth::guard($guard)->check() ){
-            if(Auth::guard($guard)->user()->status == 0)
+            if(Auth::guard($guard)->user()->is_block == '1')
             {
-                return redirect()->route('agency.pending');
-            }
-            else if(Auth::guard($guard)->user()->status ==2)
-            {
-                return redirect()->route('view-profile');
-            }            
+                \Auth::guard('agency')->logout();
+                \Session::flash('error','Your are blocked by Goweeks, if you have any concern,Please call us or drop a mail to goweeeks. Contact and support: Email - team@goweeks.in Phone - 9582835523');
+                return redirect('agency');
+            }         
         }
         return $response;
     }

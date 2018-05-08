@@ -49,7 +49,7 @@
             <i class="fa fa-bar-chart-o"></i>
           </div>
           <div class="details">
-            <div class="number">{{$pending_agency}}</div>
+            <div class="number">{{$rejected_agency}}</div>
             <div class="desc">
               Rejected Agency
             </div>
@@ -65,7 +65,7 @@
             <i class="fa fa-globe"></i>
           </div>
           <div class="details">
-            <div class="number">{{$rejected_agency}}</div>
+            <div class="number">{{$blocked_agency}}</div>
             <div class="desc">
               Blocked Agency
             </div>
@@ -87,7 +87,7 @@
             <i class="fa fa-globe"></i>
           </div>
           <div class="details">
-            <div class="number">{{$blocked_agency}}</div>
+            <div class="number">{{$pending_activity}}</div>
             <div class="desc">
               Pending Activity
             </div>
@@ -103,7 +103,7 @@
             <i class="fa fa-globe"></i>
           </div>
           <div class="details">
-            <div class="number">{{$pending_activity}}</div>
+            <div class="number">{{$blocked_activity}}</div>
             <div class="desc">
               Blocked Activity
             </div>

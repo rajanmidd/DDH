@@ -1010,12 +1010,12 @@ use App\Helpers\CustomHelper;
                                         <div id="camping" @if($comboDetail['camping'] ==0) style="display:none" @endif>
                                             <div class="form-body">                                        
                                                 <div class="form-group clearfix">
-                                                    <label class="control-label col-md-3">Triple/Quarter Sharing Price</label>
+                                                    <label class="control-label col-md-3">Triple/Quarter Sharing Price Per Person</label>
                                                     <div class="col-md-9">
                                                         @if($comboDetail['camping'] ==0)
-                                                            {{ Form::text('triple_sharing', $comboDetail['triple_sharing'], ['id' => 'triple_sharing','class' => 'form-control','placeholder'=>'Triple/Quarter Sharing Price','disabled'=>'disabled']) }}
+                                                            {{ Form::text('triple_sharing', $comboDetail['triple_sharing'], ['id' => 'triple_sharing','class' => 'form-control','placeholder'=>'Triple/Quarter Sharing Price Per Person','disabled'=>'disabled']) }}
                                                         @else
-                                                            {{ Form::text('triple_sharing', $comboDetail['triple_sharing'], ['id' => 'triple_sharing','class' => 'form-control','placeholder'=>'Triple/Quarter Sharing Price']) }}
+                                                            {{ Form::text('triple_sharing', $comboDetail['triple_sharing'], ['id' => 'triple_sharing','class' => 'form-control','placeholder'=>'Triple/Quarter Sharing Price Per Person']) }}
                                                         @endif
                                                     </div>
                                                 </div>
@@ -1023,12 +1023,12 @@ use App\Helpers\CustomHelper;
                                                                                     
                                             <div class="form-body">                                        
                                                 <div class="form-group clearfix">
-                                                    <label class="control-label col-md-3">Double Sharing Price</label>
+                                                    <label class="control-label col-md-3">Double Sharing Price Per Person</label>
                                                     <div class="form-group col-md-9">
                                                         @if($comboDetail['camping'] ==0)
-                                                            {{ Form::text('double_sharing', $comboDetail['double_sharing'], ['id' => 'double_sharing','class' => 'form-control','placeholder'=>'Double Sharing Price','disabled'=>'disabled']) }}
+                                                            {{ Form::text('double_sharing', $comboDetail['double_sharing'], ['id' => 'double_sharing','class' => 'form-control','placeholder'=>'Double Sharing Price Per Person','disabled'=>'disabled']) }}
                                                         @else
-                                                            {{ Form::text('double_sharing', $comboDetail['double_sharing'], ['id' => 'double_sharing','class' => 'form-control','placeholder'=>'Double Sharing Price']) }}
+                                                            {{ Form::text('double_sharing', $comboDetail['double_sharing'], ['id' => 'double_sharing','class' => 'form-control','placeholder'=>'Double Sharing Price Per Person']) }}
                                                         @endif
                                                     </div>
                                                 </div>
