@@ -49,12 +49,16 @@
       <div class="col-xs-10 "> 
         <form class="form-inline " id="search_frm" name="search_frm" method="get" action="">
           <div class="pull-right">
+            <div class="form-group">              
+              <input value="<?php if (isset($_GET['search_text'])) { echo $_GET['search_text']; } ?>" type="text" name="search_text" class="form-control" placeholder="Search..."> 
+            </div>
             <div class=" form-group">
               <select class="form-control" name="status">
                 <option value="">Select Option</option>
                 <option value="0" <?php if (isset($_GET['status']) && $_GET['status'] == '0') { echo 'selected';} ?>>Pending</option>
                 <option value="1" <?php if (isset($_GET['status']) && $_GET['status'] == '1') { echo 'selected';} ?>>Verified</option>
                 <option value="2" <?php if (isset($_GET['status']) && $_GET['status'] == '2') { echo 'selected';} ?>>Rejected</option>
+                <option value="3" <?php if (isset($_GET['status']) && $_GET['status'] == '3') { echo 'selected';} ?>>Blocked</option>
               </select> 
             </div>
           </div>

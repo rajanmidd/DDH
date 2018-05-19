@@ -123,7 +123,7 @@
                                  </div>
                                  <div class="data_row clearify">
                                     <label>Agency Status</label>
-                                    <span>@if($value['is_blocked']==1) Not Blocked @else Blocked @endif </span>
+                                    <span>@if($value['is_blocked']==1) Active @else Blocked @endif </span>
                                  </div>
                                  <div class="data_row clearify">
                                     <label>Goweeks Status</label>

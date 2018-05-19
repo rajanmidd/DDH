@@ -8,12 +8,10 @@ use App\Helpers\CustomHelper;
 ?>
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
-    <div class="page-content">
-        
+    <div class="page-content">        
         <h3 class="page-title">
-            Edit Camping Package : {{ucfirst($campingDetail['camping_name'])}}
+            Edit Camping Package : {{ucfirst($campingDetail['camping_title'])}}
         </h3>
-        
         <!-- BEGIN PAGE HEADER-->
         <div class="page-bar">
             <ul class="page-breadcrumb">
@@ -37,12 +35,9 @@ use App\Helpers\CustomHelper;
                 <!-- BEGIN FORM-->
                 {!! Form::open(array('route' => 'agency.update-camping-package', 'class' => 'form','id'=>'camping-form','enctype'=>'multipart/form-data')) !!}
                     <div class="form">
-                        <h3 class="heading_form">
-                            Add Camping Packages
-                        </h3>
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="control-label col-md-3">Camping Title</label>
+                                <label class="control-label col-md-3">Package Title</label>
                                 <div class="col-md-9">
                                     {{ Form::text('camping_title', $campingDetail['camping_title'], ['id' => 'camping_title','class' => 'form-control','placeholder'=>'Enter Camping Title']) }}
                                 </div>
@@ -82,7 +77,7 @@ use App\Helpers\CustomHelper;
                         </h3>
                         
                         <div class="form-body">                                        
-                            <div class="input_fields_wrap_itenory">
+                            <div class="input_fields_wrap_itenory row">
                                 @if(count($campingDetail->campItinerary)>0 )
                                     @foreach($campingDetail->campItinerary as $key=>$value)
                                         <div class="form-group">
@@ -134,9 +129,9 @@ use App\Helpers\CustomHelper;
                                         <label class="control-label col-md-3">Length In KM</label>
                                         <div class=" col-md-9">
                                             @if($rafting_check ==true)
-                                                {{ Form::text('service[rafting][length]', $rafting['length'], ['id' => 'rafting_length','class' => 'form-control','placeholder'=>'Length In KM']) }}
+                                                {{ Form::text('service[rafting][length]', $rafting['length'], ['id' => 'rafting_length','class' => 'form-control rafting_service','placeholder'=>'Length In KM']) }}
                                             @else
-                                                {{ Form::text('service[rafting][length]', $rafting['length'], ['id' => 'rafting_length','class' => 'form-control','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
+                                                {{ Form::text('service[rafting][length]', $rafting['length'], ['id' => 'rafting_length','class' => 'form-control rafting_service','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
                                             @endif                                            
                                         </div>
                                     </div>
@@ -144,9 +139,9 @@ use App\Helpers\CustomHelper;
                                         <label class="control-label col-md-3">Duration In Min.</label>
                                         <div class="col-md-9">
                                             @if($rafting_check ==true)
-                                                {{ Form::text('service[rafting][duration]', $rafting['duration'], ['id' => 'rafting_duration','class' => 'form-control','placeholder'=>'Duration In Min.']) }}
+                                                {{ Form::text('service[rafting][duration]', $rafting['duration'], ['id' => 'rafting_duration','class' => 'form-control rafting_service','placeholder'=>'Duration In Min.']) }}
                                             @else
-                                                {{ Form::text('service[rafting][duration]', $rafting['duration'], ['id' => 'rafting_duration','class' => 'form-control','placeholder'=>'Duration In Min.','disabled'=>'disabled']) }}
+                                                {{ Form::text('service[rafting][duration]', $rafting['duration'], ['id' => 'rafting_duration','class' => 'form-control rafting_service','placeholder'=>'Duration In Min.','disabled'=>'disabled']) }}
                                             @endif 
                                             
                                         </div>
@@ -192,9 +187,9 @@ use App\Helpers\CustomHelper;
                                         <label class="control-label col-md-3">Height In Meter</label>
                                         <div class="col-md-9">                                        
                                             @if($bunjee_check ==true)
-                                                {{ Form::text('service[bunjee][height]', $bunjee['height'], ['id' => 'bunjee_height','class' => 'form-control','placeholder'=>'Height In Meter']) }}
+                                                {{ Form::text('service[bunjee][height]', $bunjee['height'], ['id' => 'bunjee_height','class' => 'form-control bunjee_service','placeholder'=>'Height In Meter']) }}
                                             @else
-                                                {{ Form::text('service[bunjee][height]', $bunjee['height'], ['id' => 'bunjee_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
+                                                {{ Form::text('service[bunjee][height]', $bunjee['height'], ['id' => 'bunjee_height','class' => 'form-control bunjee_service','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
                                             @endif
                                         </div>
                                     </div>
@@ -240,9 +235,9 @@ use App\Helpers\CustomHelper;
                                         <label class="control-label col-md-3">Length In Meter</label>
                                         <div class="col-md-9">
                                             @if($flying_fox_tandom_check ==true)
-                                                {{ Form::text('service[flying_fox_tandom][length]', $flying_fox_tandom['length'], ['id' => 'flying_fox_tandom_length','class' => 'form-control','placeholder'=>'Length In Meter']) }}
+                                                {{ Form::text('service[flying_fox_tandom][length]', $flying_fox_tandom['length'], ['id' => 'flying_fox_tandom_length','class' => 'form-control flying_fox_tandom_service','placeholder'=>'Length In Meter']) }}
                                             @else
-                                                {{ Form::text('service[flying_fox_tandom][length]', $flying_fox_tandom['length'], ['id' => 'flying_fox_tandom_length','class' => 'form-control','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
+                                                {{ Form::text('service[flying_fox_tandom][length]', $flying_fox_tandom['length'], ['id' => 'flying_fox_tandom_length','class' => 'form-control flying_fox_tandom_service','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
                                             @endif                                            
                                         </div>
                                     </div>
@@ -250,9 +245,9 @@ use App\Helpers\CustomHelper;
                                         <label class="control-label col-md-3">Height In Meter</label>
                                         <div class="col-md-9">
                                             @if($flying_fox_tandom_check ==true)
-                                                {{ Form::text('service[flying_fox_tandom][height]', $flying_fox_tandom['height'], ['id' => 'flying_fox_tandom_height','class' => 'form-control','placeholder'=>'Height In Meter']) }}
+                                                {{ Form::text('service[flying_fox_tandom][height]', $flying_fox_tandom['height'], ['id' => 'flying_fox_tandom_height','class' => 'form-control flying_fox_tandom_service','placeholder'=>'Height In Meter']) }}
                                             @else
-                                                {{ Form::text('service[flying_fox_tandom][height]', $flying_fox_tandom['height'], ['id' => 'flying_fox_tandom_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
+                                                {{ Form::text('service[flying_fox_tandom][height]', $flying_fox_tandom['height'], ['id' => 'flying_fox_tandom_height','class' => 'form-control flying_fox_tandom_service','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
                                             @endif
                                         </div>
                                     </div>
@@ -297,9 +292,9 @@ use App\Helpers\CustomHelper;
                                     <label class="control-label col-md-3">Length In Meter</label>
                                     <div class="form-group col-md-9">
                                         @if($flying_fox_solo_check ==true)
-                                            {{ Form::text('service[flying_fox_solo][length]', $flying_fox_solo['length'], ['id' => 'flying_fox_solo_length','class' => 'form-control','placeholder'=>'Length In Meter']) }}
+                                            {{ Form::text('service[flying_fox_solo][length]', $flying_fox_solo['length'], ['id' => 'flying_fox_solo_length','class' => 'form-control flying_fox_solo_service','placeholder'=>'Length In Meter']) }}
                                         @else
-                                            {{ Form::text('service[flying_fox_solo][length]', $flying_fox_solo['length'], ['id' => 'flying_fox_solo_length','class' => 'form-control','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
+                                            {{ Form::text('service[flying_fox_solo][length]', $flying_fox_solo['length'], ['id' => 'flying_fox_solo_length','class' => 'form-control flying_fox_solo_service','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
                                         @endif
                                     </div>
                                 </div>
@@ -307,9 +302,9 @@ use App\Helpers\CustomHelper;
                                     <label class="control-label col-md-3">Height In Meter</label>
                                     <div class="form-group col-md-9">
                                         @if($flying_fox_solo_check ==true)
-                                            {{ Form::text('service[flying_fox_solo][height]', $flying_fox_solo['height'], ['id' => 'flying_fox_solo_height','class' => 'form-control','placeholder'=>'Height In Meter']) }}
+                                            {{ Form::text('service[flying_fox_solo][height]', $flying_fox_solo['height'], ['id' => 'flying_fox_solo_height','class' => 'form-control flying_fox_solo_service','placeholder'=>'Height In Meter']) }}
                                         @else
-                                            {{ Form::text('service[flying_fox_solo][height]', $flying_fox_solo['height'], ['id' => 'flying_fox_solo_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
+                                            {{ Form::text('service[flying_fox_solo][height]', $flying_fox_solo['height'], ['id' => 'flying_fox_solo_height','class' => 'form-control flying_fox_solo_service','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
                                         @endif
                                     </div>
                                 </div>
@@ -356,9 +351,9 @@ use App\Helpers\CustomHelper;
                                                     <label class="control-label col-md-3">Height In Meter</label>
                                                     <div class="col-md-9">
                                                         @if($swing_check ==true)
-                                                            {{ Form::text('service[swing][height]', $swing['height'], ['id' => 'swing_height','class' => 'form-control','placeholder'=>'Height In Meter']) }}
+                                                            {{ Form::text('service[swing][height]', $swing['height'], ['id' => 'swing_height','class' => 'form-control swing_service','placeholder'=>'Height In Meter']) }}
                                                         @else
-                                                            {{ Form::text('service[swing][height]', $swing['height'], ['id' => 'swing_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
+                                                            {{ Form::text('service[swing][height]', $swing['height'], ['id' => 'swing_height','class' => 'form-control swing_service','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
                                                         @endif
                                                     </div>
                                                 </div>
@@ -404,9 +399,9 @@ use App\Helpers\CustomHelper;
                                                     <label class="control-label col-md-3">Durtion In Minutes</label>
                                                     <div class="col-md-9">
                                                         @if($air_safari_check ==true)
-                                                            {{ Form::text('service[air_safari][duration]', $air_safari['duration'], ['id' => 'air_safari_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes']) }}
+                                                            {{ Form::text('service[air_safari][duration]', $air_safari['duration'], ['id' => 'air_safari_duration','class' => 'form-control air_safari_service','placeholder'=>'Durtion In Minutes']) }}
                                                         @else
-                                                            {{ Form::text('service[air_safari][duration]', $air_safari['duration'], ['id' => 'air_safari_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
+                                                            {{ Form::text('service[air_safari][duration]', $air_safari['duration'], ['id' => 'air_safari_duration','class' => 'form-control air_safari_service','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
                                                         @endif
                                                     </div>
                                                 </div>
@@ -453,9 +448,9 @@ use App\Helpers\CustomHelper;
                                                     <label class="control-label col-md-3">Durtion In Minutes</label>
                                                     <div class="col-md-9">
                                                         @if($air_balloon_check ==true)
-                                                            {{ Form::text('service[air_balloon][duration]', $air_balloon['duration'], ['id' => 'air_balloon_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes']) }}
+                                                            {{ Form::text('service[air_balloon][duration]', $air_balloon['duration'], ['id' => 'air_balloon_duration','class' => 'form-control air_balloon_service','placeholder'=>'Durtion In Minutes']) }}
                                                         @else
-                                                            {{ Form::text('service[air_balloon][duration]', $air_balloon['duration'], ['id' => 'air_balloon_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
+                                                            {{ Form::text('service[air_balloon][duration]', $air_balloon['duration'], ['id' => 'air_balloon_duration','class' => 'form-control air_balloon_service','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
                                                         @endif
                                                     </div>
                                                 </div>
@@ -502,9 +497,9 @@ use App\Helpers\CustomHelper;
                                                 <label class="control-label col-md-3">Length In KM</label>
                                                 <div class=" col-md-9">
                                                     @if($cycling_check ==true)
-                                                        {{ Form::text('service[cycling][length]', $cycling['title'], ['id' => 'cycling_length','class' => 'form-control','placeholder'=>'Length In KM']) }}
+                                                        {{ Form::text('service[cycling][length]', $cycling['title'], ['id' => 'cycling_length','class' => 'form-control cycling_service','placeholder'=>'Length In KM']) }}
                                                     @else
-                                                        {{ Form::text('service[cycling][length]', $cycling['title'], ['id' => 'cycling_length','class' => 'form-control','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
+                                                        {{ Form::text('service[cycling][length]', $cycling['title'], ['id' => 'cycling_length','class' => 'form-control cycling_service','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
                                                     @endif
                                                 </div>
                                             </div>
@@ -512,9 +507,9 @@ use App\Helpers\CustomHelper;
                                                 <label class="control-label col-md-3">Durtion In Minutes</label>
                                                 <div class="col-md-9">
                                                 @if($cycling_check ==true)
-                                                    {{ Form::text('service[cycling][duration]', $cycling['title'], ['id' => 'cycling_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes']) }}
+                                                    {{ Form::text('service[cycling][duration]', $cycling['title'], ['id' => 'cycling_duration','class' => 'form-control cycling_service','placeholder'=>'Durtion In Minutes']) }}
                                                 @else
-                                                    {{ Form::text('service[cycling][duration]', $cycling['title'], ['id' => 'cycling_duration','class' => 'form-control','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
+                                                    {{ Form::text('service[cycling][duration]', $cycling['title'], ['id' => 'cycling_duration','class' => 'form-control cycling_service','placeholder'=>'Durtion In Minutes','disabled'=>'disabled']) }}
                                                 @endif
                                                 </div>
                                             </div>
@@ -560,9 +555,9 @@ use App\Helpers\CustomHelper;
                                                             <label class="control-label col-md-3">Length In Meter</label>
                                                             <div class="col-md-9">
                                                             @if($zip_line_check ==true)
-                                                                {{ Form::text('service[zip_line][length]', $zip_line['length'], ['id' => 'zip_line_length','class' => 'form-control','placeholder'=>'Length In Meter']) }}
+                                                                {{ Form::text('service[zip_line][length]', $zip_line['length'], ['id' => 'zip_line_length','class' => 'form-control zip_line_service','placeholder'=>'Length In Meter']) }}
                                                             @else
-                                                                {{ Form::text('service[zip_line][length]', $zip_line['length'], ['id' => 'zip_line_length','class' => 'form-control','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
+                                                                {{ Form::text('service[zip_line][length]', $zip_line['length'], ['id' => 'zip_line_length','class' => 'form-control zip_line_service','placeholder'=>'Length In Meter','disabled'=>'disabled']) }}
                                                             @endif
                                                             </div>
                                                         </div>
@@ -570,9 +565,9 @@ use App\Helpers\CustomHelper;
                                                             <label class="control-label col-md-3">Height In Meter</label>
                                                             <div class="col-md-9">
                                                             @if($zip_line_check ==true)
-                                                                {{ Form::text('service[zip_line][height]', $zip_line['height'], ['id' => 'zip_line_height','class' => 'form-control','placeholder'=>'Height In Meter']) }}
+                                                                {{ Form::text('service[zip_line][height]', $zip_line['height'], ['id' => 'zip_line_height','class' => 'form-control zip_line_service','placeholder'=>'Height In Meter']) }}
                                                             @else
-                                                                {{ Form::text('service[zip_line][height]', $zip_line['height'], ['id' => 'zip_line_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
+                                                                {{ Form::text('service[zip_line][height]', $zip_line['height'], ['id' => 'zip_line_height','class' => 'form-control zip_line_service','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
                                                             @endif
                                                             </div>
                                                         </div>
@@ -618,9 +613,9 @@ use App\Helpers\CustomHelper;
                                                             <label class="control-label col-md-3">Length In KM</label>
                                                             <div class="col-md-9">
                                                                 @if($trekking_check ==true)
-                                                                    {{ Form::text('service[trekking][length]', $trekking['length'], ['id' => 'trekking_length','class' => 'form-control','placeholder'=>'Length In KM']) }}
+                                                                    {{ Form::text('service[trekking][length]', $trekking['length'], ['id' => 'trekking_length','class' => 'form-control trekking_service','placeholder'=>'Length In KM']) }}
                                                                 @else
-                                                                    {{ Form::text('service[trekking][length]', $trekking['length'], ['id' => 'trekking_length','class' => 'form-control','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
+                                                                    {{ Form::text('service[trekking][length]', $trekking['length'], ['id' => 'trekking_length','class' => 'form-control trekking_service','placeholder'=>'Length In KM','disabled'=>'disabled']) }}
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -628,9 +623,9 @@ use App\Helpers\CustomHelper;
                                                             <label class="control-label col-md-3">Duration In Minutes</label>
                                                             <div class="col-md-9">
                                                                 @if($trekking_check ==true)
-                                                                    {{ Form::text('service[trekking][duration]', $trekking['duration'], ['id' => 'trekking_duration','class' => 'form-control','placeholder'=>'Duration In Minutes']) }}
+                                                                    {{ Form::text('service[trekking][duration]', $trekking['duration'], ['id' => 'trekking_duration','class' => 'form-control trekking_service','placeholder'=>'Duration In Minutes']) }}
                                                                 @else
-                                                                    {{ Form::text('service[trekking][duration]', $trekking['duration'], ['id' => 'trekking_duration','class' => 'form-control','placeholder'=>'Duration In Minutes','disabled'=>'disabled']) }}
+                                                                    {{ Form::text('service[trekking][duration]', $trekking['duration'], ['id' => 'trekking_duration','class' => 'form-control trekking_service','placeholder'=>'Duration In Minutes','disabled'=>'disabled']) }}
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -677,9 +672,9 @@ use App\Helpers\CustomHelper;
                                                             <label class="control-label col-md-3">Number Of Round</label>
                                                             <div class="col-md-9">
                                                                 @if($pain_ball_check ==true)
-                                                                {{ Form::text('service[pain_ball][no_of_round]', $pain_ball['no_of_round'], ['id' => 'no_of_round','class' => 'form-control','placeholder'=>'Number Of Round']) }}
+                                                                {{ Form::text('service[pain_ball][no_of_round]', $pain_ball['no_of_round'], ['id' => 'no_of_round','class' => 'form-control pain_ball_service','placeholder'=>'Number Of Round']) }}
                                                                 @else
-                                                                {{ Form::text('service[pain_ball][no_of_round]', $pain_ball['no_of_round'], ['id' => 'no_of_round','class' => 'form-control','placeholder'=>'Number Of Round','disabled'=>'disabled']) }}
+                                                                {{ Form::text('service[pain_ball][no_of_round]', $pain_ball['no_of_round'], ['id' => 'no_of_round','class' => 'form-control pain_ball_service','placeholder'=>'Number Of Round','disabled'=>'disabled']) }}
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -687,9 +682,9 @@ use App\Helpers\CustomHelper;
                                                             <label class="control-label col-md-3">Number Of Ball</label>
                                                             <div class="col-md-9">
                                                                 @if($pain_ball_check ==true)
-                                                                    {{ Form::text('service[pain_ball][no_of_ball]', $pain_ball['no_of_ball'], ['id' => 'no_of_ball','class' => 'form-control','placeholder'=>'Number Of Ball']) }}
+                                                                    {{ Form::text('service[pain_ball][no_of_ball]', $pain_ball['no_of_ball'], ['id' => 'no_of_ball','class' => 'form-control pain_ball_service','placeholder'=>'Number Of Ball']) }}
                                                                 @else
-                                                                    {{ Form::text('service[pain_ball][no_of_ball]', $pain_ball['no_of_ball'], ['id' => 'no_of_ball','class' => 'form-control','placeholder'=>'Number Of Ball','disabled'=>'disabled']) }}
+                                                                    {{ Form::text('service[pain_ball][no_of_ball]', $pain_ball['no_of_ball'], ['id' => 'no_of_ball','class' => 'form-control pain_ball_service','placeholder'=>'Number Of Ball','disabled'=>'disabled']) }}
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -738,9 +733,9 @@ use App\Helpers\CustomHelper;
                                                             <label class="control-label col-md-3">Height In Meter</label>
                                                             <div class="col-md-9">
                                                                 @if($paragliding_check ==true)
-                                                                    {{ Form::text('service[paragliding][height]', $paragliding['height'], ['id' => 'paragliding_height','class' => 'form-control','placeholder'=>'Height In Meter']) }}
+                                                                    {{ Form::text('service[paragliding][height]', $paragliding['height'], ['id' => 'paragliding_height','class' => 'form-control paragliding_service','placeholder'=>'Height In Meter']) }}
                                                                 @else
-                                                                    {{ Form::text('service[paragliding][height]', $paragliding['height'], ['id' => 'paragliding_height','class' => 'form-control','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
+                                                                    {{ Form::text('service[paragliding][height]', $paragliding['height'], ['id' => 'paragliding_height','class' => 'form-control paragliding_service','placeholder'=>'Height In Meter','disabled'=>'disabled']) }}
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -748,9 +743,9 @@ use App\Helpers\CustomHelper;
                                                             <label class="control-label col-md-3">Duration In Minutes</label>
                                                             <div class="col-md-9">
                                                                 @if($paragliding_check ==true)
-                                                                    {{ Form::text('service[paragliding][duration]', $paragliding['duration'], ['id' => 'paragliding_duration','class' => 'form-control','placeholder'=>'Duration In Minutes']) }}
+                                                                    {{ Form::text('service[paragliding][duration]', $paragliding['duration'], ['id' => 'paragliding_duration','class' => 'form-control paragliding_service','placeholder'=>'Duration In Minutes']) }}
                                                                 @else
-                                                                    {{ Form::text('service[paragliding][duration]', $paragliding['duration'], ['id' => 'paragliding_duration','class' => 'form-control','placeholder'=>'Duration In Minutes','disabled'=>'disabled']) }}
+                                                                    {{ Form::text('service[paragliding][duration]', $paragliding['duration'], ['id' => 'paragliding_duration','class' => 'form-control paragliding_service','placeholder'=>'Duration In Minutes','disabled'=>'disabled']) }}
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -769,7 +764,7 @@ use App\Helpers\CustomHelper;
                                         </h3>
                                             
                                         <div class="form-body">                                        
-                                            <div class="input_fields_wrap_meal">  
+                                            <div class="input_fields_wrap_meal row">  
                                                 @if(count($campingDetail->campingMeal)>0 )
                                                     @foreach($campingDetail->campingMeal as $key=>$value)
                                                         <div class="form-group row">
@@ -861,21 +856,18 @@ use App\Helpers\CustomHelper;
                                     
                                         <!-- BEGIN FORM-->
                                         <div class="form-body">
-                                            <div class="input_fields_wrap"></div>
-                                            <div class="img_gallery">
+                                            <div class="input_fields_wrap row"></div>
+                                            <div class="row img_gallery">
                                                 @if(count($campingDetail->campingImages)>0 )
                                                     @foreach($campingDetail->campingImages as $key=>$value)
-                                                        <div class="clearfix">
-                                                            <label class="upload_img">
-                                                                <img src="{{$value['file_url']}}" />
-                                                                <button type="button" class="remove_img btn-remove remove_field" data-href="{{URL::to('/agency/delete-activity-image')}}/{{$value['id']}}/{{$value['agency_activity_id']}}">X</button>
-                                                            </label> 
-                                                        </div>
+                                                        <label class="upload_img">
+                                                            <img src="{{$value['file_url']}}" />
+                                                            <button type="button" class="remove_img btn-remove remove_field" data-href="{{URL::to('/agency/delete-activity-image')}}/{{$value['id']}}/{{$value['agency_activity_id']}}">X</button>
+                                                        </label> 
                                                     @endforeach
                                                 @endif                                                
                                             </div>
-                                        </div>
-                                    
+                                        </div>                                    
                                     </div>
 
                                     <!-- <div class="form">
@@ -920,7 +912,7 @@ use App\Helpers\CustomHelper;
                                         
                                         
                                         <div class="form-body">                                        
-                                            <div class="input_fields_wrap_terms">  
+                                            <div class="input_fields_wrap_terms row">  
                                                 @if(count($campingDetail->campingTerms)>0 )
                                                     @foreach($campingDetail->campingTerms as $key=>$value)
                                                     <div class="form-group">
@@ -952,7 +944,7 @@ use App\Helpers\CustomHelper;
                                         
                                         
                                             <div class="form-body">                                        
-                                                <div class="input_fields_wrap_notes"> 
+                                                <div class="input_fields_wrap_notes row"> 
                                                     @if(count($campingDetail->campingNotes)>0 )
                                                         @foreach($campingDetail->campingNotes as $key=>$value)
                                                             <div class="form-group">

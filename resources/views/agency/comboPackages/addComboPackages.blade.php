@@ -96,7 +96,7 @@ use App\Helpers\CustomHelper;
                         <div class="form-body">                                        
                             <div class="input_fields_wrap_itenory row">
                                 <div class="col-md-12">
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label class="control-label col-md-3">Day 1</label>
                                         <div class="col-md-9">
                                             <textarea class="form-control" id="itinerary-1" name="itinerary[]" placeholder="itinerary" rows="3" disabled="disabled"></textarea>

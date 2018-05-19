@@ -56,6 +56,12 @@ use App\Helpers\CustomHelper;
                                                         <dd>{{$campingDetail['night']}}</dd>
                                                     </dl>
                                                 </div>
+                                                <div class="col-md-12">
+                                                    <dl class="dl-horizontal">
+                                                        <dt>Description :</dt>
+                                                        <dd>@if($campingDetail['camping_description']) {{$campingDetail['camping_description']}} @else NA @endif</dd>
+                                                    </dl>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +82,7 @@ use App\Helpers\CustomHelper;
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
                                                         <div class="alert alert-warning">
-                                                            Sorry, No Images Found
+                                                            Sorry, No Itenary Found
                                                         </div>
                                                     </div>
                                                 @endif
@@ -119,22 +125,20 @@ use App\Helpers\CustomHelper;
                                 <div class="view_data">
                                     <h3 class="heading_form"> Meal</h3>
                                     <div class="form">                                    
-                                        <div class="form-body actimages">
-                                            <div class="row">
+                                        <div class="form-body">
+                                            <ul class="list-group">
                                                 @if(count($campingDetail->campingMeal)>0 )
                                                     @foreach($campingDetail->campingMeal as $key=>$value)
-                                                        <div class="col-md-12 col-sm-12">
+                                                        <li class="list-group-item">
                                                             {{$value['file_url']}}
                                                         </div>
                                                     @endforeach
                                                 @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Meal Found
-                                                        </div>
-                                                    </div>
+                                                    <li class="list-group-item">
+                                                        Sorry, No Meal Found
+                                                    </li>
                                                 @endif
-                                            </div>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -142,22 +146,20 @@ use App\Helpers\CustomHelper;
                                 <div class="view_data">
                                     <h3 class="heading_form"> Inclusions Details</h3>
                                     <div class="form">                                    
-                                        <div class="form-body actimages">
-                                            <div class="row">
+                                        <div class="form-body">
+                                            <ul class="list-group">
                                                 @if(count($campingDetail->campingInclusion)>0 )
                                                     @foreach($campingDetail->campingInclusion as $key=>$value)
-                                                        <div class="col-md-12 col-sm-12">
+                                                        <li class="list-group-item">
                                                             {{$value['file_url']}}
-                                                        </div>
+                                                        </li>
                                                     @endforeach
                                                 @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Meal Found
-                                                        </div>
-                                                    </div>
+                                                    <li class="list-group-item">
+                                                        Sorry, No Inclusion Details Found
+                                                    </li>
                                                 @endif
-                                            </div>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -165,22 +167,20 @@ use App\Helpers\CustomHelper;
                                 <div class="view_data">
                                     <h3 class="heading_form"> Exclusion Details</h3>
                                     <div class="form">                                    
-                                        <div class="form-body actimages">
-                                            <div class="row">
+                                        <div class="form-body">
+                                            <ul class="list-group">
                                                 @if(count($campingDetail->campingExclusion)>0 )
                                                     @foreach($campingDetail->campingExclusion as $key=>$value)
-                                                        <div class="col-md-12 col-sm-12">
+                                                        <li class="list-group-item">
                                                             {{$value['file_url']}}
-                                                        </div>
+                                                        </li>
                                                     @endforeach
                                                 @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Meal Found
-                                                        </div>
-                                                    </div>
+                                                    <li class="list-group-item">
+                                                        Sorry, No Exclusion Details Found
+                                                    </li>
                                                 @endif
-                                            </div>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +192,7 @@ use App\Helpers\CustomHelper;
                                             <div class="row">
                                                 @if(count($campingDetail->campingImages)>0 )
                                                     @foreach($campingDetail->campingImages as $key=>$value)
-                                                        <div class="col-md-3 col-sm-3">
+                                                        <div class="col-md-2 col-sm-2">
                                                             <img class="img-responsive" src="{{$value['file_url']}}" />
                                                         </div>
                                                     @endforeach
@@ -219,11 +219,9 @@ use App\Helpers\CustomHelper;
                                                         </li>
                                                     @endforeach
                                                 @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Terms & Conditions Found
-                                                        </div>
-                                                    </div>
+                                                    <li class="list-group-item">
+                                                        Sorry, No Terms & Conditions Found
+                                                    </li>
                                                 @endif
                                             </ul>
                                         </div>                                        
@@ -241,11 +239,9 @@ use App\Helpers\CustomHelper;
                                                         </li>
                                                     @endforeach
                                                 @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Notes Found
-                                                        </div>
-                                                    </div>
+                                                    <li class="list-group-item">
+                                                        Sorry, No Notes Found
+                                                    </li>
                                                 @endif
                                             </ul>
                                         </div>

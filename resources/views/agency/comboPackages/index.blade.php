@@ -110,7 +110,7 @@
                         <label>Agency Status</label>
                         <span>
                           @if($value['is_blocked']==1)
-                            Not Blocked
+                            Active
                           @else
                             Blocked
                           @endif

@@ -5,6 +5,7 @@ use Mail;
 use Storage;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Filesystem;
+use App\models\ActivityUnitType;
 class CustomHelper
 {
    public static function saveImageData($image)
@@ -196,5 +197,25 @@ class CustomHelper
          $message->to($data['email']);
       });
    }
+
+   public static function getUnitTypeValues($unitTypeValue)
+   {
+       $unitTypeValue=json_decode($unitTypeValue);
+       
+       $value="";
+       if(count($unitTypeValue) >0){
+        $value .='<ul class="list-group">';
+        foreach($unitTypeValue as $key=>$val) {
+            $unitType=ActivityUnitType::where("id",$key)->first();
+            if($unitType){
+                $value .='<li class="list-group-item"><b>'.$unitType->unit_name.'</b> : '.$val;
+            }
+        }
+       } else {
+           $value="NA";
+       }
+       return $value;
+   }
+   
    
 }

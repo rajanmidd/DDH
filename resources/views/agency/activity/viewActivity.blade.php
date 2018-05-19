@@ -45,8 +45,7 @@ use App\Helpers\CustomHelper;
                                                         <dd>{{ucfirst($activityDetail['title'])}}</dd>
                                                         <dt>Location :</dt>
                                                         <dd>{{ucfirst($activityDetail['location'])}}</dd>
-                                                        <dt>Level :</dt>
-                                                        <dd>{{ucfirst($activityDetail->difficultyLevel['name'])}}</dd>
+                                                        
                                                     </dl>
                                                 </div>
                                                 <div class="col-md-6">
@@ -55,6 +54,8 @@ use App\Helpers\CustomHelper;
                                                         <dd>{{$activityDetail['minimum_amount_percent']}}</dd> -->
                                                         <dt>Price Per Person</dt>
                                                         <dd>{{$activityDetail['price_per_person']}}</dd>
+                                                        <dt>Level :</dt>
+                                                        <dd>@if($activityDetail->difficult_level) {{ucfirst($activityDetail->difficultyLevel['name'])}} @else NA @endif</dd>
                                                         <dt>Season Months :</dt>
                                                         <dd>
                                                         <?php 
@@ -64,20 +65,39 @@ use App\Helpers\CustomHelper;
                                                         </dd>
                                                     </dl>
                                                 </div>
+                                                <div class="col-md-12">
+                                                    <dl class="dl-horizontal">
+                                                        <dt>Description :</dt>
+                                                        <dd>@if($activityDetail['description']) {{$activityDetail['description']}} @else NA @endif</dd>
+                                                    </dl>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
+                                <div class="view_data">
+                                    <h3 class="heading_form">Activity Unit Type</h3>
+                                    <div class="form">                                    
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <?php 
+                                                    $unit_types=CustomHelper::getUnitTypeValues($activityDetail['unit_type_value']); 
+                                                    echo $unit_types;
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 
                                 <div class="view_data">
-                                    <h3 class="heading_form"> Images</h3>
+                                    <h3 class="heading_form">Images</h3>
                                     <div class="form">                                    
                                         <div class="form-body actimages">
                                             <div class="row">
                                                 @if(count($activityDetail->activityImages)>0 )
                                                     @foreach($activityDetail->activityImages as $key=>$value)
-                                                        <div class="col-md-3 col-sm-3">
+                                                        <div class="col-md-2 col-sm-2">
                                                             <img class="img-responsive" src="{{$value['file_url']}}" />
                                                         </div>
                                                     @endforeach

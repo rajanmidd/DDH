@@ -38,7 +38,7 @@ use App\Helpers\CustomHelper;
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <dl class="dl-horizontal">
-                                                        <dt>Package Title : :</dt>
+                                                        <dt>Package Title :</dt>
                                                         <dd>{{ucfirst($comboDetail['combo_title'])}}</dd>
                                                         @if($comboDetail['camping'] ==1)
                                                             <dt>Days :</dt>
@@ -64,6 +64,12 @@ use App\Helpers\CustomHelper;
                                                         @endif
                                                     </dl>
                                                 </div>
+                                                <div class="col-md-12">
+                                                    <dl class="dl-horizontal">
+                                                        <dt>Description :</dt>
+                                                        <dd>@if($comboDetail['combo_description']) {{$comboDetail['combo_description']}} @else NA @endif</dd>
+                                                    </dl>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -84,7 +90,7 @@ use App\Helpers\CustomHelper;
                                                 @else
                                                     <div class="col-md-12 col-sm-12">    
                                                         <div class="alert alert-warning">
-                                                            Sorry, No Images Found
+                                                            Sorry, No Itenary Found
                                                         </div>
                                                     </div>
                                                 @endif
@@ -127,22 +133,20 @@ use App\Helpers\CustomHelper;
                                 <div class="view_data">
                                     <h3 class="heading_form"> Meal</h3>
                                     <div class="form">                                    
-                                        <div class="form-body actimages">
-                                            <div class="row">
+                                        <div class="form-body">
+                                            <ul class="list-group">
                                                 @if(count($comboDetail->comboMeal)>0 )
                                                     @foreach($comboDetail->comboMeal as $key=>$value)
-                                                        <div class="col-md-12 col-sm-12">
+                                                        <li class="list-group-item">
                                                             {{$value['file_url']}}
-                                                        </div>
+                                                        </li>
                                                     @endforeach
                                                 @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Meal Found
-                                                        </div>
-                                                    </div>
+                                                    <li class="list-group-item">
+                                                        Sorry, No Meal Found
+                                                    </li>
                                                 @endif
-                                            </div>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -150,22 +154,20 @@ use App\Helpers\CustomHelper;
                                 <div class="view_data">
                                     <h3 class="heading_form"> Inclusions Details</h3>
                                     <div class="form">                                    
-                                        <div class="form-body actimages">
-                                            <div class="row">
+                                        <div class="form-body">
+                                            <ul class="list-group">
                                                 @if(count($comboDetail->comboInclusion)>0 )
                                                     @foreach($comboDetail->comboInclusion as $key=>$value)
-                                                        <div class="col-md-12 col-sm-12">
+                                                        <li class="list-group-item">
                                                             {{$value['file_url']}}
-                                                        </div>
+                                                        </li>
                                                     @endforeach
-                                                @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Meal Found
-                                                        </div>
-                                                    </div>
+                                                @else   
+                                                    <li class="list-group-item">
+                                                        Sorry, No Inclusion Details Found
+                                                    </li>
                                                 @endif
-                                            </div>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -173,22 +175,20 @@ use App\Helpers\CustomHelper;
                                 <div class="view_data">
                                     <h3 class="heading_form"> Exclusion Details</h3>
                                     <div class="form">                                    
-                                        <div class="form-body actimages">
-                                            <div class="row">
+                                        <div class="form-body">
+                                            <ul class="list-group">
                                                 @if(count($comboDetail->comboExclusion)>0 )
                                                     @foreach($comboDetail->comboExclusion as $key=>$value)
-                                                        <div class="col-md-12 col-sm-12">
+                                                        <li class="list-group-item">
                                                             {{$value['file_url']}}
-                                                        </div>
+                                                        </li>
                                                     @endforeach
-                                                @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Meal Found
-                                                        </div>
-                                                    </div>
+                                                @else 
+                                                    <li class="list-group-item">
+                                                        Sorry, No Exclusion Details Found
+                                                    </li>
                                                 @endif
-                                            </div>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@ use App\Helpers\CustomHelper;
                                             <div class="row">
                                                 @if(count($comboDetail->comboImages)>0 )
                                                     @foreach($comboDetail->comboImages as $key=>$value)
-                                                        <div class="col-md-3 col-sm-3">
+                                                        <div class="col-md-2 col-sm-2">
                                                             <img class="img-responsive" src="{{$value['file_url']}}" />
                                                         </div>
                                                     @endforeach
@@ -226,12 +226,10 @@ use App\Helpers\CustomHelper;
                                                             {{$value['file_url']}}
                                                         </li>
                                                     @endforeach
-                                                @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Terms & Conditions Found
-                                                        </div>
-                                                    </div>
+                                                @else   
+                                                    <li class="list-group-item">
+                                                        Sorry, No Terms & Conditions Found
+                                                    </li>
                                                 @endif
                                             </ul>
                                         </div>                                        
@@ -249,11 +247,9 @@ use App\Helpers\CustomHelper;
                                                         </li>
                                                     @endforeach
                                                 @else
-                                                    <div class="col-md-12 col-sm-12">    
-                                                        <div class="alert alert-warning">
-                                                            Sorry, No Notes Found
-                                                        </div>
-                                                    </div>
+                                                    <li class="list-group-item">
+                                                        Sorry, No Notes Found
+                                                    </li>
                                                 @endif
                                             </ul>
                                         </div>

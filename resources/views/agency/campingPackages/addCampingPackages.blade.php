@@ -33,7 +33,7 @@ use App\Helpers\CustomHelper;
             <div class="form-body">
                 <div class="">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-10">
                         {!! Form::open(array('route' => 'agency.save-camping-package', 'class' => 'form','id'=>'camping-form','enctype'=>'multipart/form-data')) !!}
                             
                             <!-- Top form -->

@@ -40,6 +40,10 @@ class AgencyController extends Controller
     {
         $agency_list->where('is_block', '1');
     }
+    if ($request->search_text <> '')
+    {
+        $agency_list->WhereRaw('(company LIKE "%'. $request->search_text.'%" or email LIKE "%'.$request->search_text.'%" or mobile LIKE "%'.$request->search_text.'%")');
+    }
     $agency_list = $agency_list->orderBy('id', 'desc')->paginate(10);
     return view('admin.agency.index', ['agency_list' => $agency_list]);
   }

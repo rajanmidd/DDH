@@ -122,7 +122,7 @@
 									</div>
 									<div class="data_row clearfix">
 										<label>Agency Status</label>
-										<span> @if($value['is_blocked']==1) Not Blocked @else Blocked @endif </span>
+										<span> @if($value['is_blocked']==1) Active @else Blocked @endif </span>
 									</div>
 								</div>
 								@endforeach @else
