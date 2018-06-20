@@ -128,7 +128,7 @@ class CampingPackagesController extends Controller
             {
                 foreach($data['activityImages'] as $key=>$value)
                 {
-                    $image_url = CustomHelper::saveImageOnCloudanary($value);
+                    $image_url = CustomHelper::saveImageOnCloudanary($value,'AgencyActivityDetail');
                     $activityUploads=new ActivityUploads();
                     $activityUploads->agency_activity_id=$id;
                     $activityUploads->file_url=$image_url;
@@ -141,7 +141,7 @@ class CampingPackagesController extends Controller
             {
                 foreach($data['activityVideos'] as $key=>$value)
                 {
-                    $video_url = CustomHelper::saveImageOnCloudanary($value);
+                    $video_url = CustomHelper::saveImageOnCloudanary($value,'AgencyActivityDetail');
                     $activityUploads=new ActivityUploads();
                     $activityUploads->agency_activity_id=$id;
                     $activityUploads->file_url=$video_url;
@@ -299,7 +299,7 @@ class CampingPackagesController extends Controller
             {
                 foreach($data['activityImages'] as $key=>$value)
                 {
-                    $image_url = CustomHelper::saveImageOnCloudanary($value);
+                    $image_url = CustomHelper::saveImageOnCloudanary($value,'AgencyActivityDetail');
                     $activityUploads=new ActivityUploads();
                     $activityUploads->agency_activity_id=$id;
                     $activityUploads->file_url=$image_url;
@@ -312,7 +312,7 @@ class CampingPackagesController extends Controller
             {
                 foreach($data['activityVideos'] as $key=>$value)
                 {
-                    $video_url = CustomHelper::saveImageOnCloudanary($value);
+                    $video_url = CustomHelper::saveImageOnCloudanary($value,'AgencyActivityDetail');
                     $activityUploads=new ActivityUploads();
                     $activityUploads->agency_activity_id=$id;
                     $activityUploads->file_url=$video_url;

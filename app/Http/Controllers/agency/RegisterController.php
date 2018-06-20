@@ -40,13 +40,13 @@ class RegisterController extends Controller {
     $agencyDocuments['agency_id'] = $agency->id;
     if ($request->file('certificate_image')) {
       $certificate_image = $request->file('certificate_image');
-      $image_url = CustomHelper::saveImageOnCloudanary($certificate_image);
+      $image_url = CustomHelper::saveImageOnCloudanary($certificate_image,'Certificates');
       $agencyDocuments['certificate_image'] = $image_url;
     }
 
     if ($request->file('id_proof')) {
       $id_proof = $request->file('id_proof');
-      $image_url = CustomHelper::saveImageOnCloudanary($id_proof);
+      $image_url = CustomHelper::saveImageOnCloudanary($id_proof,'Certificates');
       $agencyDocuments['id_proof'] = $image_url;
     }
     AgencyDocuments::insert($agencyDocuments);

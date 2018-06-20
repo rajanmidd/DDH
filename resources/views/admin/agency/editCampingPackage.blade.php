@@ -78,6 +78,12 @@ use App\Helpers\CustomHelper;
                                     {{ Form::selectRange('night', 0, 14,$campingDetail['night'],['id' => 'night','class' => 'form-control']) }}
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Background Image</label>
+                                <div class="col-md-9">
+                                    {{ Form::file('background_image') }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                                 

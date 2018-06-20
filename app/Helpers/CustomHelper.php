@@ -30,54 +30,53 @@ class CustomHelper
    
     public static function getOpenDays($day)
     {
-        $days=self::getDays();
-        $selectedDays=explode(',',$day);
-        $res="";
-        if($day !="")
-        {       
-            foreach($selectedDays as $kry=>$value)
-            {
-                if($res=="")
-                {
-                    $res=$days[$value];
-                }
-                else
-                {
-                    $res=$res.', '.$days[$value];
-                }
-            }     
-        }   
-
-        return $res;
+      $days=self::getDays();
+      $selectedDays=explode(',',$day);
+      $res="";
+      if($day !="")
+      {       
+        foreach($selectedDays as $kry=>$value)
+        {
+          if($res=="")
+          {
+            $res=$days[$value];
+          }
+          else
+          {
+            $res=$res.', '.$days[$value];
+          }
+        }     
+      }  
+      return $res;
     } 
 
     public static function getSeasonMonths($month)
     {
-        $months=self::getMonths();
-        $selectedMonths=explode(',',$month);
-        $res="";
-        if($month !="")
+      $months=self::getMonths();
+      $selectedMonths=explode(',',$month);
+      $res="";
+      if($month !="")
+      {
+        foreach($selectedMonths as $kry=>$value)
         {
-            foreach($selectedMonths as $kry=>$value)
-            {
-                if($res=="")
-                {
-                    $res=$months[$value];
-                }
-                else
-                {
-                    $res=$res.', '.$months[$value];
-                }
-            }    
+          if($res=="")
+          {
+            $res=$months[$value];
+          }
+          else
+          {
+            $res=$res.', '.$months[$value];
+          }
         }    
+      }    
 
-        return $res;
+      return $res;
     }
    
 
-   public static function saveImageOnCloudanary($images)
+   public static function saveImageOnCloudanary($images,$folder)
    {      
-      $imageName = rand().time().'.'.$images->getClientOriginalExtension();
+      $imageName = $folder.'/'.rand().time().'.'.$images->getClientOriginalExtension();
       $t = Storage::disk('s3')->put($imageName, file_get_contents($images));
       $imageName = Storage::disk('s3')->url($imageName);
       return $imageName;

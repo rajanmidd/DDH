@@ -36,7 +36,7 @@ class ActivityController extends Controller
    ]);
     $data=$request->all();
     $image = $request->file('activity_image');
-    $data['activity_image'] = CustomHelper::saveImageOnCloudanary($image);
+    $data['activity_image'] = CustomHelper::saveImageOnCloudanary($image,'AdminActivityIcon');
     if (Activity::create($data))
     {
       \Session::flash('success', "Activity has been created successfully");
@@ -63,7 +63,7 @@ class ActivityController extends Controller
     $activityDetail->name=$data['name'];
     if($request->file('activity_image'))
     {
-      $activityDetail->activity_image = CustomHelper::saveImageOnCloudanary($request->file('activity_image'));
+      $activityDetail->activity_image = CustomHelper::saveImageOnCloudanary($request->file('activity_image'),'AdminActivityIcon');
     }
     if($activityDetail->save()) {
       \Session::flash('success', "Activity has been updated successfully");

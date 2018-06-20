@@ -54,7 +54,7 @@ class ProfileController extends Controller
         $profileDetail->longitude=$data['longitude'];
         if ($request->file('agency_image')) {
             $agency_image = $request->file('agency_image');
-            $image_url = CustomHelper::saveImageOnCloudanary($agency_image);
+            $image_url = CustomHelper::saveImageOnCloudanary($agency_image,'AgencyProfileImage');
             $profileDetail->agency_image = $image_url;
         }
       
@@ -64,7 +64,7 @@ class ProfileController extends Controller
         if ($request->file('certificate_image')){
             $changeDoc=1;
             $certificate_image = $request->file('certificate_image');
-            $image_url = CustomHelper::saveImageOnCloudanary($certificate_image);
+            $image_url = CustomHelper::saveImageOnCloudanary($certificate_image,'Certificates');
             $agencyDocuments->certificate_image = $image_url;
             $agencyDocuments->is_certificate_image_verified = '0';
             $profileDetail->is_document_verified='0';
@@ -73,7 +73,7 @@ class ProfileController extends Controller
         if ($request->file('id_proof')){
             $changeDoc=1;
             $id_proof = $request->file('id_proof');
-            $image_url = CustomHelper::saveImageOnCloudanary($id_proof);
+            $image_url = CustomHelper::saveImageOnCloudanary($id_proof,'Certificates');
             $agencyDocuments->id_proof = $image_url;
             $agencyDocuments->is_id_proof_verified = '0';
             $profileDetail->is_document_verified='0';
