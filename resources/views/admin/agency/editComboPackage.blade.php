@@ -22,12 +22,11 @@ use App\Helpers\CustomHelper;
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <i class="fa fa-eye"></i>
                     <a href="{{URL::to('admin/list-combo-packages/'.$comboDetail->agency_id)}}">Manage Combo Package</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">View Combo Package</a>
+                    <a href="javascript:void(0);">Edit Combo Package</a>
                 </li>
             </ul>
          </div>
@@ -62,6 +61,19 @@ use App\Helpers\CustomHelper;
                                                 {{ Form::text('combo_location', $comboDetail['combo_location'], ['id' => 'location','class' => 'form-control','placeholder'=>'Enter Location']) }}
                                                 <input type="hidden" name="latitude" id="latitude" value="{{$comboDetail['latitude']}}" />
                                                 <input type="hidden" name="longitude" id="longitude" value="{{$comboDetail['longitude']}}" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-md-3">Background Image</label>
+                                                <div class="col-md-9">
+                                                    @if(!$comboDetail['background_image'])
+                                                        {{ Form::file('background_image') }}
+                                                    @else
+                                                        <a href="{{$comboDetail['background_image']}}" title="Backgorund Image" target="_blank"><button type="button" class="btn btn-info btn-xs">View</button></a>
+                                                        <a href="{{URL::to('/admin/delete-background-image')}}?id={{$comboDetail['id'] }}&type=combo&agency_id={{Request::segment(3)}}" title="Delete Backgorund image" onclick="return confirm('Are you sure you want to delete this uploaded image?');"> 
+                                                            <button type="button" class="btn btn-danger btn-xs">Delete</button>
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>                                        
@@ -109,12 +121,7 @@ use App\Helpers\CustomHelper;
 
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Background Image</label>
-                                                        <div class="col-md-9">
-                                                            {{ Form::file('background_image') }}
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>

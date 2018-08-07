@@ -142,7 +142,16 @@
             <div class="form-group">
                <label class="control-label col-md-3 col-sm-3 col-xs-12">Agency Logo</label>
                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input type="file" name="agency_image"  />
+                  @if(!$agencyDetail['agency_image'])
+                   	<input type="file" name="agency_image"  />
+                  @else
+                   	<a href="{{$agencyDetail['agency_image']}}" title="Agency Logo" target="_blank">
+                			<button type="button" class="btn btn-info btn-xs">View</button>
+                		</a>
+                   	<a href="{{URL::to('/admin/delete-agency-logo')}}?id={{$agencyDetail['id'] }}" title="Delete Agency Logo" onclick="return confirm('Are you sure you want to delete this uploaded image?');"> 
+                    		<button type="button" class="btn btn-danger btn-xs">Delete</button>
+                		</a>
+                  @endif                  
                </div>
             </div>
             

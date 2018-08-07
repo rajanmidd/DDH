@@ -65,7 +65,14 @@ use App\Helpers\CustomHelper;
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Background Image</label>
                                         <div class="col-md-9">
-                                            {{ Form::file('background_image') }}
+                                            @if(!$activityDetail['background_image'])
+                                                {{ Form::file('background_image') }}
+                                            @else
+                                                <a href="{{$activityDetail['background_image']}}" title="Backgorund Image" target="_blank"><button type="button" class="btn btn-info btn-xs">View</button></a>
+                                                <a href="{{URL::to('/admin/delete-background-image')}}?id={{$activityDetail['id'] }}&type=activity&agency_id={{Request::segment(3)}}" title="Delete Backgorund image" onclick="return confirm('Are you sure you want to delete this uploaded image?');"> 
+                                                    <button type="button" class="btn btn-danger btn-xs">Delete</button>
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>                                                   
                                     <div class="form-group">

@@ -115,6 +115,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('/block-agency', ['as' => 'admin.block-agency', 'uses' => 'AgencyController@blockAgency']);
     Route::get('/unblock-agency', ['as' => 'admin.unblock-agency', 'uses' => 'AgencyController@unBlockAgency']);
     Route::get('/delete-image', ['as' => 'admin.delete-image', 'uses' => 'AgencyController@deleteImage']);
+    Route::get('/delete-agency-logo', ['as' => 'admin.delete.agency.logo', 'uses' => 'AgencyController@deleteAgencyLogo']);
     
     Route::get('list-activity', ['as' => 'admin.list-activity', 'uses' => 'ActivityController@listActivity']);
     Route::get('add-activity', ['as' => 'admin.add-activity', 'uses' => 'ActivityController@addActivity']);
@@ -146,6 +147,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
     Route::get('update-combo-package-status/{status}/{agencyId}/{packageId}', ['as' => 'admin.update-combo-package-status', 'uses' => 'AgencyController@updateComboPackageStatus']);
     Route::get('edit-combo-package/{agencyId}/{packageId}', ['as' => 'admin.edit-combo-package', 'uses' => 'AgencyController@editComboPackage']);
     Route::post('update-combo-package', ['as' => 'admin.update-combo-package', 'uses' => 'AgencyController@updateComboPackage']);
+
+    Route::get('delete-background-image', ['as' => 'admin.delete-background-image', 'uses' => 'AgencyController@deleteBackgroundImage']);
+    
 
     
 

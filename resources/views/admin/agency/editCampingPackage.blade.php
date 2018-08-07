@@ -23,12 +23,11 @@ use App\Helpers\CustomHelper;
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <i class="fa fa-eye"></i>
                     <a href="{{URL::to('admin/list-camping-packages/'.$campingDetail->agency_id)}}">Manage Camping Package</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">View Camping Package</a>
+                    <a href="javascript:void(0);">Edit Camping Package</a>
                 </li>
             </ul>
          </div>
@@ -42,9 +41,6 @@ use App\Helpers\CustomHelper;
                 <!-- BEGIN FORM-->
                 {!! Form::open(array('route' => 'admin.update-camping-package', 'class' => 'form','id'=>'camping-form','enctype'=>'multipart/form-data')) !!}
                     <div class="form">
-                        <h3 class="heading_form">
-                            Add Camping Packages
-                        </h3>
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="control-label col-md-3">Camping Title</label>
@@ -81,7 +77,14 @@ use App\Helpers\CustomHelper;
                             <div class="form-group">
                                 <label class="control-label col-md-3">Background Image</label>
                                 <div class="col-md-9">
-                                    {{ Form::file('background_image') }}
+                                    @if(!$campingDetail['background_image'])
+                                        {{ Form::file('background_image') }}
+                                    @else
+                                        <a href="{{$campingDetail['background_image']}}" title="Backgorund Image" target="_blank"><button type="button" class="btn btn-info btn-xs">View</button></a>
+                                        <a href="{{URL::to('/admin/delete-background-image')}}?id={{$campingDetail['id'] }}&type=camping&agency_id={{Request::segment(3)}}" title="Delete Backgorund image" onclick="return confirm('Are you sure you want to delete this uploaded image?');"> 
+                                            <button type="button" class="btn btn-danger btn-xs">Delete</button>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

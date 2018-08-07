@@ -758,22 +758,63 @@ class AgencyController extends Controller
 	}
 
 
-		public function deleteImage(Request $request) {
-				if($request->type && $request->id){
-						$image='';
-						$type=$request->type;
-						$agencyDetail=AgencyDocuments::where('agency_id',$request->id)->first();
-						$agencyDetail->$type=$image;
-						if($agencyDetail->save())
-						{
-								\Session::flash('success',"Image Deleted Successfully");
-						} else {
-								\Session::flash('Error',"Sorry, error occurred. Please try again");        
-						}        
+	public function deleteImage(Request $request) {
+		if($request->type && $request->id){
+				$image='';
+				$type=$request->type;
+				$agencyDetail=AgencyDocuments::where('agency_id',$request->id)->first();
+				$agencyDetail->$type=$image;
+				if($agencyDetail->save())
+				{
+						\Session::flash('success',"Image Deleted Successfully");
 				} else {
-						\Session::flash('Error',"Sorry, error occurred. Please try again");
-				}
-				return redirect('admin/agency-profile?id=' . $request->id);
+						\Session::flash('Error',"Sorry, error occurred. Please try again");        
+				}        
+		} else {
+				\Session::flash('Error',"Sorry, error occurred. Please try again");
 		}
+		return redirect('admin/agency-profile?id=' . $request->id);
+	}
+
+	function deleteBackgroundImage(Request $request){
+		if($request->type && $request->id){
+			if($request->type == "activity"){
+				$details=AgencyActivities::where('id',$request->id)->first();
+			} else if($request->type == "camping"){
+				$details=CampingPackages::where('id',$request->id)->first();
+			} else if($request->type == "combo"){
+				$details=ComboPackages::where('id',$request->id)->first();
+			}
+			$details->background_image='';
+			if($details->save()){
+				\Session::flash('success',"Image Deleted Successfully");
+			} else {
+				\Session::flash('Error',"Sorry, error occurred. Please try again");        
+			}        
+		} else {
+			\Session::flash('Error',"Sorry, error occurred. Please try again");
+		}
+
+		if($request->type == "activity"){
+			return redirect('admin/edit-agency-activity/'.$request->agency_id.'/'.$request->id);
+		} else if($request->type == "camping"){
+			return redirect('admin/edit-camping-package/'.$request->agency_id.'/'.$request->id);
+		} else if($request->type == "combo"){
+			return redirect('admin/edit-combo-package/'.$request->agency_id.'/'.$request->id);
+		}
+		
+	}
+
+	function deleteAgencyLogo(Request $request){
+		$details=Agency::where('id',$request->id)->first();
+		$details->agency_image='';
+		if($details->save()){
+			\Session::flash('success',"Image Deleted Successfully");
+		} else {
+			\Session::flash('Error',"Sorry, error occurred. Please try again");        
+		}
+		return redirect('admin/agency-profile?id='.$request->id);
+		
+	}
 
 }
